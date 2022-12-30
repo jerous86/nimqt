@@ -1,3 +1,4 @@
+UNAME:=$(shell uname)
 QT_ROOT=$(shell nim r scripts/paths.nim Qt_root)/..
 DISTR=minimal
 VERSION=$(shell nim r scripts/paths.nim QT_VERSION)
@@ -13,7 +14,7 @@ calc: FORCE
 	make build_calc run_calc
 build_calc:
 	nim cpp --path:src/ examples/calc.nim
-	install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/calc
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/calc; fi
 run_calc:
 	./examples/calc
 	
@@ -23,7 +24,7 @@ text_view: FORCE
 	make build_text_view run_text_view_nim
 build_text_view:
 	nim cpp --path:src/ examples/text_view.nim
-	install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/text_view
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/text_view; fi
 run_text_view_nim:
 	./examples/text_view
 	
@@ -32,7 +33,7 @@ hello: FORCE
 	make build_hello run_hello
 build_hello:
 	nim cpp --path:src/ examples/hello.nim
-	install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/hello
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/hello; fi
 run_hello:
 	./examples/hello
 	
@@ -41,8 +42,8 @@ poc: FORCE
 	rm -f poc
 	make build_poc run_poc
 build_poc:
-	nim cpp --path:src/ examples/poc
-	install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/poc
+	nim cpp --path:src/ examples/poc.nim
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/poc; fi
 run_poc:
 	./examples/poc
 

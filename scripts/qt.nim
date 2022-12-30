@@ -6,14 +6,18 @@ import os
 import macros
 
 import nimqt/nimqt_paths
-const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false)
 
 
 template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 
 {.passc: &"""-std=c++17 -I{curFilePath.parentDir}""".}
-when defined(macosx): 
+when defined(macosx):
+    const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false)
     {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets".}
+elif defined(linux):
+    const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false)
+    {.passC: &"-I{QtInstallHeaders} -fPIC"}
+    {.passL: &"-lQt6Core -lQt6Gui -lQt6Widgets"}
 else: 
     assert false, "Don't know how to compile on this operating system"
 

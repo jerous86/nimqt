@@ -29,20 +29,27 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
         let replacement=(case varName
             of "qtversion": 
                 # The Qt version that we are using
-                myExec("""sh -c "qmake -v | grep -o '[0-9]*\.[0-9]*\.[0-9]*'" """).strip
+                myExec("""sh -c "qmake6 -v | grep -o '[0-9]*\.[0-9]*\.[0-9]*'" """).strip
             of "qtroot": 
                 # The directory in which Qt libraries and headers reside
-                myExec("""sh -c "qmake -v | grep Using | grep -o '/.*'" """).strip
+                myExec("""sh -c "qmake6 -v | grep Using | grep -o '/.*'" """).strip
+            of "qtinstallheaders":
+                # The directory in which Qt headers reside
+                myExec("""qtpaths --query QT_INSTALL_HEADERS""").strip
+ 
 
             # The following directories are in which the header file for a module resides
             of "qtcoreheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtCore.framework/Headers/",allow_run_time))
+                elif defined(linux): checkPath(replace_vars("${Qt_install_headers}/QtCore/",allow_run_time))
                 else: todo_os "QtCore_header_dir"
             of "qtguiheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtGui.framework/Headers/",allow_run_time))
+                elif defined(linux): checkPath(replace_vars("${Qt_install_headers}/QtGui/",allow_run_time))
                 else: todo_os "QtGui_header_dir"
             of "qtwidgetsheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtWidgets.framework/Headers/",allow_run_time))
+                elif defined(linux): checkPath(replace_vars("${Qt_install_headers}/QtWidgets/",allow_run_time))
                 else: todo_os "QtWidgets_header_dir"
 
 
@@ -57,7 +64,10 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
                 else: todo_os "LLVM_root"
 
             of "llvmlibdir":
-                checkPath(replace_vars("${LLVM_root}/lib",allow_run_time))
+                when defined(macosx): checkPath(replace_vars("${LLVM_root}/lib",allow_run_time))
+                elif defined(linux): checkPath(myExec("""llvm-config --libdir"""))
+                else: todo_os "LLVM_root"
+
 
 
             else:

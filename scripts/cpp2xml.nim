@@ -244,6 +244,8 @@ when defined(macosx):
     # on OSX we also need to add the path to the folder containing the frameworks
     # https://forum.qt.io/topic/141436/qt-6-4-1-on-macos-where-are-the-qtwidgets-header-files/2
     clangArgs.add @["-F", paths.replace_vars("${Qt_root}", allow_run_time=true)]
+elif defined(linux):
+    clangArgs.add @["-I", paths.replace_vars("${Qt_install_headers}", allow_run_time=true)]
 
 var index = createIndex(0,0)
 
