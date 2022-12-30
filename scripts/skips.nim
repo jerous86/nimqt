@@ -16,17 +16,20 @@ type MatchType* = enum
     DerivedAlias, # This is an alias that we created ourselves
 func toString*(mt:MatchType): string = ($mt).toLowerAscii
 
-func id_mod(component,module:string): string = &"{component.toLowerAscii}/{module.toLowerAscii}"
-func id(component,module:string, mt:MatchType, rest:string): string = &"{id_mod(component,module)} {mt.toString} {rest}"
+type CompMod* = tuple[component,module:string]
+func newCm*(c,m:string): CompMod = (component:c, module:m)
 
-func id_ctor*(component,module:string, class,signature:string): string = id(component, module, Ctor, &"{class} -> {signature}")
-func id_method*(component,module:string, name,signature,ret_type:string): string = id(component, module, Method, &"{name} -> {signature} -> {ret_type}")
-func id_function*(component,module:string, name,signature,ret_type:string): string = id(component, module, Function, &"{name} -> {signature} -> {ret_type}")
-func id_enum*(component,module:string, name:string): string = id(component, module, Enum, name)
-func id_class*(component,module:string, name:string): string = id(component, module, Class, name)
-func id_alias*(component,module:string, name,alias_for:string): string = id(component, module, Alias, &"{name} -> {alias_for}")
-func id_derived_alias*(component,module:string, name,alias_for:string): string = id(component, module, DerivedAlias, &"{name} -> {alias_for}")
-func id_namespace*(component,module:string, namespace:string): string = id(component, module, Namespace, &"{namespace}")
+func id_mod(cm:CompMod): string = &"{cm.component.toLowerAscii}/{cm.module.toLowerAscii}"
+func id(cm:CompMod, mt:MatchType, rest:string): string = &"{cm.id_mod} {mt.toString} {rest}"
+
+func id_ctor*(cm:CompMod, class,signature:string): string = id(cm, Ctor, &"{class} -> {signature}")
+func id_method*(cm:CompMod, name,signature,ret_type:string): string = id(cm, Method, &"{name} -> {signature} -> {ret_type}")
+func id_function*(cm:CompMod, name,signature,ret_type:string): string = id(cm, Function, &"{name} -> {signature} -> {ret_type}")
+func id_enum*(cm:CompMod, name:string): string = id(cm, Enum, name)
+func id_class*(cm:CompMod, name:string): string = id(cm, Class, name)
+func id_alias*(cm:CompMod, name,alias_for:string): string = id(cm, Alias, &"{name} -> {alias_for}")
+func id_derived_alias*(cm:CompMod, name,alias_for:string): string = id(cm, DerivedAlias, &"{name} -> {alias_for}")
+func id_namespace*(cm:CompMod, namespace:string): string = id(cm, Namespace, &"{namespace}")
 
 const skipRules* = @[
     "(__CFString|CFStringRef)",
@@ -156,12 +159,12 @@ const skipRules* = @[
     
     "qtcore/qbytearray.*Data",
     "qtcore/qbytearray.*QString", # resolves some circular dependency
-    id_method("qtcore","q(bit|byte)array",".*",".*","QByteRef"), # avoid ambiguous calls
+    newCm("qtcore","q(bit|byte)array").id_method(".*",".*","QByteRef"), # avoid ambiguous calls
     
     # Fixes some parsing issues
     "QVariantList",
     # id_alias("qtcore","qjsonarray","QVariantList",""),
-    id_alias("qtcore","qmetatype","QByteArrayList",""),
+    newCm("qtcore","qmetatype").id_alias("QByteArrayList",""),
     
     "FromBase64Result",
     # id_alias(".*", ".*", ".*(parameter_type|first_type|second_type|mapped_type|key_type|const_pointer|const_reference|difference_type|rvalue_ref|reference)", ""),
@@ -170,15 +173,15 @@ const skipRules* = @[
     "operator\\(\\)",
     "qtcore/qflags.*enum_type",
     "qtcore/qtypeinfo.*QFlags", # clashes with qtcore/qflags
-    id_class("qtcore","qurl","QUrl_QFlags"), # clashes with qtcore/qflags
+    newCm("qtcore","qurl").id_class("QUrl_QFlags"), # clashes with qtcore/qflags
     "QLoggingCategory",
-    id_method("qtcore","qurlquery",".*ueryItems",".*",".*"), # TODO fix QList<QPair<str,str>>
+    newCm("qtcore","qurlquery").id_method(".*ueryItems",".*",".*"), # TODO fix QList<QPair<str,str>>
     # Private api stuff
     "QPostEventList", 
     "QPrivate", "QtPrivate", "private", "Private", "qtprivate",
     "CategoryFunction",
     
-    id_alias("qtcore","qcoreapplication", "(QtCleanUpFunction|QtStartUpFunction)",""),
+    newCm("qtcore","qcoreapplication").id_alias("(QtCleanUpFunction|QtStartUpFunction)",""),
     "QContiguousCache_Data",
     
     "QIntegerForSize",
@@ -201,8 +204,8 @@ const skipRules* = @[
     "qtgui/qicon.*QWindow",
     "qtgui/qbrush.*QGradientStop",
 
-    id_ctor("qtgui","qpixmap", "QPixmap",".*const"),
-    id_ctor("qtgui","qimage", "QImage",".*const"),
+    newCm("qtgui","qpixmap").id_ctor("QPixmap",".*const"),
+    newCm("qtgui","qimage").id_ctor("QImage",".*const"),
     
     # Fix some stuff in our parsing -- this is a instantiation of a QList probably
     "qtgui/.* class QList",
@@ -214,12 +217,12 @@ const skipRules* = @[
     "qtgui/qregion.*QBitmap",
     "qtgui/qpixmap.*QBitmap",
     "qtgui/qtextcursor .*(QTextList|QTextTable)",
-    id_alias("qtgui","qgenericmatrix", "QMatrix[0-9]x[0-9]",".*"),
+    newCm("qtgui","qgenericmatrix").id_alias("QMatrix[0-9]x[0-9]",".*"),
     "QMatrix3x3",
     "qtgui/qtextobject.*QTextList",
 
     # QML
-    id_method("qtqml","qjsengine","handle",".*",".*"),
+    newCm("qtqml","qjsengine").id_method("handle",".*",".*"),
     "qtqml/qqmlcomponent.*statusChanged", # references a private enum!
     "QQmlV4Function",
     "QNetworkAccessManager",
@@ -234,8 +237,8 @@ const skipRules* = @[
     "qtwidgets/qstyle.*QApplication",
     "qtwidgets/qstyleoption .*",
     "qtwidgets/qaction .*QMenu",
-    id_method("qtwidgets","qlayoutitem","(widget|newQWidgetItem|newQWidgetItemV2|layout)",".*",".*"),
-    id_ctor("qtwidgets","qlayoutitem","(QWidgetItem|QWidgetItemV2)",".*"),
+    newCm("qtwidgets","qlayoutitem").id_method("(widget|newQWidgetItem|newQWidgetItemV2|layout)",".*",".*"),
+    newCm("qtwidgets","qlayoutitem").id_ctor("(QWidgetItem|QWidgetItemV2)",".*"),
     "QStyleOption",
 
     # When switching from qt5 to qt6, these classes caused some trouble.
@@ -263,12 +266,12 @@ const skipRules* = @[
     "QList_Type",
     "fromUcs4", # bug in clang where it returns R instead of QChar ... (possibly due to auto keyword ...)
     "ApplicationHolder", "Holder",
-    id_ctor("qtcore","qfutureinterface","QFutureInterface",".*QFutureInterfaceBase"),
+    newCm("qtcore","qfutureinterface").id_ctor("QFutureInterface",".*QFutureInterfaceBase"),
     "qtcore/qfutureinterface.*canceledResult", # type specialisation ... ugh
-    id_method("qtcore","qfutureinterface","future",".*",".*"), # type specialisation ... ugh
+    newCm("qtcore","qfutureinterface").id_method("future",".*",".*"), # type specialisation ... ugh
     "QCborSimpleType",
     "QtPluginInstanceFunction",
-    "+"&id_class("qtcore","qstringconverter","QStringConverterBase"),
+    "+"&newCm("qtcore","qstringconverter").id_class("QStringConverterBase"),
     "qstringconverter","QStringConverter",
     ]
 
@@ -286,9 +289,9 @@ func replaceSpecialTypes*(t:string): string =
     if typeReplacements.hasKey(t): typeReplacements[t]
     else: t
 
-func skippable*(s:string, component,module:string, matchType:MatchType, debug:bool=false): bool =
+func skippable*(s:string, cm:CompMod, matchType:MatchType, debug:bool=false): bool =
     let rules:seq[(bool,nre.Regex)] = skipRules.mapIt((it[0]!='+', nre.re (if it[0]=='+': it[1..^1] else: it)))
-    let finalId=id(component, module, matchType, s)
+    let finalId=cm.id(matchType, s)
     result=false
     for i,(skipIfMatch,rgx) in rules:
         if finalId.find(rgx).isSome:
@@ -299,7 +302,7 @@ func skippable*(s:string, component,module:string, matchType:MatchType, debug:bo
             if debug: debugEcho &"{matchType} '{s}' does not match '{skipRules[i]}', so ignoring it!"
     if debug: debugEcho &"{matchType} '{s}' --> {result}"
 
-when true:
+when false:
     var component*,module*:string
     proc id_ctor*(class,signature:string): string = id_ctor(component, module, class, signature)
     proc id_method*(name,signature,ret_type:string): string = id_method(component, module, name, signature, ret_type)

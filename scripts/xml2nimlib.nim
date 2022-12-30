@@ -396,6 +396,7 @@ func enumDecl*(e:EnumData, c:ClassData): tuple[enums:string, consts:seq[string]]
 
 
 proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State): Module =
+    let cm=newCm(state.component, state.module)
     when true:
         proc select_params(member:XmlNode, allTypes:AllTypes, modData:var Module): seq[Param] =
             member.pairs.toSeq
@@ -418,11 +419,10 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
                     try:
                         it.tag=="constructor" and 
                         it.attr("__vis__")==vis and 
-                        id_ctor(state.component, state.module, 
-                            allTypes.cppTypeToNimType(state, it.attr("name"), 
+                        cm.id_ctor(allTypes.cppTypeToNimType(state, it.attr("name"), 
                             $n, modData.headerImports).nimType, 
                             it.attr("signature").fixNameSpace
-                            ).skippable(state.component, state.module, Ctor)==false
+                            ).skippable(cm, Ctor)==false
                     except CallbackTypeException:
                         false
                 ).mapIt(
@@ -446,7 +446,7 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
                         (it.tag=="function_template" and it.filterChildrenByTag("template_parameter").filterIt(it.attr("name").len>0).len==0)
                     )and
                     it.attr("__vis__")==vis and 
-                    id_method(state.component, state.module, it.attr("name"), it.attr("signature").fixNameSpace, it.attr("ret_type").fixNameSpace).skippable(state.component, state.module, Method)==false
+                    cm.id_method(it.attr("name"), it.attr("signature").fixNameSpace, it.attr("ret_type").fixNameSpace).skippable(cm, Method)==false
                 ).mapIt(
                     try:
                         MethodData(
@@ -464,7 +464,7 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
         proc select_enums(n:XmlNode, vis:string): seq[EnumData] =
             n.items.toSeq.filterIt(it.tag=="enum" and
                     it.attr("__vis__")==vis and
-                    id_enum(state.component, state.module, it.attr("full_name").fixNameSpace).skippable(state.component, state.module, Enum)==false
+                    cm.id_enum(it.attr("full_name").fixNameSpace).skippable(cm, Enum)==false
                 ).map(proc(it:XmlNode):EnumData=
                     let fullName=it.attr("full_name")
                     EnumData(
@@ -480,10 +480,9 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
                 allTypes.cppTypeAliases[x.attr("name")]=x.attr("alias_for").dropSpecialTypePrefixes
                 allTypes.cppTypeAliases[x.attr("full_name")]=x.attr("alias_for").dropSpecialTypePrefixes
                 
-                if id_alias(state.component, state.module, 
-                        x.attr("full_name").dropSpecialTypePrefixes.fixNameSpace, 
+                if cm.id_alias(x.attr("full_name").dropSpecialTypePrefixes.fixNameSpace, 
                         x.attr("alias_for").dropSpecialTypePrefixes.fixNameSpace
-                        ).skippable(state.component, state.module, Alias)==false:
+                        ).skippable(cm, Alias)==false:
                     try:
                         let alias_for_nim=allTypes.cppTypeToNimType(state,
                             x.attr("alias_for"), 
@@ -504,7 +503,7 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
 
         proc do_class(n:XmlNode, fullNamePts:seq[string], allTypes: AllTypes, modData:var Module): ClassData =
             let fullName=n.attr("full_name")
-            if id_class(state.component, state.module, fullName.fixNameSpace).skippable(state.component, state.module, Class)==false and n.isVisible:
+            if cm.id_class(fullName.fixNameSpace).skippable(cm, Class)==false and n.isVisible:
                 var allTypes=allTypes
                 
                 result=ClassData(
@@ -541,7 +540,7 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
         of "type_alias", "type_def": discard
         of "enum": discard
         of "namespace": 
-            if id_namespace(state.component, state.module, fullName.fixNameSpace).skippable(state.component, state.module, Namespace)==false:
+            if cm.id_namespace(fullName.fixNameSpace).skippable(cm, Namespace)==false:
                 if not inClass:
                     result.typedefs.add n.select_typedefs(allTypes, result)
                 result.merge n.processNode(inClass, allTypes, state)
@@ -565,8 +564,9 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
         for tii in state.db.modules[state.component.toLowerAscii][state.module.toLowerAscii]:
             let ti=state.db.xs[tii]
             if ti.mt==DerivedAlias:
-                if id_alias(ti.component, ti.module, ti.name, ti.alias_for)
-                    .skippable(ti.component, ti.module, Alias)==false:
+                let cm2=newCm(ti.component, ti.module)
+                if cm2.id_alias(ti.name, ti.alias_for)
+                    .skippable(cm2, Alias)==false:
                     result.typedefs.add (
                         name:ti.name, 
                         alias_for_nim:(cppType:ti.alias_for.replace("_","::"), 

@@ -23,28 +23,26 @@ for component in components:
         if xmlInputFile.getFileSize==0: continue
         let root:XmlNode=loadXml(xmlInputFile)
 
-        let module=xmlInputFile.splitFile.name.splitFile.name
-        let moduleName=component&"/"&module
-        
-        skips.component = component
-        skips.module = module
+        let cm=(component:root.attr("component"), module:root.attr("module"))
+        assert component == cm.component.toLowerAscii, &"{component} == {cm}"
+        let moduleName=cm.component&"/"&cm.module
         
         proc do_enums(xml:XmlNode) =
             for e in xml.items.toSeq.filterIt(it.tag=="enum" and 
                 it.isVisible and 
-                id_enum(it.attr("full_name").fixNameSpace).skippable(Enum)==false
+                cm.id_enum(it.attr("full_name").fixNameSpace).skippable(cm,Enum)==false
                 ):
                 if e.attr("name").len>0:
-                    db.add TypeInfo(component:component, module:module, mt:Enum,
+                    db.add TypeInfo(component:cm.component, module:cm.module, mt:Enum,
                         name:e.attr("full_name").fixNameSpace.replaceSpecialTypes
                         )
 
         proc do_type_aliases(xml:XmlNode) =
             for e in xml.items.toSeq.filterIt(it.tag in ["type_alias", "type_def"] and
                     it.isVisible and
-                    id_alias(it.attr("full_name").fixNameSpace, it.attr("alias_for").fixNameSpace).skippable(Alias)==false
+                    cm.id_alias(it.attr("full_name").fixNameSpace, it.attr("alias_for").fixNameSpace).skippable(cm,Alias)==false
                     ):
-                db.add TypeInfo(component:component, module:module, mt:Alias,
+                db.add TypeInfo(component:cm.component, module:cm.module, mt:Alias,
                     name:e.attr("full_name").fixNameSpace.replaceSpecialTypes
                     )
 
@@ -57,13 +55,14 @@ for component in components:
                 if fullName=="Connection" and moduleName=="qtcore/qobjectdefs":
                     fullName="QMetaObject::Connection"
 
-                if id_class(fullName.fixNameSpace).skippable(Class): continue
+                if cm.id_class(fullName.fixNameSpace).skippable(cm,Class): continue
                 
                 let parents=class.items.toSeq.filterIt(it.tag=="base_class")
-                db.add TypeInfo(component:component, module:module, mt:Class,
+                let ti=TypeInfo(component:cm.component, module:cm.module, mt:Class,
                     name:fullName.fixNameSpace.replaceSpecialTypes,
                     baseClasses: parents.mapIt(it.attr("full_name").replace(fullName&"::","").fixNameSpace)
                     )
+                db.add ti
                 
                 class.do_class
                 class.do_enums

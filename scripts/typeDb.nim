@@ -86,16 +86,16 @@ proc writeToFile*(db:TypeDb, filePath:string) =
     
     for component in db.components.keys:
         for module in db.modules[component].keys:
-            skips.component=component
-            skips.module=module
+            let cm=newCm(component,module)
             
             ostream.writeLine &"\n"
             for tii in db.modules[component][module]:
                 let ti=db.xs[tii]
+
                 case ti.mt
-                of Class: ostream.writeLine id_class(ti.name) & " :: " & ti.baseClasses.join(" < ")
-                of Enum: ostream.writeLine id_enum(ti.name)
-                of Alias: ostream.writeLine id_alias(ti.name, ti.alias_for)
+                of Class: ostream.writeLine cm.id_class(ti.name) & " :: " & ti.baseClasses.join(" < ")
+                of Enum: ostream.writeLine cm.id_enum(ti.name)
+                of Alias: ostream.writeLine cm.id_alias(ti.name, ti.alias_for)
                 else: discard
             
                 # Inherit types and enums!
@@ -113,6 +113,6 @@ proc writeToFile*(db:TypeDb, filePath:string) =
                             # Here, we check if the alias or enum starts with e.g. QFileDevice
                             if bti.mt in [Alias,Enum] and bti.name.startsWith(&"{baseClass}_"):
                                 # If so, we add an alias to this entity!
-                                ostream.writeLine id_derived_alias(ti.name & bti.name[baseClass.len..^1], bti.name)
+                                ostream.writeLine cm.id_derived_alias(ti.name & bti.name[baseClass.len..^1], bti.name)
     
     ostream.close
