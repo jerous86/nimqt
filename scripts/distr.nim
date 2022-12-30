@@ -99,12 +99,17 @@ doAssert distributions.hasKey(distr), &"Invalid distr {distr}. Choose one from {
 
 let db:TypeDb = typeDb.readFromFile(xmlInputDir/"typeDb.txt") # Contains *all* the known types
 
+func unpackTemplates(xs:seq[string]): seq[string] =
+    for x in xs:
+        if "<" in x: result.add x.replace(">","").split("<").filterIt(it notin ["T"])
+        else: result.add x
+
 let 
     distribution = distributions[distr]
     # Figure out all classes that we need to satisfy the distribution.
     requiredTypes:seq[TypeInfo] = distribution.requiredClasses.mapIt(db.xs[db.names[it]])
-    dependentClassNames:seq[string] = requiredTypes.mapIt(db.listBaseClassesRec(it)).concat.filterIt(it.len>0).deduplicate
-    allRequiredTypes:seq[TypeInfo] = concat(requiredTypes, dependentClassNames.mapIt(db.xs[db.names[it]])).toHashSet.toSeq
+    dependentClassNames:seq[string] = requiredTypes.mapIt(db.listBaseClassesRec(it)).concat.filterIt(it.len>0).unpackTemplates.deduplicate
+    allRequiredTypes:seq[TypeInfo] = concat(requiredTypes, dependentClassNames.mapIt(db.xs[db.names[it]])).deduplicate
 
 # This database contains only the types available in $allRequiredTypes.
 # This will cause all the methods and types that depend on anything that is not present
