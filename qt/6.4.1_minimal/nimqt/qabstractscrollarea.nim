@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qabstractscrollarea
+export qabstractscrollarea
