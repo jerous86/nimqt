@@ -1,5 +1,5 @@
 # nimqt
-Qt bindings for nim
+[Qt](https://www.qt.io/) bindings for [nim](https://nim-lang.org/).
 
-# Licence
-Like Qt, this library is under the dual licence LGPLv3 and GPLv2.
+# License
+Like Qt, this library is under the dual license LGPLv3 and GPLv2.

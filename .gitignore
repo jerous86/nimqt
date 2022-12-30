@@ -1,0 +1,15 @@
+.DS_Store
+tmp/
+
+examples/poc
+examples/calc
+examples/text_view
+examples/hello
+
+scripts/cpp2xml
+scripts/distr
+scripts/generateTypeDb
+scripts/paths
+scripts/skips
+scripts/typeDb
+cripts/xml2nimlib

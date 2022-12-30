@@ -1,0 +1,49 @@
+QT_ROOT=$(shell nim r scripts/paths.nim Qt_root)/..
+DISTR=minimal
+VERSION=$(shell nim r scripts/paths.nim QT_VERSION)
+VERSION_DISTR=${VERSION}_${DISTR}
+
+all: calc
+
+distr: FORCE
+	nim r scripts/distr.nim tmp/xml/${VERSION}/ qt/${VERSION_DISTR}/ ${DISTR}
+
+calc: FORCE
+	rm -f examples/calc
+	make build_calc run_calc
+build_calc:
+	nim cpp --path:src/ examples/calc.nim
+	install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/calc
+run_calc:
+	./examples/calc
+	
+
+text_view: FORCE
+	rm -f examples/text_view
+	make build_text_view run_text_view_nim
+build_text_view:
+	nim cpp --path:src/ examples/text_view.nim
+	install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/text_view
+run_text_view_nim:
+	./examples/text_view
+	
+hello: FORCE
+	rm -f examples/hello
+	make build_hello run_hello
+build_hello:
+	nim cpp --path:src/ examples/hello.nim
+	install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/hello
+run_hello:
+	./examples/hello
+	
+
+poc: FORCE
+	rm -f poc
+	make build_poc run_poc
+build_poc:
+	nim cpp --path:src/ examples/poc
+	install_name_tool -add_rpath $(QT_ROOT)/lib/ examples/poc
+run_poc:
+	./examples/poc
+
+FORCE:
