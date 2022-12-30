@@ -74,4 +74,5 @@ for component in components:
 
         discard root.items.toSeq.filterIt(it.tag=="namespace").mapIt((it.do_class; it.do_enums; it.do_type_aliases; 0))
 
+echo "Writing database to ",typeDbFilePath
 db.writeToFile(typeDbFilePath)
