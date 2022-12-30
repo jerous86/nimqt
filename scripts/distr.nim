@@ -101,7 +101,7 @@ let db:TypeDb = typeDb.readFromFile(xmlInputDir/"typeDb.txt") # Contains *all* t
 
 func unpackTemplates(xs:seq[string]): seq[string] =
     for x in xs:
-        if "<" in x: result.add x.replace(">","").split("<").filterIt(it notin ["T"])
+        if "<" in x: result.add x.replace(">","").split("<").mapIt(it.replace("class ","").strip).filterIt(it notin ["T"])
         else: result.add x
 
 let 
@@ -124,15 +124,33 @@ let reducedDb:TypeDb = block:
     result
 
 outputDir2.createDir
+
 when true:
-    removeFile(&"{outputDir}/qt.nim")
-    # I think it's better to create a copy of the file, so we have a
+    removeFile(&"{outputDir}/nimqt.nim")
+    removeFile(&"{outputDir2}/nimqt_paths.nim")
+    removeFile(&"{outputDir}/verdigris")
+
+    echo &"Symlink scripts/nimqt.nim to {outputDir}/nimqt.nim"
+    createSymLink(src="../../scripts/nimqt.nim", dest = &"{outputDir}/nimqt.nim")
+
+    echo &"Symlink scripts/nimqt_paths.nim to {outputDir2}/nimqt_paths.nim"
+    createSymLink(src="../../../scripts/nimqt_paths.nim", dest = &"{outputDir2}/nimqt_paths.nim")
+
+    echo &"Symlink verdigris/src/ to {outputDir}/verdigris/"
+    createSymLink(src="../../verdigris/src", dest = &"{outputDir}/verdigris")
+else:
+    # I used to think it's better to create a copy of the file, so we have a
     # standalone directory, and do not depend too much on the hierarchy.
-    # createSymLink(src="../../../qt.nim", dest = &"{outputDir}/qt.nim")
+    # However, when doing nimble install, symlinks are resolved, and 
+    # no symlinks remain. So I think it's better to keep the symilnks in the repo
+    # as then there's only one single source for nimqt.nim and nimqt_paths.nim
+    removeFile(&"{outputDir}/qt.nim")
+    removeFile(&"{outputDir2}/nimqt_paths.nim")
+
     echo &"Copy scripts/qt.nim to {outputDir}/nimqt.nim"
     copyFile(source="scripts/qt.nim", dest = &"{outputDir}/nimqt.nim")
 
-    echo &"Copy scripts/paths.nim to {outputDir}2/nimqt_paths.nim"
+    echo &"Copy scripts/paths.nim to {outputDir2}/nimqt_paths.nim"
     copyFile(source="scripts/paths.nim", dest = &"{outputDir2}/nimqt_paths.nim")
 
     echo &"Copy verdigris/src/ to {outputDir}/verdigris/"

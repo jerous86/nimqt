@@ -7,7 +7,7 @@
 COMPONENTS=(QtCore QtGui QtWidgets)
 
 # The version for which we are generating nim files
-QT_VERSION=$(nim r scripts/paths.nim '${QT_VERSION}')
+QT_VERSION=$(nim r scripts/nimqt_paths.nim '${QT_VERSION}')
 readarray -t ALL_DISTRIBUTIONS < <(nim r scripts/distr.nim --print-distributions)
 
 # Check distr.nim for possible names
@@ -17,7 +17,7 @@ VERSION_DISTR="${QT_VERSION}_${DISTR}"
 # The exact location where to find the header files
 QT_HEADERS_DIR() {
 	local component="$1"
-	nim r scripts/paths.nim "${component}_header_dir"
+	nim r scripts/nimqt_paths.nim "${component}_header_dir"
 }
 
 # Location where the xml files are stored.

@@ -7,7 +7,7 @@ import parseopt
 
 import clang
 
-import paths
+import nimqt_paths
 
 var args:seq[string]
 
@@ -234,7 +234,7 @@ proc handleMain2(c,parent:CXCursor, data:CXClientData):CXChildVisitResult =
             discard visitChildren(c, handleMain2, nil)
     h_continue()
     
-{.passL: paths.replace_vars("-L${LLVM_lib_dir} -lclang ", allow_run_time=false).}
+{.passL: nimqt_paths.replace_vars("-L${LLVM_lib_dir} -lclang ", allow_run_time=false).}
 var clangArgs:seq[string]
 clangArgs.add @["-std=c++17", "-D", "__PIC__=2"]
 # We need the "-x c++-header" to force it to parse like a cpp file ...
@@ -243,9 +243,9 @@ clangArgs.add @["-D", "Q_QDOC"]
 when defined(macosx):
     # on OSX we also need to add the path to the folder containing the frameworks
     # https://forum.qt.io/topic/141436/qt-6-4-1-on-macos-where-are-the-qtwidgets-header-files/2
-    clangArgs.add @["-F", paths.replace_vars("${Qt_root}", allow_run_time=true)]
+    clangArgs.add @["-F", nimqt_paths.replace_vars("${Qt_root}", allow_run_time=true)]
 elif defined(linux):
-    clangArgs.add @["-I", paths.replace_vars("${Qt_install_headers}", allow_run_time=true)]
+    clangArgs.add @["-I", nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=true)]
 
 var index = createIndex(0,0)
 
