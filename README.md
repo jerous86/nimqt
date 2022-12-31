@@ -1,6 +1,7 @@
 # nimqt
-[Qt](https://www.qt.io/) bindings for [nim](https://nim-lang.org/).
+[Qt6](https://www.qt.io/) bindings for [nim](https://nim-lang.org/).
 It makes use of [verdigris](https://github.com/woboq/verdigris), a set of macros to use Qt without moc.
+With some effort it should also work for earlier versions.
 
 # Usage
 
@@ -41,7 +42,8 @@ When running this code with `nim cpp examples/hello.nim`, we get
 
 <img width=200 alt="Screenshot of examples/hello.nim" src="https://github.com/jerous86/nimqt/blob/main/examples/hello.png?raw=true" />.
 
-A screenshot of `examples/calc.nim`: 
+A screenshot of `examples/calc.nim`:
+
 <img width=200 alt="Screenshot of examples/calc.nim" src="https://github.com/jerous86/nimqt/blob/main/examples/calc.png?raw=true" />
 
 ## Documentation
@@ -208,6 +210,21 @@ Nesting is supported, but care must be taken to alternate widgets and layouts.
 - To use a type `T` in a parameter of a signal/slot or as a return value, verdigris must know about this type.
   This can be done through calling `registerArgType` on that type. E.g. `QListWidgetItem.registerArgType()`
 
+## Generating bindings
+Bindings are generated in three steps:
+
+1. convert header files to XML files: this parses the header files using libclang, and writes them to a more convenient XML format.
+2. extract from all the XML files all the available classes and enums, and write them to `typeDb.txt`. This allows for quick resolution of what imports need to be done to have access to a class, and also allows for easy filtering of what methods can be supported given a limited set of classes.
+3. find out the classes that should be converted to nim, and then convert them.
+
+These steps are carried out by `scripts/generate_distr.sh`.
+This script accepts 1 parameter, the "distribution", and determines for which classes nim modules should be generated.
+Currently, there is only one distribution defined, "minimal", which provides a subset of Qt widgets and a very limited set of classes from QtCore.
+A larger set of Qt classes should be possible in the future, so one can make use of the extensive Qt libraries (however, this comes at a cost of slower compilation as the library is quite big!).
+
+Generation of these bindings is partly automatic, but there is still some manual intervention required for some parts.
+For example, due to recursive module imports not being supported, not all methods are possible, as types inside the method parameter list or return type would result in a loop (e.g. `QLayoutItem::widget()` is not available, due to the module dependency `QLayoutItem` -> `QWidget` -> `QLayout` -> `QLayoutItem`).
+Additionally, there are some bugs in libclang, which result in inaccuracies. 
 
 # License
 Like Qt, this library is under the dual license LGPLv3 and GPLv2.
