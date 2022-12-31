@@ -1,7 +1,7 @@
 UNAME:=$(shell uname)
-QT_ROOT=$(shell nim r scripts/paths.nim Qt_root)/..
+QT_ROOT=$(shell nim r scripts/nimqt_paths.nim Qt_root)/..
 DISTR=minimal
-VERSION=$(shell nim r scripts/paths.nim QT_VERSION)
+VERSION=$(shell nim r scripts/nimqt_paths.nim QT_VERSION)
 VERSION_DISTR=${VERSION}_${DISTR}
 
 all: calc

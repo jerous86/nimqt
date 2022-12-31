@@ -10,7 +10,8 @@ examples/hello
 scripts/cpp2xml
 scripts/distr
 scripts/generateTypeDb
-scripts/paths
+scripts/nimqt_paths
+scripts/nimqt
 scripts/skips
 scripts/typeDb
 cripts/xml2nimlib
