@@ -37,9 +37,12 @@ win.show()
 discard app.exec()
 ```
 
-When running this code with `nim cpp examples/hello.nim`, we get ![Screenshot of examples/hello.nim](https://github.com/jerous86/nimqt/blob/main/examples/hello.png?raw=true).
+When running this code with `nim cpp examples/hello.nim`, we get 
 
-A screenshot of `examples/calc.nim`: ![Screenshot of examples/calc.nim](https://github.com/jerous86/nimqt/blob/main/examples/calc.png?raw=true)
+<img width=100 alt="Screenshot of examples/hello.nim" src="https://github.com/jerous86/nimqt/blob/main/examples/hello.png?raw=true" />.
+
+A screenshot of `examples/calc.nim`: 
+![Screenshot of examples/calc.nim](https://github.com/jerous86/nimqt/blob/main/examples/calc.png?raw=true | width=100)
 
 ## Documentation
 A more elaborate usage of nimqt can be found in `examples/text_view.nim` which has a lot of comments on the usage.
@@ -73,7 +76,7 @@ The body of the `inheritQObject` allows for defining slots and overriding method
 
 For example,
 
-```
+```nim
 inheritQObject(MyTextEdit, QTextEdit):
     # In this case, we want to intercept mouse presses inside the QTextEdit,
     # print a message and then let the QTextEdit handle the events.
@@ -118,7 +121,8 @@ We now explain the differences:
 -  {slot,override,const_override}_decl are used to declare the methods. The
       definitions have to be specified manually.
       E.g. 
-      ```inheritQObject(ObjectFoo, QObject):
+      ```nim
+      inheritQObject(ObjectFoo, QObject):
       	slot onClick(param1:bool)
       ```
       requires later on a proc
@@ -133,7 +137,7 @@ We now explain the differences:
   If a parameter must be passed by const c++ reference, use `const_var`.
 	E.g.
 	
-	```
+	```nim
 	inheritQObject(MyTextEdit, QTextEdit):
 		slot_defer on_viewer_highlighted(link: const_var QUrl):
 			echo &"highlighted '{link.scheme} :// {link.host} {link.path}"
