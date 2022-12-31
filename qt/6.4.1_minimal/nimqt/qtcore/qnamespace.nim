@@ -36,7 +36,7 @@ type
     Qt_TextElideMode* {.header:headerFile,importcpp:"Qt::TextElideMode".} = enum ElideLeft = 0, ElideRight = 0x1, ElideMiddle = 0x2, ElideNone = 0x3
     Qt_WhiteSpaceMode* {.header:headerFile,importcpp:"Qt::WhiteSpaceMode".} = enum WhiteSpaceNormal = 0, WhiteSpacePre = 0x1, WhiteSpaceNoWrap = 0x2, WhiteSpaceModeUndefined = 0x3
     Qt_HitTestAccuracy* {.header:headerFile,importcpp:"Qt::HitTestAccuracy".} = enum ExactHit = 0, FuzzyHit = 0x1
-    Qt_WindowType* {.header:headerFile,importcpp:"Qt::WindowType".} = enum Widget = 0, Window = 0x1, Dialog = 0x2, Sheet = 0x3, 
+    Qt_WindowType* {.header:headerFile,importcpp:"Qt::WindowType",pure.} = enum Widget = 0, Window = 0x1, Dialog = 0x2, Sheet = 0x3, 
         Drawer = 0x4, Popup = 0x5, Tool = 0x6, ToolTip = 0x7, SplashScreen = 0x8, 
         Desktop = 0x9, SubWindow = 0xa, ForeignWindow = 0xb, CoverWindow = 0xc, WindowType_Mask = 0xd, 
         MSWindowsFixedSizeDialogHint = 0xe, MSWindowsOwnDC = 0xf, BypassWindowManagerHint = 0x10, X11BypassWindowManagerHint = 0x11, FramelessWindowHint = 0x12, 
@@ -135,9 +135,9 @@ type
         Key_Dead_Voiced_Sound = 0xfe, Key_Dead_Semivoiced_Sound = 0xff, Key_Dead_Belowdot = 0x100, Key_Dead_Hook = 0x101, Key_Dead_Horn = 0x102, 
         Key_Dead_Stroke = 0x103, Key_Dead_Abovecomma = 0x104, Key_Dead_Abovereversedcomma = 0x105, Key_Dead_Doublegrave = 0x106, Key_Dead_Belowring = 0x107, 
         Key_Dead_Belowmacron = 0x108, Key_Dead_Belowcircumflex = 0x109, Key_Dead_Belowtilde = 0x10a, Key_Dead_Belowbreve = 0x10b, Key_Dead_Belowdiaeresis = 0x10c, 
-        Key_Dead_Invertedbreve = 0x10d, Key_Dead_Belowcomma = 0x10e, Key_Dead_Currency = 0x10f, Key_Dead_a = 0x110, Key_Dead_A = 0x111, 
-        Key_Dead_e = 0x112, Key_Dead_E = 0x113, Key_Dead_i = 0x114, Key_Dead_I = 0x115, Key_Dead_o = 0x116, 
-        Key_Dead_O = 0x117, Key_Dead_u = 0x118, Key_Dead_U = 0x119, Key_Dead_Small_Schwa = 0x11a, Key_Dead_Capital_Schwa = 0x11b, 
+        Key_Dead_Invertedbreve = 0x10d, Key_Dead_Belowcomma = 0x10e, Key_Dead_Currency = 0x10f, Key_Dead_a0 = 0x110, Key_Dead_A = 0x111, 
+        Key_Dead_e0 = 0x112, Key_Dead_E = 0x113, Key_Dead_i0 = 0x114, Key_Dead_I = 0x115, Key_Dead_o0 = 0x116, 
+        Key_Dead_O = 0x117, Key_Dead_u0 = 0x118, Key_Dead_U = 0x119, Key_Dead_Small_Schwa = 0x11a, Key_Dead_Capital_Schwa = 0x11b, 
         Key_Dead_Greek = 0x11c, Key_Dead_Lowline = 0x11d, Key_Dead_Aboveverticalline = 0x11e, Key_Dead_Belowverticalline = 0x11f, Key_Dead_Longsolidusoverlay = 0x120, 
         Key_Back = 0x121, Key_Forward = 0x122, Key_Stop = 0x123, Key_Refresh = 0x124, Key_VolumeDown = 0x125, 
         Key_VolumeMute = 0x126, Key_VolumeUp = 0x127, Key_BassBoost = 0x128, Key_BassUp = 0x129, Key_BassDown = 0x12a, 
@@ -293,7 +293,7 @@ type
     Qt_HighDpiScaleFactorRoundingPolicy* {.header:headerFile,importcpp:"Qt::HighDpiScaleFactorRoundingPolicy".} = enum Unset = 0, Round = 0x1, Ceil = 0x2, Floor = 0x3, 
         RoundPreferFloor = 0x4, PassThrough = 0x5
     Qt_ReturnByValueConstant* {.header:headerFile,importcpp:"Qt::ReturnByValueConstant".} = enum ReturnByValue = 0
-    QInternal_PaintDeviceFlags* {.header:headerFile,importcpp:"QInternal::PaintDeviceFlags".} = enum UnknownDevice = 0, Widget = 0x1, Pixmap = 0x2, Image = 0x3, 
+    QInternal_PaintDeviceFlags* {.header:headerFile,importcpp:"QInternal::PaintDeviceFlags",pure.} = enum UnknownDevice = 0, Widget = 0x1, Pixmap = 0x2, Image = 0x3, 
         Printer = 0x4, Picture = 0x5, Pbuffer = 0x6, FramebufferObject = 0x7, CustomRaster = 0x8, 
         PaintBuffer = 0x9, OpenGL = 0xa
     QInternal_RelayoutType* {.header:headerFile,importcpp:"QInternal::RelayoutType".} = enum RelayoutNormal = 0, RelayoutDragging = 0x1, RelayoutDropped = 0x2
