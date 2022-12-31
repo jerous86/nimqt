@@ -39,10 +39,10 @@ discard app.exec()
 
 When running this code with `nim cpp examples/hello.nim`, we get 
 
-<img width=100 alt="Screenshot of examples/hello.nim" src="https://github.com/jerous86/nimqt/blob/main/examples/hello.png?raw=true" />.
+<img width=200 alt="Screenshot of examples/hello.nim" src="https://github.com/jerous86/nimqt/blob/main/examples/hello.png?raw=true" />.
 
 A screenshot of `examples/calc.nim`: 
-![Screenshot of examples/calc.nim](https://github.com/jerous86/nimqt/blob/main/examples/calc.png?raw=true | width=100)
+<img width=200 alt="Screenshot of examples/calc.nim" src="https://github.com/jerous86/nimqt/blob/main/examples/calc.png?raw=true" />
 
 ## Documentation
 A more elaborate usage of nimqt can be found in `examples/text_view.nim` which has a lot of comments on the usage.
