@@ -125,7 +125,15 @@ let reducedDb:TypeDb = block:
 
 outputDir2.createDir
 
-when true:
+# Here we copy/symlink the files. We list here the advantages and disadvantages of using symlinks:
+# (a) + only one location in which to update nimqt.nim, nimqt_paths.nim and verdigris.
+# (b) + nimble install does not copy symlinks, but copies the content
+# (c) - Using symlinks sounds nice in theory, but to add verdigris to the include path, we use the path
+#       of nimqt.nim. However, nim resolves this path to scripts/nimqt.nim where we do not find the 
+#       verdigris directory :(
+# (d) - copying creates a standalone structure that can be copied around easily.
+# Point (c) makes me use the copy method :(
+when false:
     removeFile(&"{outputDir}/nimqt.nim")
     removeFile(&"{outputDir2}/nimqt_paths.nim")
     removeFile(&"{outputDir}/verdigris")
@@ -139,19 +147,14 @@ when true:
     echo &"Symlink verdigris/src/ to {outputDir}/verdigris/"
     createSymLink(src="../../verdigris/src", dest = &"{outputDir}/verdigris")
 else:
-    # I used to think it's better to create a copy of the file, so we have a
-    # standalone directory, and do not depend too much on the hierarchy.
-    # However, when doing nimble install, symlinks are resolved, and 
-    # no symlinks remain. So I think it's better to keep the symilnks in the repo
-    # as then there's only one single source for nimqt.nim and nimqt_paths.nim
     removeFile(&"{outputDir}/qt.nim")
     removeFile(&"{outputDir2}/nimqt_paths.nim")
 
     echo &"Copy scripts/qt.nim to {outputDir}/nimqt.nim"
-    copyFile(source="scripts/qt.nim", dest = &"{outputDir}/nimqt.nim")
+    copyFile(source="scripts/nimqt.nim", dest = &"{outputDir}/nimqt.nim")
 
-    echo &"Copy scripts/paths.nim to {outputDir2}/nimqt_paths.nim"
-    copyFile(source="scripts/paths.nim", dest = &"{outputDir2}/nimqt_paths.nim")
+    echo &"Copy scripts/nimqt_paths.nim to {outputDir2}/nimqt_paths.nim"
+    copyFile(source="scripts/nimqt_paths.nim", dest = &"{outputDir2}/nimqt_paths.nim")
 
     echo &"Copy verdigris/src/ to {outputDir}/verdigris/"
     copyDir(source="verdigris/src", dest = &"{outputDir}/verdigris")
