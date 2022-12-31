@@ -209,6 +209,10 @@ Nesting is supported, but care must be taken to alternate widgets and layouts.
 
 - To use a type `T` in a parameter of a signal/slot or as a return value, verdigris must know about this type.
   This can be done through calling `registerArgType` on that type. E.g. `QListWidgetItem.registerArgType()`
+- Static methods of a class, like `QCursor::pos()` are written as `static_QCursor_pos`.
+  This naming is done to avoid name clashing with non-static methods and/or member variables.
+- Like in Qt, we also have to annotate signals and slots in a `connect` call with respectively `SIGNAL` and `SLOT`.
+  E.g. `connect(btn1, SIGNAL "clicked()", txt, SLOT "clear()")`.
 
 ## Generating bindings
 Bindings are generated in three steps:
