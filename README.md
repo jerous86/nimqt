@@ -6,7 +6,7 @@ With some effort it should also work for earlier versions.
 # Usage
 
 ## Installation
-Install with `nimble install nimqt`.
+Install with `nimble install https://github.com/jerous86/nimqt`.
 This will install bindings that have been generated for Qt 6.4.1, but will very likely work with any Qt 6 version.
 
 ## Simple example
@@ -48,6 +48,10 @@ A screenshot of `examples/calc.nim`:
 
 ## Documentation
 A more elaborate usage of nimqt can be found in `examples/text_view.nim` which has a lot of comments on the usage.
+
+Not all methods are available yet due to nim's restriction on recursive module imports.
+See in the <a href="#generating-bindings">Generating bindings</a> section below.
+A temporary fix is to write the bindings manually after having imported all necessary modules.
 
 ### Minimal example
 Here we show the minimal code necessary to show a Qt widget.
@@ -93,47 +97,55 @@ inheritQObject(MyTextEdit, QTextEdit):
 The following declaration and definitions are possible inside `inheritQObject`:
 
 - Define/declare a slot
-  	- slot SLOT_NAME(ARGUMENTS): BODY
-  	- slot_defer SLOT_NAME(ARGUMENTS): BODY
-  	- slot_decl SLOT_NAME(ARGUMENTS)
+  	- `slot SLOT_NAME(ARGUMENTS): BODY`
+  	- `slot_defer SLOT_NAME(ARGUMENTS): BODY`
+  	- `slot_decl SLOT_NAME(ARGUMENTS)`
 - Override a method
- 	- override METHOD_NAME(ARGUMENTS): BODY
- 	- override_defer METHOD_NAME(ARGUMENTS): BODY
- 	- override_decl METHOD_NAME(ARGUMENTS)
+ 	- `override METHOD_NAME(ARGUMENTS): BODY`
+ 	- `override_defer METHOD_NAME(ARGUMENTS): BODY`
+ 	- `override_decl METHOD_NAME(ARGUMENTS)`
 - Override a const method
- 	- const_override METHOD_NAME(ARGUMENTS): BODY
- 	- const_override_defer METHOD_NAME(ARGUMENTS): BODY
- 	- const_override_decl METHOD_NAME(ARGUMENTS)
+ 	- `const_override METHOD_NAME(ARGUMENTS): BODY`
+ 	- `const_override_defer METHOD_NAME(ARGUMENTS): BODY`
+ 	- `const_override_decl METHOD_NAME(ARGUMENTS)`
 
 
 We now explain the differences:
  
-- {slot,override,const_override} are method definitions, and require a body.
+- `slot`, `override` and `const_override` are method definitions, and require a body.
       The code in the body will be inserted at this place in the code.
       This means that if you are using variables that are defined later on
       in the code, this will result in errors.
       Inside the body, `this` is implicitly defined and will refer to the current object.
-- {slot,override,const_override}_defer are also method definitions, and also require a body.
+- `slot_defer`, `override_defer` and `const_override_defer` are also method definitions, and also require a body.
       The difference with the version above is that the body is inserted where the macro
       `qt.insertSlotImplementations(CLASS_NAME)` or
       `qt.insertAllSlotImplementations()` is called.
       The call to the function will effectively insert the code at that point in the code.
       This is useful when you want to use objects that are defined after the definition of this object.
       Inside the body, `this` is implicitly defined and will refer to the current object.
--  {slot,override,const_override}_decl are used to declare the methods. The
+-  `slot_decl`, `override_decl` and `const_override_decl` are used to declare the methods. The
       definitions have to be specified manually.
       E.g. 
       ```nim
       inheritQObject(ObjectFoo, QObject):
-      	slot onClick(param1:bool)
+      	slot_decl onClick(param1:bool)
+	
+      proc onClick(this:ObjectFoo, param1:bool) = echo param1
       ```
-      requires later on a proc
-      `proc onClick(this:ObjectFoo, param1:bool)`
-      This version is only useful when you really need fine control on where the procedure is defined.
+      
+      This version is only useful when you really need fine control over where the procedure is defined.
 
 #### Some notes
 
-- In the body of an overriden method, we can call `METHOD_NAME` of the base class using `parent_${METHOD_NAME}` 
+- In the body of an overriden method, we can call `METHOD_NAME` of the base class using `parent_${METHOD_NAME}`. E.g.
+
+  ```nim
+	inheritQObject(MyTextEdit, QTextEdit):
+		override mousePressEvent(e: ptr QMouseEvent):
+			echo "Pressed the mouse! ", e.button
+			this.parent_mousePressEvent(e)
+  ```
 - The body definition does not follow the '=' like in regular nim code, but follows the ':' character.
 - If a parameter must be passed by c++ reference, use a `var` type.
   If a parameter must be passed by const c++ reference, use `const_var`.
@@ -141,10 +153,10 @@ We now explain the differences:
 	
 	```nim
 	inheritQObject(MyTextEdit, QTextEdit):
-		slot_defer on_viewer_highlighted(link: const_var QUrl):
+		slot on_viewer_highlighted(link: const_var QUrl):
 			echo &"highlighted '{link.scheme} :// {link.host} {link.path}"
-	(...)
-	receiver.connect(SIGNAL "highlighted(const QUrl &)", receiver, SLOT "on_viewer_highlighted(const QUrl &)")
+	let txt = newMyTextEdit()
+	txt.connect(SIGNAL "highlighted(const QUrl &)", txt, SLOT "on_viewer_highlighted(const QUrl &)")
 	```
 - `inheritQObject(Foo, QObject)` creates a new function `newFoo()` that can be used to create a `ptr Foo` instance.
 
@@ -152,8 +164,8 @@ We now explain the differences:
 
 ### Layout DSL
 The nimqt module provides a macro `makeLayout` (and `makeLayoutH` to start with a `QHBoxLayout`) to easily generate layouts.
-Some examples of the DSL follow:
-Assume we have `let rootWidget:ptr QWidget = newQWidget()`.
+Some examples of the DSL follow.
+These examples assume we have `let rootWidget:ptr QWidget = newQWidget()`.
 
 This example will generate a widget, containing two unnamed push buttons.
 
@@ -204,6 +216,16 @@ rootWidget.makeLayout:
 ```
 
 Nesting is supported, but care must be taken to alternate widgets and layouts.
+For example, in the QGridLayout example above, we have a 
+
+`rootWidget` > `QVboxLayout` (created by the call to `makeLayout`) > `QWidget` > `QGridLayout` > `QPushButton`.
+
+Doing something like 
+
+1. `rootWidget` > `QVBoxLayout` > `QGridLayout` or 
+2. `rootWidget` > `QVboxLayout` > `QWidget` > `QWidget` 
+
+will result in compilation errors, as a `QLayout` follows a `QLayout` (in 1.) and a `QWidget` follows a `QWidget` (in 2.).
 
 ### Other notes
 
