@@ -1,16 +1,17 @@
 import strutils
 import os
 import osproc
+import strformat
 
 proc replace_vars*(s:string, allow_run_time:static bool): string =
     proc todo_os(key:string): string {.used.} =
-        doAssert false, "TODO: "&key&" for this OS!"
+        doAssert false, &"TODO: {key} for this OS!"
         ""
 
     proc check_path(path:string): string =
         when allow_run_time:
             # These *Exists is not available at compile time, so we allow disabling them
-            doAssert symlinkExists(path) or fileExists(path) or dirExists(path), path&" does not exist"
+            doAssert symlinkExists(path) or fileExists(path) or dirExists(path), &"{path} does not exist"
         path
 
     proc myExec(cmd:string): string =
@@ -71,7 +72,7 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
 
 
             else:
-                doAssert false, "Cannot handle variable '"&varName&"'"
+                doAssert false, &"Cannot handle variable '{varName}'"
                 ""
             )
         result=(if i>0: result[0..<i] else: "") & replacement & (if i2+1<result.len: result[i2+1..^1] else: "")
