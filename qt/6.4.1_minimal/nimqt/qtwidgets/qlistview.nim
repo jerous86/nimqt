@@ -45,71 +45,71 @@ type
 
 # Public constructors for QListView
 # 1 default parameters!
-proc newQListView*(parent: ptr QWidget): ptr QListView {. header:headerFile, importcpp:"new QListView(@)" .} # 
-proc newQListView*(): ptr QListView {. header:headerFile, importcpp:"new QListView(@)" .} # 
+proc newQListView*(parent: ptr QWidget): ptr QListView {. header:headerFile, importcpp:"new QListView(@)" .} #
+proc newQListView*(): ptr QListView {. header:headerFile, importcpp:"new QListView(@)" .} #
 
 # Public methods for QListView
 import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QListView_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QListView::tr(@)".} # Public static
 proc static_QListView_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QListView::tr(@)".} # Public static
-proc setMovement*(this:ptr QListView, movement: QListView_Movement) {.header:headerFile, importcpp:"#.setMovement(@)".} # Public 
-proc movement*(this:ptr QListView): QListView_Movement {.header:headerFile, importcpp:"#.movement(@)".} # Public 
-proc setFlow*(this:ptr QListView, flow: QListView_Flow) {.header:headerFile, importcpp:"#.setFlow(@)".} # Public 
-proc flow*(this:ptr QListView): QListView_Flow {.header:headerFile, importcpp:"#.flow(@)".} # Public 
-proc setWrapping*(this:ptr QListView, enable: bool) {.header:headerFile, importcpp:"#.setWrapping(@)".} # Public 
-proc isWrapping*(this:ptr QListView): bool {.header:headerFile, importcpp:"#.isWrapping(@)".} # Public 
-proc setResizeMode*(this:ptr QListView, mode: QListView_ResizeMode) {.header:headerFile, importcpp:"#.setResizeMode(@)".} # Public 
-proc resizeMode*(this:ptr QListView): QListView_ResizeMode {.header:headerFile, importcpp:"#.resizeMode(@)".} # Public 
-proc setLayoutMode*(this:ptr QListView, mode: QListView_LayoutMode) {.header:headerFile, importcpp:"#.setLayoutMode(@)".} # Public 
-proc layoutMode*(this:ptr QListView): QListView_LayoutMode {.header:headerFile, importcpp:"#.layoutMode(@)".} # Public 
-proc setSpacing*(this:ptr QListView, space: cint) {.header:headerFile, importcpp:"#.setSpacing(@)".} # Public 
-proc spacing*(this:ptr QListView): cint {.header:headerFile, importcpp:"#.spacing(@)".} # Public 
-proc setBatchSize*(this:ptr QListView, batchSize: cint) {.header:headerFile, importcpp:"#.setBatchSize(@)".} # Public 
-proc batchSize*(this:ptr QListView): cint {.header:headerFile, importcpp:"#.batchSize(@)".} # Public 
+proc setMovement*(this: ptr QListView, movement: QListView_Movement) {.header:headerFile, importcpp:"#.setMovement(@)".} # Public
+proc movement*(this: ptr QListView): QListView_Movement {.header:headerFile, importcpp:"#.movement(@)".} # Public
+proc setFlow*(this: ptr QListView, flow: QListView_Flow) {.header:headerFile, importcpp:"#.setFlow(@)".} # Public
+proc flow*(this: ptr QListView): QListView_Flow {.header:headerFile, importcpp:"#.flow(@)".} # Public
+proc setWrapping*(this: ptr QListView, enable: bool) {.header:headerFile, importcpp:"#.setWrapping(@)".} # Public
+proc isWrapping*(this: ptr QListView): bool {.header:headerFile, importcpp:"#.isWrapping(@)".} # Public
+proc setResizeMode*(this: ptr QListView, mode: QListView_ResizeMode) {.header:headerFile, importcpp:"#.setResizeMode(@)".} # Public
+proc resizeMode*(this: ptr QListView): QListView_ResizeMode {.header:headerFile, importcpp:"#.resizeMode(@)".} # Public
+proc setLayoutMode*(this: ptr QListView, mode: QListView_LayoutMode) {.header:headerFile, importcpp:"#.setLayoutMode(@)".} # Public
+proc layoutMode*(this: ptr QListView): QListView_LayoutMode {.header:headerFile, importcpp:"#.layoutMode(@)".} # Public
+proc setSpacing*(this: ptr QListView, space: cint) {.header:headerFile, importcpp:"#.setSpacing(@)".} # Public
+proc spacing*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.spacing(@)".} # Public
+proc setBatchSize*(this: ptr QListView, batchSize: cint) {.header:headerFile, importcpp:"#.setBatchSize(@)".} # Public
+proc batchSize*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.batchSize(@)".} # Public
 import nimqt/qtcore/qsize
-proc setGridSize*(this:ptr QListView, size: QSize) {.header:headerFile, importcpp:"#.setGridSize(@)".} # Public 
-proc gridSize*(this:ptr QListView): QSize {.header:headerFile, importcpp:"#.gridSize(@)".} # Public 
-proc setViewMode*(this:ptr QListView, mode: QListView_ViewMode) {.header:headerFile, importcpp:"#.setViewMode(@)".} # Public 
-proc viewMode*(this:ptr QListView): QListView_ViewMode {.header:headerFile, importcpp:"#.viewMode(@)".} # Public 
-proc clearPropertyFlags*(this:ptr QListView) {.header:headerFile, importcpp:"#.clearPropertyFlags(@)".} # Public 
-proc isRowHidden*(this:ptr QListView, row: cint): bool {.header:headerFile, importcpp:"#.isRowHidden(@)".} # Public 
-proc setRowHidden*(this:ptr QListView, row: cint, hide: bool) {.header:headerFile, importcpp:"#.setRowHidden(@)".} # Public 
-proc setModelColumn*(this:ptr QListView, column: cint) {.header:headerFile, importcpp:"#.setModelColumn(@)".} # Public 
-proc modelColumn*(this:ptr QListView): cint {.header:headerFile, importcpp:"#.modelColumn(@)".} # Public 
-proc setUniformItemSizes*(this:ptr QListView, enable: bool) {.header:headerFile, importcpp:"#.setUniformItemSizes(@)".} # Public 
-proc uniformItemSizes*(this:ptr QListView): bool {.header:headerFile, importcpp:"#.uniformItemSizes(@)".} # Public 
-proc setWordWrap*(this:ptr QListView, on: bool) {.header:headerFile, importcpp:"#.setWordWrap(@)".} # Public 
-proc wordWrap*(this:ptr QListView): bool {.header:headerFile, importcpp:"#.wordWrap(@)".} # Public 
-proc setSelectionRectVisible*(this:ptr QListView, show: bool) {.header:headerFile, importcpp:"#.setSelectionRectVisible(@)".} # Public 
-proc isSelectionRectVisible*(this:ptr QListView): bool {.header:headerFile, importcpp:"#.isSelectionRectVisible(@)".} # Public 
+proc setGridSize*(this: ptr QListView, size: QSize) {.header:headerFile, importcpp:"#.setGridSize(@)".} # Public
+proc gridSize*(this: ptr QListView): QSize {.header:headerFile, importcpp:"#.gridSize(@)".} # Public
+proc setViewMode*(this: ptr QListView, mode: QListView_ViewMode) {.header:headerFile, importcpp:"#.setViewMode(@)".} # Public
+proc viewMode*(this: ptr QListView): QListView_ViewMode {.header:headerFile, importcpp:"#.viewMode(@)".} # Public
+proc clearPropertyFlags*(this: ptr QListView) {.header:headerFile, importcpp:"#.clearPropertyFlags(@)".} # Public
+proc isRowHidden*(this: ptr QListView, row: cint): bool {.header:headerFile, importcpp:"#.isRowHidden(@)".} # Public
+proc setRowHidden*(this: ptr QListView, row: cint, hide: bool) {.header:headerFile, importcpp:"#.setRowHidden(@)".} # Public
+proc setModelColumn*(this: ptr QListView, column: cint) {.header:headerFile, importcpp:"#.setModelColumn(@)".} # Public
+proc modelColumn*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.modelColumn(@)".} # Public
+proc setUniformItemSizes*(this: ptr QListView, enable: bool) {.header:headerFile, importcpp:"#.setUniformItemSizes(@)".} # Public
+proc uniformItemSizes*(this: ptr QListView): bool {.header:headerFile, importcpp:"#.uniformItemSizes(@)".} # Public
+proc setWordWrap*(this: ptr QListView, on: bool) {.header:headerFile, importcpp:"#.setWordWrap(@)".} # Public
+proc wordWrap*(this: ptr QListView): bool {.header:headerFile, importcpp:"#.wordWrap(@)".} # Public
+proc setSelectionRectVisible*(this: ptr QListView, show: bool) {.header:headerFile, importcpp:"#.setSelectionRectVisible(@)".} # Public
+proc isSelectionRectVisible*(this: ptr QListView): bool {.header:headerFile, importcpp:"#.isSelectionRectVisible(@)".} # Public
 import nimqt/qtcore/qnamespace
-proc setItemAlignment*(this:ptr QListView, alignment: Qt_Alignment) {.header:headerFile, importcpp:"#.setItemAlignment(@)".} # Public 
-proc itemAlignment*(this:ptr QListView): Qt_Alignment {.header:headerFile, importcpp:"#.itemAlignment(@)".} # Public 
-proc doItemsLayout*(this:ptr QListView) {.header:headerFile, importcpp:"#.doItemsLayout(@)".} # Public 
-proc reset*(this:ptr QListView) {.header:headerFile, importcpp:"#.reset(@)".} # Public 
+proc setItemAlignment*(this: ptr QListView, alignment: Qt_Alignment) {.header:headerFile, importcpp:"#.setItemAlignment(@)".} # Public
+proc itemAlignment*(this: ptr QListView): Qt_Alignment {.header:headerFile, importcpp:"#.itemAlignment(@)".} # Public
+proc doItemsLayout*(this: ptr QListView) {.header:headerFile, importcpp:"#.doItemsLayout(@)".} # Public
+proc reset*(this: ptr QListView) {.header:headerFile, importcpp:"#.reset(@)".} # Public
 
 # Protected methods methods for QListView
 import nimqt/qtcore/qcoreevent
-proc event*(this:ptr QListView, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected 
-proc scrollContentsBy*(this:ptr QListView, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollContentsBy(@)".} # Protected 
-proc resizeContents*(this:ptr QListView, width: cint, height: cint) {.header:headerFile, importcpp:"#.resizeContents(@)".} # Protected 
-proc contentsSize*(this:ptr QListView): QSize {.header:headerFile, importcpp:"#.contentsSize(@)".} # Protected 
+proc event*(this: ptr QListView, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
+proc scrollContentsBy*(this: ptr QListView, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollContentsBy(@)".} # Protected
+proc resizeContents*(this: ptr QListView, width: cint, height: cint) {.header:headerFile, importcpp:"#.resizeContents(@)".} # Protected
+proc contentsSize*(this: ptr QListView): QSize {.header:headerFile, importcpp:"#.contentsSize(@)".} # Protected
 import nimqt/qtgui/qevent
-proc mouseMoveEvent*(this:ptr QListView, e: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseMoveEvent(@)".} # Protected 
-proc mouseReleaseEvent*(this:ptr QListView, e: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseReleaseEvent(@)".} # Protected 
-proc wheelEvent*(this:ptr QListView, e: ptr QWheelEvent) {.header:headerFile, importcpp:"#.wheelEvent(@)".} # Protected 
-proc timerEvent*(this:ptr QListView, e: ptr QTimerEvent) {.header:headerFile, importcpp:"#.timerEvent(@)".} # Protected 
-proc resizeEvent*(this:ptr QListView, e: ptr QResizeEvent) {.header:headerFile, importcpp:"#.resizeEvent(@)".} # Protected 
-proc dragMoveEvent*(this:ptr QListView, e: ptr QDragMoveEvent) {.header:headerFile, importcpp:"#.dragMoveEvent(@)".} # Protected 
-proc dragLeaveEvent*(this:ptr QListView, e: ptr QDragLeaveEvent) {.header:headerFile, importcpp:"#.dragLeaveEvent(@)".} # Protected 
-proc dropEvent*(this:ptr QListView, e: ptr QDropEvent) {.header:headerFile, importcpp:"#.dropEvent(@)".} # Protected 
-proc startDrag*(this:ptr QListView, supportedActions: Qt_DropActions) {.header:headerFile, importcpp:"#.startDrag(@)".} # Protected 
-proc paintEvent*(this:ptr QListView, e: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected 
-proc horizontalOffset*(this:ptr QListView): cint {.header:headerFile, importcpp:"#.horizontalOffset(@)".} # Protected 
-proc verticalOffset*(this:ptr QListView): cint {.header:headerFile, importcpp:"#.verticalOffset(@)".} # Protected 
-proc updateGeometries*(this:ptr QListView) {.header:headerFile, importcpp:"#.updateGeometries(@)".} # Protected 
-proc viewportSizeHint*(this:ptr QListView): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected 
+proc mouseMoveEvent*(this: ptr QListView, e: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseMoveEvent(@)".} # Protected
+proc mouseReleaseEvent*(this: ptr QListView, e: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseReleaseEvent(@)".} # Protected
+proc wheelEvent*(this: ptr QListView, e: ptr QWheelEvent) {.header:headerFile, importcpp:"#.wheelEvent(@)".} # Protected
+proc timerEvent*(this: ptr QListView, e: ptr QTimerEvent) {.header:headerFile, importcpp:"#.timerEvent(@)".} # Protected
+proc resizeEvent*(this: ptr QListView, e: ptr QResizeEvent) {.header:headerFile, importcpp:"#.resizeEvent(@)".} # Protected
+proc dragMoveEvent*(this: ptr QListView, e: ptr QDragMoveEvent) {.header:headerFile, importcpp:"#.dragMoveEvent(@)".} # Protected
+proc dragLeaveEvent*(this: ptr QListView, e: ptr QDragLeaveEvent) {.header:headerFile, importcpp:"#.dragLeaveEvent(@)".} # Protected
+proc dropEvent*(this: ptr QListView, e: ptr QDropEvent) {.header:headerFile, importcpp:"#.dropEvent(@)".} # Protected
+proc startDrag*(this: ptr QListView, supportedActions: Qt_DropActions) {.header:headerFile, importcpp:"#.startDrag(@)".} # Protected
+proc paintEvent*(this: ptr QListView, e: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected
+proc horizontalOffset*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.horizontalOffset(@)".} # Protected
+proc verticalOffset*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.verticalOffset(@)".} # Protected
+proc updateGeometries*(this: ptr QListView) {.header:headerFile, importcpp:"#.updateGeometries(@)".} # Protected
+proc viewportSizeHint*(this: ptr QListView): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected
 
 export qevent
 export qstring

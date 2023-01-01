@@ -22,24 +22,24 @@ type
 
 # Public constructors for QFocusFrame
 # 1 default parameters!
-proc newQFocusFrame*(parent: ptr QWidget): ptr QFocusFrame {. header:headerFile, importcpp:"new QFocusFrame(@)" .} # 
-proc newQFocusFrame*(): ptr QFocusFrame {. header:headerFile, importcpp:"new QFocusFrame(@)" .} # 
+proc newQFocusFrame*(parent: ptr QWidget): ptr QFocusFrame {. header:headerFile, importcpp:"new QFocusFrame(@)" .} #
+proc newQFocusFrame*(): ptr QFocusFrame {. header:headerFile, importcpp:"new QFocusFrame(@)" .} #
 
 # Public methods for QFocusFrame
 import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QFocusFrame_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QFocusFrame::tr(@)".} # Public static
 proc static_QFocusFrame_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QFocusFrame::tr(@)".} # Public static
-proc setWidget*(this:ptr QFocusFrame, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setWidget(@)".} # Public 
-proc widget*(this:ptr QFocusFrame): ptr QWidget {.header:headerFile, importcpp:"#.widget(@)".} # Public 
+proc setWidget*(this: ptr QFocusFrame, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setWidget(@)".} # Public
+proc widget*(this: ptr QFocusFrame): ptr QWidget {.header:headerFile, importcpp:"#.widget(@)".} # Public
 
 # Protected methods methods for QFocusFrame
 import nimqt/qtcore/qcoreevent
-proc event*(this:ptr QFocusFrame, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected 
+proc event*(this: ptr QFocusFrame, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 import nimqt/qtcore/qobject
-proc eventFilter*(this:ptr QFocusFrame, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.eventFilter(@)".} # Protected 
+proc eventFilter*(this: ptr QFocusFrame, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.eventFilter(@)".} # Protected
 import nimqt/qtgui/qevent
-proc paintEvent*(this:ptr QFocusFrame, arg_0: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected 
+proc paintEvent*(this: ptr QFocusFrame, arg_0: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected
 
 export qevent
 export qstring

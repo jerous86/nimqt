@@ -39,84 +39,84 @@ type
 
 # Public constructors for QTreeView
 # 1 default parameters!
-proc newQTreeView*(parent: ptr QWidget): ptr QTreeView {. header:headerFile, importcpp:"new QTreeView(@)" .} # 
-proc newQTreeView*(): ptr QTreeView {. header:headerFile, importcpp:"new QTreeView(@)" .} # 
+proc newQTreeView*(parent: ptr QWidget): ptr QTreeView {. header:headerFile, importcpp:"new QTreeView(@)" .} #
+proc newQTreeView*(): ptr QTreeView {. header:headerFile, importcpp:"new QTreeView(@)" .} #
 
 # Public methods for QTreeView
 import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QTreeView_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QTreeView::tr(@)".} # Public static
 proc static_QTreeView_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QTreeView::tr(@)".} # Public static
-proc autoExpandDelay*(this:ptr QTreeView): cint {.header:headerFile, importcpp:"#.autoExpandDelay(@)".} # Public 
-proc setAutoExpandDelay*(this:ptr QTreeView, delay: cint) {.header:headerFile, importcpp:"#.setAutoExpandDelay(@)".} # Public 
-proc indentation*(this:ptr QTreeView): cint {.header:headerFile, importcpp:"#.indentation(@)".} # Public 
-proc setIndentation*(this:ptr QTreeView, i: cint) {.header:headerFile, importcpp:"#.setIndentation(@)".} # Public 
-proc resetIndentation*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.resetIndentation(@)".} # Public 
-proc rootIsDecorated*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.rootIsDecorated(@)".} # Public 
-proc setRootIsDecorated*(this:ptr QTreeView, show: bool) {.header:headerFile, importcpp:"#.setRootIsDecorated(@)".} # Public 
-proc uniformRowHeights*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.uniformRowHeights(@)".} # Public 
-proc setUniformRowHeights*(this:ptr QTreeView, uniform: bool) {.header:headerFile, importcpp:"#.setUniformRowHeights(@)".} # Public 
-proc itemsExpandable*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.itemsExpandable(@)".} # Public 
-proc setItemsExpandable*(this:ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setItemsExpandable(@)".} # Public 
-proc expandsOnDoubleClick*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.expandsOnDoubleClick(@)".} # Public 
-proc setExpandsOnDoubleClick*(this:ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setExpandsOnDoubleClick(@)".} # Public 
-proc columnViewportPosition*(this:ptr QTreeView, column: cint): cint {.header:headerFile, importcpp:"#.columnViewportPosition(@)".} # Public 
-proc columnWidth*(this:ptr QTreeView, column: cint): cint {.header:headerFile, importcpp:"#.columnWidth(@)".} # Public 
-proc setColumnWidth*(this:ptr QTreeView, column: cint, width: cint) {.header:headerFile, importcpp:"#.setColumnWidth(@)".} # Public 
-proc columnAt*(this:ptr QTreeView, x: cint): cint {.header:headerFile, importcpp:"#.columnAt(@)".} # Public 
-proc isColumnHidden*(this:ptr QTreeView, column: cint): bool {.header:headerFile, importcpp:"#.isColumnHidden(@)".} # Public 
-proc setColumnHidden*(this:ptr QTreeView, column: cint, hide: bool) {.header:headerFile, importcpp:"#.setColumnHidden(@)".} # Public 
-proc isHeaderHidden*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.isHeaderHidden(@)".} # Public 
-proc setHeaderHidden*(this:ptr QTreeView, hide: bool) {.header:headerFile, importcpp:"#.setHeaderHidden(@)".} # Public 
-proc setSortingEnabled*(this:ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setSortingEnabled(@)".} # Public 
-proc isSortingEnabled*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.isSortingEnabled(@)".} # Public 
-proc setAnimated*(this:ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setAnimated(@)".} # Public 
-proc isAnimated*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.isAnimated(@)".} # Public 
-proc setAllColumnsShowFocus*(this:ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setAllColumnsShowFocus(@)".} # Public 
-proc allColumnsShowFocus*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.allColumnsShowFocus(@)".} # Public 
-proc setWordWrap*(this:ptr QTreeView, on: bool) {.header:headerFile, importcpp:"#.setWordWrap(@)".} # Public 
-proc wordWrap*(this:ptr QTreeView): bool {.header:headerFile, importcpp:"#.wordWrap(@)".} # Public 
-proc setTreePosition*(this:ptr QTreeView, logicalIndex: cint) {.header:headerFile, importcpp:"#.setTreePosition(@)".} # Public 
-proc treePosition*(this:ptr QTreeView): cint {.header:headerFile, importcpp:"#.treePosition(@)".} # Public 
-proc keyboardSearch*(this:ptr QTreeView, search: QString) {.header:headerFile, importcpp:"#.keyboardSearch(@)".} # Public 
-proc doItemsLayout*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.doItemsLayout(@)".} # Public 
-proc reset*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.reset(@)".} # Public 
-proc selectAll*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.selectAll(@)".} # Public 
-proc hideColumn*(this:ptr QTreeView, column: cint) {.header:headerFile, importcpp:"#.hideColumn(@)".} # Public 
-proc showColumn*(this:ptr QTreeView, column: cint) {.header:headerFile, importcpp:"#.showColumn(@)".} # Public 
-proc resizeColumnToContents*(this:ptr QTreeView, column: cint) {.header:headerFile, importcpp:"#.resizeColumnToContents(@)".} # Public 
+proc autoExpandDelay*(this: ptr QTreeView): cint {.header:headerFile, importcpp:"#.autoExpandDelay(@)".} # Public
+proc setAutoExpandDelay*(this: ptr QTreeView, delay: cint) {.header:headerFile, importcpp:"#.setAutoExpandDelay(@)".} # Public
+proc indentation*(this: ptr QTreeView): cint {.header:headerFile, importcpp:"#.indentation(@)".} # Public
+proc setIndentation*(this: ptr QTreeView, i: cint) {.header:headerFile, importcpp:"#.setIndentation(@)".} # Public
+proc resetIndentation*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.resetIndentation(@)".} # Public
+proc rootIsDecorated*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.rootIsDecorated(@)".} # Public
+proc setRootIsDecorated*(this: ptr QTreeView, show: bool) {.header:headerFile, importcpp:"#.setRootIsDecorated(@)".} # Public
+proc uniformRowHeights*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.uniformRowHeights(@)".} # Public
+proc setUniformRowHeights*(this: ptr QTreeView, uniform: bool) {.header:headerFile, importcpp:"#.setUniformRowHeights(@)".} # Public
+proc itemsExpandable*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.itemsExpandable(@)".} # Public
+proc setItemsExpandable*(this: ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setItemsExpandable(@)".} # Public
+proc expandsOnDoubleClick*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.expandsOnDoubleClick(@)".} # Public
+proc setExpandsOnDoubleClick*(this: ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setExpandsOnDoubleClick(@)".} # Public
+proc columnViewportPosition*(this: ptr QTreeView, column: cint): cint {.header:headerFile, importcpp:"#.columnViewportPosition(@)".} # Public
+proc columnWidth*(this: ptr QTreeView, column: cint): cint {.header:headerFile, importcpp:"#.columnWidth(@)".} # Public
+proc setColumnWidth*(this: ptr QTreeView, column: cint, width: cint) {.header:headerFile, importcpp:"#.setColumnWidth(@)".} # Public
+proc columnAt*(this: ptr QTreeView, x: cint): cint {.header:headerFile, importcpp:"#.columnAt(@)".} # Public
+proc isColumnHidden*(this: ptr QTreeView, column: cint): bool {.header:headerFile, importcpp:"#.isColumnHidden(@)".} # Public
+proc setColumnHidden*(this: ptr QTreeView, column: cint, hide: bool) {.header:headerFile, importcpp:"#.setColumnHidden(@)".} # Public
+proc isHeaderHidden*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.isHeaderHidden(@)".} # Public
+proc setHeaderHidden*(this: ptr QTreeView, hide: bool) {.header:headerFile, importcpp:"#.setHeaderHidden(@)".} # Public
+proc setSortingEnabled*(this: ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setSortingEnabled(@)".} # Public
+proc isSortingEnabled*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.isSortingEnabled(@)".} # Public
+proc setAnimated*(this: ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setAnimated(@)".} # Public
+proc isAnimated*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.isAnimated(@)".} # Public
+proc setAllColumnsShowFocus*(this: ptr QTreeView, enable: bool) {.header:headerFile, importcpp:"#.setAllColumnsShowFocus(@)".} # Public
+proc allColumnsShowFocus*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.allColumnsShowFocus(@)".} # Public
+proc setWordWrap*(this: ptr QTreeView, on: bool) {.header:headerFile, importcpp:"#.setWordWrap(@)".} # Public
+proc wordWrap*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.wordWrap(@)".} # Public
+proc setTreePosition*(this: ptr QTreeView, logicalIndex: cint) {.header:headerFile, importcpp:"#.setTreePosition(@)".} # Public
+proc treePosition*(this: ptr QTreeView): cint {.header:headerFile, importcpp:"#.treePosition(@)".} # Public
+proc keyboardSearch*(this: ptr QTreeView, search: QString) {.header:headerFile, importcpp:"#.keyboardSearch(@)".} # Public
+proc doItemsLayout*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.doItemsLayout(@)".} # Public
+proc reset*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.reset(@)".} # Public
+proc selectAll*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.selectAll(@)".} # Public
+proc hideColumn*(this: ptr QTreeView, column: cint) {.header:headerFile, importcpp:"#.hideColumn(@)".} # Public
+proc showColumn*(this: ptr QTreeView, column: cint) {.header:headerFile, importcpp:"#.showColumn(@)".} # Public
+proc resizeColumnToContents*(this: ptr QTreeView, column: cint) {.header:headerFile, importcpp:"#.resizeColumnToContents(@)".} # Public
 import nimqt/qtcore/qnamespace
-proc sortByColumn*(this:ptr QTreeView, column: cint, order: Qt_SortOrder) {.header:headerFile, importcpp:"#.sortByColumn(@)".} # Public 
-proc expandAll*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.expandAll(@)".} # Public 
-proc collapseAll*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.collapseAll(@)".} # Public 
-proc expandToDepth*(this:ptr QTreeView, depth: cint) {.header:headerFile, importcpp:"#.expandToDepth(@)".} # Public 
+proc sortByColumn*(this: ptr QTreeView, column: cint, order: Qt_SortOrder) {.header:headerFile, importcpp:"#.sortByColumn(@)".} # Public
+proc expandAll*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.expandAll(@)".} # Public
+proc collapseAll*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.collapseAll(@)".} # Public
+proc expandToDepth*(this: ptr QTreeView, depth: cint) {.header:headerFile, importcpp:"#.expandToDepth(@)".} # Public
 
 # Protected methods methods for QTreeView
-proc columnResized*(this:ptr QTreeView, column: cint, oldSize: cint, newSize: cint) {.header:headerFile, importcpp:"#.columnResized(@)".} # Protected 
-proc columnCountChanged*(this:ptr QTreeView, oldCount: cint, newCount: cint) {.header:headerFile, importcpp:"#.columnCountChanged(@)".} # Protected 
-proc columnMoved*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.columnMoved(@)".} # Protected 
-proc reexpand*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.reexpand(@)".} # Protected 
-proc verticalScrollbarValueChanged*(this:ptr QTreeView, value: cint) {.header:headerFile, importcpp:"#.verticalScrollbarValueChanged(@)".} # Protected 
-proc scrollContentsBy*(this:ptr QTreeView, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollContentsBy(@)".} # Protected 
-proc horizontalOffset*(this:ptr QTreeView): cint {.header:headerFile, importcpp:"#.horizontalOffset(@)".} # Protected 
-proc verticalOffset*(this:ptr QTreeView): cint {.header:headerFile, importcpp:"#.verticalOffset(@)".} # Protected 
+proc columnResized*(this: ptr QTreeView, column: cint, oldSize: cint, newSize: cint) {.header:headerFile, importcpp:"#.columnResized(@)".} # Protected
+proc columnCountChanged*(this: ptr QTreeView, oldCount: cint, newCount: cint) {.header:headerFile, importcpp:"#.columnCountChanged(@)".} # Protected
+proc columnMoved*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.columnMoved(@)".} # Protected
+proc reexpand*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.reexpand(@)".} # Protected
+proc verticalScrollbarValueChanged*(this: ptr QTreeView, value: cint) {.header:headerFile, importcpp:"#.verticalScrollbarValueChanged(@)".} # Protected
+proc scrollContentsBy*(this: ptr QTreeView, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollContentsBy(@)".} # Protected
+proc horizontalOffset*(this: ptr QTreeView): cint {.header:headerFile, importcpp:"#.horizontalOffset(@)".} # Protected
+proc verticalOffset*(this: ptr QTreeView): cint {.header:headerFile, importcpp:"#.verticalOffset(@)".} # Protected
 import nimqt/qtcore/qcoreevent
-proc changeEvent*(this:ptr QTreeView, event: ptr QEvent) {.header:headerFile, importcpp:"#.changeEvent(@)".} # Protected 
-proc timerEvent*(this:ptr QTreeView, event: ptr QTimerEvent) {.header:headerFile, importcpp:"#.timerEvent(@)".} # Protected 
+proc changeEvent*(this: ptr QTreeView, event: ptr QEvent) {.header:headerFile, importcpp:"#.changeEvent(@)".} # Protected
+proc timerEvent*(this: ptr QTreeView, event: ptr QTimerEvent) {.header:headerFile, importcpp:"#.timerEvent(@)".} # Protected
 import nimqt/qtgui/qevent
-proc paintEvent*(this:ptr QTreeView, event: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected 
-proc mousePressEvent*(this:ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mousePressEvent(@)".} # Protected 
-proc mouseReleaseEvent*(this:ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseReleaseEvent(@)".} # Protected 
-proc mouseDoubleClickEvent*(this:ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseDoubleClickEvent(@)".} # Protected 
-proc mouseMoveEvent*(this:ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseMoveEvent(@)".} # Protected 
-proc keyPressEvent*(this:ptr QTreeView, event: ptr QKeyEvent) {.header:headerFile, importcpp:"#.keyPressEvent(@)".} # Protected 
-proc dragMoveEvent*(this:ptr QTreeView, event: ptr QDragMoveEvent) {.header:headerFile, importcpp:"#.dragMoveEvent(@)".} # Protected 
-proc viewportEvent*(this:ptr QTreeView, event: ptr QEvent): bool {.header:headerFile, importcpp:"#.viewportEvent(@)".} # Protected 
-proc updateGeometries*(this:ptr QTreeView) {.header:headerFile, importcpp:"#.updateGeometries(@)".} # Protected 
+proc paintEvent*(this: ptr QTreeView, event: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected
+proc mousePressEvent*(this: ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mousePressEvent(@)".} # Protected
+proc mouseReleaseEvent*(this: ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseReleaseEvent(@)".} # Protected
+proc mouseDoubleClickEvent*(this: ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseDoubleClickEvent(@)".} # Protected
+proc mouseMoveEvent*(this: ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseMoveEvent(@)".} # Protected
+proc keyPressEvent*(this: ptr QTreeView, event: ptr QKeyEvent) {.header:headerFile, importcpp:"#.keyPressEvent(@)".} # Protected
+proc dragMoveEvent*(this: ptr QTreeView, event: ptr QDragMoveEvent) {.header:headerFile, importcpp:"#.dragMoveEvent(@)".} # Protected
+proc viewportEvent*(this: ptr QTreeView, event: ptr QEvent): bool {.header:headerFile, importcpp:"#.viewportEvent(@)".} # Protected
+proc updateGeometries*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.updateGeometries(@)".} # Protected
 import nimqt/qtcore/qsize
-proc viewportSizeHint*(this:ptr QTreeView): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected 
-proc sizeHintForColumn*(this:ptr QTreeView, column: cint): cint {.header:headerFile, importcpp:"#.sizeHintForColumn(@)".} # Protected 
-proc horizontalScrollbarAction*(this:ptr QTreeView, action: cint) {.header:headerFile, importcpp:"#.horizontalScrollbarAction(@)".} # Protected 
+proc viewportSizeHint*(this: ptr QTreeView): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected
+proc sizeHintForColumn*(this: ptr QTreeView, column: cint): cint {.header:headerFile, importcpp:"#.sizeHintForColumn(@)".} # Protected
+proc horizontalScrollbarAction*(this: ptr QTreeView, action: cint) {.header:headerFile, importcpp:"#.horizontalScrollbarAction(@)".} # Protected
 
 export qevent
 export qstring

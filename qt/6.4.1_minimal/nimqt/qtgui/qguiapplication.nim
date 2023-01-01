@@ -13,7 +13,7 @@ type
 # Stuff for class QGuiApplication
 
 # Public constructors for QGuiApplication
-proc newQGuiApplication*(argc: cint, argv: ptr ptr char): ptr QGuiApplication {. header:headerFile, importcpp:"new QGuiApplication(@)" .} # 
+proc newQGuiApplication*(argc: cint, argv: ptr ptr char): ptr QGuiApplication {. header:headerFile, importcpp:"new QGuiApplication(@)" .} #
 
 # Public methods for QGuiApplication
 import nimqt/qtcore/qstring
@@ -35,7 +35,7 @@ proc static_QGuiApplication_modalWindow*(): ptr QWindow {.header:headerFile, imp
 proc static_QGuiApplication_focusWindow*(): ptr QWindow {.header:headerFile, importcpp:"QGuiApplication::focusWindow(@)".} # Public static
 import nimqt/qtcore/qobject
 proc static_QGuiApplication_focusObject*(): ptr QObject {.header:headerFile, importcpp:"QGuiApplication::focusObject(@)".} # Public static
-proc devicePixelRatio*(this:ptr QGuiApplication): cfloat {.header:headerFile, importcpp:"#.devicePixelRatio(@)".} # Public 
+proc devicePixelRatio*(this: ptr QGuiApplication): cfloat {.header:headerFile, importcpp:"#.devicePixelRatio(@)".} # Public
 import nimqt/qtgui/qcursor
 proc static_QGuiApplication_overrideCursor*(): ptr QCursor {.header:headerFile, importcpp:"QGuiApplication::overrideCursor(@)".} # Public static
 proc static_QGuiApplication_setOverrideCursor*(arg_0: QCursor) {.header:headerFile, importcpp:"QGuiApplication::setOverrideCursor(@)".} # Public static
@@ -63,23 +63,23 @@ proc static_QGuiApplication_setHighDpiScaleFactorRoundingPolicy*(policy: Qt_High
 proc static_QGuiApplication_highDpiScaleFactorRoundingPolicy*(): Qt_HighDpiScaleFactorRoundingPolicy {.header:headerFile, importcpp:"QGuiApplication::highDpiScaleFactorRoundingPolicy(@)".} # Public static
 proc static_QGuiApplication_exec*(): cint {.header:headerFile, importcpp:"QGuiApplication::exec(@)".} # Public static
 import nimqt/qtcore/qcoreevent
-proc notify*(this:ptr QGuiApplication, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.notify(@)".} # Public 
-proc isSessionRestored*(this:ptr QGuiApplication): bool {.header:headerFile, importcpp:"#.isSessionRestored(@)".} # Public 
-proc sessionId*(this:ptr QGuiApplication): QString {.header:headerFile, importcpp:"#.sessionId(@)".} # Public 
-proc sessionKey*(this:ptr QGuiApplication): QString {.header:headerFile, importcpp:"#.sessionKey(@)".} # Public 
-proc isSavingSession*(this:ptr QGuiApplication): bool {.header:headerFile, importcpp:"#.isSavingSession(@)".} # Public 
+proc notify*(this: ptr QGuiApplication, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.notify(@)".} # Public
+proc isSessionRestored*(this: ptr QGuiApplication): bool {.header:headerFile, importcpp:"#.isSessionRestored(@)".} # Public
+proc sessionId*(this: ptr QGuiApplication): QString {.header:headerFile, importcpp:"#.sessionId(@)".} # Public
+proc sessionKey*(this: ptr QGuiApplication): QString {.header:headerFile, importcpp:"#.sessionKey(@)".} # Public
+proc isSavingSession*(this: ptr QGuiApplication): bool {.header:headerFile, importcpp:"#.isSavingSession(@)".} # Public
 proc static_QGuiApplication_sync*() {.header:headerFile, importcpp:"QGuiApplication::sync(@)".} # Public static
-proc fontDatabaseChanged*(this:ptr QGuiApplication) {.header:headerFile, importcpp:"#.fontDatabaseChanged(@)".} # Public 
-proc lastWindowClosed*(this:ptr QGuiApplication) {.header:headerFile, importcpp:"#.lastWindowClosed(@)".} # Public 
-proc focusObjectChanged*(this:ptr QGuiApplication, focusObject: ptr QObject) {.header:headerFile, importcpp:"#.focusObjectChanged(@)".} # Public 
-proc focusWindowChanged*(this:ptr QGuiApplication, focusWindow: ptr QWindow) {.header:headerFile, importcpp:"#.focusWindowChanged(@)".} # Public 
-proc applicationStateChanged*(this:ptr QGuiApplication, state: Qt_ApplicationState) {.header:headerFile, importcpp:"#.applicationStateChanged(@)".} # Public 
-proc layoutDirectionChanged*(this:ptr QGuiApplication, direction: Qt_LayoutDirection) {.header:headerFile, importcpp:"#.layoutDirectionChanged(@)".} # Public 
-proc applicationDisplayNameChanged*(this:ptr QGuiApplication) {.header:headerFile, importcpp:"#.applicationDisplayNameChanged(@)".} # Public 
-proc fontChanged*(this:ptr QGuiApplication, font: QFont) {.header:headerFile, importcpp:"#.fontChanged(@)".} # Public 
+proc fontDatabaseChanged*(this: ptr QGuiApplication) {.header:headerFile, importcpp:"#.fontDatabaseChanged(@)".} # Public
+proc lastWindowClosed*(this: ptr QGuiApplication) {.header:headerFile, importcpp:"#.lastWindowClosed(@)".} # Public
+proc focusObjectChanged*(this: ptr QGuiApplication, focusObject: ptr QObject) {.header:headerFile, importcpp:"#.focusObjectChanged(@)".} # Public
+proc focusWindowChanged*(this: ptr QGuiApplication, focusWindow: ptr QWindow) {.header:headerFile, importcpp:"#.focusWindowChanged(@)".} # Public
+proc applicationStateChanged*(this: ptr QGuiApplication, state: Qt_ApplicationState) {.header:headerFile, importcpp:"#.applicationStateChanged(@)".} # Public
+proc layoutDirectionChanged*(this: ptr QGuiApplication, direction: Qt_LayoutDirection) {.header:headerFile, importcpp:"#.layoutDirectionChanged(@)".} # Public
+proc applicationDisplayNameChanged*(this: ptr QGuiApplication) {.header:headerFile, importcpp:"#.applicationDisplayNameChanged(@)".} # Public
+proc fontChanged*(this: ptr QGuiApplication, font: QFont) {.header:headerFile, importcpp:"#.fontChanged(@)".} # Public
 
 # Protected methods methods for QGuiApplication
-proc event*(this:ptr QGuiApplication, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected 
+proc event*(this: ptr QGuiApplication, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 
 export qfont
 export qwindow

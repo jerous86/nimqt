@@ -29,45 +29,45 @@ type
 
 # Public constructors for QLCDNumber
 # 1 default parameters!
-proc newQLCDNumber*(parent: ptr QWidget): ptr QLCDNumber {. header:headerFile, importcpp:"new QLCDNumber(@)" .} # 
-proc newQLCDNumber*(): ptr QLCDNumber {. header:headerFile, importcpp:"new QLCDNumber(@)" .} # 
+proc newQLCDNumber*(parent: ptr QWidget): ptr QLCDNumber {. header:headerFile, importcpp:"new QLCDNumber(@)" .} #
+proc newQLCDNumber*(): ptr QLCDNumber {. header:headerFile, importcpp:"new QLCDNumber(@)" .} #
 # 1 default parameters!
-proc newQLCDNumber*(numDigits: cuint, parent: ptr QWidget): ptr QLCDNumber {. header:headerFile, importcpp:"new QLCDNumber(@)" .} # 
-proc newQLCDNumber*(numDigits: cuint): ptr QLCDNumber {. header:headerFile, importcpp:"new QLCDNumber(@)" .} # 
+proc newQLCDNumber*(numDigits: cuint, parent: ptr QWidget): ptr QLCDNumber {. header:headerFile, importcpp:"new QLCDNumber(@)" .} #
+proc newQLCDNumber*(numDigits: cuint): ptr QLCDNumber {. header:headerFile, importcpp:"new QLCDNumber(@)" .} #
 
 # Public methods for QLCDNumber
 import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QLCDNumber_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QLCDNumber::tr(@)".} # Public static
 proc static_QLCDNumber_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QLCDNumber::tr(@)".} # Public static
-proc smallDecimalPoint*(this:ptr QLCDNumber): bool {.header:headerFile, importcpp:"#.smallDecimalPoint(@)".} # Public 
-proc digitCount*(this:ptr QLCDNumber): cint {.header:headerFile, importcpp:"#.digitCount(@)".} # Public 
-proc setDigitCount*(this:ptr QLCDNumber, nDigits: cint) {.header:headerFile, importcpp:"#.setDigitCount(@)".} # Public 
-proc checkOverflow*(this:ptr QLCDNumber, num: cdouble): bool {.header:headerFile, importcpp:"#.checkOverflow(@)".} # Public 
-proc checkOverflow*(this:ptr QLCDNumber, num: cint): bool {.header:headerFile, importcpp:"#.checkOverflow(@)".} # Public 
-proc mode*(this:ptr QLCDNumber): QLCDNumber_Mode {.header:headerFile, importcpp:"#.mode(@)".} # Public 
-proc setMode*(this:ptr QLCDNumber, arg_0: QLCDNumber_Mode) {.header:headerFile, importcpp:"#.setMode(@)".} # Public 
-proc segmentStyle*(this:ptr QLCDNumber): QLCDNumber_SegmentStyle {.header:headerFile, importcpp:"#.segmentStyle(@)".} # Public 
-proc setSegmentStyle*(this:ptr QLCDNumber, arg_0: QLCDNumber_SegmentStyle) {.header:headerFile, importcpp:"#.setSegmentStyle(@)".} # Public 
-proc value*(this:ptr QLCDNumber): cdouble {.header:headerFile, importcpp:"#.value(@)".} # Public 
-proc intValue*(this:ptr QLCDNumber): cint {.header:headerFile, importcpp:"#.intValue(@)".} # Public 
+proc smallDecimalPoint*(this: ptr QLCDNumber): bool {.header:headerFile, importcpp:"#.smallDecimalPoint(@)".} # Public
+proc digitCount*(this: ptr QLCDNumber): cint {.header:headerFile, importcpp:"#.digitCount(@)".} # Public
+proc setDigitCount*(this: ptr QLCDNumber, nDigits: cint) {.header:headerFile, importcpp:"#.setDigitCount(@)".} # Public
+proc checkOverflow*(this: ptr QLCDNumber, num: cdouble): bool {.header:headerFile, importcpp:"#.checkOverflow(@)".} # Public
+proc checkOverflow*(this: ptr QLCDNumber, num: cint): bool {.header:headerFile, importcpp:"#.checkOverflow(@)".} # Public
+proc mode*(this: ptr QLCDNumber): QLCDNumber_Mode {.header:headerFile, importcpp:"#.mode(@)".} # Public
+proc setMode*(this: ptr QLCDNumber, arg_0: QLCDNumber_Mode) {.header:headerFile, importcpp:"#.setMode(@)".} # Public
+proc segmentStyle*(this: ptr QLCDNumber): QLCDNumber_SegmentStyle {.header:headerFile, importcpp:"#.segmentStyle(@)".} # Public
+proc setSegmentStyle*(this: ptr QLCDNumber, arg_0: QLCDNumber_SegmentStyle) {.header:headerFile, importcpp:"#.setSegmentStyle(@)".} # Public
+proc value*(this: ptr QLCDNumber): cdouble {.header:headerFile, importcpp:"#.value(@)".} # Public
+proc intValue*(this: ptr QLCDNumber): cint {.header:headerFile, importcpp:"#.intValue(@)".} # Public
 import nimqt/qtcore/qsize
-proc sizeHint*(this:ptr QLCDNumber): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public 
-proc display*(this:ptr QLCDNumber, str: QString) {.header:headerFile, importcpp:"#.display(@)".} # Public 
-proc display*(this:ptr QLCDNumber, num: cint) {.header:headerFile, importcpp:"#.display(@)".} # Public 
-proc display*(this:ptr QLCDNumber, num: cdouble) {.header:headerFile, importcpp:"#.display(@)".} # Public 
-proc setHexMode*(this:ptr QLCDNumber) {.header:headerFile, importcpp:"#.setHexMode(@)".} # Public 
-proc setDecMode*(this:ptr QLCDNumber) {.header:headerFile, importcpp:"#.setDecMode(@)".} # Public 
-proc setOctMode*(this:ptr QLCDNumber) {.header:headerFile, importcpp:"#.setOctMode(@)".} # Public 
-proc setBinMode*(this:ptr QLCDNumber) {.header:headerFile, importcpp:"#.setBinMode(@)".} # Public 
-proc setSmallDecimalPoint*(this:ptr QLCDNumber, arg_0: bool) {.header:headerFile, importcpp:"#.setSmallDecimalPoint(@)".} # Public 
-proc overflow*(this:ptr QLCDNumber) {.header:headerFile, importcpp:"#.overflow(@)".} # Public 
+proc sizeHint*(this: ptr QLCDNumber): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc display*(this: ptr QLCDNumber, str: QString) {.header:headerFile, importcpp:"#.display(@)".} # Public
+proc display*(this: ptr QLCDNumber, num: cint) {.header:headerFile, importcpp:"#.display(@)".} # Public
+proc display*(this: ptr QLCDNumber, num: cdouble) {.header:headerFile, importcpp:"#.display(@)".} # Public
+proc setHexMode*(this: ptr QLCDNumber) {.header:headerFile, importcpp:"#.setHexMode(@)".} # Public
+proc setDecMode*(this: ptr QLCDNumber) {.header:headerFile, importcpp:"#.setDecMode(@)".} # Public
+proc setOctMode*(this: ptr QLCDNumber) {.header:headerFile, importcpp:"#.setOctMode(@)".} # Public
+proc setBinMode*(this: ptr QLCDNumber) {.header:headerFile, importcpp:"#.setBinMode(@)".} # Public
+proc setSmallDecimalPoint*(this: ptr QLCDNumber, arg_0: bool) {.header:headerFile, importcpp:"#.setSmallDecimalPoint(@)".} # Public
+proc overflow*(this: ptr QLCDNumber) {.header:headerFile, importcpp:"#.overflow(@)".} # Public
 
 # Protected methods methods for QLCDNumber
 import nimqt/qtcore/qcoreevent
-proc event*(this:ptr QLCDNumber, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected 
+proc event*(this: ptr QLCDNumber, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 import nimqt/qtgui/qevent
-proc paintEvent*(this:ptr QLCDNumber, arg_0: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected 
+proc paintEvent*(this: ptr QLCDNumber, arg_0: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected
 
 export qevent
 export qstring

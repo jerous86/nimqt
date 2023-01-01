@@ -18,7 +18,7 @@ const
 # Stuff for class QCoreApplication
 
 # Public constructors for QCoreApplication
-proc newQCoreApplication*(argc: cint, argv: ptr ptr char): ptr QCoreApplication {. header:headerFile, importcpp:"new QCoreApplication(@)" .} # 
+proc newQCoreApplication*(argc: cint, argv: ptr ptr char): ptr QCoreApplication {. header:headerFile, importcpp:"new QCoreApplication(@)" .} #
 
 # Public methods for QCoreApplication
 import nimqt/qtcore/qstring
@@ -56,7 +56,7 @@ proc static_QCoreApplication_sendPostedEvents*() {.header:headerFile, importcpp:
 # 1 default parameters!
 proc static_QCoreApplication_removePostedEvents*(receiver: ptr QObject, eventType: cint) {.header:headerFile, importcpp:"QCoreApplication::removePostedEvents(@)".} # Public static
 proc static_QCoreApplication_removePostedEvents*(receiver: ptr QObject) {.header:headerFile, importcpp:"QCoreApplication::removePostedEvents(@)".} # Public static
-proc notify*(this:ptr QCoreApplication, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.notify(@)".} # Public 
+proc notify*(this: ptr QCoreApplication, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.notify(@)".} # Public
 proc static_QCoreApplication_startingUp*(): bool {.header:headerFile, importcpp:"QCoreApplication::startingUp(@)".} # Public static
 proc static_QCoreApplication_closingDown*(): bool {.header:headerFile, importcpp:"QCoreApplication::closingDown(@)".} # Public static
 proc static_QCoreApplication_applicationDirPath*(): QString {.header:headerFile, importcpp:"QCoreApplication::applicationDirPath(@)".} # Public static
@@ -75,13 +75,13 @@ proc static_QCoreApplication_quit*() {.header:headerFile, importcpp:"QCoreApplic
 # 1 default parameters!
 proc static_QCoreApplication_exit*(retcode: cint) {.header:headerFile, importcpp:"QCoreApplication::exit(@)".} # Public static
 proc static_QCoreApplication_exit*() {.header:headerFile, importcpp:"QCoreApplication::exit(@)".} # Public static
-proc organizationNameChanged*(this:ptr QCoreApplication) {.header:headerFile, importcpp:"#.organizationNameChanged(@)".} # Public 
-proc organizationDomainChanged*(this:ptr QCoreApplication) {.header:headerFile, importcpp:"#.organizationDomainChanged(@)".} # Public 
-proc applicationNameChanged*(this:ptr QCoreApplication) {.header:headerFile, importcpp:"#.applicationNameChanged(@)".} # Public 
-proc applicationVersionChanged*(this:ptr QCoreApplication) {.header:headerFile, importcpp:"#.applicationVersionChanged(@)".} # Public 
+proc organizationNameChanged*(this: ptr QCoreApplication) {.header:headerFile, importcpp:"#.organizationNameChanged(@)".} # Public
+proc organizationDomainChanged*(this: ptr QCoreApplication) {.header:headerFile, importcpp:"#.organizationDomainChanged(@)".} # Public
+proc applicationNameChanged*(this: ptr QCoreApplication) {.header:headerFile, importcpp:"#.applicationNameChanged(@)".} # Public
+proc applicationVersionChanged*(this: ptr QCoreApplication) {.header:headerFile, importcpp:"#.applicationVersionChanged(@)".} # Public
 
 # Protected methods methods for QCoreApplication
-proc event*(this:ptr QCoreApplication, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected 
+proc event*(this: ptr QCoreApplication, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 
 export qstringlist
 export qstring

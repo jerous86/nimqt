@@ -13,7 +13,7 @@ type
 # Stuff for class QApplication
 
 # Public constructors for QApplication
-proc newQApplication*(argc: cint, argv: ptr ptr char): ptr QApplication {. header:headerFile, importcpp:"new QApplication(@)" .} # 
+proc newQApplication*(argc: cint, argv: ptr ptr char): ptr QApplication {. header:headerFile, importcpp:"new QApplication(@)" .} #
 
 # Public methods for QApplication
 import nimqt/qtcore/qstring
@@ -64,17 +64,17 @@ proc static_QApplication_setEffectEnabled*(arg_0: Qt_UIEffect) {.header:headerFi
 proc static_QApplication_exec*(): cint {.header:headerFile, importcpp:"QApplication::exec(@)".} # Public static
 import nimqt/qtcore/qobject
 import nimqt/qtcore/qcoreevent
-proc notify*(this:ptr QApplication, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.notify(@)".} # Public 
-proc focusChanged*(this:ptr QApplication, old: ptr QWidget, now: ptr QWidget) {.header:headerFile, importcpp:"#.focusChanged(@)".} # Public 
-proc styleSheet*(this:ptr QApplication): QString {.header:headerFile, importcpp:"#.styleSheet(@)".} # Public 
-proc setStyleSheet*(this:ptr QApplication, sheet: QString) {.header:headerFile, importcpp:"#.setStyleSheet(@)".} # Public 
-proc setAutoSipEnabled*(this:ptr QApplication, enabled: bool) {.header:headerFile, importcpp:"#.setAutoSipEnabled(@)".} # Public 
-proc autoSipEnabled*(this:ptr QApplication): bool {.header:headerFile, importcpp:"#.autoSipEnabled(@)".} # Public 
+proc notify*(this: ptr QApplication, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.notify(@)".} # Public
+proc focusChanged*(this: ptr QApplication, old: ptr QWidget, now: ptr QWidget) {.header:headerFile, importcpp:"#.focusChanged(@)".} # Public
+proc styleSheet*(this: ptr QApplication): QString {.header:headerFile, importcpp:"#.styleSheet(@)".} # Public
+proc setStyleSheet*(this: ptr QApplication, sheet: QString) {.header:headerFile, importcpp:"#.setStyleSheet(@)".} # Public
+proc setAutoSipEnabled*(this: ptr QApplication, enabled: bool) {.header:headerFile, importcpp:"#.setAutoSipEnabled(@)".} # Public
+proc autoSipEnabled*(this: ptr QApplication): bool {.header:headerFile, importcpp:"#.autoSipEnabled(@)".} # Public
 proc static_QApplication_closeAllWindows*() {.header:headerFile, importcpp:"QApplication::closeAllWindows(@)".} # Public static
 proc static_QApplication_aboutQt*() {.header:headerFile, importcpp:"QApplication::aboutQt(@)".} # Public static
 
 # Protected methods methods for QApplication
-proc event*(this:ptr QApplication, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected 
+proc event*(this: ptr QApplication, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 
 export qfont
 export qguiapplication

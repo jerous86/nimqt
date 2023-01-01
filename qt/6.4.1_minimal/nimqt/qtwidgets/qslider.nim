@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qabstractslider
 type
     # Classes and enums found in the C++ code
     # Global
-    QSlider_TickPosition* {.header:headerFile,importcpp:"QSlider::TickPosition".} = enum NoTicks = 0, TicksAbove = 0x1, TicksLeft = 0x2, TicksBelow = 0x3, 
+    QSlider_TickPosition* {.header:headerFile,importcpp:"QSlider::TickPosition".} = enum NoTicks = 0, TicksAbove = 0x1, TicksLeft = 0x2, TicksBelow = 0x3,
         TicksRight = 0x4, TicksBothSides = 0x5
     QSlider* {.header:headerFile,importcpp:"QSlider" ,pure.} = object of QAbstractSlider
 {.push warning[Deprecated]: on.}
@@ -28,12 +28,12 @@ type
 
 # Public constructors for QSlider
 # 1 default parameters!
-proc newQSlider*(parent: ptr QWidget): ptr QSlider {. header:headerFile, importcpp:"new QSlider(@)" .} # 
-proc newQSlider*(): ptr QSlider {. header:headerFile, importcpp:"new QSlider(@)" .} # 
+proc newQSlider*(parent: ptr QWidget): ptr QSlider {. header:headerFile, importcpp:"new QSlider(@)" .} #
+proc newQSlider*(): ptr QSlider {. header:headerFile, importcpp:"new QSlider(@)" .} #
 import nimqt/qtcore/qnamespace
 # 1 default parameters!
-proc newQSlider*(orientation: Qt_Orientation, parent: ptr QWidget): ptr QSlider {. header:headerFile, importcpp:"new QSlider(@)" .} # 
-proc newQSlider*(orientation: Qt_Orientation): ptr QSlider {. header:headerFile, importcpp:"new QSlider(@)" .} # 
+proc newQSlider*(orientation: Qt_Orientation, parent: ptr QWidget): ptr QSlider {. header:headerFile, importcpp:"new QSlider(@)" .} #
+proc newQSlider*(orientation: Qt_Orientation): ptr QSlider {. header:headerFile, importcpp:"new QSlider(@)" .} #
 
 # Public methods for QSlider
 import nimqt/qtcore/qstring
@@ -41,21 +41,21 @@ import nimqt/qtcore/qstring
 proc static_QSlider_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QSlider::tr(@)".} # Public static
 proc static_QSlider_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QSlider::tr(@)".} # Public static
 import nimqt/qtcore/qsize
-proc sizeHint*(this:ptr QSlider): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public 
-proc minimumSizeHint*(this:ptr QSlider): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public 
-proc setTickPosition*(this:ptr QSlider, position: QSlider_TickPosition) {.header:headerFile, importcpp:"#.setTickPosition(@)".} # Public 
-proc tickPosition*(this:ptr QSlider): QSlider_TickPosition {.header:headerFile, importcpp:"#.tickPosition(@)".} # Public 
-proc setTickInterval*(this:ptr QSlider, ti: cint) {.header:headerFile, importcpp:"#.setTickInterval(@)".} # Public 
-proc tickInterval*(this:ptr QSlider): cint {.header:headerFile, importcpp:"#.tickInterval(@)".} # Public 
+proc sizeHint*(this: ptr QSlider): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QSlider): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
+proc setTickPosition*(this: ptr QSlider, position: QSlider_TickPosition) {.header:headerFile, importcpp:"#.setTickPosition(@)".} # Public
+proc tickPosition*(this: ptr QSlider): QSlider_TickPosition {.header:headerFile, importcpp:"#.tickPosition(@)".} # Public
+proc setTickInterval*(this: ptr QSlider, ti: cint) {.header:headerFile, importcpp:"#.setTickInterval(@)".} # Public
+proc tickInterval*(this: ptr QSlider): cint {.header:headerFile, importcpp:"#.tickInterval(@)".} # Public
 import nimqt/qtcore/qcoreevent
-proc event*(this:ptr QSlider, event: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Public 
+proc event*(this: ptr QSlider, event: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Public
 
 # Protected methods methods for QSlider
 import nimqt/qtgui/qevent
-proc paintEvent*(this:ptr QSlider, ev: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected 
-proc mousePressEvent*(this:ptr QSlider, ev: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mousePressEvent(@)".} # Protected 
-proc mouseReleaseEvent*(this:ptr QSlider, ev: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseReleaseEvent(@)".} # Protected 
-proc mouseMoveEvent*(this:ptr QSlider, ev: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseMoveEvent(@)".} # Protected 
+proc paintEvent*(this: ptr QSlider, ev: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected
+proc mousePressEvent*(this: ptr QSlider, ev: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mousePressEvent(@)".} # Protected
+proc mouseReleaseEvent*(this: ptr QSlider, ev: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseReleaseEvent(@)".} # Protected
+proc mouseMoveEvent*(this: ptr QSlider, ev: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseMoveEvent(@)".} # Protected
 
 export qevent
 export qabstractslider
