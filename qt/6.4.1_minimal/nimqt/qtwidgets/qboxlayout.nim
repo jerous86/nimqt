@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qlayout
 type
     # Classes and enums found in the C++ code
     # Global
-    QBoxLayout_Direction* {.header:headerFile,importcpp:"QBoxLayout::Direction".} = enum LeftToRight = 0, RightToLeft = 0x1, TopToBottom = 0x2, BottomToTop = 0x3,
+    QBoxLayout_Direction* {.header:headerFile,importcpp:"QBoxLayout::Direction".} = enum LeftToRight = 0, RightToLeft = 0x1, TopToBottom = 0x2, BottomToTop = 0x3, 
         Down = 0x4, Up = 0x5
     QBoxLayout* {.header:headerFile,importcpp:"QBoxLayout" ,pure.} = object of QLayout
     QHBoxLayout* {.header:headerFile,importcpp:"QHBoxLayout" ,pure.} = object of QBoxLayout

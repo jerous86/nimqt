@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QFrame_Shape* {.header:headerFile,importcpp:"QFrame::Shape".} = enum NoFrame = 0, Box = 0x1, Panel = 0x2, WinPanel = 0x3,
+    QFrame_Shape* {.header:headerFile,importcpp:"QFrame::Shape".} = enum NoFrame = 0, Box = 0x1, Panel = 0x2, WinPanel = 0x3, 
         HLine = 0x4, VLine = 0x5, StyledPanel = 0x6
     QFrame_Shadow* {.header:headerFile,importcpp:"QFrame::Shadow".} = enum Plain = 0, Raised = 0x1, Sunken = 0x2
     QFrame_StyleMask* {.header:headerFile,importcpp:"QFrame::StyleMask".} = enum Shadow_Mask = 0, Shape_Mask = 0x1

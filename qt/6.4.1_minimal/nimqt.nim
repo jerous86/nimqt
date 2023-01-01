@@ -14,7 +14,7 @@ template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 when defined(macosx):
     const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false)
     {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets".}
-elif defined(linux):
+elif defined(linux) or defined(windows):
     const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false)
     {.passC: &"-I{QtInstallHeaders} -fPIC"}
     {.passL: &"-lQt6Core -lQt6Gui -lQt6Widgets"}

@@ -7,16 +7,16 @@ const headerFile* = "QtGui/qpainter.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QPainter_RenderHint* {.header:headerFile,importcpp:"QPainter::RenderHint".} = enum Antialiasing = 0, TextAntialiasing = 0x1, SmoothPixmapTransform = 0x2, VerticalSubpixelPositioning = 0x3,
+    QPainter_RenderHint* {.header:headerFile,importcpp:"QPainter::RenderHint".} = enum Antialiasing = 0, TextAntialiasing = 0x1, SmoothPixmapTransform = 0x2, VerticalSubpixelPositioning = 0x3, 
         LosslessImageRendering = 0x4, NonCosmeticBrushPatterns = 0x5
     QPainter_PixmapFragmentHint* {.header:headerFile,importcpp:"QPainter::PixmapFragmentHint".} = enum OpaqueHint = 0
-    QPainter_CompositionMode* {.header:headerFile,importcpp:"QPainter::CompositionMode".} = enum CompositionMode_SourceOver = 0, CompositionMode_DestinationOver = 0x1, CompositionMode_Clear = 0x2, CompositionMode_Source = 0x3,
-        CompositionMode_Destination = 0x4, CompositionMode_SourceIn = 0x5, CompositionMode_DestinationIn = 0x6, CompositionMode_SourceOut = 0x7, CompositionMode_DestinationOut = 0x8,
-        CompositionMode_SourceAtop = 0x9, CompositionMode_DestinationAtop = 0xa, CompositionMode_Xor = 0xb, CompositionMode_Plus = 0xc, CompositionMode_Multiply = 0xd,
-        CompositionMode_Screen = 0xe, CompositionMode_Overlay = 0xf, CompositionMode_Darken = 0x10, CompositionMode_Lighten = 0x11, CompositionMode_ColorDodge = 0x12,
-        CompositionMode_ColorBurn = 0x13, CompositionMode_HardLight = 0x14, CompositionMode_SoftLight = 0x15, CompositionMode_Difference = 0x16, CompositionMode_Exclusion = 0x17,
-        RasterOp_SourceOrDestination = 0x18, RasterOp_SourceAndDestination = 0x19, RasterOp_SourceXorDestination = 0x1a, RasterOp_NotSourceAndNotDestination = 0x1b, RasterOp_NotSourceOrNotDestination = 0x1c,
-        RasterOp_NotSourceXorDestination = 0x1d, RasterOp_NotSource = 0x1e, RasterOp_NotSourceAndDestination = 0x1f, RasterOp_SourceAndNotDestination = 0x20, RasterOp_NotSourceOrDestination = 0x21,
+    QPainter_CompositionMode* {.header:headerFile,importcpp:"QPainter::CompositionMode".} = enum CompositionMode_SourceOver = 0, CompositionMode_DestinationOver = 0x1, CompositionMode_Clear = 0x2, CompositionMode_Source = 0x3, 
+        CompositionMode_Destination = 0x4, CompositionMode_SourceIn = 0x5, CompositionMode_DestinationIn = 0x6, CompositionMode_SourceOut = 0x7, CompositionMode_DestinationOut = 0x8, 
+        CompositionMode_SourceAtop = 0x9, CompositionMode_DestinationAtop = 0xa, CompositionMode_Xor = 0xb, CompositionMode_Plus = 0xc, CompositionMode_Multiply = 0xd, 
+        CompositionMode_Screen = 0xe, CompositionMode_Overlay = 0xf, CompositionMode_Darken = 0x10, CompositionMode_Lighten = 0x11, CompositionMode_ColorDodge = 0x12, 
+        CompositionMode_ColorBurn = 0x13, CompositionMode_HardLight = 0x14, CompositionMode_SoftLight = 0x15, CompositionMode_Difference = 0x16, CompositionMode_Exclusion = 0x17, 
+        RasterOp_SourceOrDestination = 0x18, RasterOp_SourceAndDestination = 0x19, RasterOp_SourceXorDestination = 0x1a, RasterOp_NotSourceAndNotDestination = 0x1b, RasterOp_NotSourceOrNotDestination = 0x1c, 
+        RasterOp_NotSourceXorDestination = 0x1d, RasterOp_NotSource = 0x1e, RasterOp_NotSourceAndDestination = 0x1f, RasterOp_SourceAndNotDestination = 0x20, RasterOp_NotSourceOrDestination = 0x21, 
         RasterOp_SourceOrNotDestination = 0x22, RasterOp_ClearDestination = 0x23, RasterOp_SetDestination = 0x24, RasterOp_NotDestination = 0x25
     QPainter* {.header:headerFile,importcpp:"QPainter" ,pure.} = object {.inheritable.}
     QPainter_PixmapFragment* {.header:headerFile,importcpp:"QPainter::PixmapFragment" ,pure.} = object {.inheritable.}

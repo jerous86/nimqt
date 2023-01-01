@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QComboBox_InsertPolicy* {.header:headerFile,importcpp:"QComboBox::InsertPolicy".} = enum NoInsert = 0, InsertAtTop = 0x1, InsertAtCurrent = 0x2, InsertAtBottom = 0x3,
+    QComboBox_InsertPolicy* {.header:headerFile,importcpp:"QComboBox::InsertPolicy".} = enum NoInsert = 0, InsertAtTop = 0x1, InsertAtCurrent = 0x2, InsertAtBottom = 0x3, 
         InsertAfterCurrent = 0x4, InsertBeforeCurrent = 0x5, InsertAlphabetically = 0x6
     QComboBox_SizeAdjustPolicy* {.header:headerFile,importcpp:"QComboBox::SizeAdjustPolicy".} = enum AdjustToContents = 0, AdjustToContentsOnFirstShow = 0x1, AdjustToMinimumContentsLengthWithIcon = 0x2
     QComboBox* {.header:headerFile,importcpp:"QComboBox" ,pure.} = object of QWidget

@@ -7,7 +7,7 @@ const headerFile* = "QtGui/qcolor.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QColor_Spec* {.header:headerFile,importcpp:"QColor::Spec".} = enum Invalid = 0, Rgb = 0x1, Hsv = 0x2, Cmyk = 0x3,
+    QColor_Spec* {.header:headerFile,importcpp:"QColor::Spec".} = enum Invalid = 0, Rgb = 0x1, Hsv = 0x2, Cmyk = 0x3, 
         Hsl = 0x4, ExtendedRgb = 0x5
     QColor_NameFormat* {.header:headerFile,importcpp:"QColor::NameFormat".} = enum HexRgb = 0, HexArgb = 0x1
     QColor* {.header:headerFile,importcpp:"QColor" ,pure.} = object {.inheritable.}

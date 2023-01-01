@@ -8,7 +8,7 @@ type
     # Classes and enums found in the C++ code
     # Global
     QSurface_SurfaceClass* {.header:headerFile,importcpp:"QSurface::SurfaceClass".} = enum Window = 0, Offscreen = 0x1
-    QSurface_SurfaceType* {.header:headerFile,importcpp:"QSurface::SurfaceType".} = enum RasterSurface = 0, OpenGLSurface = 0x1, RasterGLSurface = 0x2, OpenVGSurface = 0x3,
+    QSurface_SurfaceType* {.header:headerFile,importcpp:"QSurface::SurfaceType".} = enum RasterSurface = 0, OpenGLSurface = 0x1, RasterGLSurface = 0x2, OpenVGSurface = 0x3, 
         VulkanSurface = 0x4, MetalSurface = 0x5, Direct3DSurface = 0x6
     QSurface* {.header:headerFile,importcpp:"QSurface" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}

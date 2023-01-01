@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qlayoutitem
 type
     # Classes and enums found in the C++ code
     # Global
-    QLayout_SizeConstraint* {.header:headerFile,importcpp:"QLayout::SizeConstraint".} = enum SetDefaultConstraint = 0, SetNoConstraint = 0x1, SetMinimumSize = 0x2, SetFixedSize = 0x3,
+    QLayout_SizeConstraint* {.header:headerFile,importcpp:"QLayout::SizeConstraint".} = enum SetDefaultConstraint = 0, SetNoConstraint = 0x1, SetMinimumSize = 0x2, SetFixedSize = 0x3, 
         SetMaximumSize = 0x4, SetMinAndMaxSize = 0x5
     QLayout* {.header:headerFile,importcpp:"QLayout" ,pure.} = object of QLayoutItem
 {.push warning[Deprecated]: on.}

@@ -25,10 +25,10 @@ const customization_footer = {
             for i in 0..<xs.length: result.add xs[i]
         func `$`*(s:ptr QString): string = $(s[])
         # Fix bug cpp2xml[1]
-        proc indexOf*(this:QLatin1String, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.indexOf(@)".}
-        proc lastIndexOf*(this:QLatin1String, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
-        proc indexOf*(this:QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.indexOf(@)".}
-        proc lastIndexOf*(this:QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
+        proc indexOf*(this: QLatin1String, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.indexOf(@)".}
+        proc lastIndexOf*(this: QLatin1String, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
+        proc indexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.indexOf(@)".}
+        proc lastIndexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
         """,
     "qtcore/qobject": """
         proc connect*(src:ptr QObject, signal:cstring, dst:ptr QObject, mth:cstring, `type`=AutoConnection) {.header:headerFile ,importcpp:"QObject::connect(@)".}
@@ -64,7 +64,7 @@ const customization_footer = {
         proc exec*(nimQObject:ptr QApplication):cint {.header:headerFile, importcpp: "#.exec()".}
         """,
     "qtcore/qflags": """
-        func toSet*[Enum](this:QFlags[Enum]): set[Enum] =
+        func toSet*[Enum](this: QFlags[Enum]): set[Enum] =
             for e in Enum:
                 if this.testFlag(e): 
                     try: result.incl e
@@ -161,6 +161,7 @@ template cppName(cd:typed): string = cd.fqName.join("::")
 func dropSpecialTypePrefixes(cppType:string): string = (&" {cppType} ").replace(re" (const|struct|class|typename) ","").strip
 func tplsToNim*(t:seq[string]): string = (if t.len>0: &"[{t.join}]" else: "")
 
+
 iterator pairs(n: XmlNode): (int,XmlNode) =
     var i=0
     for x in n:
@@ -222,11 +223,25 @@ type
         db*:TypeDb
     
     CallbackTypeException* = object of CatchableError
+    
+    CallableData = object
+        classData:ClassData
+        name:string
+        tpls:seq[string]
+        params:seq[Param]
+        retType:string
+        suffix:string
 
-func toNim*(x:TplType, c:ClassData): string
-func toNim*(x:Param, c:ClassData): string
-func toNim*(x:ConstructorData, c:ClassData, state:State): seq[tuple[decl,signature:string]]
-func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[tuple[decl,signature:string]]
+
+# func toNim*(x:TplType, c:ClassData, typeReplacements=initTable[string,string]()): string
+# func toNim*(x:Param, c:ClassData): string
+# func toNim*(x:ConstructorData, c:ClassData, state:State): seq[tuple[decl,signature:string]]
+# func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[tuple[decl,signature:string]]
+
+func toNim*(x:TplType, c:ClassData, typeReplacements=initTable[string,string]()): string
+func toNim*(x:Param, c:ClassData, typeReplacements:Table[string,string]): string
+func toNim*(x:ConstructorData, c:ClassData, state:State): seq[CallableData]
+func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[CallableData]
 
 
 
@@ -390,7 +405,7 @@ func enumDecl*(e:EnumData, c:ClassData): tuple[enums:string, consts:seq[string]]
             result.consts.add &"{name}* = {x[1]} # from anonymous enum {values[x[1]][0]}"
     
     if e.enumName.len>0:
-        result.enums=e.nimName.escapeNimReservedWords.replaceSpecialTypes & &"* {{.header:headerFile,importcpp:\"{e.cppName}\".}} = enum {xs.join}"
+        result.enums=e.nimName.escapeNimReservedWords.replaceSpecialTypes & &"* {{.header:headerFile,importcpp:\"{e.cppName}\".}} = enum {xs.join.strip}"
 
 
 
@@ -585,12 +600,11 @@ proc processFile*(xmlInputFile:string, state:State): tuple[cppHeaderFile:string,
         allTypes:allTypes)
 
 
-
 # Functions to convert something to Nim code
 when true:
     func numDefaultParameters(x:Callable): int = x.params.filterIt(it.hasDefaultValue).len
 
-    func toNim*(x:TplType, c:ClassData): string = 
+    func toNim*(x:TplType, c:ClassData, typeReplacements:Table[string,string]=initTable[string,string]()): string = 
         assert not x.nimType.startsWith "const "
         result = case x.refKind
             of Pointer: "ptr "
@@ -598,74 +612,103 @@ when true:
             of Regular,Reference: ""
         result = result & (
             if c.nimName==x.nimType: c.nimName & c.allTypes.templateParams.tplsToNim
-            else: x.nimType & x.tpls.tplsToNim
+            else: typeReplacements.getOrDefault(x.nimType, x.nimType) & x.tpls.tplsToNim
             )
         
-    func toNim*(x:Param, c:ClassData): string = 
-        &"{x.name.escapeNimReservedWords}: {x.tplType.toNim(c)}"
+    func toNim*(x:Param, c:ClassData, typeReplacements:Table[string,string]): string = 
+        &"{x.name.escapeNimReservedWords.strip}: {x.tplType.toNim(c, typeReplacements).strip}"
         # if x.defaultValue.len>0: result = &"{result} = {x.defaultValue.replaceSpecialValues}"
 
-    func toNim*(x:ConstructorData, c:ClassData, state:State): seq[tuple[decl,signature:string]] =
-
-        let tpls:string=c.allTypes.templateParams.tplsToNim
+    func decl(c:CallableData):string =
+        let params=c.params.mapIt(it.toNim(c.classData, initTable[string,string]()))
+        result = &"proc {c.name}*{c.tpls.tplsToNim}({params.join})"
+        if c.retType.len>0: result &= &": {c.retType}"
+        result &= &" {c.suffix.strip}"
+    # On windows clong=int32, while on {linux,osx} clong=int.
+    # This can lead to duplicate definitions in some cases, so we should
+    # take care to take this differences into account.
+    func signature(c:CallableData, typeReplacements:Table[string,string]):string =
+        let params=c.params.mapIt(it.toNim(c.classData, typeReplacements))
+        &"{c.name}*{c.tpls.tplsToNim}({params.join})"
+    func nim_signature(c:CallableData):string = c.signature(initTable[string,string]())
+    func win_signature(c:CallableData):string = c.signature({"clong":"cint", "culong":"cuint"}.toTable)
+    func lnx_signature(c:CallableData):string = c.signature({"clong":"csize", "culong":"csize_t"}.toTable)
+    func osx_signature(c:CallableData):string = c.lnx_signature
+    
+    func toNim*(x:ConstructorData, c:ClassData, state:State): seq[CallableData] =
+        let tpls=c.allTypes.templateParams
         let id = &"{state.component}/{state.module} class {c.nimName}"
         let shouldBePtr=state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (id in customization_pointer_type)
 
         if x.numDefaultParameters>0:
-            result.add((decl: &"# {x.numDefaultParameters} default parameters!", signature: ""))
+            result.add(CallableData(suffix: &"# {x.numDefaultParameters} default parameters!"))
 
         for i in 0..x.numDefaultParameters:
             let idxs=0..<x.params.len-i
-            result.add (
-                if shouldBePtr:
-                    let pragmas = &"{{. header:headerFile, importcpp:\"new {c.nimName}(@)\" .}}"
-                    (
-                        decl: &"proc new{c.nimName}*{tpls}({x.params[idxs].mapIt(it.toNim(c)).join}): ptr {c.nimName}{tpls} {pragmas} # " & x.decorations.join,
-                        signature: &"{c.nimName}*{tpls}({x.params[idxs].mapIt(it.toNim(c)).join})"
-                    )
-                else:
-                    let pragmas = &"{{. header:headerFile, importcpp:\"{c.nimName}(@)\", constructor .}}"
-                    (
-                        decl: &"proc new{c.nimName}*{tpls}({x.params[idxs].mapIt(it.toNim(c)).join}): {c.nimName}{tpls} {pragmas} # " & x.decorations.join,
-                        signature: &"{c.nimName}*{tpls}({x.params[idxs].mapIt(it.toNim(c)).join})"
-                    )
-                )
+            var xx=CallableData(
+                classData:c,
+                name: &"new{c.nimName}", 
+                tpls: tpls, 
+                params: x.params[idxs],
+                suffix: "")
+            if shouldBePtr:
+                let pragmas = &"{{. header:headerFile, importcpp:\"new {c.nimName}(@)\" .}}"
+                xx.retType = &"ptr {c.nimName}{tpls.tplsToNim}"
+                xx.suffix = &"{pragmas} # " & x.decorations.join
+            else:
+                let pragmas = &"{{. header:headerFile, importcpp:\"{c.nimName}(@)\", constructor .}}"
+                xx.retType = &"{c.nimName}{tpls.tplsToNim}"
+                xx.suffix = &"{pragmas} # " & x.decorations.join
+            result.add xx
 
     # NOTE1
     # There is a bug somewhere in libclang where sometimes the template param is set to the generic T,
     # if it was not explicitly specified.
     # E.g. template<class Enum> class QFlags { QFlags &operator&=(int mask); };
-    func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[tuple[decl,signature:string]] =
+    func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[CallableData] =
         let id = &"{state.component}/{state.module} class {c.nimName}"
         let shouldBePtr=state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (id in customization_pointer_type)
-        let retType = (if x.retType.toNim(c).len==0: "" else: &": {x.retType.toNim(c)}")
-        let tpls=c.allTypes.templateParams.tplsToNim
-        let finalType=(if shouldBePtr: "ptr " else: "") & &"{c.nimName}{tpls}"
+        let retType = x.retType.toNim(c)
+        let tpls=c.allTypes.templateParams
+        # let finalType=(if shouldBePtr: "ptr " else: "") & &"{c.nimName}{tpls}"
         let finalName=(if x.name.startsWith("operator"): x.name.replacef(re.re"operator(.*)", "`$1`") else: x.name).strip
 
         case visibility
         of Public,Protected:
             if x.numDefaultParameters>0:
-                result.add((decl: &"# {x.numDefaultParameters} default parameters!", signature: ""))
+                result.add(CallableData(suffix: &"# {x.numDefaultParameters} default parameters!"))
 
             for i in 0..x.numDefaultParameters:
                 let idxs=0..<x.params.len-i
                 # NOTE we don't add decorations anymore so we can deduplicate unique functions more reliably
-                let (finalName, pragmas, nimArgs, decorations)=(if x.isStatic:
-                        let pragmas = &"{{.header:headerFile, importcpp:\"{c.cppName}::{x.name}(@)\".}}"
-                        var nimArgs = x.params[idxs].mapIt(it.toNim(c))
+                let (finalName, pragmas, nimArgs, decorations)=(
+                    if x.isStatic:
+                        let pragmas: string = &"{{.header:headerFile, importcpp:\"{c.cppName}::{x.name}(@)\".}}"
+                        var nimArgs: seq[Param] = x.params[idxs]
                         # To avoid name clashes, we must prefix the class name for static methods
                         (&"static_{c.nimName}_{finalName}", pragmas, nimArgs, @["static"])
                     else:
-                        let pragmas = &"{{.header:headerFile, importcpp:\"#.{x.name}(@)\".}}"
-                        var nimArgs = @[&"this:{finalType}"]
-                        nimArgs.add x.params[idxs].mapIt(it.toNim(c))
+                        let pragmas: string = &"{{.header:headerFile, importcpp:\"#.{x.name}(@)\".}}"
+                        let this_param = Param(
+                            name: "this", 
+                            tplType: (
+                                cppType: "",
+                                nimType: c.nimName, 
+                                refKind: (if shouldBePtr: RefKind.Pointer else: RefKind.Regular),
+                                tpls: tpls
+                                ))
+                        let nimArgs: seq[Param] = concat(@[this_param], x.params[idxs])
                         (finalName, pragmas, nimArgs, @[])
                     )
-                result.add((
-                    decl: &"proc {finalName.escapeNimReservedWords}*{tpls}({nimArgs.join}){retType} {pragmas} # {visibility} {decorations.join}",
-                    signature: &"{finalName.escapeNimReservedWords}*{tpls}({nimArgs.join})"
-                    ))
+                
+                var x=CallableData(
+                    classData:c,
+                    name: finalName.escapeNimReservedWords,
+                    tpls: tpls, 
+                    params: nimArgs,
+                    retType: retType,
+                    suffix: &"{pragmas} # {visibility} {decorations.join}")
+                result.add x
         else:
             assert false
 
@@ -701,7 +744,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
     var xs:seq[string]
     block:
         var imports:HashSet[string]
-        var definedProcs:HashSet[string]
+        var definedProcs,definedProcs_lnx,definedProcs_osx,definedProcs_win:HashSet[string]
     
         xs.add &"const headerFile* = \"{file.cppHeaderFile}\"\n"
         
@@ -773,6 +816,26 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
                 xs.add "const"
                 xs.add tmp
         
+        func addCallable(tmp:var seq[string], mm:CallableData) =
+            if mm.name.len==0:
+                # If mm.name.len==0, then we just want to write the suffix
+                tmp.add mm.suffix
+            elif mm.nim_signature notin definedProcs:
+                var conditions:seq[string]
+                if mm.lnx_signature in definedProcs_lnx: conditions.add "(not defined(linux))"
+                if mm.osx_signature in definedProcs_osx: conditions.add "(not defined(macosx))"
+                if mm.win_signature in definedProcs_win: conditions.add "(not defined(windows))"
+                if conditions.len>0: 
+                    tmp.add "when "&conditions.join(" and ") & ":"
+                    tmp.add "    " & mm.decl
+                else:
+                    tmp.add mm.decl
+
+                definedProcs.incl mm.nim_signature
+                definedProcs_lnx.incl mm.lnx_signature
+                definedProcs_osx.incl mm.osx_signature
+                definedProcs_win.incl mm.win_signature
+
         xs.add ""
         for n,class in file.module.classes:
             var tmp:seq[string]
@@ -785,9 +848,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
                             imports.incl i
                             
                     for mm in m.toNim(class,state):
-                        if mm.signature.len==0 or mm.signature notin definedProcs:
-                            definedProcs.incl mm.signature
-                            tmp.add mm.decl
+                        tmp.addCallable(mm)
             
             if class.publicMethods.len>0:
                 tmp.add (&"\n# Public methods for {class.nimName}")
@@ -798,9 +859,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
                             imports.incl i
                             
                     for mm in m.toNim(class,Public,state):
-                        if mm.signature.len==0 or mm.signature notin definedProcs:
-                            definedProcs.incl mm.signature
-                            tmp.add mm.decl
+                        tmp.addCallable(mm)
              
             if class.protectedMethods.len>0:
                 tmp.add (&"\n# Protected methods methods for {class.nimName}")
@@ -811,9 +870,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
                             imports.incl i
                             
                     for mm in m.toNim(class,Protected,state):
-                        if mm.signature.len==0 or mm.signature notin definedProcs:
-                            definedProcs.incl mm.signature
-                            tmp.add mm.decl
+                        tmp.addCallable(mm)
             
             if tmp.len>0:
                 xs.add (&"# Stuff for class {class.nimName}") #.indent(IND)

@@ -7,11 +7,11 @@ const headerFile* = "QtCore/qstring.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QString_SectionFlag* {.header:headerFile,importcpp:"QString::SectionFlag".} = enum SectionDefault = 0, SectionSkipEmpty = 0x1, SectionIncludeLeadingSep = 0x2, SectionIncludeTrailingSep = 0x3,
+    QString_SectionFlag* {.header:headerFile,importcpp:"QString::SectionFlag".} = enum SectionDefault = 0, SectionSkipEmpty = 0x1, SectionIncludeLeadingSep = 0x2, SectionIncludeTrailingSep = 0x3, 
         SectionCaseInsensitiveSeps = 0x4
     QString_NormalizationForm* {.header:headerFile,importcpp:"QString::NormalizationForm".} = enum NormalizationForm_D = 0, NormalizationForm_C = 0x1, NormalizationForm_KD = 0x2, NormalizationForm_KC = 0x3
     QLatin1String* {.header:headerFile,importcpp:"QLatin1String" ,pure.} = object {.inheritable.}
-    QString* {.header:headerFile,importcpp:"QString" .} = object
+    QString* {.header:headerFile,importcpp:"QString" .} = object 
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags
 
@@ -233,11 +233,15 @@ proc setNum*(this: QString, arg_1: cint): QString {.header:headerFile, importcpp
 proc setNum*(this: QString, arg_1: cuint, base: cint): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 proc setNum*(this: QString, arg_1: cuint): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 # 1 default parameters!
-proc setNum*(this: QString, arg_1: clong, base: cint): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
-proc setNum*(this: QString, arg_1: clong): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
+when (not defined(windows)):
+    proc setNum*(this: QString, arg_1: clong, base: cint): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
+when (not defined(windows)):
+    proc setNum*(this: QString, arg_1: clong): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 # 1 default parameters!
-proc setNum*(this: QString, arg_1: culong, base: cint): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
-proc setNum*(this: QString, arg_1: culong): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
+when (not defined(windows)):
+    proc setNum*(this: QString, arg_1: culong, base: cint): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
+when (not defined(windows)):
+    proc setNum*(this: QString, arg_1: culong): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 # 1 default parameters!
 proc setNum*(this: QString, arg_1: clonglong, base: cint): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 proc setNum*(this: QString, arg_1: clonglong): QString {.header:headerFile, importcpp:"#.setNum(@)".} # Public
@@ -257,11 +261,15 @@ proc static_QString_number*(arg_1: cint): QString {.header:headerFile, importcpp
 proc static_QString_number*(arg_1: cuint, base: cint): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
 proc static_QString_number*(arg_1: cuint): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
 # 1 default parameters!
-proc static_QString_number*(arg_1: clong, base: cint): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
-proc static_QString_number*(arg_1: clong): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
+when (not defined(windows)):
+    proc static_QString_number*(arg_1: clong, base: cint): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
+when (not defined(windows)):
+    proc static_QString_number*(arg_1: clong): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
 # 1 default parameters!
-proc static_QString_number*(arg_1: culong, base: cint): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
-proc static_QString_number*(arg_1: culong): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
+when (not defined(windows)):
+    proc static_QString_number*(arg_1: culong, base: cint): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
+when (not defined(windows)):
+    proc static_QString_number*(arg_1: culong): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
 # 1 default parameters!
 proc static_QString_number*(arg_1: clonglong, base: cint): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
 proc static_QString_number*(arg_1: clonglong): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
@@ -307,7 +315,7 @@ proc newQString*(s:string): QString = newQString(s.cstring)
 proc Q*(s:string): QString = newQString(s.cstring)
 # Qt stores data as UTF-16, while nim assumes utf-8 (well, it doesn't care about unicode)
 # so we convert it here for display
-func `$`*(s:QString): string =
+func `$`*(s:QString): string = 
     let xs=s.toUtf8
     for i in 0..<xs.length: result.add xs[i]
 func `$`*(s:ptr QString): string = $(s[])

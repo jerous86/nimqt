@@ -8,10 +8,10 @@ type
     # Classes and enums found in the C++ code
     # Global
     QUrl_ParsingMode* {.header:headerFile,importcpp:"QUrl::ParsingMode".} = enum TolerantMode = 0, StrictMode = 0x1, DecodedMode = 0x2
-    QUrl_UrlFormattingOption* {.header:headerFile,importcpp:"QUrl::UrlFormattingOption".} = enum None = 0, RemoveScheme = 0x1, RemovePassword = 0x2, RemoveUserInfo = 0x3,
-        RemovePort = 0x4, RemoveAuthority = 0x5, RemovePath = 0x6, RemoveQuery = 0x7, RemoveFragment = 0x8,
+    QUrl_UrlFormattingOption* {.header:headerFile,importcpp:"QUrl::UrlFormattingOption".} = enum None = 0, RemoveScheme = 0x1, RemovePassword = 0x2, RemoveUserInfo = 0x3, 
+        RemovePort = 0x4, RemoveAuthority = 0x5, RemovePath = 0x6, RemoveQuery = 0x7, RemoveFragment = 0x8, 
         PreferLocalFile = 0x9, StripTrailingSlash = 0xa, RemoveFilename = 0xb, NormalizePathSegments = 0xc
-    QUrl_ComponentFormattingOption* {.header:headerFile,importcpp:"QUrl::ComponentFormattingOption".} = enum PrettyDecoded = 0, EncodeSpaces = 0x1, EncodeUnicode = 0x2, EncodeDelimiters = 0x3,
+    QUrl_ComponentFormattingOption* {.header:headerFile,importcpp:"QUrl::ComponentFormattingOption".} = enum PrettyDecoded = 0, EncodeSpaces = 0x1, EncodeUnicode = 0x2, EncodeDelimiters = 0x3, 
         EncodeReserved = 0x4, DecodeReserved = 0x5, FullyEncoded = 0x6, FullyDecoded = 0x7
     QUrl_UserInputResolutionOption* {.header:headerFile,importcpp:"QUrl::UserInputResolutionOption".} = enum DefaultResolution = 0, AssumeLocalFile = 0x1
     QUrl_AceProcessingOption* {.header:headerFile,importcpp:"QUrl::AceProcessingOption".} = enum IgnoreIDNWhitelist = 0, AceTransitionalProcessing = 0x1

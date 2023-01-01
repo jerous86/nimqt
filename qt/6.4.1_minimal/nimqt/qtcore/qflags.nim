@@ -65,7 +65,7 @@ proc setFlag*[Enum](this: QFlags[Enum], flag: Enum): QFlags[Enum] {.header:heade
 # Additional code for qtcore/qflags
 func toSet*[Enum](this: QFlags[Enum]): set[Enum] =
     for e in Enum:
-        if this.testFlag(e):
+        if this.testFlag(e): 
             try: result.incl e
             except: discard
 

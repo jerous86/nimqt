@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QDockWidget_DockWidgetFeature* {.header:headerFile,importcpp:"QDockWidget::DockWidgetFeature".} = enum DockWidgetClosable = 0, DockWidgetMovable = 0x1, DockWidgetFloatable = 0x2, DockWidgetVerticalTitleBar = 0x3,
+    QDockWidget_DockWidgetFeature* {.header:headerFile,importcpp:"QDockWidget::DockWidgetFeature".} = enum DockWidgetClosable = 0, DockWidgetMovable = 0x1, DockWidgetFloatable = 0x2, DockWidgetVerticalTitleBar = 0x3, 
         DockWidgetFeatureMask = 0x4, NoDockWidgetFeatures = 0x5, Reserved = 0x6
     QDockWidget* {.header:headerFile,importcpp:"QDockWidget" ,pure.} = object of QWidget
 {.push warning[Deprecated]: on.}

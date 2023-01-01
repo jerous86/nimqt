@@ -7,8 +7,8 @@ const headerFile* = "QtGui/qpaintdevice.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QPaintDevice_PaintDeviceMetric* {.header:headerFile,importcpp:"QPaintDevice::PaintDeviceMetric".} = enum PdmWidth = 0, PdmHeight = 0x1, PdmWidthMM = 0x2, PdmHeightMM = 0x3,
-        PdmNumColors = 0x4, PdmDepth = 0x5, PdmDpiX = 0x6, PdmDpiY = 0x7, PdmPhysicalDpiX = 0x8,
+    QPaintDevice_PaintDeviceMetric* {.header:headerFile,importcpp:"QPaintDevice::PaintDeviceMetric".} = enum PdmWidth = 0, PdmHeight = 0x1, PdmWidthMM = 0x2, PdmHeightMM = 0x3, 
+        PdmNumColors = 0x4, PdmDepth = 0x5, PdmDpiX = 0x6, PdmDpiY = 0x7, PdmPhysicalDpiX = 0x8, 
         PdmPhysicalDpiY = 0x9, PdmDevicePixelRatio = 0xa, PdmDevicePixelRatioScaled = 0xb
     QPaintDevice* {.header:headerFile,importcpp:"QPaintDevice" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}

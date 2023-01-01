@@ -7,7 +7,7 @@ const headerFile* = "QtCore/qbytearray.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QByteArray_Base64Option* {.header:headerFile,importcpp:"QByteArray::Base64Option".} = enum Base64Encoding = 0, Base64UrlEncoding = 0x1, KeepTrailingEquals = 0x2, OmitTrailingEquals = 0x3,
+    QByteArray_Base64Option* {.header:headerFile,importcpp:"QByteArray::Base64Option".} = enum Base64Encoding = 0, Base64UrlEncoding = 0x1, KeepTrailingEquals = 0x2, OmitTrailingEquals = 0x3, 
         IgnoreBase64DecodingErrors = 0x4, AbortOnBase64DecodingErrors = 0x5
     QByteArray_Base64DecodingStatus* {.header:headerFile,importcpp:"QByteArray::Base64DecodingStatus".} = enum Ok = 0, IllegalInputLength = 0x1, IllegalCharacter = 0x2, IllegalPadding = 0x3
     QByteArray* {.header:headerFile,importcpp:"QByteArray" ,pure.} = object {.inheritable.}
@@ -167,11 +167,15 @@ proc setNum*(this: QByteArray, arg_1: cint): QByteArray {.header:headerFile, imp
 proc setNum*(this: QByteArray, arg_1: cuint, base: cint): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 proc setNum*(this: QByteArray, arg_1: cuint): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 # 1 default parameters!
-proc setNum*(this: QByteArray, arg_1: clong, base: cint): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
-proc setNum*(this: QByteArray, arg_1: clong): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
+when (not defined(windows)):
+    proc setNum*(this: QByteArray, arg_1: clong, base: cint): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
+when (not defined(windows)):
+    proc setNum*(this: QByteArray, arg_1: clong): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 # 1 default parameters!
-proc setNum*(this: QByteArray, arg_1: culong, base: cint): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
-proc setNum*(this: QByteArray, arg_1: culong): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
+when (not defined(windows)):
+    proc setNum*(this: QByteArray, arg_1: culong, base: cint): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
+when (not defined(windows)):
+    proc setNum*(this: QByteArray, arg_1: culong): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 # 1 default parameters!
 proc setNum*(this: QByteArray, arg_1: clonglong, base: cint): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
 proc setNum*(this: QByteArray, arg_1: clonglong): QByteArray {.header:headerFile, importcpp:"#.setNum(@)".} # Public
@@ -191,11 +195,15 @@ proc static_QByteArray_number*(arg_1: cint): QByteArray {.header:headerFile, imp
 proc static_QByteArray_number*(arg_1: cuint, base: cint): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
 proc static_QByteArray_number*(arg_1: cuint): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
 # 1 default parameters!
-proc static_QByteArray_number*(arg_1: clong, base: cint): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
-proc static_QByteArray_number*(arg_1: clong): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
+when (not defined(windows)):
+    proc static_QByteArray_number*(arg_1: clong, base: cint): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
+when (not defined(windows)):
+    proc static_QByteArray_number*(arg_1: clong): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
 # 1 default parameters!
-proc static_QByteArray_number*(arg_1: culong, base: cint): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
-proc static_QByteArray_number*(arg_1: culong): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
+when (not defined(windows)):
+    proc static_QByteArray_number*(arg_1: culong, base: cint): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
+when (not defined(windows)):
+    proc static_QByteArray_number*(arg_1: culong): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
 # 1 default parameters!
 proc static_QByteArray_number*(arg_1: clonglong, base: cint): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static
 proc static_QByteArray_number*(arg_1: clonglong): QByteArray {.header:headerFile, importcpp:"QByteArray::number(@)".} # Public static

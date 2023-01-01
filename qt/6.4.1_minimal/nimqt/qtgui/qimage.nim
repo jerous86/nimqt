@@ -9,13 +9,13 @@ type
     # Classes and enums found in the C++ code
     # Global
     QImage_InvertMode* {.header:headerFile,importcpp:"QImage::InvertMode".} = enum InvertRgb = 0, InvertRgba = 0x1
-    QImage_Format* {.header:headerFile,importcpp:"QImage::Format".} = enum Format_Invalid = 0, Format_Mono = 0x1, Format_MonoLSB = 0x2, Format_Indexed8 = 0x3,
-        Format_RGB32 = 0x4, Format_ARGB32 = 0x5, Format_ARGB32_Premultiplied = 0x6, Format_RGB16 = 0x7, Format_ARGB8565_Premultiplied = 0x8,
-        Format_RGB666 = 0x9, Format_ARGB6666_Premultiplied = 0xa, Format_RGB555 = 0xb, Format_ARGB8555_Premultiplied = 0xc, Format_RGB888 = 0xd,
-        Format_RGB444 = 0xe, Format_ARGB4444_Premultiplied = 0xf, Format_RGBX8888 = 0x10, Format_RGBA8888 = 0x11, Format_RGBA8888_Premultiplied = 0x12,
-        Format_BGR30 = 0x13, Format_A2BGR30_Premultiplied = 0x14, Format_RGB30 = 0x15, Format_A2RGB30_Premultiplied = 0x16, Format_Alpha8 = 0x17,
-        Format_Grayscale8 = 0x18, Format_RGBX64 = 0x19, Format_RGBA64 = 0x1a, Format_RGBA64_Premultiplied = 0x1b, Format_Grayscale16 = 0x1c,
-        Format_BGR888 = 0x1d, Format_RGBX16FPx4 = 0x1e, Format_RGBA16FPx4 = 0x1f, Format_RGBA16FPx4_Premultiplied = 0x20, Format_RGBX32FPx4 = 0x21,
+    QImage_Format* {.header:headerFile,importcpp:"QImage::Format".} = enum Format_Invalid = 0, Format_Mono = 0x1, Format_MonoLSB = 0x2, Format_Indexed8 = 0x3, 
+        Format_RGB32 = 0x4, Format_ARGB32 = 0x5, Format_ARGB32_Premultiplied = 0x6, Format_RGB16 = 0x7, Format_ARGB8565_Premultiplied = 0x8, 
+        Format_RGB666 = 0x9, Format_ARGB6666_Premultiplied = 0xa, Format_RGB555 = 0xb, Format_ARGB8555_Premultiplied = 0xc, Format_RGB888 = 0xd, 
+        Format_RGB444 = 0xe, Format_ARGB4444_Premultiplied = 0xf, Format_RGBX8888 = 0x10, Format_RGBA8888 = 0x11, Format_RGBA8888_Premultiplied = 0x12, 
+        Format_BGR30 = 0x13, Format_A2BGR30_Premultiplied = 0x14, Format_RGB30 = 0x15, Format_A2RGB30_Premultiplied = 0x16, Format_Alpha8 = 0x17, 
+        Format_Grayscale8 = 0x18, Format_RGBX64 = 0x19, Format_RGBA64 = 0x1a, Format_RGBA64_Premultiplied = 0x1b, Format_Grayscale16 = 0x1c, 
+        Format_BGR888 = 0x1d, Format_RGBX16FPx4 = 0x1e, Format_RGBA16FPx4 = 0x1f, Format_RGBA16FPx4_Premultiplied = 0x20, Format_RGBX32FPx4 = 0x21, 
         Format_RGBA32FPx4 = 0x22, Format_RGBA32FPx4_Premultiplied = 0x23
     QImage* {.header:headerFile,importcpp:"QImage" ,pure.} = object of QPaintDevice
 {.push warning[Deprecated]: on.}

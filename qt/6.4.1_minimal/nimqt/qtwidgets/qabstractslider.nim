@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QAbstractSlider_SliderAction* {.header:headerFile,importcpp:"QAbstractSlider::SliderAction".} = enum SliderNoAction = 0, SliderSingleStepAdd = 0x1, SliderSingleStepSub = 0x2, SliderPageStepAdd = 0x3,
+    QAbstractSlider_SliderAction* {.header:headerFile,importcpp:"QAbstractSlider::SliderAction".} = enum SliderNoAction = 0, SliderSingleStepAdd = 0x1, SliderSingleStepSub = 0x2, SliderPageStepAdd = 0x3, 
         SliderPageStepSub = 0x4, SliderToMinimum = 0x5, SliderToMaximum = 0x6, SliderMove = 0x7
     QAbstractSlider_SliderChange* {.header:headerFile,importcpp:"QAbstractSlider::SliderChange".} = enum SliderRangeChange = 0, SliderOrientationChange = 0x1, SliderStepsChange = 0x2, SliderValueChange = 0x3
     QAbstractSlider* {.header:headerFile,importcpp:"QAbstractSlider" ,pure.} = object of QWidget

@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qcombobox
 type
     # Classes and enums found in the C++ code
     # Global
-    QFontComboBox_FontFilter* {.header:headerFile,importcpp:"QFontComboBox::FontFilter".} = enum AllFonts = 0, ScalableFonts = 0x1, NonScalableFonts = 0x2, MonospacedFonts = 0x3,
+    QFontComboBox_FontFilter* {.header:headerFile,importcpp:"QFontComboBox::FontFilter".} = enum AllFonts = 0, ScalableFonts = 0x1, NonScalableFonts = 0x2, MonospacedFonts = 0x3, 
         ProportionalFonts = 0x4
     QFontComboBox* {.header:headerFile,importcpp:"QFontComboBox" ,pure.} = object of QComboBox
 {.push warning[Deprecated]: on.}

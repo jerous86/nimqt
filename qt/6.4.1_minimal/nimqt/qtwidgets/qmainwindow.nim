@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QMainWindow_DockOption* {.header:headerFile,importcpp:"QMainWindow::DockOption".} = enum AnimatedDocks = 0, AllowNestedDocks = 0x1, AllowTabbedDocks = 0x2, ForceTabbedDocks = 0x3,
+    QMainWindow_DockOption* {.header:headerFile,importcpp:"QMainWindow::DockOption".} = enum AnimatedDocks = 0, AllowNestedDocks = 0x1, AllowTabbedDocks = 0x2, ForceTabbedDocks = 0x3, 
         VerticalTabs = 0x4, GroupedDragging = 0x5
     QMainWindow* {.header:headerFile,importcpp:"QMainWindow" ,pure.} = object of QWidget
 {.push warning[Deprecated]: on.}

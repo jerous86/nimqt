@@ -8,7 +8,7 @@ import nimqt/qtcore/qobject
 type
     # Classes and enums found in the C++ code
     # Global
-    QAction_MenuRole* {.header:headerFile,importcpp:"QAction::MenuRole".} = enum NoRole = 0, TextHeuristicRole = 0x1, ApplicationSpecificRole = 0x2, AboutQtRole = 0x3,
+    QAction_MenuRole* {.header:headerFile,importcpp:"QAction::MenuRole".} = enum NoRole = 0, TextHeuristicRole = 0x1, ApplicationSpecificRole = 0x2, AboutQtRole = 0x3, 
         AboutRole = 0x4, PreferencesRole = 0x5, QuitRole = 0x6
     QAction_Priority* {.header:headerFile,importcpp:"QAction::Priority".} = enum LowPriority = 0, NormalPriority = 0x1, HighPriority = 0x2
     QAction_ActionEvent* {.header:headerFile,importcpp:"QAction::ActionEvent".} = enum Trigger = 0, Hover = 0x1

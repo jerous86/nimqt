@@ -8,7 +8,7 @@ import nimqt/qtcore/qobject
 type
     # Classes and enums found in the C++ code
     # Global
-    QWindow_Visibility* {.header:headerFile,importcpp:"QWindow::Visibility".} = enum Hidden = 0, AutomaticVisibility = 0x1, Windowed = 0x2, Minimized = 0x3,
+    QWindow_Visibility* {.header:headerFile,importcpp:"QWindow::Visibility".} = enum Hidden = 0, AutomaticVisibility = 0x1, Windowed = 0x2, Minimized = 0x3, 
         Maximized = 0x4, FullScreen = 0x5
     QWindow_AncestorMode* {.header:headerFile,importcpp:"QWindow::AncestorMode".} = enum ExcludeTransients = 0, IncludeTransients = 0x1
     QWindow* {.header:headerFile,importcpp:"QWindow" ,pure.} = object of QObject
@@ -179,7 +179,7 @@ proc wheelEvent*(this: ptr QWindow, arg_0: ptr QWheelEvent) {.header:headerFile,
 proc touchEvent*(this: ptr QWindow, arg_0: ptr QTouchEvent) {.header:headerFile, importcpp:"#.touchEvent(@)".} # Protected
 proc tabletEvent*(this: ptr QWindow, arg_0: ptr QTabletEvent) {.header:headerFile, importcpp:"#.tabletEvent(@)".} # Protected
 import nimqt/qtcore/qbytearray
-proc nativeEvent*(this: ptr QWindow, eventType: QByteArray, message: ptr , result: ptr cint): bool {.header:headerFile, importcpp:"#.nativeEvent(@)".} # Protected
+proc nativeEvent*(this: ptr QWindow, eventType: QByteArray, message: ptr, result: ptr cint): bool {.header:headerFile, importcpp:"#.nativeEvent(@)".} # Protected
 
 export qevent
 export qstring

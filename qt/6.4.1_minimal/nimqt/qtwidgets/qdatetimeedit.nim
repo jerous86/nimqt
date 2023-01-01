@@ -8,8 +8,8 @@ import nimqt/qtwidgets/qabstractspinbox
 type
     # Classes and enums found in the C++ code
     # Global
-    QDateTimeEdit_Section* {.header:headerFile,importcpp:"QDateTimeEdit::Section".} = enum NoSection = 0, AmPmSection = 0x1, MSecSection = 0x2, SecondSection = 0x3,
-        MinuteSection = 0x4, HourSection = 0x5, DaySection = 0x6, MonthSection = 0x7, YearSection = 0x8,
+    QDateTimeEdit_Section* {.header:headerFile,importcpp:"QDateTimeEdit::Section".} = enum NoSection = 0, AmPmSection = 0x1, MSecSection = 0x2, SecondSection = 0x3, 
+        MinuteSection = 0x4, HourSection = 0x5, DaySection = 0x6, MonthSection = 0x7, YearSection = 0x8, 
         TimeSections_Mask = 0x9, DateSections_Mask = 0xa
     QDateTimeEdit* {.header:headerFile,importcpp:"QDateTimeEdit" ,pure.} = object of QAbstractSpinBox
     QTimeEdit* {.header:headerFile,importcpp:"QTimeEdit" ,pure.} = object of QDateTimeEdit

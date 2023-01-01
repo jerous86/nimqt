@@ -323,7 +323,7 @@ proc dragLeaveEvent*(this: ptr QWidget, event: ptr QDragLeaveEvent) {.header:hea
 proc dropEvent*(this: ptr QWidget, event: ptr QDropEvent) {.header:headerFile, importcpp:"#.dropEvent(@)".} # Protected
 proc showEvent*(this: ptr QWidget, event: ptr QShowEvent) {.header:headerFile, importcpp:"#.showEvent(@)".} # Protected
 proc hideEvent*(this: ptr QWidget, event: ptr QHideEvent) {.header:headerFile, importcpp:"#.hideEvent(@)".} # Protected
-proc nativeEvent*(this: ptr QWidget, eventType: QByteArray, message: ptr , result: ptr cint): bool {.header:headerFile, importcpp:"#.nativeEvent(@)".} # Protected
+proc nativeEvent*(this: ptr QWidget, eventType: QByteArray, message: ptr, result: ptr cint): bool {.header:headerFile, importcpp:"#.nativeEvent(@)".} # Protected
 proc changeEvent*(this: ptr QWidget, arg_0: ptr QEvent) {.header:headerFile, importcpp:"#.changeEvent(@)".} # Protected
 proc metric*(this: ptr QWidget, arg_0: QPaintDevice_PaintDeviceMetric): cint {.header:headerFile, importcpp:"#.metric(@)".} # Protected
 import nimqt/qtgui/qpainter

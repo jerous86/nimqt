@@ -9,7 +9,7 @@ type
     # Classes and enums found in the C++ code
     # Global
     QContextMenuEvent_Reason* {.header:headerFile,importcpp:"QContextMenuEvent::Reason".} = enum Mouse = 0, Keyboard = 0x1, Other = 0x2
-    QInputMethodEvent_AttributeType* {.header:headerFile,importcpp:"QInputMethodEvent::AttributeType".} = enum TextFormat = 0, Cursor = 0x1, Language = 0x2, Ruby = 0x3,
+    QInputMethodEvent_AttributeType* {.header:headerFile,importcpp:"QInputMethodEvent::AttributeType".} = enum TextFormat = 0, Cursor = 0x1, Language = 0x2, Ruby = 0x3, 
         Selection = 0x4
     QScrollEvent_ScrollState* {.header:headerFile,importcpp:"QScrollEvent::ScrollState".} = enum ScrollStarted = 0, ScrollUpdated = 0x1, ScrollFinished = 0x2
     QInputEvent* {.header:headerFile,importcpp:"QInputEvent" ,pure.} = object of QEvent

@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QTabBar_Shape* {.header:headerFile,importcpp:"QTabBar::Shape".} = enum RoundedNorth = 0, RoundedSouth = 0x1, RoundedWest = 0x2, RoundedEast = 0x3,
+    QTabBar_Shape* {.header:headerFile,importcpp:"QTabBar::Shape".} = enum RoundedNorth = 0, RoundedSouth = 0x1, RoundedWest = 0x2, RoundedEast = 0x3, 
         TriangularNorth = 0x4, TriangularSouth = 0x5, TriangularWest = 0x6, TriangularEast = 0x7
     QTabBar_ButtonPosition* {.header:headerFile,importcpp:"QTabBar::ButtonPosition".} = enum LeftSide = 0, RightSide = 0x1
     QTabBar_SelectionBehavior* {.header:headerFile,importcpp:"QTabBar::SelectionBehavior".} = enum SelectLeftTab = 0, SelectRightTab = 0x1, SelectPreviousTab = 0x2

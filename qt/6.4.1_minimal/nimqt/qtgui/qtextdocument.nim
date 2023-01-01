@@ -11,7 +11,7 @@ type
     QTextDocument_MetaInformation* {.header:headerFile,importcpp:"QTextDocument::MetaInformation".} = enum DocumentTitle = 0, DocumentUrl = 0x1, CssMedia = 0x2
     QTextDocument_MarkdownFeature* {.header:headerFile,importcpp:"QTextDocument::MarkdownFeature".} = enum MarkdownNoHTML = 0, MarkdownDialectCommonMark = 0x1, MarkdownDialectGitHub = 0x2
     QTextDocument_FindFlag* {.header:headerFile,importcpp:"QTextDocument::FindFlag".} = enum FindBackward = 0, FindCaseSensitively = 0x1, FindWholeWords = 0x2
-    QTextDocument_ResourceType* {.header:headerFile,importcpp:"QTextDocument::ResourceType".} = enum UnknownResource = 0, HtmlResource = 0x1, ImageResource = 0x2, StyleSheetResource = 0x3,
+    QTextDocument_ResourceType* {.header:headerFile,importcpp:"QTextDocument::ResourceType".} = enum UnknownResource = 0, HtmlResource = 0x1, ImageResource = 0x2, StyleSheetResource = 0x3, 
         MarkdownResource = 0x4, UserResource = 0x5
     QTextDocument_Stacks* {.header:headerFile,importcpp:"QTextDocument::Stacks".} = enum UndoStack = 0, RedoStack = 0x1, UndoAndRedoStacks = 0x2
     QAbstractUndoItem* {.header:headerFile,importcpp:"QAbstractUndoItem" ,pure.} = object {.inheritable.}

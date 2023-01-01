@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qabstractslider
 type
     # Classes and enums found in the C++ code
     # Global
-    QSlider_TickPosition* {.header:headerFile,importcpp:"QSlider::TickPosition".} = enum NoTicks = 0, TicksAbove = 0x1, TicksLeft = 0x2, TicksBelow = 0x3,
+    QSlider_TickPosition* {.header:headerFile,importcpp:"QSlider::TickPosition".} = enum NoTicks = 0, TicksAbove = 0x1, TicksLeft = 0x2, TicksBelow = 0x3, 
         TicksRight = 0x4, TicksBothSides = 0x5
     QSlider* {.header:headerFile,importcpp:"QSlider" ,pure.} = object of QAbstractSlider
 {.push warning[Deprecated]: on.}

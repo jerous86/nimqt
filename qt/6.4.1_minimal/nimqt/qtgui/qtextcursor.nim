@@ -8,11 +8,11 @@ type
     # Classes and enums found in the C++ code
     # Global
     QTextCursor_MoveMode* {.header:headerFile,importcpp:"QTextCursor::MoveMode".} = enum MoveAnchor = 0, KeepAnchor = 0x1
-    QTextCursor_MoveOperation* {.header:headerFile,importcpp:"QTextCursor::MoveOperation".} = enum NoMove = 0, Start = 0x1, Up = 0x2, StartOfLine = 0x3,
-        StartOfBlock = 0x4, StartOfWord = 0x5, PreviousBlock = 0x6, PreviousCharacter = 0x7, PreviousWord = 0x8,
-        Left = 0x9, WordLeft = 0xa, End = 0xb, Down = 0xc, EndOfLine = 0xd,
-        EndOfWord = 0xe, EndOfBlock = 0xf, NextBlock = 0x10, NextCharacter = 0x11, NextWord = 0x12,
-        Right = 0x13, WordRight = 0x14, NextCell = 0x15, PreviousCell = 0x16, NextRow = 0x17,
+    QTextCursor_MoveOperation* {.header:headerFile,importcpp:"QTextCursor::MoveOperation".} = enum NoMove = 0, Start = 0x1, Up = 0x2, StartOfLine = 0x3, 
+        StartOfBlock = 0x4, StartOfWord = 0x5, PreviousBlock = 0x6, PreviousCharacter = 0x7, PreviousWord = 0x8, 
+        Left = 0x9, WordLeft = 0xa, End = 0xb, Down = 0xc, EndOfLine = 0xd, 
+        EndOfWord = 0xe, EndOfBlock = 0xf, NextBlock = 0x10, NextCharacter = 0x11, NextWord = 0x12, 
+        Right = 0x13, WordRight = 0x14, NextCell = 0x15, PreviousCell = 0x16, NextRow = 0x17, 
         PreviousRow = 0x18
     QTextCursor_SelectionType* {.header:headerFile,importcpp:"QTextCursor::SelectionType".} = enum WordUnderCursor = 0, LineUnderCursor = 0x1, BlockUnderCursor = 0x2, Document = 0x3
     QTextCursor* {.header:headerFile,importcpp:"QTextCursor" ,pure.} = object {.inheritable.}

@@ -8,19 +8,19 @@ import nimqt/qtwidgets/qabstractscrollarea
 type
     # Classes and enums found in the C++ code
     # Global
-    QAbstractItemView_SelectionMode* {.header:headerFile,importcpp:"QAbstractItemView::SelectionMode".} = enum NoSelection = 0, SingleSelection = 0x1, MultiSelection = 0x2, ExtendedSelection = 0x3,
+    QAbstractItemView_SelectionMode* {.header:headerFile,importcpp:"QAbstractItemView::SelectionMode".} = enum NoSelection = 0, SingleSelection = 0x1, MultiSelection = 0x2, ExtendedSelection = 0x3, 
         ContiguousSelection = 0x4
     QAbstractItemView_SelectionBehavior* {.header:headerFile,importcpp:"QAbstractItemView::SelectionBehavior".} = enum SelectItems = 0, SelectRows = 0x1, SelectColumns = 0x2
     QAbstractItemView_ScrollHint* {.header:headerFile,importcpp:"QAbstractItemView::ScrollHint".} = enum EnsureVisible = 0, PositionAtTop = 0x1, PositionAtBottom = 0x2, PositionAtCenter = 0x3
-    QAbstractItemView_EditTrigger* {.header:headerFile,importcpp:"QAbstractItemView::EditTrigger".} = enum NoEditTriggers = 0, CurrentChanged = 0x1, DoubleClicked = 0x2, SelectedClicked = 0x3,
+    QAbstractItemView_EditTrigger* {.header:headerFile,importcpp:"QAbstractItemView::EditTrigger".} = enum NoEditTriggers = 0, CurrentChanged = 0x1, DoubleClicked = 0x2, SelectedClicked = 0x3, 
         EditKeyPressed = 0x4, AnyKeyPressed = 0x5, AllEditTriggers = 0x6
     QAbstractItemView_ScrollMode* {.header:headerFile,importcpp:"QAbstractItemView::ScrollMode".} = enum ScrollPerItem = 0, ScrollPerPixel = 0x1
-    QAbstractItemView_DragDropMode* {.header:headerFile,importcpp:"QAbstractItemView::DragDropMode".} = enum NoDragDrop = 0, DragOnly = 0x1, DropOnly = 0x2, DragDrop = 0x3,
+    QAbstractItemView_DragDropMode* {.header:headerFile,importcpp:"QAbstractItemView::DragDropMode".} = enum NoDragDrop = 0, DragOnly = 0x1, DropOnly = 0x2, DragDrop = 0x3, 
         InternalMove = 0x4
-    QAbstractItemView_CursorAction* {.header:headerFile,importcpp:"QAbstractItemView::CursorAction".} = enum MoveUp = 0, MoveDown = 0x1, MoveLeft = 0x2, MoveRight = 0x3,
-        MoveHome = 0x4, MoveEnd = 0x5, MovePageUp = 0x6, MovePageDown = 0x7, MoveNext = 0x8,
+    QAbstractItemView_CursorAction* {.header:headerFile,importcpp:"QAbstractItemView::CursorAction".} = enum MoveUp = 0, MoveDown = 0x1, MoveLeft = 0x2, MoveRight = 0x3, 
+        MoveHome = 0x4, MoveEnd = 0x5, MovePageUp = 0x6, MovePageDown = 0x7, MoveNext = 0x8, 
         MovePrevious = 0x9
-    QAbstractItemView_State* {.header:headerFile,importcpp:"QAbstractItemView::State".} = enum NoState = 0, DraggingState = 0x1, DragSelectingState = 0x2, EditingState = 0x3,
+    QAbstractItemView_State* {.header:headerFile,importcpp:"QAbstractItemView::State".} = enum NoState = 0, DraggingState = 0x1, DragSelectingState = 0x2, EditingState = 0x3, 
         ExpandingState = 0x4, CollapsingState = 0x5, AnimatingState = 0x6
     QAbstractItemView_DropIndicatorPosition* {.header:headerFile,importcpp:"QAbstractItemView::DropIndicatorPosition".} = enum OnItem = 0, AboveItem = 0x1, BelowItem = 0x2, OnViewport = 0x3
     QAbstractItemView* {.header:headerFile,importcpp:"QAbstractItemView" ,pure.} = object of QAbstractScrollArea

@@ -7,26 +7,26 @@ const headerFile* = "QtGui/qfont.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QFont_StyleHint* {.header:headerFile,importcpp:"QFont::StyleHint".} = enum Helvetica = 0, SansSerif = 0x1, Times = 0x2, Serif = 0x3,
-        Courier = 0x4, TypeWriter = 0x5, OldEnglish = 0x6, Decorative = 0x7, System = 0x8,
+    QFont_StyleHint* {.header:headerFile,importcpp:"QFont::StyleHint".} = enum Helvetica = 0, SansSerif = 0x1, Times = 0x2, Serif = 0x3, 
+        Courier = 0x4, TypeWriter = 0x5, OldEnglish = 0x6, Decorative = 0x7, System = 0x8, 
         AnyStyle = 0x9, Cursive = 0xa, Monospace = 0xb, Fantasy = 0xc
-    QFont_StyleStrategy* {.header:headerFile,importcpp:"QFont::StyleStrategy".} = enum PreferDefault = 0, PreferBitmap = 0x1, PreferDevice = 0x2, PreferOutline = 0x3,
-        ForceOutline = 0x4, PreferMatch = 0x5, PreferQuality = 0x6, PreferAntialias = 0x7, NoAntialias = 0x8,
+    QFont_StyleStrategy* {.header:headerFile,importcpp:"QFont::StyleStrategy".} = enum PreferDefault = 0, PreferBitmap = 0x1, PreferDevice = 0x2, PreferOutline = 0x3, 
+        ForceOutline = 0x4, PreferMatch = 0x5, PreferQuality = 0x6, PreferAntialias = 0x7, NoAntialias = 0x8, 
         NoSubpixelAntialias = 0x9, PreferNoShaping = 0xa, NoFontMerging = 0xb
     QFont_HintingPreference* {.header:headerFile,importcpp:"QFont::HintingPreference".} = enum PreferDefaultHinting = 0, PreferNoHinting = 0x1, PreferVerticalHinting = 0x2, PreferFullHinting = 0x3
-    QFont_Weight* {.header:headerFile,importcpp:"QFont::Weight".} = enum Thin = 0, ExtraLight = 0x1, Light = 0x2, Normal = 0x3,
+    QFont_Weight* {.header:headerFile,importcpp:"QFont::Weight".} = enum Thin = 0, ExtraLight = 0x1, Light = 0x2, Normal = 0x3, 
         Medium = 0x4, DemiBold = 0x5, Bold = 0x6, ExtraBold = 0x7, Black = 0x8
     QFont_Style* {.header:headerFile,importcpp:"QFont::Style".} = enum StyleNormal = 0, StyleItalic = 0x1, StyleOblique = 0x2
-    QFont_Stretch* {.header:headerFile,importcpp:"QFont::Stretch".} = enum AnyStretch = 0, UltraCondensed = 0x1, ExtraCondensed = 0x2, Condensed = 0x3,
-        SemiCondensed = 0x4, Unstretched = 0x5, SemiExpanded = 0x6, Expanded = 0x7, ExtraExpanded = 0x8,
+    QFont_Stretch* {.header:headerFile,importcpp:"QFont::Stretch".} = enum AnyStretch = 0, UltraCondensed = 0x1, ExtraCondensed = 0x2, Condensed = 0x3, 
+        SemiCondensed = 0x4, Unstretched = 0x5, SemiExpanded = 0x6, Expanded = 0x7, ExtraExpanded = 0x8, 
         UltraExpanded = 0x9
-    QFont_Capitalization* {.header:headerFile,importcpp:"QFont::Capitalization".} = enum MixedCase = 0, AllUppercase = 0x1, AllLowercase = 0x2, SmallCaps = 0x3,
+    QFont_Capitalization* {.header:headerFile,importcpp:"QFont::Capitalization".} = enum MixedCase = 0, AllUppercase = 0x1, AllLowercase = 0x2, SmallCaps = 0x3, 
         Capitalize = 0x4
     QFont_SpacingType* {.header:headerFile,importcpp:"QFont::SpacingType".} = enum PercentageSpacing = 0, AbsoluteSpacing = 0x1
-    QFont_ResolveProperties* {.header:headerFile,importcpp:"QFont::ResolveProperties".} = enum NoPropertiesResolved = 0, FamilyResolved = 0x1, SizeResolved = 0x2, StyleHintResolved = 0x3,
-        StyleStrategyResolved = 0x4, WeightResolved = 0x5, StyleResolved = 0x6, UnderlineResolved = 0x7, OverlineResolved = 0x8,
-        StrikeOutResolved = 0x9, FixedPitchResolved = 0xa, StretchResolved = 0xb, KerningResolved = 0xc, CapitalizationResolved = 0xd,
-        LetterSpacingResolved = 0xe, WordSpacingResolved = 0xf, HintingPreferenceResolved = 0x10, StyleNameResolved = 0x11, FamiliesResolved = 0x12,
+    QFont_ResolveProperties* {.header:headerFile,importcpp:"QFont::ResolveProperties".} = enum NoPropertiesResolved = 0, FamilyResolved = 0x1, SizeResolved = 0x2, StyleHintResolved = 0x3, 
+        StyleStrategyResolved = 0x4, WeightResolved = 0x5, StyleResolved = 0x6, UnderlineResolved = 0x7, OverlineResolved = 0x8, 
+        StrikeOutResolved = 0x9, FixedPitchResolved = 0xa, StretchResolved = 0xb, KerningResolved = 0xc, CapitalizationResolved = 0xd, 
+        LetterSpacingResolved = 0xe, WordSpacingResolved = 0xf, HintingPreferenceResolved = 0x10, StyleNameResolved = 0x11, FamiliesResolved = 0x12, 
         AllPropertiesResolved = 0x13
     QFont* {.header:headerFile,importcpp:"QFont" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
