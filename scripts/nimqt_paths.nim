@@ -15,8 +15,14 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
         path
 
     proc myExec(cmd:string): string =
-        when allow_run_time: execProcess(cmd)
-        else: staticExec(cmd)
+        when allow_run_time: 
+            let (output,exitCode) = execCmdEx(cmd)
+            if exitCode != 0:
+                echo &"nimqt_paths: >> {cmd} << failed with exitCode {exitCode}"
+        else: 
+            # NOTE: staticExec does not return an exitCode, so this branch
+            # behaves a little different than the other branch.
+            staticExec(cmd)
 
     # using nre.replace would be a bit cleaner, but then we cannot use this proc at compile time :(
     var i=0
