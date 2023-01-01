@@ -56,23 +56,22 @@ inheritQObject(MyLineEdit, QLineEdit):
     slot_defer on_textChanged(text: const_var QString): 
         btnCalc.setEnabled(($this.text).len > 0)
 
+# Implement it ourselves here, because due to recursive module import issues in nim, this method
+# cannot be generated easily.
+proc widget*(this:ptr QLayoutItem): ptr QWidget {.header:qlayoutitem.headerFile, importcpp:"#.widget(@)".}
 
-proc setSpacingRec*(o: ptr QWidget, s: int) =
-    if o.typeof is ptr QWidget:
-        let w = cast[ptr QWidget](o)
-        w.layout.setSpacing s.cint
-        w.layout.setContentsMargins(s.cint, s.cint, s.cint, s.cint)
-    for c in o.children:
+proc setSpacingRec*(w: ptr QWidget, s: int) =
+    w.layout.setSpacing(s.cint)
+    w.layout.setContentsMargins(s.cint, s.cint, s.cint, s.cint)
+
+    for c in w.children:
         if c.typeof is ptr QWidget:
-            let w = cast[ptr QWidget](o)
+            let w = cast[ptr QWidget](c)
             w.setSpacingRec(s.cint)
-
-        # We cannot do this yet, as there is a recursive module dependency
-        # between, qlayoutitem, qwidget and qlayout, so we cannot obtain widget :(
-        # elif c.typeof is ptr QLayout:
-        #     let w=cast[ptr QLayout](o)
-        #     for i in 0..<w.count:
-        #         setSpacing(w.itemAt(i).widget, s)
+        elif c.typeof is ptr QLayout:
+            let w=cast[ptr QLayout](c)
+            for i in 0..<w.count:
+                setSpacingRec(w.itemAt(i).widget, s)
 
 
 let guiHandler = newGuiHandler()
@@ -116,8 +115,7 @@ win.makeLayout:
                 - newQPushButton() as btnB at (2, 3): configureInputButton("-")
                 - newQPushButton() as btnC at (3, 3): configureInputButton("*")
                 - newQPushButton() as btnD at (4, 3): configureInputButton("/")
-            setSpacingRec(2)
-    setSpacingRec(2)
+win.setSpacingRec(0)
 
 txtInput.setFocus
 btnCalc.setEnabled(false)
