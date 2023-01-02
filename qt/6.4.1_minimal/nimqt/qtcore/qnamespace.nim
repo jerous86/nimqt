@@ -293,7 +293,7 @@ type
     Qt_HighDpiScaleFactorRoundingPolicy* {.header:headerFile,importcpp:"Qt::HighDpiScaleFactorRoundingPolicy".} = enum Unset = 0, Round = 0x1, Ceil = 0x2, Floor = 0x3, 
         RoundPreferFloor = 0x4, PassThrough = 0x5
     Qt_ReturnByValueConstant* {.header:headerFile,importcpp:"Qt::ReturnByValueConstant".} = enum ReturnByValue = 0
-    QInternal_PaintDeviceFlags* {.header:headerFile,importcpp:"QInternal::PaintDeviceFlags".} = enum UnknownDevice = 0, Widget = 0x1, Pixmap = 0x2, Image = 0x3, 
+    QInternal_PaintDeviceFlags* {.header:headerFile,importcpp:"QInternal::PaintDeviceFlags",pure.} = enum UnknownDevice = 0, Widget = 0x1, Pixmap = 0x2, Image = 0x3, 
         Printer = 0x4, Picture = 0x5, Pbuffer = 0x6, FramebufferObject = 0x7, CustomRaster = 0x8, 
         PaintBuffer = 0x9, OpenGL = 0xa
     QInternal_RelayoutType* {.header:headerFile,importcpp:"QInternal::RelayoutType".} = enum RelayoutNormal = 0, RelayoutDragging = 0x1, RelayoutDropped = 0x2
