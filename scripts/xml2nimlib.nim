@@ -91,6 +91,18 @@ const customization_inheritance = {
     "qtqml/qqmlextensionplugin class QQmlEngineExtensionPlugin": "QObject",
     }.toTable
 
+# Perform a regex replacement in the final nim source code. In the replacement, use $1 etc to refer to groups.
+const customization_replaceInNimSource = {
+    "qtcore/qnamespace": @[
+        # replace the lower case version with something else, to avoid duplicate names
+        ("Key_Dead_a", "Key_Dead_a0"),
+        ("Key_Dead_e", "Key_Dead_e0"),
+        ("Key_Dead_i", "Key_Dead_i0"),
+        ("Key_Dead_o", "Key_Dead_o0"),
+        ("Key_Dead_u", "Key_Dead_u0"),
+        ]
+    }.toTable
+
 # These classes do not derive from RootObj.
 const customization_noninheritable:HashSet[string] = [
     #"qtcore/qlist class QList",
@@ -887,3 +899,9 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
             xs.add customization_footer[id].dedent
 
     result=xs.join("\n")
+
+    block:
+        let id = &"{state.component}/{state.module}"
+        if customization_replaceInNimSource.hasKey id:
+            for (search,repl) in customization_replaceInNimSource[id]:
+                result = result.replace(re search, repl)
