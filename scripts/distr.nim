@@ -19,13 +19,14 @@ type
         # be resolved automatically.
         requiredClasses: seq[string]
 
-const distributions={
-    "test": Distribution(
+const distributions=block:
+    var res:Table[string,Distribution]
+    res["test"]=Distribution(
         requiredClasses: @["QObject","QString","QWidget", "QKeyCombination"]
-        ),
+        )
     # Provides a set of the most useful modules to create a GUI, together with a limited
     # set of modules from QtCore.
-    "minimal": Distribution(
+    res["minimal"]=Distribution(
         # We can list here just the class names, as they are (in general) unique
         # Note that we have added some additional classes, due to some code in
         # customization_footer which depends also on some types.
@@ -67,7 +68,8 @@ const distributions={
             "QKeyCombination", # forces an import of QNamespace
             ]
         )
-    }.toTable
+
+    res
 
 var args:seq[string]
 var p = initOptParser(commandLineParams().join(" "))
