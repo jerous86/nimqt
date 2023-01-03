@@ -30,6 +30,10 @@ const customization_footer = {
         proc indexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.indexOf(@)".}
         proc lastIndexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
         """,
+    "qtcore/qanystringview": """
+        converter toQAnyStringView*(x:QString): QAnyStringView = newQAnyStringView(s)
+        converter toQAnyStringView*(x:QByteArray): QAnyStringView = newQAnyStringView(x)
+        """,
     "qtcore/qobject": """
         proc connect*(src:ptr QObject, signal:cstring, dst:ptr QObject, mth:cstring, `type`=AutoConnection) {.header:headerFile ,importcpp:"QObject::connect(@)".}
         proc connect*(src:ptr QObject, signal:string, dst:ptr QObject, mth:string, `type`=AutoConnection) = connect(src, signal.cstring, dst, mth.cstring, `type`)
