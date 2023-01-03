@@ -3,6 +3,8 @@ import os
 import osproc
 import strformat
 
+var QMAKE=os.getEnv("QMAKE_PATH", "qmake")
+
 proc replace_vars*(s:string, allow_run_time:static bool): string =
     proc todo_os(key:string): string {.used.} =
         doAssert false, &"TODO: {key} for this OS!"
@@ -11,7 +13,7 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
     proc check_path(path:string): string =
         when allow_run_time:
             # These *Exists is not available at compile time, so we allow disabling them
-            doAssert symlinkExists(path) or fileExists(path) or dirExists(path), &"{path} does not exist"
+            doAssert symlinkExists(path) or fileExists(path) or dirExists(path), &"\n>> {path} << does not exist"
         path
 
     proc myExec(cmd:string): string =
@@ -19,6 +21,7 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
             let (output,exitCode) = execCmdEx(cmd)
             if exitCode != 0:
                 echo &"nimqt_paths: >> {cmd} << failed with exitCode {exitCode}"
+            output
         else: 
             # NOTE: staticExec does not return an exitCode, so this branch
             # behaves a little different than the other branch.
@@ -36,13 +39,16 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
         let replacement=(case varName
             of "qtversion": 
                 # The Qt version that we are using
-                myExec("""sh -c "qmake6 -v | grep -o '[0-9]*\.[0-9]*\.[0-9]*'" """).strip
+                myExec(QMAKE & " -query QT_VERSION").strip
             of "qtroot": 
                 # The directory in which Qt libraries and headers reside
-                myExec("""sh -c "qmake6 -v | grep Using | grep -o '/.*'" """).strip
+                myExec(QMAKE & " -query QT_INSTALL_LIBS").strip
+            of "qtinstalllibs": 
+                # The directory in which Qt libraries and headers reside
+                myExec(QMAKE & " -query QT_INSTALL_LIBS").strip
             of "qtinstallheaders":
                 # The directory in which Qt headers reside
-                myExec("""qtpaths --query QT_INSTALL_HEADERS""").strip
+                myExec(QMAKE & " -query QT_INSTALL_HEADERS").strip
  
 
             # The following directories are in which the header file for a module resides
