@@ -9,6 +9,14 @@ With some effort it should also work for earlier versions.
 Install with `nimble install https://github.com/jerous86/nimqt`.
 This will install bindings that have been generated for Qt 6.4.1, but will very likely work with any Qt 6 version.
 
+`qmake` is used to determine the paths.
+The path can be overriden using the environment variable `QMAKE_PATH`, e.g.
+
+```
+QMAKE_PATH=$HOME/Qt/Qt5.2.1/bin/qmake nim cpp -r examples/calc.nim
+```
+will use (if it exists) Qt 5.2.1.
+
 ## Simple example
 The following example comes from `examples/hello.nim`
 ```nim

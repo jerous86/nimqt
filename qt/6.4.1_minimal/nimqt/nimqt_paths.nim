@@ -3,7 +3,8 @@ import os
 import osproc
 import strformat
 
-const QMAKE=os.getEnv("QMAKE_PATH", "qmake")
+const static_QMAKE=os.getEnv("QMAKE_PATH", "qmake")
+const runtime_QMAKE=os.getEnv("QMAKE_PATH", "qmake")
 
 proc replace_vars*(s:string, allow_run_time:static bool): string =
     proc todo_os(key:string): string {.used.} =
@@ -39,16 +40,20 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
         let replacement=(case varName
             of "qtversion": 
                 # The Qt version that we are using
-                myExec(QMAKE & " -query QT_VERSION").strip
+                when allow_run_time: myExec(runtime_QMAKE & " -query QT_VERSION").strip
+                else: myExec(static_QMAKE & " -query QT_VERSION").strip
             of "qtroot": 
                 # The directory in which Qt libraries and headers reside
-                myExec(QMAKE & " -query QT_INSTALL_LIBS").strip
+                when allow_run_time: myExec(runtime_QMAKE & " -query QT_INSTALL_LIBS").strip
+                else: myExec(static_QMAKE & " -query QT_INSTALL_LIBS").strip
             of "qtinstalllibs": 
                 # The directory in which Qt libraries and headers reside
-                myExec(QMAKE & " -query QT_INSTALL_LIBS").strip
+                when allow_run_time: myExec(runtime_QMAKE & " -query QT_INSTALL_LIBS").strip
+                else: myExec(static_QMAKE & " -query QT_INSTALL_LIBS").strip
             of "qtinstallheaders":
                 # The directory in which Qt headers reside
-                myExec(QMAKE & " -query QT_INSTALL_HEADERS").strip
+                when allow_run_time: myExec(runtime_QMAKE & " -query QT_INSTALL_HEADERS").strip
+                else: myExec(static_QMAKE & " -query QT_INSTALL_HEADERS").strip
  
 
             # The following directories are in which the header file for a module resides

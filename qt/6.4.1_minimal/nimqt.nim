@@ -16,8 +16,9 @@ when defined(macosx):
     {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets -framework QtQmlCore -framework QtQml".}
 elif defined(linux) or defined(windows):
     const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false)
+    const QtMajorVersion = nimqt_paths.replace_vars("${Qt_version}", allow_run_time=false).substr(0,1)
     {.passC: &"-I{QtInstallHeaders} -fPIC"}
-    {.passL: &"-lQt6Core -lQt6Gui -lQt6Widgets -lQt6QmlCore -lQt6Qml"}
+    {.passL: &"-lQt{QtMajorVersion}Core -lQt{QtMajorVersion}Gui -lQt{QtMajorVersion}Widgets -lQt{QtMajorVersion}QmlCore -lQt{QtMajorVersion}Qml"}
 else: 
     assert false, "Don't know how to compile on this operating system"
 
