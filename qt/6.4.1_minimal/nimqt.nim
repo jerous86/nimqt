@@ -13,11 +13,11 @@ template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 {.passc: &"""-std=c++17 -I{curFilePath.parentDir}""".}
 when defined(macosx):
     const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false)
-    {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets".}
+    {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets -framework QtQmlCore -framework QtQml".}
 elif defined(linux) or defined(windows):
     const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false)
     {.passC: &"-I{QtInstallHeaders} -fPIC"}
-    {.passL: &"-lQt6Core -lQt6Gui -lQt6Widgets"}
+    {.passL: &"-lQt6Core -lQt6Gui -lQt6Widgets -lQt6QmlCore -lQt6Qml"}
 else: 
     assert false, "Don't know how to compile on this operating system"
 
