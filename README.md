@@ -16,6 +16,7 @@ The path can be overriden using the environment variable `QMAKE_PATH`, e.g.
 QMAKE_PATH=$HOME/Qt/Qt5.2.1/bin/qmake nim cpp -r examples/calc.nim
 ```
 will use (if it exists) Qt 5.2.1.
+On linux it will link with the Qt major version libraries (i.e. for the example it will link with `-lQt5Core` etc, while for Qt 6 it will link to `-lQt6Core`).
 
 ## Simple example
 The following example comes from `examples/hello.nim`
