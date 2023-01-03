@@ -3,7 +3,7 @@ import os
 import osproc
 import strformat
 
-var QMAKE=os.getEnv("QMAKE_PATH", "qmake")
+const QMAKE=os.getEnv("QMAKE_PATH", "qmake")
 
 proc replace_vars*(s:string, allow_run_time:static bool): string =
     proc todo_os(key:string): string {.used.} =
