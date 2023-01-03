@@ -104,6 +104,7 @@ const customization_replaceInNimSource = {
         ("Key_Dead_i", "Key_Dead_i0"),
         ("Key_Dead_o", "Key_Dead_o0"),
         ("Key_Dead_u", "Key_Dead_u0"),
+        # Make an enum pure as both QInternal_PaintDeviceFlags and Qt_WindowType define a QWidget
         ("""QInternal_PaintDeviceFlags.*[}]""", """QInternal_PaintDeviceFlags* {.header:headerFile,importcpp:"QInternal::PaintDeviceFlags",pure.}""")
         ],
     }.toTable
