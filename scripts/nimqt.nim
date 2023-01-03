@@ -558,10 +558,9 @@ macro registerArgType*(t:typedesc) =
         {.emit: "W_REGISTER_ARGTYPE(" & $`t` & "&)" .}
 
 template blockSignalsTmp*(o:ptr typed, body:untyped) =
-    quote do:
-        let old=`o`.blockSignals(true)
-        `body`
-        discard `o`.blockSignals(old)
+    let old=o.blockSignals(true)
+    body
+    discard o.blockSignals(old)
 
 template SIGNAL*(signal:string): string = "2" & signal
 template SLOT*(slot:string): string = "1" & slot
