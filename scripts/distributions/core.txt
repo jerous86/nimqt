@@ -1,0 +1,12 @@
+# This is an example distribution
+# Text after '#' is ignored.
+# Lines starting with "parent:" indicate what files (inside /scripts/distributions/) to load.
+# Any lines that do not match are modules that should be included in the distribution.
+
+# Here, we do not have any parents. Look at /scripts/distributions/minimal.txt for an example.
+parent: 
+
+# For this distribution, we want to have the next four modules
+QObject QString QWidget
+
+QKeyCombination # forces an import of QNamespace

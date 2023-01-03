@@ -1882,6 +1882,132 @@ qtwidgets/qdatawidgetmapper class QDataWidgetMapper :: QObject
 qtwidgets/qdatawidgetmapper enum QDataWidgetMapper_SubmitPolicy
 
 
+qtqml/qqmlabstracturlinterceptor class QQmlAbstractUrlInterceptor :: 
+qtqml/qqmlabstracturlinterceptor enum QQmlAbstractUrlInterceptor_DataType
+
+
+qtqml/qqmlextensioninterface class QQmlTypesExtensionInterface :: 
+qtqml/qqmlextensioninterface class QQmlExtensionInterface :: QQmlTypesExtensionInterface
+qtqml/qqmlextensioninterface class QQmlEngineExtensionInterface :: 
+
+
+qtqml/qqmlfileselector class QQmlFileSelector :: QObject
+
+
+qtqml/qqmlparserstatus class QQmlParserStatus :: 
+
+
+qtqml/qjsengine class QJSEngine :: QObject
+qtqml/qjsengine enum QJSEngine_ObjectOwnership
+qtqml/qjsengine enum QJSEngine_Extension
+qtqml/qjsengine alias QJSEngine_Extensions -> 
+
+
+qtqml/qqmlextensionplugin class QQmlExtensionPlugin :: QObject < QQmlExtensionInterface
+qtqml/qqmlextensionplugin class QQmlEngineExtensionPlugin :: QObject < QQmlEngineExtensionInterface
+
+
+qtqml/qjsprimitivevalue class QJSPrimitiveUndefined :: 
+qtqml/qjsprimitivevalue class QJSPrimitiveNull :: 
+qtqml/qjsprimitivevalue class QJSPrimitiveValue :: 
+qtqml/qjsprimitivevalue enum QJSPrimitiveValue_Type
+
+
+qtqml/qqmlexpression class QQmlExpression :: QObject
+
+
+qtqml/qqmlnetworkaccessmanagerfactory class QQmlNetworkAccessManagerFactory :: 
+
+
+qtqml/qqmlscriptstring class QQmlScriptString :: 
+
+
+qtqml/qqmlproperty class QQmlProperty :: 
+qtqml/qqmlproperty alias QQmlProperties -> 
+
+
+qtqml/qqmllist class QQmlListProperty :: 
+qtqml/qqmllist alias QQmlListProperty_AppendFunction -> 
+qtqml/qqmllist alias QQmlListProperty_AtFunction -> 
+qtqml/qqmllist alias QQmlListProperty_ClearFunction -> 
+qtqml/qqmllist alias QQmlListProperty_ReplaceFunction -> 
+qtqml/qqmllist alias QQmlListProperty_RemoveLastFunction -> 
+qtqml/qqmllist class QQmlListReference :: 
+
+
+qtqml/qjsmanagedvalue class QJSManagedValue :: 
+qtqml/qjsmanagedvalue enum QJSManagedValue_Type
+
+
+qtqml/qqmlmoduleregistration class QQmlModuleRegistration :: 
+
+
+qtqml/qjsvalue class QJSValue :: 
+qtqml/qjsvalue enum QJSValue_SpecialValue
+qtqml/qjsvalue enum QJSValue_ErrorType
+qtqml/qjsvalue enum QJSValue_ObjectConversionBehavior
+qtqml/qjsvalue alias QJSValueList -> 
+
+
+qtqml/qqmlerror class QQmlError :: 
+
+
+qtqml/qqmlinfo class QQmlInfo :: QDebug
+qtqml/qqmlinfo derivedalias QQmlInfo_VerbosityLevel -> QDebug_VerbosityLevel
+qtqml/qqmlinfo derivedalias QQmlInfo_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtqml/qqmlinfo derivedalias QQmlInfo_OpenMode -> QIODeviceBase_OpenMode
+
+
+qtqml/qqmlcomponent class QQmlComponent :: QObject
+
+
+qtqml/qqmlapplicationengine class QQmlApplicationEngine :: QQmlEngine
+qtqml/qqmlapplicationengine derivedalias QQmlApplicationEngine_ObjectOwnership -> QJSEngine_ObjectOwnership
+qtqml/qqmlapplicationengine derivedalias QQmlApplicationEngine_Extension -> QJSEngine_Extension
+qtqml/qqmlapplicationengine derivedalias QQmlApplicationEngine_Extensions -> QJSEngine_Extensions
+
+
+qtqml/qqmlincubator class QQmlIncubator :: 
+qtqml/qqmlincubator enum QQmlIncubator_IncubationMode
+qtqml/qqmlincubator enum QQmlIncubator_Status
+qtqml/qqmlincubator class QQmlIncubationController :: 
+
+
+qtqml/qqmlcontext class QQmlContext :: QObject
+qtqml/qqmlcontext class QQmlContext_PropertyPair :: 
+
+
+qtqml/qqmldebug class QQmlDebuggingEnabler :: 
+qtqml/qqmldebug enum QQmlDebuggingEnabler_StartMode
+qtqml/qqmldebug class _QQmlTriviallyDestructibleDebuggingEnabler :: 
+
+
+qtqml/qqmlengine class QQmlImageProviderBase :: QObject
+qtqml/qqmlengine enum QQmlImageProviderBase_ImageType
+qtqml/qqmlengine enum QQmlImageProviderBase_Flag
+qtqml/qqmlengine alias QQmlImageProviderBase_Flags -> 
+qtqml/qqmlengine class QQmlEngine :: QJSEngine
+qtqml/qqmlengine derivedalias QQmlEngine_ObjectOwnership -> QJSEngine_ObjectOwnership
+qtqml/qqmlengine derivedalias QQmlEngine_Extension -> QJSEngine_Extension
+qtqml/qqmlengine derivedalias QQmlEngine_Extensions -> QJSEngine_Extensions
+
+
+qtqml/qjsnumbercoercion class QJSNumberCoercion :: 
+
+
+qtqml/qqmlfile class QQmlFile :: 
+qtqml/qqmlfile enum QQmlFile_Status
+
+
+qtqml/qqmlpropertymap class QQmlPropertyMap :: QObject
+
+
+qtqml/qqmlpropertyvaluesource class QQmlPropertyValueSource :: 
+
+
+qtqml/qqml enum QQmlModuleImportSpecialVersions
+
+
 qtcore/qreadwritelock class QReadWriteLock :: 
 qtcore/qreadwritelock enum QReadWriteLock_RecursionMode
 qtcore/qreadwritelock class QReadLocker :: 

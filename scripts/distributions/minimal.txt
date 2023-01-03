@@ -1,0 +1,38 @@
+# This is the distribution currently provided by default by nimqt.
+# It provides a set of the most useful modules to create a GUI, together with a limited
+# set of modules from QtCore.
+
+# It "inherits" from core.txt (other files can also be used). Parents are resolved recursively.
+parent: core
+
+QEvent QList QFlag QFlags QByteArray QStringList 
+QPoint QPointF QRect QRectF QSize QSizeF 
+QUrl QVariant 
+
+# QtGui
+QAction QBrush QClipboard QColor QCursor QFont QFontInfo QFontMetrics 
+QGuiApplication QIcon QImage 
+QHideEvent QHoverEvent QInputEvent QKeyEvent QMouseEvent QMoveEvent 
+QNativeGestureEvent QPaintDevice QPaintEvent QPainter QPen QPicture 
+QPixmap QPolygon QPolygonF QResizeEvent QShortcutEvent QShowEvent 
+QTextCursor QTextDocument QTextFormat QWheelEvent QWindow 
+
+# QtWidget
+QApplication QBoxLayout QVBoxLayout QHBoxLayout QGridLayout QFormLayout 
+QLayoutItem QSizePolicy QSpacerItem QStackedLayout QStackedWidget QWidgetItem 
+QTextBrowser 
+# Basic widget classes
+QCheckBox QComboBox QCommandLinkButton QDateEdit QDateTimeEdit QDial 
+QDoubleSpinBox QFocusFrame QFontComboBox QLCDNumber QLabel QLineEdit 
+QMenu QProgressBar QPushButton QRadioButton QScrollArea QScrollBar 
+QSizeGrip QSlider QSpinBox QTabBar QTabWidget QTimeEdit QToolBox 
+QToolButton 
+# Advanced widget classes
+QCalendarWidget 
+# Organizer widget classes
+QButtonGroup QGroupBox QSplitter QSplitterHandle QStackedWidget QTabWidget 
+# Graphics view classes
+# Model/View classes
+QListWidget QListWidgetItem QTableWidget QTableWidgetItem QTreeWidget QTreeWidgetItem 
+# Main window and related classes
+QDockWidget QMainWindow QMenuBar QStatusBar QToolBar QWidgetAction 

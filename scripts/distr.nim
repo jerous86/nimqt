@@ -17,59 +17,43 @@ type
     Distribution = object
         # All the classes we absolutely must have. The dependent classes will 
         # be resolved automatically.
+        parents: seq[string]
         requiredClasses: seq[string]
 
-const distributions=block:
+func merge*(l,r:Distribution): Distribution =
+    Distribution(
+        parents: concat(l.parents, r.parents).deduplicate,
+        requiredClasses: concat(l.requiredClasses, r.requiredClasses).deduplicate
+        )
+
+template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
+
+let distributions:Table[string,Distribution]=block:
     var res:Table[string,Distribution]
-    res["test"]=Distribution(
-        requiredClasses: @["QObject","QString","QWidget", "QKeyCombination"]
-        )
-    # Provides a set of the most useful modules to create a GUI, together with a limited
-    # set of modules from QtCore.
-    res["minimal"]=Distribution(
-        # We can list here just the class names, as they are (in general) unique
-        # Note that we have added some additional classes, due to some code in
-        # customization_footer which depends also on some types.
-        requiredClasses: @[
-            # QtCore
-            "QObject","QString","QEvent","QList","QFlag","QFlags","QByteArray","QStringList",
-            "QPoint","QPointF","QRect","QRectF","QSize","QSizeF",
-            "QUrl","QVariant",
-            
-            # QtGui
-            "QAction","QBrush","QClipboard","QColor","QCursor","QFont","QFontInfo","QFontMetrics",
-            "QGuiApplication","QIcon","QImage",
-            "QHideEvent","QHoverEvent","QInputEvent","QKeyEvent","QMouseEvent","QMoveEvent",
-            "QNativeGestureEvent","QPaintDevice","QPaintEvent","QPainter","QPen","QPicture",
-            "QPixmap","QPolygon","QPolygonF","QResizeEvent","QShortcutEvent","QShowEvent",
-            "QTextCursor","QTextDocument","QTextFormat","QWheelEvent","QWindow",
-            
-            # QtWidget
-            "QApplication","QBoxLayout","QVBoxLayout","QHBoxLayout","QGridLayout","QFormLayout",
-            "QLayoutItem","QSizePolicy","QSpacerItem","QStackedLayout","QStackedWidget","QWidgetItem",
-            "QTextBrowser",
-            # Basic widget classes
-            "QCheckBox","QComboBox","QCommandLinkButton","QDateEdit","QDateTimeEdit","QDial",
-            "QDoubleSpinBox","QFocusFrame","QFontComboBox","QLCDNumber","QLabel","QLineEdit",
-            "QMenu","QProgressBar","QPushButton","QRadioButton","QScrollArea","QScrollBar",
-            "QSizeGrip","QSlider","QSpinBox","QTabBar","QTabWidget","QTimeEdit","QToolBox",
-            "QToolButton","QWidget",
-            # Advanced widget classes
-            "QCalendarWidget",
-            # Organizer widget classes
-            "QButtonGroup","QGroupBox","QSplitter","QSplitterHandle","QStackedWidget","QTabWidget",
-            # Graphics view classes
-            # Model/View classes
-            "QListWidget","QListWidgetItem","QTableWidget","QTableWidgetItem","QTreeWidget","QTreeWidgetItem",
-            # Main window and related classes
-            "QDockWidget","QMainWindow","QMenuBar","QStatusBar","QToolBar","QWidgetAction",
-
-            # Misc
-            "QKeyCombination", # forces an import of QNamespace
-            ]
-        )
-
+    let dir = curFilePath().parentDir & "/distributions/"
+    for file in walkDir(dir):
+        let file=file.path
+        let lines=file.lines.toSeq
+            .mapIt(if '#' in it: it.substr(0, it.find('#')-1).strip else: it)
+            .filterIt(it.len>0)
+        let parents:seq[string]=lines
+            .filterIt(it.toLower.startsWith("parent:"))
+            .mapIt(it.substr("parent:".len).strip.split(" ")).concat.deduplicate
+            .mapIt(it.strip)
+            .filterIt(it.len>0)
+        let requiredClasses:seq[string]=lines
+            .filterIt(not it.toLower.startsWith("parent:"))
+            .mapIt(it.strip.split(" ")).concat.deduplicate
+            .mapIt(it.strip)
+            .filterIt(it.len>0)
+        res[file.splitFile.name]=Distribution(parents:parents, requiredClasses:requiredClasses)
     res
+
+func requiredClassesRec(distr:string, distributions:Table[string,Distribution]): seq[string] =
+    assert distributions.hasKey distr, &"Could not find distribution '{distr}'"
+    result = distributions[distr].requiredClasses
+    for p in distributions[distr].parents: result.add p.requiredClassesRec(distributions)
+    result = result.deduplicate
 
 var args:seq[string]
 var p = initOptParser(commandLineParams().join(" "))
@@ -78,9 +62,13 @@ for kind, key, val in p.getopt():
     of cmdArgument: args.add key
     of cmdLongOption, cmdShortOption:
         case key.toLowerAscii.replace("_","").replace("-","")
-        of "distr","distrs","distributions","printdistributions":
+        of "distrs","distributions","printdistributions":
             # echo "# Available distributions"
             echo toSeq(distributions.keys).join("\n")
+            quit(0)
+        of "distr","distribution","printdistribution":
+            # echo distributions[val]
+            echo val.requiredClassesRec(distributions)
             quit(0)
         else:
             doAssert false, &"Invalid option {key}"
@@ -96,6 +84,7 @@ let
 
     # Location where all the files will be stored, except for nimqt.nim
     outputDir2 = &"{outputDir}/nimqt/"
+
 doAssert fileExists(xmlInputDir/"typeDb.txt")
 doAssert distributions.hasKey(distr), &"Invalid distr {distr}. Choose one from {toSeq(distributions.keys)}."
 
@@ -106,10 +95,13 @@ func unpackTemplates(xs:seq[string]): seq[string] =
         if "<" in x: result.add x.replace(">","").split("<").mapIt(it.replace("class ","").strip).filterIt(it notin ["T"])
         else: result.add x
 
+# Figure out all classes that we need to satisfy the distribution.
 let 
-    distribution = distributions[distr]
-    # Figure out all classes that we need to satisfy the distribution.
-    requiredTypes:seq[TypeInfo] = distribution.requiredClasses.mapIt(db.xs[db.names[it]])
+    # Just the explicitly specified classes
+    requiredClasses = distr.requiredClassesRec(distributions)
+    requiredTypes:seq[TypeInfo] = requiredClasses.mapIt(db.xs[db.names[it]])
+
+    # Now look the parent classes
     dependentClassNames:seq[string] = requiredTypes.mapIt(db.listBaseClassesRec(it)).concat.filterIt(it.len>0).unpackTemplates.deduplicate
     allRequiredTypes:seq[TypeInfo] = concat(requiredTypes, dependentClassNames.mapIt(db.xs[db.names[it]])).deduplicate
 
