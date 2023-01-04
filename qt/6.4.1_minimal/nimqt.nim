@@ -9,20 +9,20 @@ import nimqt/nimqt_paths
 
 
 template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
-proc addLibraryIfExists(lib:string):string {.compiletime.} =
-    return &"-l{lib}"
-    # We get something like "undefined symbols" or "undefined reference" if the library exists,
-    # and something else if the library does not exist.
-    # TODO it would be nice if we could use ${CXX} instead of g++ or clang
-    #let stderrout = staticExec(&"""sh -c "g++ -l{lib} 2>&1" """).toLower
-    #if "undefined symbols" in stderrout or "undefined reference" in stderrout: &"-l{lib}"
-    #else: ""
-
 {.passc: &"""-std=c++17 -I{curFilePath.parentDir}""".}
 when defined(macosx):
     const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false)
     {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets -framework QtQmlCore -framework QtQml".}
 elif defined(linux) or defined(windows):
+    proc addLibraryIfExists(lib:string):string {.compiletime.} =
+        return &"-l{lib}"
+        # We get something like "undefined symbols" or "undefined reference" if the library exists,
+        # and something else if the library does not exist.
+        # TODO it would be nice if we could use ${CXX} instead of g++ or clang
+        #let stderrout = staticExec(&"""sh -c "g++ -l{lib} 2>&1" """).toLower
+        #if "undefined symbols" in stderrout or "undefined reference" in stderrout: &"-l{lib}"
+        #else: ""
+
     const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false)
     const QtMajorVersion = nimqt_paths.replace_vars("${Qt_version}", allow_run_time=false).substr(0,0)
     {.passC: &"-I{QtInstallHeaders} -fPIC"}
