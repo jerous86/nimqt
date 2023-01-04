@@ -141,17 +141,18 @@ when false:
     echo &"Symlink verdigris/src/ to {outputDir}/verdigris/"
     createSymLink(src="../../verdigris/src", dest = &"{outputDir}/verdigris")
 else:
-    removeFile(&"{outputDir}/qt.nim")
-    removeFile(&"{outputDir2}/nimqt_paths.nim")
+    proc myCopyFile(src,dst:string) =
+        echo &"Copy {src} to {outputDir/dst}"
+        removeFile(&"{outputDir}/{dst}")
+        copyFile(source=src, dest = outputDir/dst)
+    proc myCopyDir(src,dst:string) =
+        echo &"Copy {src} to {outputDir/dst}"
+        removeDir(outputDir/dst)
+        copyDir(source=src, dest = outputDir/dst)
 
-    echo &"Copy scripts/qt.nim to {outputDir}/nimqt.nim"
-    copyFile(source="scripts/nimqt.nim", dest = &"{outputDir}/nimqt.nim")
-
-    echo &"Copy scripts/nimqt_paths.nim to {outputDir2}/nimqt_paths.nim"
-    copyFile(source="scripts/nimqt_paths.nim", dest = &"{outputDir2}/nimqt_paths.nim")
-
-    echo &"Copy verdigris/src/ to {outputDir}/verdigris/"
-    copyDir(source="verdigris/src", dest = &"{outputDir}/verdigris")
+    myCopyFile("scripts/nimqt.nim", "nimqt.nim")
+    myCopyFile("scripts/nimqt_paths.nim", "nimqt_paths.nim")
+    myCopyDir("verdigris/src", "verdigris")
 
 for t in allRequiredTypes:
     let xmlInputFile = &"{xmlInputDir}/{t.component}/{t.module}.xml"
