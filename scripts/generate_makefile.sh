@@ -4,9 +4,10 @@
 #
 
 cd "$(dirname "$0")/.."
-. scripts/components.sh
 
 DISTR="$1"
+
+. scripts/components.sh
 
 set -ue
 
