@@ -11,7 +11,7 @@ import nimqt/nimqt_paths
 template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 {.passc: &"""-std=c++17 -I{curFilePath.parentDir}""".}
 when defined(macosx):
-    const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false)
+    const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false, enable_path_check=false)
     {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets -framework QtQmlCore -framework QtQml".}
 elif defined(linux) or defined(windows):
     proc addLibraryIfExists(lib:string):string {.compiletime.} =
@@ -23,8 +23,8 @@ elif defined(linux) or defined(windows):
         #if "undefined symbols" in stderrout or "undefined reference" in stderrout: &"-l{lib}"
         #else: ""
 
-    const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false)
-    const QtMajorVersion = nimqt_paths.replace_vars("${Qt_version}", allow_run_time=false).substr(0,0)
+    const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false, enable_path_check=false)
+    const QtMajorVersion = nimqt_paths.replace_vars("${Qt_version}", allow_run_time=false, enable_path_check=false).substr(0,0)
     {.passC: &"-I{QtInstallHeaders} -fPIC"}
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Core").}
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Gui").}
