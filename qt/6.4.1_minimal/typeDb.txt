@@ -3000,3 +3000,6 @@ qtcore/qcoreapplication class QCoreApplication :: QObject
 
 
 qtcore/qcompare class QPartialOrdering :: 
+
+
+qtuitools/quiloader class QUiLoader :: QObject

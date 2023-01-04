@@ -1,4 +1,5 @@
 .DS_Store
+*.git.bck/
 *.swp
 tmp/
 
@@ -6,6 +7,7 @@ examples/poc
 examples/calc
 examples/text_view
 examples/hello
+examples/load_ui
 
 scripts/cpp2xml
 scripts/distr

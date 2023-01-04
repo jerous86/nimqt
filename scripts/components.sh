@@ -3,7 +3,7 @@
 #
 # This script defines some constants. It is to be included in other scripts.
 
-COMPONENTS=(QtCore QtGui QtWidgets QtQmlCore QtQml)
+COMPONENTS=(QtCore QtGui QtWidgets QtQmlCore QtQml QtUiTools)
 
 # The version for which we are generating nim files
 QT_VERSION=$(nim r scripts/nimqt_paths.nim '${QT_VERSION}')

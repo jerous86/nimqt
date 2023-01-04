@@ -7,7 +7,7 @@ parent: core
 
 QEvent QList QFlag QFlags QByteArray QStringList 
 QPoint QPointF QRect QRectF QSize QSizeF 
-QUrl QVariant 
+QUrl QVariant QTextStream QIODevice QFile QBuffer
 
 # QtGui
 QAction QBrush QClipboard QColor QCursor QFont QFontInfo QFontMetrics 
@@ -15,7 +15,7 @@ QGuiApplication QIcon QImage
 QHideEvent QHoverEvent QInputEvent QKeyEvent QMouseEvent QMoveEvent 
 QNativeGestureEvent QPaintDevice QPaintEvent QPainter QPen QPicture 
 QPixmap QPolygon QPolygonF QResizeEvent QShortcutEvent QShowEvent 
-QTextCursor QTextDocument QTextFormat QWheelEvent QWindow 
+QTextCursor QTextDocument QTextFormat QWheelEvent QWindow QTextEdit
 
 # QtWidget
 QApplication QBoxLayout QVBoxLayout QHBoxLayout QGridLayout QFormLayout 
@@ -36,3 +36,6 @@ QButtonGroup QGroupBox QSplitter QSplitterHandle QStackedWidget QTabWidget
 QListWidget QListWidgetItem QTableWidget QTableWidgetItem QTreeWidget QTreeWidgetItem 
 # Main window and related classes
 QDockWidget QMainWindow QMenuBar QStatusBar QToolBar QWidgetAction 
+
+# To load .ui files
+QUiLoader

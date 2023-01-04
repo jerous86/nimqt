@@ -78,6 +78,10 @@ proc replace_vars*(s:string, allow_run_time:static bool, enable_path_check:bool)
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtQml.framework/Headers/",allow_run_time,enable_path_check))
                 elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQml/",allow_run_time,enable_path_check))
                 else: todo_os "QtQml_header_dir"
+            of "qtuitoolsheaderdir": 
+                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtUiTools.framework/Headers/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtUiTools/",allow_run_time,enable_path_check))
+                else: todo_os "QtUiTools_header_dir"
 
 
             # LLVM is used in cpp2xml.nim

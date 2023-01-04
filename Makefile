@@ -48,4 +48,14 @@ build_poc:
 run_poc:
 	./examples/poc
 
+
+load_ui: FORCE
+	rm -f load_ui
+	make build_load_ui run_load_ui
+build_load_ui:
+	nim cpp --path:$(MY_PATH) examples/load_ui.nim
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_INSTALL_LIBS) examples/load_ui; fi
+run_load_ui:
+	./examples/load_ui
+
 FORCE:

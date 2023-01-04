@@ -1,7 +1,7 @@
 # nimqt
 [Qt6](https://www.qt.io/) bindings for [nim](https://nim-lang.org/).
 It makes use of [verdigris](https://github.com/woboq/verdigris), a set of macros to use Qt without moc.
-With some effort it should also work for earlier versions.
+The targeted version is Qt6, but it might also work for earlier versions of Qt.
 
 # Usage
 
@@ -235,6 +235,40 @@ Doing something like
 2. `rootWidget` > `QVboxLayout` > `QWidget` > `QWidget` 
 
 will result in compilation errors, as a `QLayout` follows a `QLayout` (in 1.) and a `QWidget` follows a `QWidget` (in 2.).
+
+### Loading .ui files
+Simple support for loading `.ui` files is available.
+These files can be created using e.g. Qt Creator.
+
+To enable this, the macro `loadUi` from the module `nimqt/load_ui` should be imported.
+The macro expects two arguments, a `ptr QWidget` (might be nil) in which to load the layout, and the (absolute) path to the `.ui` file.
+
+An example of this can be seen in `examples/load_ui.nim`:
+
+```nim
+import os
+
+import nimqt
+import nimqt/[load_ui,qboxlayout]
+
+nimqt.init
+let app = newQApplication(commandLineParams())
+
+# We use `curFileDir`, defined in nimqt/load_ui to get the directory of *this* file.
+# loadUi works best with absolute paths.
+var rootWg:ptr QWidget
+rootWg.loadUi(curFileDir/"load_ui_example.ui", createConnections=true)
+btnUndo.setEnabled(false)
+btnRedo.setEnabled(false)
+
+rootWg.show()
+discard app.exec()
+```
+
+This macro will generate `let` statements for all the objects in the `.ui` file, and also create the connections that are specified in the `.ui` file.
+To disable these connections, set `createConnections=false`.
+To see the code that is generated, set `printLetStatements=true` in the `loadUi` call.
+
 
 ### Other notes
 

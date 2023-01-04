@@ -151,7 +151,8 @@ else:
         copyDir(source=src, dest = outputDir/dst)
 
     myCopyFile("scripts/nimqt.nim", "nimqt.nim")
-    myCopyFile("scripts/nimqt_paths.nim", "nimqt_paths.nim")
+    myCopyFile("scripts/load_ui.nim", "nimqt/load_ui.nim")
+    myCopyFile("scripts/nimqt_paths.nim", "nimqt/nimqt_paths.nim")
     myCopyDir("verdigris/src", "verdigris")
 
 for t in allRequiredTypes:
