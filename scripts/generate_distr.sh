@@ -14,12 +14,13 @@ if [ $# -ne 1 ]; then
 	nim r scripts/distr.nim --print-distributions
 	exit 1
 fi
-export DISTR="$1"
+
+DISTR="$1"
 
 set -uex
 
 mkdir -p tmp/ qt/
-./scripts/generate_makefile.sh > tmp/Makefile_${DISTR}
+./scripts/generate_makefile.sh $DISTR > tmp/Makefile_${DISTR}
 make -f tmp/Makefile_${DISTR} cpp2xml generateTypeDb distr 
 # make -f tmp/Makefile_${DISTR} testnim # just does a ```nim check``` on a file that imports the module
 

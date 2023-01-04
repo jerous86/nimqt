@@ -6,6 +6,8 @@
 cd "$(dirname "$0")/.."
 . scripts/components.sh
 
+DISTR="$1"
+
 set -ue
 
 echo "ROOT:=$PWD"
