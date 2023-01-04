@@ -234,7 +234,7 @@ proc handleMain2(c,parent:CXCursor, data:CXClientData):CXChildVisitResult =
             discard visitChildren(c, handleMain2, nil)
     h_continue()
     
-{.passL: nimqt_paths.replace_vars("-L${LLVM_lib_dir} -lclang ", allow_run_time=false).}
+{.passL: nimqt_paths.replace_vars("-L${LLVM_lib_dir} -lclang ", allow_run_time=false, enable_path_check=false).}
 var clangArgs:seq[string]
 clangArgs.add @["-std=c++17", "-D", "__PIC__=2"]
 # We need the "-x c++-header" to force it to parse like a cpp file ...
@@ -245,7 +245,7 @@ when defined(macosx):
     # https://forum.qt.io/topic/141436/qt-6-4-1-on-macos-where-are-the-qtwidgets-header-files/2
     clangArgs.add @["-F", nimqt_paths.replace_vars("${Qt_root}", allow_run_time=true)]
 elif defined(linux) or defined(windows):
-    clangArgs.add @["-I", nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=true)]
+    clangArgs.add @["-I", nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=true, enable_path_check=true)]
 
 var index = createIndex(0,0)
 

@@ -4,17 +4,18 @@ import osproc
 import strformat
 
 const static_QMAKE=os.getEnv("QMAKE_PATH", "qmake")
-const runtime_QMAKE=os.getEnv("QMAKE_PATH", "qmake")
+let runtime_QMAKE=os.getEnv("QMAKE_PATH", "qmake")
 
-proc replace_vars*(s:string, allow_run_time:static bool): string =
+proc replace_vars*(s:string, allow_run_time:static bool, enable_path_check:bool): string =
     proc todo_os(key:string): string {.used.} =
         doAssert false, &"TODO: {key} for this OS!"
         ""
 
     proc check_path(path:string): string =
         when allow_run_time:
-            # These *Exists is not available at compile time, so we allow disabling them
-            doAssert symlinkExists(path) or fileExists(path) or dirExists(path), &"\n>> {path} << does not exist"
+            if enable_path_check:
+                # These *Exists is not available at compile time, so we allow disabling them
+                doAssert symlinkExists(path) or fileExists(path) or dirExists(path), &"\n>> {path} << does not exist"
         path
 
     proc myExec(cmd:string): string =
@@ -58,24 +59,24 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
 
             # The following directories are in which the header file for a module resides
             of "qtcoreheaderdir": 
-                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtCore.framework/Headers/",allow_run_time))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtCore/",allow_run_time))
+                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtCore.framework/Headers/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtCore/",allow_run_time,enable_path_check))
                 else: todo_os "QtCore_header_dir"
             of "qtguiheaderdir": 
-                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtGui.framework/Headers/",allow_run_time))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtGui/",allow_run_time))
+                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtGui.framework/Headers/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtGui/",allow_run_time,enable_path_check))
                 else: todo_os "QtGui_header_dir"
             of "qtwidgetsheaderdir": 
-                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtWidgets.framework/Headers/",allow_run_time))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtWidgets/",allow_run_time))
+                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtWidgets.framework/Headers/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtWidgets/",allow_run_time,enable_path_check))
                 else: todo_os "QtWidgets_header_dir"
             of "qtqmlcoreheaderdir": 
-                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtQmlCore.framework/Headers/",allow_run_time))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQmlCore/",allow_run_time))
+                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtQmlCore.framework/Headers/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQmlCore/",allow_run_time,enable_path_check))
                 else: todo_os "QtQmlCore_header_dir"
             of "qtqmlheaderdir": 
-                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtQml.framework/Headers/",allow_run_time))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQml/",allow_run_time))
+                when defined(macosx): checkPath(replace_vars("${Qt_root}/QtQml.framework/Headers/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQml/",allow_run_time,enable_path_check))
                 else: todo_os "QtQml_header_dir"
 
 
@@ -90,7 +91,7 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
                 else: todo_os "LLVM_root"
 
             of "llvmlibdir":
-                when defined(macosx): checkPath(replace_vars("${LLVM_root}/lib",allow_run_time))
+                when defined(macosx): checkPath(replace_vars("${LLVM_root}/lib",allow_run_time,enable_path_check))
                 elif defined(linux): checkPath(myExec("""llvm-config --libdir"""))
                 else: todo_os "LLVM_root"
 
@@ -106,11 +107,18 @@ proc replace_vars*(s:string, allow_run_time:static bool): string =
 when isMainModule:
     import parseopt
 
+    var 
+        enable_path_check=true
+
     var p = initOptParser(commandLineParams().join(" "))
     for kind, key, val in p.getopt():
         case kind
         of cmdArgument: 
-            if "${" in key: echo replace_vars(key, allow_run_time=true)
-            else: echo replace_vars("${"&key&"}", allow_run_time=true)
-        of cmdLongOption, cmdShortOption: assert(false)
+            if "${" in key: echo replace_vars(key, allow_run_time=true, enable_path_check=enable_path_check)
+            else: echo replace_vars("${"&key&"}", allow_run_time=true, enable_path_check=enable_path_check)
+        of cmdLongOption, cmdShortOption:
+            case key.toLowerAscii.replace("_","").replace("-","")
+            of "disablepathcheck": enable_path_check=false
+            of "enablepathcheck": enable_path_check=true
+            else: discard
         of cmdEnd: assert(false) # cannot happen

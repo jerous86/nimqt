@@ -15,8 +15,9 @@ VERSION_DISTR="${QT_VERSION}_${DISTR}"
 
 # The exact location where to find the header files
 QT_HEADERS_DIR() {
-	local component="$1"
-	nim r scripts/nimqt_paths.nim "${component}_header_dir"
+	local path_check="$1"
+	local component="$2"
+	nim r scripts/nimqt_paths.nim $path_check "${component}_header_dir"
 }
 
 # Location where the xml files are stored.

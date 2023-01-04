@@ -13,11 +13,11 @@ echo "XML_FILES_ROOT:=$XML_FILES_ROOT"
 echo "NIMQT_ROOT:=$NIMQT_ROOT"
 echo "DISTR:=$DISTR"
 echo "VERSION_DISTR:=$VERSION_DISTR"
-echo "QTCORE_HEADERS_DIR:=$(QT_HEADERS_DIR QtCore)"
-echo "QTGUI_HEADERS_DIR:=$(QT_HEADERS_DIR QtGui)"
-echo "QTWIDGETS_HEADERS_DIR:=$(QT_HEADERS_DIR QtWidgets)"
-echo "QTQMLCORE_HEADERS_DIR:=$(QT_HEADERS_DIR QtQmlCore)"
-echo "QTQML_HEADERS_DIR:=$(QT_HEADERS_DIR QtQml)"
+echo "QTCORE_HEADERS_DIR:=$(QT_HEADERS_DIR --enable-path-check QtCore)"
+echo "QTGUI_HEADERS_DIR:=$(QT_HEADERS_DIR --enable-path-check QtGui)"
+echo "QTWIDGETS_HEADERS_DIR:=$(QT_HEADERS_DIR --enable-path-check QtWidgets)"
+echo "QTQMLCORE_HEADERS_DIR:=$(QT_HEADERS_DIR --disable-path-check QtQmlCore)"
+echo "QTQML_HEADERS_DIR:=$(QT_HEADERS_DIR --disable-path-check QtQml)"
 echo ""
 echo "all: distr"
 echo "full: cpp2xml generateTypeDb distr"
@@ -60,64 +60,67 @@ generate_for_component() {
 	clean_xml_modules=()
 	clean_nim_modules=()
 	clean_modules=()
-	for headerFile in "$(QT_HEADERS_DIR $component)"/*.h; do
-		module="$(basename $headerFile .h)"
-		id="${component_lc}_${module}"
 
-		# headerFile2 is (should be) identical to headerFile, but it just makes use of 
-		# the variable QT*_HEADERS_DIR (for clarity and brevity)
-		headerFile2="\${${component^^}_HEADERS_DIR}/${module}.h"
-		tgt_xml="$tmp_root/$module.xml"
-		test_mod="$tmp_root/${module}_test.nim"
-		tgt_nim="\${NIMQT_ROOT}/${component_lc}/${module}.nim"
-		tgt2_nim="\${NIMQT_ROOT}/${module}.nim" # Without the component
-		
-		if [[ "$(skippable_file "$component_lc/$(basename $headerFile2)")" == 1 ]]; then continue; fi
-		
-		cpp2xml_modules+=("cpp2xml_${id}")
-		xml2nim_modules+=("xml2nim_${id}")
-		testnim_modules+=("testnim_${id}")
-		clean_modules+=("clean_${id}")
-		clean_xml_modules+=("clean_xml_${id}")
-		clean_nim_modules+=("clean_nim_${id}")
-		echo ""
-		echo ""
-		echo ""
-		echo "#"
-		echo "# Start of ${id}"
-		echo "#"
+	if compgen -G "$(QT_HEADERS_DIR --disable-path-check $component)/*.h" > /dev/null; then
+		for headerFile in "$(QT_HEADERS_DIR --disable-path-check $component)"/*.h; do
+			module="$(basename $headerFile .h)"
+			id="${component_lc}_${module}"
 
-		# NOTE: we cannot run testnim_${id} after generating ${id}.nim, because some dependencies might not
-		# have been created yet.
+			# headerFile2 is (should be) identical to headerFile, but it just makes use of 
+			# the variable QT*_HEADERS_DIR (for clarity and brevity)
+			headerFile2="\${${component^^}_HEADERS_DIR}/${module}.h"
+			tgt_xml="$tmp_root/$module.xml"
+			test_mod="$tmp_root/${module}_test.nim"
+			tgt_nim="\${NIMQT_ROOT}/${component_lc}/${module}.nim"
+			tgt2_nim="\${NIMQT_ROOT}/${module}.nim" # Without the component
+			
+			if [[ "$(skippable_file "$component_lc/$(basename $headerFile2)")" == 1 ]]; then continue; fi
+			
+			cpp2xml_modules+=("cpp2xml_${id}")
+			xml2nim_modules+=("xml2nim_${id}")
+			testnim_modules+=("testnim_${id}")
+			clean_modules+=("clean_${id}")
+			clean_xml_modules+=("clean_xml_${id}")
+			clean_nim_modules+=("clean_nim_${id}")
+			echo ""
+			echo ""
+			echo ""
+			echo "#"
+			echo "# Start of ${id}"
+			echo "#"
 
-		echo "${module}: ${id}"
+			# NOTE: we cannot run testnim_${id} after generating ${id}.nim, because some dependencies might not
+			# have been created yet.
 
-		echo "${id}: clean_nim_${id} ${tgt_nim} testnim_${id}"
+			echo "${module}: ${id}"
 
-		echo "cpp2xml_${id}: ${headerFile2} $tgt_xml"
+			echo "${id}: clean_nim_${id} ${tgt_nim} testnim_${id}"
 
-		echo "$tgt_xml:"
-		echo "	./scripts/cpp2xml $component $module "$headerFile2" > "$tgt_xml"" 
-		echo ""
+			echo "cpp2xml_${id}: ${headerFile2} $tgt_xml"
 
-		# echo "xml2nim_${id}: ${headerFile2} ${tgt_xml} ${tgt_nim}"
+			echo "$tgt_xml:"
+			echo "	./scripts/cpp2xml $component $module "$headerFile2" > "$tgt_xml"" 
+			echo ""
 
-		# echo "$tgt_nim:"
-		# echo "	./scripts/xml2nim "$headerFile2" "$tgt_xml" \${NIMQT_ROOT} > $tgt_nim || (rm -f $tgt_nim; exit 1)"
-		# echo "	cd '$NIMQT_ROOT' && rm -f '${module}.nim' && ln -s '${component_lc}/${module}.nim' '${module}.nim'"
+			# echo "xml2nim_${id}: ${headerFile2} ${tgt_xml} ${tgt_nim}"
 
-		echo "testnim_${id}:"
-		echo "	@printf '{.warning[UnusedImport]:off.}\\nimport nimqt/${component_lc}/${module}\\n' > '$test_mod'"
-		echo "	@if [ -f \${NIMQT_ROOT}/${component_lc}/${module}.nim ]; then echo 'Testing ${component_lc}/${module}'; nim --path:qt/${VERSION_DISTR}/ --path:qt/${VERSION_DISTR}/qt/ check $test_mod; fi"
+			# echo "$tgt_nim:"
+			# echo "	./scripts/xml2nim "$headerFile2" "$tgt_xml" \${NIMQT_ROOT} > $tgt_nim || (rm -f $tgt_nim; exit 1)"
+			# echo "	cd '$NIMQT_ROOT' && rm -f '${module}.nim' && ln -s '${component_lc}/${module}.nim' '${module}.nim'"
 
-		echo "clean_nim_${id}:"
-		echo "	rm -f '$tgt_nim' '$tgt2_nim' '$test_mod'"
+			echo "testnim_${id}:"
+			echo "	@printf '{.warning[UnusedImport]:off.}\\nimport nimqt/${component_lc}/${module}\\n' > '$test_mod'"
+			echo "	@if [ -f \${NIMQT_ROOT}/${component_lc}/${module}.nim ]; then echo 'Testing ${component_lc}/${module}'; nim --path:qt/${VERSION_DISTR}/ --path:qt/${VERSION_DISTR}/qt/ check $test_mod; fi"
 
-		echo "clean_xml_${id}:"
-		echo "	rm -f '$tgt_xml'"
+			echo "clean_nim_${id}:"
+			echo "	rm -f '$tgt_nim' '$tgt2_nim' '$test_mod'"
 
-		echo "clean_${id}: clean_xml_${id} clean_nim_${id}"
-	done
+			echo "clean_xml_${id}:"
+			echo "	rm -f '$tgt_xml'"
+
+			echo "clean_${id}: clean_xml_${id} clean_nim_${id}"
+		done
+	fi
 
 	echo "#"
 	echo "# cpp2xml, xml2nim and testnim for all modules in ${component_lc}"
