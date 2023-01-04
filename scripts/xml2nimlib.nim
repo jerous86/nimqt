@@ -51,11 +51,6 @@ const customization_footer = {
         iterator items*(list: QByteArray): char =
             for i in 0..<list.len: yield list.at(i.cint)
         """,
-    "qtcore/qstringlist": """
-        # func len*(list: QStringList): int = list.size
-        # iterator items*(list: QStringList): QString =
-        #     for i in 0..<list.len: yield list.at(i.cint)
-        """,
     "qtwidgets/qapplication": """
         proc exec*(nimQObject:ptr QApplication):cint {.header:headerFile, importcpp: "#.exec()".}
 
@@ -105,6 +100,18 @@ const customization_footer = {
                     try: result.incl e
                     except: discard
 
+    """,
+    "qtcore/qstringlist": """
+        import sequtils
+        proc newQStringList*(): QStringList = QStringList()
+        # Making it a template for recursive module dependency reasons ...
+        template newQStringList*(xs:seq[string]): QStringList = newQList[QString](xs.mapIt(newQString(it)))
+    """,
+    }.toTable
+
+const customization_header = {
+    "qtcore/qstringlist": """
+    import nimqt/qstring
     """
     }.toTable
 
@@ -124,6 +131,7 @@ const customization_inheritance = {
     "qtcore/qiodevice class QIODevice": "QIODeviceBase",
     "qtqml/qqmlextensionplugin class QQmlExtensionPlugin": "QObject",
     "qtqml/qqmlextensionplugin class QQmlEngineExtensionPlugin": "QObject",
+    "qtcore/qstringlist class QStringList": "QList[QString]",
     }.toTable
 
 # Perform a regex replacement in the final nim source code. In the replacement, use $1 etc to refer to groups.
@@ -253,7 +261,7 @@ type
         kvs*: seq[(string,string)]
     ClassData* = object
         fqName*: seq[string]
-        pureObject*: bool
+        pureObject*: bool # If this object has no base_classes. TODO check if assert(pureObject==parentObj.len==0)
         parentObj*: seq[TplType]
         constructors*: seq[ConstructorData]
         publicMethods*: seq[MethodData]
@@ -390,18 +398,15 @@ func cppTypeToNimType(allTypes:AllTypes, state:State, cppType:string, context:st
 func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
     let id = &"{state.component}/{state.module} class {c.nimName}"
     let (parentObj,tpls)=(
-            if c.parentObj.len>1:
-                assert id in customization_inheritance, &"c++ Object {c.nimName} has multiple parents, while nim only supports 1. Please specify in customization_inheritance the most desirable parent.\n{id} in {customization_inheritance}"
-                (customization_inheritance[id], concat(c.allTypes.templateParams, c.parentObj.mapIt(it.tpls.mapIt(it.strip)).concat).deduplicate.tplsToNim)
-
-                # let woParentQObject:seq[TplType]=c.parentObj.filterIt(it.nimType!="QObject")
-                # let tmp:seq[TplType]=(if c.parentObj.len>1: woParentQObject else: c.parentObj)
-                # let tmp:seq[TplType]=c.parentObj
-                # (tmp[0].nimType, concat(c.allTypes.templateParams, tmp[0].tpls.mapIt(it.strip)).deduplicate.tplsToNim)
+            if customization_inheritance.hasKey(id):
+                (customization_inheritance[id], 
+                    concat(c.allTypes.templateParams, c.parentObj.mapIt(it.tpls.mapIt(it.strip)).concat).deduplicate.tplsToNim
+                    )
             elif c.parentObj.len==1:
                 let tmp:seq[TplType]=c.parentObj
                 (tmp[0].nimType, concat(c.allTypes.templateParams, tmp[0].tpls.mapIt(it.strip)).deduplicate.tplsToNim)
-            else: 
+            else:
+                assert c.parentObj.len<=1, &"c++ Object {c.nimName} has multiple parents, while nim only supports 1. Please specify in customization_inheritance the most desirable parent.\n{id} in {customization_inheritance}"
                 ("", c.allTypes.templateParams.tplsToNim)
         )
     
@@ -411,16 +416,16 @@ func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
     var objInheritance = ""
 
     if id in customization_noninheritable:
-        objInheritance = ""
-    elif c.pureObject or parentObj.len==0:
+        objInheritance = "object"
+    elif #[c.pureObject or ]# parentObj.len==0:
         pragmas.add "pure"
-        objInheritance = "{.inheritable.}"
+        objInheritance = "object {.inheritable.}"
     else:
         discard c.allTypes.cppTypeToNimType(state, parentObj, "typeDecl", imports)
         pragmas.add "pure"
-        objInheritance = &"of {parentObj}"
+        objInheritance = &"object of {parentObj}"
 
-    return result & "{." & pragmas.join(",") & ".} = object " & objInheritance
+    return result & "{." & pragmas.join(",") & ".} = " & objInheritance
 
 func enumDecl*(e:EnumData, c:ClassData): tuple[enums:string, consts:seq[string]] =
     var xs:seq[string]
@@ -796,7 +801,14 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
         var definedProcs,definedProcs_lnx,definedProcs_osx,definedProcs_win:HashSet[string]
     
         xs.add &"const headerFile* = \"{file.cppHeaderFile}\"\n"
-        
+
+        block:
+            let id = &"{state.component}/{state.module}"
+            if customization_header.hasKey id:
+                xs.add &"# Additional header code for {id}"
+                xs.add customization_header[id].dedent
+
+
         if true: # Output enums and classes
             var tmp:seq[string]
             tmp.outputEnums(file.module.enums, ClassData(), 0, "Global", addEnums=true, addConsts=false)
