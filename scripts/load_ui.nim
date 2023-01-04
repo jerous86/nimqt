@@ -4,6 +4,7 @@ import strutils
 import sequtils
 import xmlparser, xmltree
 
+import nimqt
 import nimqt/[qobject,quiloader,qbuffer]
 
 when defined(macosx):

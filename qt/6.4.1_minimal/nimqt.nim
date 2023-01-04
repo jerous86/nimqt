@@ -14,7 +14,7 @@ when defined(macosx):
     const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false, enable_path_check=false)
     {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets -framework QtQmlCore -framework QtQml".}
 elif defined(linux) or defined(windows):
-    proc addLibraryIfExists(lib:string):string {.compiletime.} =
+    proc addLibraryIfExists*(lib:string):string {.compiletime.} =
         return &"-l{lib}"
         # We get something like "undefined symbols" or "undefined reference" if the library exists,
         # and something else if the library does not exist.
@@ -24,7 +24,7 @@ elif defined(linux) or defined(windows):
         #else: ""
 
     const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false, enable_path_check=false)
-    const QtMajorVersion = nimqt_paths.replace_vars("${Qt_version}", allow_run_time=false, enable_path_check=false).substr(0,0)
+    const QtMajorVersion* = nimqt_paths.replace_vars("${Qt_version}", allow_run_time=false, enable_path_check=false).substr(0,0)
     {.passC: &"-I{QtInstallHeaders} -fPIC"}
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Core").}
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Gui").}
