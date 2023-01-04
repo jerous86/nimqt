@@ -163,7 +163,7 @@ for t in allRequiredTypes:
         # echo "Skipping ",nimOutputFile,"\t\t",nimOutputFile2
         continue
     else:
-        echo t
+        echo nimOutputFile2,": ",t
     
     # echo "Processing ",nimOutputFile
     let state = State(component:t.component, module:t.module, db:reducedDb)
@@ -175,7 +175,7 @@ for t in allRequiredTypes:
     # This allows us to do 
     # ```import qtcore/qobject``` and
     # ```import qobject```
-    (&"{outputDir2}/{t.module}.nim").writeFile((&"""
+    nimOutputFile2.writeFile((&"""
         import nimqt/{t.component}/{t.module}
         export {t.module}
         """).dedent)

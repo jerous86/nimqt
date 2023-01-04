@@ -88,3 +88,18 @@ export qstring
 export qnamespace
 export qobject
 export qcoreevent
+# Additional code for qtcore/qcoreapplication
+# params refers to the arguments given on the command line. The binary is added in this proc!
+template newQCoreApplication*(args:seq[string]): ptr QCoreApplication =
+    var args2 = @[getAppFilename()]
+    args2.add args
+
+    var argv: cStringArray = allocCstringArray(args2)
+    var argc = args2.len.cint
+
+    newQCoreApplication(argc, cast[ptr ptr char](argv))
+    # NOTE:newQCoreApplication: In the Qt docs:
+    # "Warning: The data referred to by argc and argv must stay valid for the entire lifetime of the QCoreApplication object.
+    # In addition, argc must be greater than zero and argv must contain at least one valid character string."
+    # So we must *not* deallocCStringArray
+    # argv.deallocCStringArray

@@ -1,4 +1,5 @@
 import strformat
+import os
 
 import mathexpr
 
@@ -9,8 +10,9 @@ import nimqt/qtwidgets/[qgridlayout,qlayoutitem]
 
 
 nimqt.init
+
 let evaluator = newEvaluator()
-let app = newQApplication()
+let app = newQApplication(commandLineParams())
 
 var inputs: seq[string] = @[""]
 var input_i = 0

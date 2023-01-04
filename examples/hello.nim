@@ -1,8 +1,10 @@
+import os
+
 import nimqt
 import nimqt/[qpushbutton, qboxlayout]
 
 nimqt.init
-let app = newQApplication()
+let app = newQApplication(commandLineParams())
 
 inheritQObject(GuiHandler, QObject):
     slot_decl on_helloWorld_clicked()

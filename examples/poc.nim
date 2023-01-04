@@ -1,3 +1,4 @@
+import os
 import strformat
 
 import nimqt
@@ -5,7 +6,7 @@ import nimqt/[qwidget, qboxlayout, qurl]
 import nimqt/[qlabel, qtextedit, qpushbutton, qcheckbox, qlineedit, qtabwidget, qlistwidget, qtextbrowser]
 
 nimqt.init
-let app = newQApplication()
+let app = newQApplication(commandLineParams())
 
 
 let label = newQLabel(Q "Hello there")

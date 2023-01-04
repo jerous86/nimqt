@@ -86,12 +86,15 @@ export qwidget
 export qobject
 export qcoreevent
 # Additional code for qtwidgets/qapplication
-proc newQApplication*(argc:cint, argv:cstringArray): ptr QApplication{.header:headerFile, importcpp: "new QApplication(@)", constructor.}
-proc newQApplication*(args:seq[string]): ptr QApplication =
-    var argv:cstringArray=allocCstringArray(args)
-    var argc:cint=args.len.cint
-    result = newQApplication(argc, argv)
-    argv.deallocCStringArray
-proc newQApplication*(): ptr QApplication = newQApplication(@[])
-
 proc exec*(nimQObject:ptr QApplication):cint {.header:headerFile, importcpp: "#.exec()".}
+
+# params refers to the arguments given on the command line. The binary is added in this proc!
+template newQApplication*(args:seq[string]): ptr QApplication =
+    var args2 = @[getAppFilename()]
+    args2.add args
+    
+    var argv: cStringArray = allocCstringArray(args2)
+    var argc = args2.len.cint
+
+    newQApplication(argc, cast[ptr ptr char](argv))
+    # See also NOTE:newQCoreApplication in QtCore/QCoreApplication

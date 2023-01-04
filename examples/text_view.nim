@@ -19,7 +19,7 @@ import nimqt/[qaction]
 nimqt.init
 
 # Create your application.
-let app = newQApplication()
+let app = newQApplication(commandLineParams())
 
 # registerArgType must be called for types that are used in arguments or return types,
 # so verdigris knows about this object.
