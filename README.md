@@ -240,7 +240,9 @@ will result in compilation errors, as a `QLayout` follows a `QLayout` (in 1.) an
 Simple support for loading `.ui` files is available.
 These files can be created using e.g. Qt Creator.
 
-To enable this, the macro `loadUi` from the module `nimqt/load_ui` should be imported.
+Loading `.ui`. files requires the QtUiTools module (using apt, it requires `libqt6uitools6` and `qt6-tools-dev`).
+
+This functionality can be found in the macro `loadUi` from the module `nimqt/load_ui`.
 The macro expects two arguments, a `ptr QWidget` (might be nil) in which to load the layout, and the (absolute) path to the `.ui` file.
 
 An example of this can be seen in `examples/load_ui.nim`:
