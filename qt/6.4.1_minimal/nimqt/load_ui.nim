@@ -51,10 +51,14 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string, createConnections:s
     xml.getObjectsRec(objects)
 
     # (2) add import statements
+    result.add quote do:
+        {.push hint[DuplicateModuleImport]:off.}
     for o in objects.mapIt(it.class.toLowerAscii).deduplicate:
         let oident=ident(o)
         result.add quote do:
             import nimqt/`oIdent`
+    result.add quote do:
+        {.pop.}
 
     # (3) load the .ui file. Note that this loading happens at runtime!
     #     We do, however, store the XML from the .ui file at compile time,

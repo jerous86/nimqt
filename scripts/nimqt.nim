@@ -53,7 +53,7 @@ template init*() =
     import nimqt/qtcore/qobject
     import nimqt/qtgui/qevent
     import nimqt/qtwidgets/qapplication
-    {.push warning[UnusedImport]: off.}
+    {.pop.}
 
 type 
     SignalTuple = object
