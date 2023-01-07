@@ -17,12 +17,12 @@ type
     Distribution = object
         # All the classes we absolutely must have. The dependent classes will 
         # be resolved automatically.
-        parents: seq[string]
+        includes: seq[string]
         requiredClasses: seq[string]
 
 func merge*(l,r:Distribution): Distribution =
     Distribution(
-        parents: concat(l.parents, r.parents).deduplicate,
+        includes: concat(l.includes, r.includes).deduplicate,
         requiredClasses: concat(l.requiredClasses, r.requiredClasses).deduplicate
         )
 
@@ -36,23 +36,27 @@ let distributions:Table[string,Distribution]=block:
         let lines=file.lines.toSeq
             .mapIt(if '#' in it: it.substr(0, it.find('#')-1).strip else: it)
             .filterIt(it.len>0)
-        let parents:seq[string]=lines
-            .filterIt(it.toLower.startsWith("parent:"))
-            .mapIt(it.substr("parent:".len).strip.split(" ")).concat.deduplicate
+        let includes:seq[string]=lines
+            .filterIt(it.toLower.startsWith("include "))
+            .mapIt(it.substr("include ".len).strip.split(" ")).concat.deduplicate
             .mapIt(it.strip)
             .filterIt(it.len>0)
         let requiredClasses:seq[string]=lines
-            .filterIt(not it.toLower.startsWith("parent:"))
+            .filterIt(not it.toLower.startsWith("include "))
             .mapIt(it.strip.split(" ")).concat.deduplicate
             .mapIt(it.strip)
             .filterIt(it.len>0)
-        res[file.splitFile.name]=Distribution(parents:parents, requiredClasses:requiredClasses)
+        
+        # We allow doing something like "include core.txt" or "include core"
+        res[file.splitFile.name]=Distribution(includes:includes, requiredClasses:requiredClasses)
+        res[file.extractFilename]=Distribution(includes:includes, requiredClasses:requiredClasses)
     res
 
 func requiredClassesRec(distr:string, distributions:Table[string,Distribution]): seq[string] =
     assert distributions.hasKey distr, &"Could not find distribution '{distr}'"
     result = distributions[distr].requiredClasses
-    for p in distributions[distr].parents: result.add p.requiredClassesRec(distributions)
+    for p in distributions[distr].includes:
+        result.add p.requiredClassesRec(distributions)
     result = result.deduplicate
 
 var args:seq[string]
@@ -64,7 +68,7 @@ for kind, key, val in p.getopt():
         case key.toLowerAscii.replace("_","").replace("-","")
         of "distrs","distributions","printdistributions":
             # echo "# Available distributions"
-            echo toSeq(distributions.keys).join("\n")
+            echo toSeq(distributions.keys).mapIt(it.splitFile.name).deduplicate.join("\n")
             quit(0)
         of "distr","distribution","printdistribution":
             # echo distributions[val]

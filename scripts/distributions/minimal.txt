@@ -2,8 +2,8 @@
 # It provides a set of the most useful modules to create a GUI, together with a limited
 # set of modules from QtCore.
 
-# It "inherits" from core.txt (other files can also be used). Parents are resolved recursively.
-parent: core
+# It "inherits" from `core.txt` (other files can also be used). Includes are resolved recursively.
+include core.txt
 
 QEvent QList QFlag QFlags QByteArray QStringList 
 QPoint QPointF QRect QRectF QSize QSizeF 
