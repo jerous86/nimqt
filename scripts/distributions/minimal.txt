@@ -16,7 +16,7 @@ QHideEvent QHoverEvent QInputEvent QKeyEvent QMouseEvent QMoveEvent
 QNativeGestureEvent QPaintDevice QPaintEvent QPainter QPen QPicture 
 QPixmap QPolygon QPolygonF QResizeEvent QShortcutEvent QShowEvent 
 QTextCursor QTextDocument QTextFormat QWheelEvent QWindow QTextEdit
-QDialog
+QDialog QDialogButtonBox
 
 # QtWidget
 QApplication QBoxLayout QVBoxLayout QHBoxLayout QGridLayout QFormLayout 
