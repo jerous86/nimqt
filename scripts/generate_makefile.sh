@@ -114,7 +114,7 @@ generate_for_component() {
 
 			echo "testnim_${id}:"
 			echo "	@printf '{.warning[UnusedImport]:off.}\\nimport nimqt/${component_lc}/${module}\\n' > '$test_mod'"
-			echo "	@if [ -f \${NIMQT_ROOT}/${component_lc}/${module}.nim ]; then echo 'Testing ${component_lc}/${module}'; nim --path:qt/${VERSION_DISTR}/ --path:qt/${VERSION_DISTR}/qt/ check $test_mod; fi"
+			echo "	@if [ -f \${NIMQT_ROOT}/nimqt/${component_lc}/${module}.nim ]; then echo 'Testing ${component_lc}/${module}'; nim --path:qt/${VERSION_DISTR}/ --path:qt/${VERSION_DISTR}/qt/ check $test_mod; fi"
 
 			echo "clean_nim_${id}:"
 			echo "	rm -f '$tgt_nim' '$tgt2_nim' '$test_mod'"
