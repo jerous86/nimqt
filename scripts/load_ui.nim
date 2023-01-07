@@ -51,14 +51,19 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string, createConnections:s
     xml.getObjectsRec(objects)
 
     # (2) add import statements
+    result.add quote do:
+        {.push hint[DuplicateModuleImport]:off.}
     for o in objects.mapIt(it.class.toLowerAscii).deduplicate:
         let oident=ident(o)
         result.add quote do:
             import nimqt/`oIdent`
+    result.add quote do:
+        {.pop.}
 
     # (3) load the .ui file. Note that this loading happens at runtime!
     #     We do, however, store the XML from the .ui file at compile time,
     #     so just changing the .ui file will not work -- it needs a recompilation!
+    let rootWgType=rootWg.getType
     result.add quote do:
         `rootWg`=block:
             var loader=newQUiLoader()
@@ -66,7 +71,7 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string, createConnections:s
             let data:QByteArray=(Q body).toUtf8
             let file=newQBuffer(data.unsafeAddr)
             let rootWg:ptr QWidget = loader.load(file)
-            rootWg
+            cast[`rootWgType`](rootWg)
 
     # (4) generate a list of `let` statements, and assign them to objects.
     proc findChildWidget(this: ptr QObject, name:QString): ptr QWidget {.header:qobject.headerFile, importcpp:"#.findChild<QWidget*>(#)".}

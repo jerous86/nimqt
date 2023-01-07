@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qdialogbuttonbox
+export qdialogbuttonbox
