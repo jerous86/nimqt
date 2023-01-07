@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # 
 # This script will create the necessary nim-files that can be imported.
 # It will generate the xml files, then convert those xml files
