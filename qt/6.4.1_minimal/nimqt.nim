@@ -300,7 +300,7 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         {.emit:"\n\n\n// Start of forward declarations".}
         `fwdDeclarations`
         {.emit:"\n\n\n// End of forward declarations\n\n".}
-        proc `newClassPtr`(): ptr `class` {.importcpp: "new " & $`class` & "(@)", constructor.}
+        proc `newClassPtr`(): ptr `class` {.importcpp: "new " & $`class` & "(@)" .}
         {.emit: "struct " & $`class` & ": public " & $`parentClass` & " {".}
         {.emit: "\tW_OBJECT(" & $`class` & ")".}
         `structStuff`
