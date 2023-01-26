@@ -13,7 +13,7 @@ template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 when defined(macosx):
     const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false, enable_path_check=false)
     {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets -framework QtQmlCore -framework QtQml".}
-elif defined(linux) or defined(windows):
+elif defined(linux):
     proc addLibraryIfExists*(lib:string):string {.compiletime.} =
         return &"-l{lib}"
         # We get something like "undefined symbols" or "undefined reference" if the library exists,
@@ -31,6 +31,15 @@ elif defined(linux) or defined(windows):
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Widgets").}
     #{.passL: addLibraryIfExists(&"Qt{QtMajorVersion}QmlCore").}
     #{.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Qml").}
+elif defined(windows):
+    const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false, enable_path_check=false)
+    const QtInstallLibs = nimqt_paths.replace_vars("${Qt_install_libs}", allow_run_time=false, enable_path_check=false)
+    {.passC: &"-permissive- -Zc:__cplusplus -std:c++17 -I{QtInstallHeaders} -I{QtInstallHeaders}\\QtWidgets -I{QtInstallHeaders}\\QtGui -I{QtInstallHeaders}\\QtCore -I{QtInstallHeaders}\\..\\mkspecs\\win32-msvc /Zc:strictStrings- shell32.lib" .}
+    {.passL: &"/link /SUBSYSTEM:WINDOWS shell32.lib".}
+    # {.passL: &"--clib:{QtInstallLibs}\Qt6Core".}
+    # {.passL: &"--clib:{QtInstallLibs}\Qt6Gui".}
+    # {.passL: &"--clib:{QtInstallLibs}\Qt6Widgets".}
+    # {.passL: &"--clib:{QtInstallLibs}\Qt6EntryPoint".}
 else: 
     assert false, "Don't know how to compile on this operating system"
 
@@ -337,7 +346,7 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         {.emit: "W_OBJECT_IMPL(" & $`class` & ")\n".}
     result.add cppDefinitions
     
-    # echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
+    #echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
 
 macro insertSlotImplementations*(className:string) =
     result=newNimNode(nnkStmtList)
