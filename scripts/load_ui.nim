@@ -3,9 +3,12 @@ import macros
 import strutils
 import sequtils
 import xmlparser, xmltree
+import tables
+import strtabs
+import os
 
 import nimqt
-import nimqt/[qobject,quiloader,qbuffer]
+import nimqt/[qobject,quiloader,qbuffer,typeDb]
 
 when defined(macosx):
     {.passL: &"-framework QtUiTools".}
@@ -19,10 +22,17 @@ template curFileDir*(): string = instantiationInfo(0, fullPaths=true).filename.p
 # This macro load a .ui file. 
 # uiFilePath is assumed to be an absolute path. Use the `curFileDir` template to obtain this 
 # absolute path.
-macro loadUi*(rootWg:typed, uiFilePath:static system.string, createConnections:static bool=true, printLetStatements:static bool=false): untyped =
+macro loadUi*(rootWg:typed, uiFilePath:static system.string, 
+    createConnections:static bool=true, printLetStatements:static bool=false,
+    replaceCustomWidgetsWithBaseclass:static bool=true): untyped =
     # The macro does a couple of things.
     # (1) it reads all the widgets (its type and name) from the .ui file
     #     by looking for <widget> elements.
+    # (1b) if replaceCustomWidgetsWithBaseclass is true, then
+    #      custom widgets that inherit from some known Qt classes will have those
+    #      base classes as their main class, rather than the (probably unknown) custom class.
+    #      Note that this will result in a loss of the functionality provided by the original 
+    #      custom class.
     # (2) generate a list of `import` statements
     # (3) load the .ui file using Qt's QUiLoader
     # (4) generate a list of `let` statements, pointing to the objects in the .ui files
@@ -36,6 +46,28 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string, createConnections:s
     type Object=tuple[class,name:string]
     var objects:seq[Object]
     var connections:seq[(string,string,string,string)]
+
+    if replaceCustomWidgetsWithBaseclass:
+        # (1b) replace customwidgets with their baseclass (and hope it exists)
+        var customWidgets:Table[string,string]
+        for x in xml.mitems:
+            if x.tag!="customwidgets": continue
+
+            for wg in x.mitems:
+                customWidgets[wg.child("class").innerText]=wg.child("extends").innerText
+                wg.clear
+
+        func replaceCustomWidgets(x:var XmlNode) =
+            for child in x.mitems:
+                if child.kind==xnElement:
+                    if child.tag=="widget" and customWidgets.hasKey(child.attr("class")):
+                        var attrs:StringTableRef=child.attrs
+                        attrs["class"]=customWidgets[child.attr("class")]
+                        attrs["name"]=child.attr("name").replace("::","_")
+                        child.attrs=attrs
+                    child.replaceCustomWidgets
+        xml.replaceCustomWidgets
+
 
     func getObjectsRec(x:XmlNode, objects:var seq[Object]) =
         for child in x:
@@ -51,10 +83,13 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string, createConnections:s
     xml.getObjectsRec(objects)
 
     # (2) add import statements
+    # TODO loadFromString can be slow. Maybe use a specialized database `moduleToImport.txt`?
+    let typeDb=typeDb.loadFromString((currentSourcePath().parentDir()/"../typeDb.txt").readFile)
     result.add quote do:
         {.push hint[DuplicateModuleImport]:off.}
     for o in objects.mapIt(it.class.toLowerAscii).deduplicate:
-        let oident=ident(o)
+        assert typeDb.names.hasKey(o.toLowerAscii), o
+        let oident=ident(typeDb.xs[typeDb.names[o.toLowerAscii]].toImport)
         result.add quote do:
             import nimqt/`oIdent`
     result.add quote do:

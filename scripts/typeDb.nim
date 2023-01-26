@@ -3,7 +3,7 @@ import sequtils
 import streams
 import strutils
 import tables
-import re
+# import pegs
 
 import skips
 
@@ -29,10 +29,6 @@ func summary*(db:TypeDb): string =
 
 func toImport*(i:TypeInfo): string = &"{i.component}/{i.module}"
 func add*(db:var TypeDb, i:TypeInfo) =
-    #var i=i
-    #i.component=i.component.toLowerAscii
-    #i.module=i.module.toLowerAscii
-    
     db.xs.add i
     if not db.components.hasKey(i.component):
         db.components[i.component] = @[]
@@ -62,24 +58,40 @@ func hasChildClasses*(db:TypeDb, class:string): bool =
     for x in db.xs:
         if x.mt==Class and class in x.baseClasses: return true
 
+func loadFromString*(str:string): TypeDb =
+    for line in str.split("\n"):
+        if line.strip.len==0 or line.startsWith("#"): continue
+        let pts=line.split(" -> ")
+        let cm=pts[0].cmFromStr
+
+        case pts[1]
+        of "class": result.add TypeInfo(component:cm.component, module:cm.module, mt:Class, name: pts[2], baseClasses:pts[3].split(" < "))
+        of "enum": result.add TypeInfo(component:cm.component, module:cm.module, mt:Enum, name: pts[2])
+        of "alias": result.add TypeInfo(component:cm.component, module:cm.module, mt:Alias, name: pts[2], alias_for:pts[3])
+        of "derivedalias": result.add TypeInfo(component:cm.component, module:cm.module, mt:DerivedAlias, name: pts[2], alias_for:pts[3])
+        else: raise newException(ValueError, &"typeDb::loadFromString: Could not parse line '{line}'")
+
+        # Using peg here, so we can evaluate at compile time.
+        # However, a peg is very slow in VM (i.e. at compile time, used in load_ui.nim)
+        # if line =~ peg"{\a+} '/' {\w+} \s+ 'class' \s+ {\w+} \s* '::' \s* {\w*}":
+        #     result.add TypeInfo(component:matches[0], module:matches[1], mt:Class, name: matches[2], baseClasses:matches[3].split(" < "))
+        # elif line =~ peg"{\a+} '/' {\w+} \s+ 'enum' \s+ {\w+}":
+        #     result.add TypeInfo(component:matches[0], module:matches[1], mt:Enum, name: matches[2])
+        # elif line =~ peg"{\a+} '/' {\w+} \s+ 'alias' \s+ {\w+} \s* '->' \s* {\w*}":
+        #     result.add TypeInfo(component:matches[0], module:matches[1], mt:Alias, name: matches[2], alias_for: matches[3])
+        # elif line =~ peg"{\a+} '/' {\w+} \s+ 'derivedalias' \s+ {\w+} \s* '->' \s* {\w*}":
+        #     result.add TypeInfo(component:matches[0], module:matches[1], mt:DerivedAlias, name: matches[2], alias_for: matches[3])
+        # else:
+        #     raise newException(ValueError, &"typeDb::loadFromString: Could not parse line '{line}'")
+
 proc readFromFile*(filePath:string): TypeDb =
     try:
-        for line in filePath.lines:
-            if line.strip.len==0 or line.startsWith("#"): continue
-            
-            if line =~ re"([^/]+)/([^ ]+) class (.*) :: (.*)":
-                result.add TypeInfo(component:matches[0], module:matches[1], mt:Class, name: matches[2], baseClasses:matches[3].split(" < "))
-            elif line =~ re"([^/]+)/([^ ]+) enum (.*)":
-                result.add TypeInfo(component:matches[0], module:matches[1], mt:Enum, name: matches[2])
-            elif line =~ re"([^/]+)/([^ ]+) alias (.*) -> (.*)":
-                result.add TypeInfo(component:matches[0], module:matches[1], mt:Alias, name: matches[2], alias_for: matches[3])
-            elif line =~ re"([^/]+)/([^ ]+) derivedalias (.*) -> (.*)":
-                result.add TypeInfo(component:matches[0], module:matches[1], mt:DerivedAlias, name: matches[2], alias_for: matches[3])
-            else:
-                echo &"typeDb::readFromFile: Could not parse line '{line}'"
+        loadFromString(filePath.readFile)
     except IOError: 
         echo "typeDb::readFromFile: Failed to read file ",filePath
-            
+        echo getCurrentException()[]
+        raise
+         
 proc writeToFile*(db:TypeDb, filePath:string) =
     let ostream=newFileStream(filePath, fmWrite)
     assert not ostream.isNil, filePath
@@ -93,7 +105,7 @@ proc writeToFile*(db:TypeDb, filePath:string) =
                 let ti=db.xs[tii]
 
                 case ti.mt
-                of Class: ostream.writeLine cm.id_class(ti.name) & " :: " & ti.baseClasses.join(" < ")
+                of Class: ostream.writeLine cm.id_class(ti.name) & " -> " & ti.baseClasses.join(" < ")
                 of Enum: ostream.writeLine cm.id_enum(ti.name)
                 of Alias: ostream.writeLine cm.id_alias(ti.name, ti.alias_for)
                 else: discard

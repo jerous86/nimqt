@@ -112,7 +112,7 @@ const customization_footer = {
 const customization_header = {
     "qtcore/qstringlist": """
     import nimqt/qstring
-    """
+    """,
     }.toTable
 
 # This forces a specific base class when there are multiple base classes to choose from,
@@ -143,10 +143,15 @@ const customization_replaceInNimSource = {
         ("Key_Dead_i", "Key_Dead_i0"),
         ("Key_Dead_o", "Key_Dead_o0"),
         ("Key_Dead_u", "Key_Dead_u0"),
-        # Make an enum pure as both QInternal_PaintDeviceFlags and Qt_WindowType define a QWidget
-        ("""QInternal_PaintDeviceFlags.*[}]""", """QInternal_PaintDeviceFlags* {.header:headerFile,importcpp:"QInternal::PaintDeviceFlags",pure.}""")
         ],
     }.toTable
+
+const pureEnums = [
+    newCm("qtcore","qnamespace").id_enum("QInternal_PaintDeviceFlags"),
+    newCm("qtgui","qcolorspace").id_enum("QColorSpace_NamedColorSpace"),
+    newCm("qtgui","qcolorspace").id_enum("QColorSpace_Primaries"),
+    newCm("qtgui","qcolorspace").id_enum("QColorSpace_TransferFunction"),
+    ].toHashSet
 
 # These classes do not derive from RootObj.
 const customization_noninheritable:HashSet[string] = [
@@ -326,8 +331,10 @@ func fixImport*(allTypes:AllTypes, class:string, context:string): string =
             if allTypes.db.names.hasKey (&"{parent}::{qs[1]}").toLowerAscii.fixNameSpace:
                 return allTypes.fixImport(&"{parent}::{qs[1]}", context)
     
-    raise newException(CallbackTypeException, &"func fixImport: class {class}: '{class1_lc}'.split('::').len!=2\ncontext '{context}'")
     # debugEcho &"\n\nCONTEXT {context}\n\ttypeDb.xs.len:{allTypes.db.xs.len}\n\tTemplates: {allTypes.templateParams}\n\tclass:'{class1}' '{class2_lc}' (w/o namespace)\n\tcppTypeAliases: {allTypes.cppTypeAliases}\n"
+    # debugEcho allTypes.db.names
+    raise newException(CallbackTypeException, 
+        &"func fixImport: class {class}: '{class1_lc}'.split('::').len!=2\ncontext '{context}'")
     # assert(false, "fixImport failed! Check message above")
     # quit(1)
 
@@ -427,7 +434,7 @@ func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
 
     return result & "{." & pragmas.join(",") & ".} = " & objInheritance
 
-func enumDecl*(e:EnumData, c:ClassData): tuple[enums:string, consts:seq[string]] =
+func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts:seq[string]] =
     var xs:seq[string]
     var counter=0
     var kvs:seq[(string,int)]
@@ -459,7 +466,9 @@ func enumDecl*(e:EnumData, c:ClassData): tuple[enums:string, consts:seq[string]]
             result.consts.add &"{name}* = {x[1]} # from anonymous enum {values[x[1]][0]}"
     
     if e.enumName.len>0:
-        result.enums=e.nimName.escapeNimReservedWords.replaceSpecialTypes & &"* {{.header:headerFile,importcpp:\"{e.cppName}\".}} = enum {xs.join.strip}"
+        let id=newCm(state.component, state.module).id_enum(e.nimName.escapeNimReservedWords.replaceSpecialTypes)
+        let pureness=(if id in pureEnums: ", pure" else: "")
+        result.enums=e.nimName.escapeNimReservedWords.replaceSpecialTypes & &"* {{.header:headerFile,importcpp:\"{e.cppName}\"{pureness}.}} = enum {xs.join.strip}"
 
 
 
@@ -567,7 +576,11 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
                                 name: x.attr("full_name").fixNameSpace,
                                 alias_for_nim: alias_for_nim
                                 ))
-                    except CallbackTypeException: discard
+                    except CallbackTypeException: 
+                        # echo "CallbackTypeException for"
+                        # echo "    ",x.attr("full_name")
+                        # echo "    ",getCurrentException()[].msg
+                        discard
 
 
         proc do_class(n:XmlNode, fullNamePts:seq[string], allTypes: AllTypes, modData:var Module): ClassData =
@@ -606,7 +619,7 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
             allTypes.templateParams=n.items.toSeq.filterIt(it.tag=="template_parameter").mapIt(it.attr("name").strip)
             result.classes.add do_class(n, pts, allTypes, result)
             result.merge n.processNode(inClass=true, allTypes, state)
-        of "type_alias", "type_def": discard
+        of "type_alias", "type_def": result.typedefs.add n.select_typedefs(allTypes, result)
         of "enum": discard
         of "namespace": 
             if cm.id_namespace(fullName.fixNameSpace).skippable(cm, Namespace)==false:
@@ -774,7 +787,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
         let (enums,consts)=block:
             var res:tuple[enums:seq[string], consts:seq[string]]
             for e in enums:
-                let x=e.enumDecl(c)
+                let x=e.enumDecl(c, state)
                 if x.enums.len>0: res.enums.add x.enums
                 if x.consts.len>0: res.consts.add x.consts
             res

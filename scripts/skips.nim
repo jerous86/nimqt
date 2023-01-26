@@ -18,9 +18,12 @@ func toString*(mt:MatchType): string = ($mt).toLowerAscii
 
 type CompMod* = tuple[component,module:string]
 func newCm*(c,m:string): CompMod = (component:c, module:m)
+func cmFromStr*(str:string): CompMod = (let pts=str.split("/"); assert(pts.len==2); (component:pts[0], module:pts[1]))
 
+# I choose " -> " as a separator, as it looks nice, and easy to split without regexes (regex is not possible in the VM,
+# and pegs are too slow).
 func id_mod(cm:CompMod): string = &"{cm.component.toLowerAscii}/{cm.module.toLowerAscii}"
-func id(cm:CompMod, mt:MatchType, rest:string): string = &"{cm.id_mod} {mt.toString} {rest}"
+func id(cm:CompMod, mt:MatchType, rest:string): string = &"{cm.id_mod} -> {mt.toString} -> {rest}"
 
 func id_ctor*(cm:CompMod, class,signature:string): string = id(cm, Ctor, &"{class} -> {signature}")
 func id_method*(cm:CompMod, name,signature,ret_type:string): string = id(cm, Method, &"{name} -> {signature} -> {ret_type}")
@@ -196,7 +199,7 @@ const skipRules* = @[
     "QOpenGLPixelTransferOptions",
     "QTextEngine",
     "qtgui/qopengl",
-    "+qtgui/qaccessible (class|enum|alias)", "qtgui/qaccessible .*",
+    "+qtgui/qaccessible -> (class|enum|alias)", "qtgui/qaccessible .*",
     "QImageCleanupFunction",
     "qtgui/.*io_handler",
     "QGraphicsEffectSource",
@@ -229,8 +232,8 @@ const skipRules* = @[
     "QMetaProperty",
     
     # Exceptions while doing qtwidgets stuff
-    "+qtwidgets/qaccessiblewidget (class|enum|alias)", "qtwidgets/qaccessiblewidget .*",
-    "+qtwidgets/qgraphicsscene (class|enum|alias)", "qtwidgets/qgraphicsscene .*",
+    "+qtwidgets/qaccessiblewidget -> (class|enum|alias)", "qtwidgets/qaccessiblewidget .*",
+    "+qtwidgets/qgraphicsscene -> (class|enum|alias)", "qtwidgets/qgraphicsscene .*",
     "+qtwidgets/qgraphics.*(class|enum|alias)", "qtwidgets/qgraphics.*",
     "+qtwidgets/qgraphicsproxywidge (class|enum|alias)", "qtwidgets/qgraphicsproxywidge .*",
     "qtwidgets/qopengl",
