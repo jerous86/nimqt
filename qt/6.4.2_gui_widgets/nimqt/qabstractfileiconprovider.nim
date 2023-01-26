@@ -1,0 +1,2 @@
+import nimqt/qtgui/qabstractfileiconprovider
+export qabstractfileiconprovider

@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qdatawidgetmapper
+export qdatawidgetmapper

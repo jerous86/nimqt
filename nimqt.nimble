@@ -6,6 +6,6 @@ license="GPLv2 or GPLv3"
 backend = "cpp"
 requires "nim >= 1.6.10"
 
-srcDir="qt/6.4.1_minimal"
+srcDir="qt/6.4.2_gui_widgets"
 
 doAssert defined(linux) or defined(macosx) or defined(windows), "nimqt is not tested on this system"

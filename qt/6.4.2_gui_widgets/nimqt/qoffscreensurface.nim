@@ -1,0 +1,2 @@
+import nimqt/qtgui/qoffscreensurface
+export qoffscreensurface

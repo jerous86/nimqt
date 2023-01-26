@@ -1,0 +1,2 @@
+import nimqt/qtgui/qiconengineplugin
+export qiconengineplugin

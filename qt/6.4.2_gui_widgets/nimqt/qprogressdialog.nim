@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qprogressdialog
+export qprogressdialog

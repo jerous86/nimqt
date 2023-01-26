@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qgraphicseffect
+export qgraphicseffect

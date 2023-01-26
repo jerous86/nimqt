@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qitemeditorfactory
+export qitemeditorfactory

@@ -1,0 +1,2 @@
+import nimqt/qtgui/qsyntaxhighlighter
+export qsyntaxhighlighter

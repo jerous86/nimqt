@@ -1,0 +1,3002 @@
+
+
+qtgui/qpagesize -> class -> QPageSize -> 
+qtgui/qpagesize -> enum -> QPageSize_PageSizeId
+qtgui/qpagesize -> enum -> QPageSize_Unit
+qtgui/qpagesize -> enum -> QPageSize_SizeMatchPolicy
+
+
+qtgui/qsurface -> class -> QSurface -> 
+qtgui/qsurface -> enum -> QSurface_SurfaceClass
+qtgui/qsurface -> enum -> QSurface_SurfaceType
+
+
+qtgui/qpaintdevice -> class -> QPaintDevice -> 
+qtgui/qpaintdevice -> enum -> QPaintDevice_PaintDeviceMetric
+
+
+qtgui/qcursor -> class -> QCursor -> 
+
+
+qtgui/qtextdocument -> class -> QAbstractUndoItem -> 
+qtgui/qtextdocument -> class -> QTextDocument -> QObject
+qtgui/qtextdocument -> enum -> QTextDocument_MetaInformation
+qtgui/qtextdocument -> enum -> QTextDocument_MarkdownFeature
+qtgui/qtextdocument -> enum -> QTextDocument_FindFlag
+qtgui/qtextdocument -> enum -> QTextDocument_ResourceType
+qtgui/qtextdocument -> enum -> QTextDocument_Stacks
+qtgui/qtextdocument -> alias -> QTextDocument_MarkdownFeatures -> 
+qtgui/qtextdocument -> alias -> QTextDocument_FindFlags -> 
+
+
+qtgui/qimagereader -> class -> QImageReader -> 
+qtgui/qimagereader -> enum -> QImageReader_ImageReaderError
+
+
+qtgui/qwindow -> class -> QWindow -> QObject < QSurface
+qtgui/qwindow -> derivedalias -> QWindow_SurfaceClass -> QSurface_SurfaceClass
+qtgui/qwindow -> derivedalias -> QWindow_SurfaceType -> QSurface_SurfaceType
+qtgui/qwindow -> enum -> QWindow_Visibility
+qtgui/qwindow -> enum -> QWindow_AncestorMode
+
+
+qtgui/qcolortransform -> class -> QColorTransform -> 
+qtgui/qcolortransform -> alias -> QRgbaFloat16 -> 
+qtgui/qcolortransform -> alias -> QRgbaFloat32 -> 
+
+
+qtgui/qpixelformat -> class -> QPixelFormat -> 
+qtgui/qpixelformat -> enum -> QPixelFormat_ColorModel
+qtgui/qpixelformat -> enum -> QPixelFormat_AlphaUsage
+qtgui/qpixelformat -> enum -> QPixelFormat_AlphaPosition
+qtgui/qpixelformat -> enum -> QPixelFormat_AlphaPremultiplied
+qtgui/qpixelformat -> enum -> QPixelFormat_TypeInterpretation
+qtgui/qpixelformat -> enum -> QPixelFormat_YUVLayout
+qtgui/qpixelformat -> enum -> QPixelFormat_ByteOrder
+
+
+qtgui/qtextdocumentwriter -> class -> QTextDocumentWriter -> 
+
+
+qtgui/qtextoption -> class -> QTextOption -> 
+qtgui/qtextoption -> class -> QTextOption_Tab -> 
+qtgui/qtextoption -> enum -> QTextOption_TabType
+qtgui/qtextoption -> enum -> QTextOption_WrapMode
+qtgui/qtextoption -> enum -> QTextOption_Flag
+qtgui/qtextoption -> alias -> QTextOption_Flags -> 
+
+
+qtgui/qgenericmatrix -> class -> QGenericMatrix -> 
+
+
+qtgui/qabstractfileiconprovider -> class -> QAbstractFileIconProvider -> 
+qtgui/qabstractfileiconprovider -> enum -> QAbstractFileIconProvider_IconType
+qtgui/qabstractfileiconprovider -> enum -> QAbstractFileIconProvider_Option
+qtgui/qabstractfileiconprovider -> alias -> QAbstractFileIconProvider_Options -> 
+
+
+qtgui/qtextlist -> class -> QTextList -> QTextBlockGroup
+
+
+qtgui/qevent -> class -> QInputEvent -> QEvent
+qtgui/qevent -> derivedalias -> QInputEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QPointerEvent -> QInputEvent
+qtgui/qevent -> derivedalias -> QPointerEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QSinglePointEvent -> QPointerEvent
+qtgui/qevent -> derivedalias -> QSinglePointEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QEnterEvent -> QSinglePointEvent
+qtgui/qevent -> derivedalias -> QEnterEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QMouseEvent -> QSinglePointEvent
+qtgui/qevent -> derivedalias -> QMouseEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QHoverEvent -> QSinglePointEvent
+qtgui/qevent -> derivedalias -> QHoverEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QWheelEvent -> QSinglePointEvent
+qtgui/qevent -> derivedalias -> QWheelEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QTabletEvent -> QSinglePointEvent
+qtgui/qevent -> derivedalias -> QTabletEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QNativeGestureEvent -> QSinglePointEvent
+qtgui/qevent -> derivedalias -> QNativeGestureEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QKeyEvent -> QInputEvent
+qtgui/qevent -> derivedalias -> QKeyEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QFocusEvent -> QEvent
+qtgui/qevent -> derivedalias -> QFocusEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QPaintEvent -> QEvent
+qtgui/qevent -> derivedalias -> QPaintEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QMoveEvent -> QEvent
+qtgui/qevent -> derivedalias -> QMoveEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QExposeEvent -> QEvent
+qtgui/qevent -> derivedalias -> QExposeEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QResizeEvent -> QEvent
+qtgui/qevent -> derivedalias -> QResizeEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QCloseEvent -> QEvent
+qtgui/qevent -> derivedalias -> QCloseEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QIconDragEvent -> QEvent
+qtgui/qevent -> derivedalias -> QIconDragEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QShowEvent -> QEvent
+qtgui/qevent -> derivedalias -> QShowEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QHideEvent -> QEvent
+qtgui/qevent -> derivedalias -> QHideEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QContextMenuEvent -> QInputEvent
+qtgui/qevent -> derivedalias -> QContextMenuEvent_Type -> QEvent_Type
+qtgui/qevent -> enum -> QContextMenuEvent_Reason
+qtgui/qevent -> class -> QInputMethodEvent -> QEvent
+qtgui/qevent -> derivedalias -> QInputMethodEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QInputMethodEvent_Attribute -> 
+qtgui/qevent -> enum -> QInputMethodEvent_AttributeType
+qtgui/qevent -> class -> QInputMethodQueryEvent -> QEvent
+qtgui/qevent -> derivedalias -> QInputMethodQueryEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QDropEvent -> QEvent
+qtgui/qevent -> derivedalias -> QDropEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QDragMoveEvent -> QDropEvent
+qtgui/qevent -> derivedalias -> QDragMoveEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QDragEnterEvent -> QDragMoveEvent
+qtgui/qevent -> derivedalias -> QDragEnterEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QDragLeaveEvent -> QEvent
+qtgui/qevent -> derivedalias -> QDragLeaveEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QHelpEvent -> QEvent
+qtgui/qevent -> derivedalias -> QHelpEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QStatusTipEvent -> QEvent
+qtgui/qevent -> derivedalias -> QStatusTipEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QWhatsThisClickedEvent -> QEvent
+qtgui/qevent -> derivedalias -> QWhatsThisClickedEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QActionEvent -> QEvent
+qtgui/qevent -> derivedalias -> QActionEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QFileOpenEvent -> QEvent
+qtgui/qevent -> derivedalias -> QFileOpenEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QToolBarChangeEvent -> QEvent
+qtgui/qevent -> derivedalias -> QToolBarChangeEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QShortcutEvent -> QEvent
+qtgui/qevent -> derivedalias -> QShortcutEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QWindowStateChangeEvent -> QEvent
+qtgui/qevent -> derivedalias -> QWindowStateChangeEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QTouchEvent -> QPointerEvent
+qtgui/qevent -> derivedalias -> QTouchEvent_Type -> QEvent_Type
+qtgui/qevent -> alias -> QTouchEvent_TouchPoint -> 
+qtgui/qevent -> class -> QScrollPrepareEvent -> QEvent
+qtgui/qevent -> derivedalias -> QScrollPrepareEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QScrollEvent -> QEvent
+qtgui/qevent -> derivedalias -> QScrollEvent_Type -> QEvent_Type
+qtgui/qevent -> enum -> QScrollEvent_ScrollState
+qtgui/qevent -> class -> QScreenOrientationChangeEvent -> QEvent
+qtgui/qevent -> derivedalias -> QScreenOrientationChangeEvent_Type -> QEvent_Type
+qtgui/qevent -> class -> QApplicationStateChangeEvent -> QEvent
+qtgui/qevent -> derivedalias -> QApplicationStateChangeEvent_Type -> QEvent_Type
+
+
+qtgui/qpixmapcache -> class -> QPixmapCache -> 
+qtgui/qpixmapcache -> class -> QPixmapCache_Key -> 
+
+
+qtgui/qpageranges -> class -> QPageRanges -> 
+qtgui/qpageranges -> class -> QPageRanges_Range -> 
+
+
+qtgui/qgenericplugin -> class -> QGenericPlugin -> QObject
+
+
+qtgui/qundostack -> class -> QUndoCommand -> 
+qtgui/qundostack -> class -> QUndoStack -> QObject
+
+
+qtgui/qrgbafloat -> class -> QRgbaFloat -> 
+qtgui/qrgbafloat -> alias -> QRgbaFloat_Type -> 
+qtgui/qrgbafloat -> alias -> QRgbaFloat_FastType -> 
+qtgui/qrgbafloat -> alias -> QRgbaFloat16 -> 
+qtgui/qrgbafloat -> alias -> QRgbaFloat32 -> 
+
+
+qtgui/qclipboard -> class -> QClipboard -> QObject
+qtgui/qclipboard -> enum -> QClipboard_Mode
+
+
+qtgui/qscreen -> class -> QScreen -> QObject
+
+
+qtgui/qbitmap -> class -> QBitmap -> QPixmap
+qtgui/qbitmap -> derivedalias -> QBitmap_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtgui/qtextcursor -> class -> QTextCursor -> 
+qtgui/qtextcursor -> enum -> QTextCursor_MoveMode
+qtgui/qtextcursor -> enum -> QTextCursor_MoveOperation
+qtgui/qtextcursor -> enum -> QTextCursor_SelectionType
+
+
+qtgui/qoffscreensurface -> class -> QOffscreenSurface -> QObject < QSurface
+qtgui/qoffscreensurface -> derivedalias -> QOffscreenSurface_SurfaceClass -> QSurface_SurfaceClass
+qtgui/qoffscreensurface -> derivedalias -> QOffscreenSurface_SurfaceType -> QSurface_SurfaceType
+
+
+qtgui/qaccessibleobject -> class -> QAccessibleObject -> QAccessibleInterface
+qtgui/qaccessibleobject -> class -> QAccessibleApplication -> QAccessibleObject
+
+
+qtgui/qkeysequence -> class -> QKeySequence -> 
+qtgui/qkeysequence -> enum -> QKeySequence_StandardKey
+qtgui/qkeysequence -> enum -> QKeySequence_SequenceFormat
+qtgui/qkeysequence -> enum -> QKeySequence_SequenceMatch
+
+
+qtgui/qinputdevice -> class -> QInputDevice -> QObject
+qtgui/qinputdevice -> enum -> QInputDevice_DeviceType
+qtgui/qinputdevice -> enum -> QInputDevice_Capability
+qtgui/qinputdevice -> alias -> QInputDevice_DeviceTypes -> 
+qtgui/qinputdevice -> alias -> QInputDevice_Capabilities -> 
+
+
+qtgui/qregion -> class -> QRegion -> 
+qtgui/qregion -> enum -> QRegion_RegionType
+
+
+qtgui/qtextobject -> class -> QTextObject -> QObject
+qtgui/qtextobject -> class -> QTextBlockGroup -> QTextObject
+qtgui/qtextobject -> class -> QTextFrameLayoutData -> 
+qtgui/qtextobject -> class -> QTextFrame -> QTextObject
+qtgui/qtextobject -> class -> QTextBlockUserData -> 
+qtgui/qtextobject -> class -> QTextBlock -> 
+qtgui/qtextobject -> class -> QTextFragment -> 
+
+
+qtgui/qrgba64 -> class -> QRgba64 -> 
+
+
+qtgui/qimagewriter -> class -> QImageWriter -> 
+qtgui/qimagewriter -> enum -> QImageWriter_ImageWriterError
+
+
+qtgui/qabstracttextdocumentlayout -> class -> QAbstractTextDocumentLayout -> QObject
+qtgui/qabstracttextdocumentlayout -> class -> QAbstractTextDocumentLayout_Selection -> 
+qtgui/qabstracttextdocumentlayout -> class -> QAbstractTextDocumentLayout_PaintContext -> 
+qtgui/qabstracttextdocumentlayout -> class -> QTextObjectInterface -> 
+
+
+qtgui/qpainter -> class -> QPainter -> 
+qtgui/qpainter -> class -> QPainter_PixmapFragment -> 
+qtgui/qpainter -> enum -> QPainter_RenderHint
+qtgui/qpainter -> enum -> QPainter_PixmapFragmentHint
+qtgui/qpainter -> enum -> QPainter_CompositionMode
+qtgui/qpainter -> alias -> QPainter_RenderHints -> 
+qtgui/qpainter -> alias -> QPainter_PixmapFragmentHints -> 
+
+
+qtgui/qshortcut -> class -> QShortcut -> QObject
+
+
+qtgui/qpainterpath -> class -> QPainterPath -> 
+qtgui/qpainterpath -> class -> QPainterPath_Element -> 
+qtgui/qpainterpath -> enum -> QPainterPath_ElementType
+qtgui/qpainterpath -> class -> QPainterPathStroker -> 
+
+
+qtgui/qvulkanfunctions -> class -> QVulkanFunctions -> 
+qtgui/qvulkanfunctions -> class -> QVulkanDeviceFunctions -> 
+
+
+qtgui/qaccessibleplugin -> class -> QAccessiblePlugin -> QObject
+
+
+qtgui/qiconengineplugin -> class -> QIconEnginePlugin -> QObject
+
+
+qtgui/qtestsupport_gui -> class -> QTest_QTouchEventSequence -> 
+
+
+qtgui/qaccessible_base -> class -> QAccessible -> 
+qtgui/qaccessible_base -> class -> QAccessible_State -> 
+qtgui/qaccessible_base -> class -> QAccessible_ActivationObserver -> 
+qtgui/qaccessible_base -> enum -> eQAccessible_Event
+qtgui/qaccessible_base -> enum -> QAccessible_Role
+qtgui/qaccessible_base -> enum -> QAccessible_Text
+qtgui/qaccessible_base -> enum -> QAccessible_RelationFlag
+qtgui/qaccessible_base -> enum -> QAccessible_InterfaceType
+qtgui/qaccessible_base -> enum -> QAccessible_TextBoundaryType
+qtgui/qaccessible_base -> alias -> QAccessible_Relation -> 
+qtgui/qaccessible_base -> alias -> QAccessible_InterfaceFactory -> 
+qtgui/qaccessible_base -> alias -> QAccessible_UpdateHandler -> 
+qtgui/qaccessible_base -> alias -> QAccessible_RootObjectHandler -> 
+qtgui/qaccessible_base -> alias -> QAccessible_Id -> 
+
+
+qtgui/qpolygon -> class -> QPolygon -> 
+qtgui/qpolygon -> class -> QPolygonF -> 
+
+
+qtgui/qrasterwindow -> class -> QRasterWindow -> QPaintDeviceWindow
+qtgui/qrasterwindow -> derivedalias -> QRasterWindow_Visibility -> QWindow_Visibility
+qtgui/qrasterwindow -> derivedalias -> QRasterWindow_AncestorMode -> QWindow_AncestorMode
+qtgui/qrasterwindow -> derivedalias -> QRasterWindow_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtgui/qrasterwindow -> derivedalias -> QRasterWindow_SurfaceClass -> QSurface_SurfaceClass
+qtgui/qrasterwindow -> derivedalias -> QRasterWindow_SurfaceType -> QSurface_SurfaceType
+
+
+qtgui/qmovie -> class -> QMovie -> QObject
+qtgui/qmovie -> enum -> QMovie_MovieState
+qtgui/qmovie -> enum -> QMovie_CacheMode
+
+
+qtgui/qpagelayout -> class -> QPageLayout -> 
+qtgui/qpagelayout -> enum -> QPageLayout_Unit
+qtgui/qpagelayout -> enum -> QPageLayout_Orientation
+qtgui/qpagelayout -> enum -> QPageLayout_Mode
+
+
+qtgui/qactiongroup -> class -> QActionGroup -> QObject
+qtgui/qactiongroup -> enum -> QActionGroup_ExclusionPolicy
+
+
+qtgui/qguiapplication -> class -> QGuiApplication -> QCoreApplication
+
+
+qtgui/qstandarditemmodel -> class -> QStandardItem -> 
+qtgui/qstandarditemmodel -> enum -> QStandardItem_ItemType
+qtgui/qstandarditemmodel -> class -> QStandardItemModel -> QAbstractItemModel
+qtgui/qstandarditemmodel -> derivedalias -> QStandardItemModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtgui/qstandarditemmodel -> derivedalias -> QStandardItemModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtgui/qstandarditemmodel -> derivedalias -> QStandardItemModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+
+
+qtgui/qfilesystemmodel -> class -> QFileSystemModel -> QAbstractItemModel
+qtgui/qfilesystemmodel -> derivedalias -> QFileSystemModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtgui/qfilesystemmodel -> derivedalias -> QFileSystemModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtgui/qfilesystemmodel -> derivedalias -> QFileSystemModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+qtgui/qfilesystemmodel -> enum -> QFileSystemModel_Roles
+qtgui/qfilesystemmodel -> enum -> QFileSystemModel_Option
+qtgui/qfilesystemmodel -> alias -> QFileSystemModel_Options -> 
+
+
+qtgui/qcolorspace -> class -> QColorSpace -> 
+qtgui/qcolorspace -> enum -> QColorSpace_NamedColorSpace
+qtgui/qcolorspace -> enum -> QColorSpace_Primaries
+qtgui/qcolorspace -> enum -> QColorSpace_TransferFunction
+
+
+qtgui/qrgb -> alias -> QRgb -> 
+
+
+qtgui/qfont -> class -> QFont -> 
+qtgui/qfont -> enum -> QFont_StyleHint
+qtgui/qfont -> enum -> QFont_StyleStrategy
+qtgui/qfont -> enum -> QFont_HintingPreference
+qtgui/qfont -> enum -> QFont_Weight
+qtgui/qfont -> enum -> QFont_Style
+qtgui/qfont -> enum -> QFont_Stretch
+qtgui/qfont -> enum -> QFont_Capitalization
+qtgui/qfont -> enum -> QFont_SpacingType
+qtgui/qfont -> enum -> QFont_ResolveProperties
+
+
+qtgui/qvulkanwindow -> class -> QVulkanWindowRenderer -> 
+qtgui/qvulkanwindow -> class -> QVulkanWindow -> QWindow
+qtgui/qvulkanwindow -> derivedalias -> QVulkanWindow_Visibility -> QWindow_Visibility
+qtgui/qvulkanwindow -> derivedalias -> QVulkanWindow_AncestorMode -> QWindow_AncestorMode
+qtgui/qvulkanwindow -> derivedalias -> QVulkanWindow_SurfaceClass -> QSurface_SurfaceClass
+qtgui/qvulkanwindow -> derivedalias -> QVulkanWindow_SurfaceType -> QSurface_SurfaceType
+qtgui/qvulkanwindow -> enum -> QVulkanWindow_Flag
+qtgui/qvulkanwindow -> alias -> QVulkanWindow_Flags -> 
+qtgui/qvulkanwindow -> alias -> QVulkanWindow_EnabledFeaturesModifier -> 
+
+
+qtgui/qimageiohandler -> class -> QImageIOHandler -> 
+qtgui/qimageiohandler -> enum -> QImageIOHandler_ImageOption
+qtgui/qimageiohandler -> enum -> QImageIOHandler_Transformation
+qtgui/qimageiohandler -> alias -> QImageIOHandler_Transformations -> 
+qtgui/qimageiohandler -> class -> QImageIOPlugin -> QObject
+qtgui/qimageiohandler -> enum -> QImageIOPlugin_Capability
+qtgui/qimageiohandler -> alias -> QImageIOPlugin_Capabilities -> 
+
+
+qtgui/qpen -> class -> QPen -> 
+
+
+qtgui/qaction -> class -> QAction -> QObject
+qtgui/qaction -> enum -> QAction_MenuRole
+qtgui/qaction -> enum -> QAction_Priority
+qtgui/qaction -> enum -> QAction_ActionEvent
+
+
+qtgui/qpalette -> class -> QPalette -> 
+qtgui/qpalette -> enum -> QPalette_ColorGroup
+qtgui/qpalette -> enum -> QPalette_ColorRole
+qtgui/qpalette -> alias -> QPalette_ResolveMask -> 
+
+
+qtgui/qeventpoint -> class -> QEventPoint -> 
+qtgui/qeventpoint -> enum -> QEventPoint_State
+qtgui/qeventpoint -> alias -> QEventPoint_States -> 
+
+
+qtgui/qstylehints -> class -> QStyleHints -> QObject
+
+
+qtgui/qquaternion -> class -> QQuaternion -> 
+
+
+qtgui/qstatictext -> class -> QStaticText -> 
+qtgui/qstatictext -> enum -> QStaticText_PerformanceHint
+
+
+qtgui/qpdfwriter -> class -> QPdfWriter -> QObject < QPagedPaintDevice
+qtgui/qpdfwriter -> derivedalias -> QPdfWriter_PdfVersion -> QPagedPaintDevice_PdfVersion
+qtgui/qpdfwriter -> derivedalias -> QPdfWriter_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtgui/qicon -> class -> QIcon -> 
+qtgui/qicon -> enum -> QIcon_Mode
+qtgui/qicon -> enum -> QIcon_State
+
+
+qtgui/qglyphrun -> class -> QGlyphRun -> 
+qtgui/qglyphrun -> enum -> QGlyphRun_GlyphRunFlag
+qtgui/qglyphrun -> alias -> QGlyphRun_GlyphRunFlags -> 
+
+
+qtgui/qpointingdevice -> class -> QPointingDeviceUniqueId -> 
+qtgui/qpointingdevice -> class -> QPointingDevice -> QInputDevice
+qtgui/qpointingdevice -> derivedalias -> QPointingDevice_DeviceType -> QInputDevice_DeviceType
+qtgui/qpointingdevice -> derivedalias -> QPointingDevice_Capability -> QInputDevice_Capability
+qtgui/qpointingdevice -> derivedalias -> QPointingDevice_DeviceTypes -> QInputDevice_DeviceTypes
+qtgui/qpointingdevice -> derivedalias -> QPointingDevice_Capabilities -> QInputDevice_Capabilities
+qtgui/qpointingdevice -> enum -> QPointingDevice_PointerType
+qtgui/qpointingdevice -> enum -> QPointingDevice_GrabTransition
+qtgui/qpointingdevice -> alias -> QPointingDevice_PointerTypes -> 
+
+
+qtgui/qpaintdevicewindow -> class -> QPaintDeviceWindow -> QWindow < QPaintDevice
+qtgui/qpaintdevicewindow -> derivedalias -> QPaintDeviceWindow_Visibility -> QWindow_Visibility
+qtgui/qpaintdevicewindow -> derivedalias -> QPaintDeviceWindow_AncestorMode -> QWindow_AncestorMode
+qtgui/qpaintdevicewindow -> derivedalias -> QPaintDeviceWindow_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtgui/qpaintdevicewindow -> derivedalias -> QPaintDeviceWindow_SurfaceClass -> QSurface_SurfaceClass
+qtgui/qpaintdevicewindow -> derivedalias -> QPaintDeviceWindow_SurfaceType -> QSurface_SurfaceType
+
+
+qtgui/qfontinfo -> class -> QFontInfo -> 
+
+
+qtgui/qcolor -> class -> QColor -> 
+qtgui/qcolor -> enum -> QColor_Spec
+qtgui/qcolor -> enum -> QColor_NameFormat
+
+
+qtgui/qaccessiblebridge -> class -> QAccessibleBridge -> 
+qtgui/qaccessiblebridge -> class -> QAccessibleBridgePlugin -> QObject
+
+
+qtgui/qsyntaxhighlighter -> class -> QSyntaxHighlighter -> QObject
+
+
+qtgui/qpixmap -> class -> QPixmap -> QPaintDevice
+qtgui/qpixmap -> derivedalias -> QPixmap_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtgui/qtextformat -> class -> QTextLength -> 
+qtgui/qtextformat -> enum -> QTextLength_Type
+qtgui/qtextformat -> class -> QTextFormat -> 
+qtgui/qtextformat -> enum -> QTextFormat_FormatType
+qtgui/qtextformat -> enum -> QTextFormat_Property
+qtgui/qtextformat -> enum -> QTextFormat_ObjectTypes
+qtgui/qtextformat -> enum -> QTextFormat_PageBreakFlag
+qtgui/qtextformat -> alias -> QTextFormat_PageBreakFlags -> 
+qtgui/qtextformat -> class -> QTextCharFormat -> QTextFormat
+qtgui/qtextformat -> derivedalias -> QTextCharFormat_FormatType -> QTextFormat_FormatType
+qtgui/qtextformat -> derivedalias -> QTextCharFormat_Property -> QTextFormat_Property
+qtgui/qtextformat -> derivedalias -> QTextCharFormat_ObjectTypes -> QTextFormat_ObjectTypes
+qtgui/qtextformat -> derivedalias -> QTextCharFormat_PageBreakFlag -> QTextFormat_PageBreakFlag
+qtgui/qtextformat -> derivedalias -> QTextCharFormat_PageBreakFlags -> QTextFormat_PageBreakFlags
+qtgui/qtextformat -> enum -> QTextCharFormat_VerticalAlignment
+qtgui/qtextformat -> enum -> QTextCharFormat_UnderlineStyle
+qtgui/qtextformat -> enum -> QTextCharFormat_FontPropertiesInheritanceBehavior
+qtgui/qtextformat -> class -> QTextBlockFormat -> QTextFormat
+qtgui/qtextformat -> derivedalias -> QTextBlockFormat_FormatType -> QTextFormat_FormatType
+qtgui/qtextformat -> derivedalias -> QTextBlockFormat_Property -> QTextFormat_Property
+qtgui/qtextformat -> derivedalias -> QTextBlockFormat_ObjectTypes -> QTextFormat_ObjectTypes
+qtgui/qtextformat -> derivedalias -> QTextBlockFormat_PageBreakFlag -> QTextFormat_PageBreakFlag
+qtgui/qtextformat -> derivedalias -> QTextBlockFormat_PageBreakFlags -> QTextFormat_PageBreakFlags
+qtgui/qtextformat -> enum -> QTextBlockFormat_LineHeightTypes
+qtgui/qtextformat -> enum -> QTextBlockFormat_MarkerType
+qtgui/qtextformat -> class -> QTextListFormat -> QTextFormat
+qtgui/qtextformat -> derivedalias -> QTextListFormat_FormatType -> QTextFormat_FormatType
+qtgui/qtextformat -> derivedalias -> QTextListFormat_Property -> QTextFormat_Property
+qtgui/qtextformat -> derivedalias -> QTextListFormat_ObjectTypes -> QTextFormat_ObjectTypes
+qtgui/qtextformat -> derivedalias -> QTextListFormat_PageBreakFlag -> QTextFormat_PageBreakFlag
+qtgui/qtextformat -> derivedalias -> QTextListFormat_PageBreakFlags -> QTextFormat_PageBreakFlags
+qtgui/qtextformat -> enum -> QTextListFormat_Style
+qtgui/qtextformat -> class -> QTextImageFormat -> QTextCharFormat
+qtgui/qtextformat -> derivedalias -> QTextImageFormat_VerticalAlignment -> QTextCharFormat_VerticalAlignment
+qtgui/qtextformat -> derivedalias -> QTextImageFormat_UnderlineStyle -> QTextCharFormat_UnderlineStyle
+qtgui/qtextformat -> derivedalias -> QTextImageFormat_FontPropertiesInheritanceBehavior -> QTextCharFormat_FontPropertiesInheritanceBehavior
+qtgui/qtextformat -> derivedalias -> QTextImageFormat_FormatType -> QTextFormat_FormatType
+qtgui/qtextformat -> derivedalias -> QTextImageFormat_Property -> QTextFormat_Property
+qtgui/qtextformat -> derivedalias -> QTextImageFormat_ObjectTypes -> QTextFormat_ObjectTypes
+qtgui/qtextformat -> derivedalias -> QTextImageFormat_PageBreakFlag -> QTextFormat_PageBreakFlag
+qtgui/qtextformat -> derivedalias -> QTextImageFormat_PageBreakFlags -> QTextFormat_PageBreakFlags
+qtgui/qtextformat -> class -> QTextFrameFormat -> QTextFormat
+qtgui/qtextformat -> derivedalias -> QTextFrameFormat_FormatType -> QTextFormat_FormatType
+qtgui/qtextformat -> derivedalias -> QTextFrameFormat_Property -> QTextFormat_Property
+qtgui/qtextformat -> derivedalias -> QTextFrameFormat_ObjectTypes -> QTextFormat_ObjectTypes
+qtgui/qtextformat -> derivedalias -> QTextFrameFormat_PageBreakFlag -> QTextFormat_PageBreakFlag
+qtgui/qtextformat -> derivedalias -> QTextFrameFormat_PageBreakFlags -> QTextFormat_PageBreakFlags
+qtgui/qtextformat -> enum -> QTextFrameFormat_Position
+qtgui/qtextformat -> enum -> QTextFrameFormat_BorderStyle
+qtgui/qtextformat -> class -> QTextTableFormat -> QTextFrameFormat
+qtgui/qtextformat -> derivedalias -> QTextTableFormat_Position -> QTextFrameFormat_Position
+qtgui/qtextformat -> derivedalias -> QTextTableFormat_BorderStyle -> QTextFrameFormat_BorderStyle
+qtgui/qtextformat -> derivedalias -> QTextTableFormat_FormatType -> QTextFormat_FormatType
+qtgui/qtextformat -> derivedalias -> QTextTableFormat_Property -> QTextFormat_Property
+qtgui/qtextformat -> derivedalias -> QTextTableFormat_ObjectTypes -> QTextFormat_ObjectTypes
+qtgui/qtextformat -> derivedalias -> QTextTableFormat_PageBreakFlag -> QTextFormat_PageBreakFlag
+qtgui/qtextformat -> derivedalias -> QTextTableFormat_PageBreakFlags -> QTextFormat_PageBreakFlags
+qtgui/qtextformat -> class -> QTextTableCellFormat -> QTextCharFormat
+qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_VerticalAlignment -> QTextCharFormat_VerticalAlignment
+qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_UnderlineStyle -> QTextCharFormat_UnderlineStyle
+qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_FontPropertiesInheritanceBehavior -> QTextCharFormat_FontPropertiesInheritanceBehavior
+qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_FormatType -> QTextFormat_FormatType
+qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_Property -> QTextFormat_Property
+qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_ObjectTypes -> QTextFormat_ObjectTypes
+qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_PageBreakFlag -> QTextFormat_PageBreakFlag
+qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_PageBreakFlags -> QTextFormat_PageBreakFlags
+
+
+qtgui/qtexttable -> class -> QTextTableCell -> 
+qtgui/qtexttable -> class -> QTextTable -> QTextFrame
+
+
+qtgui/qtextdocumentfragment -> class -> QTextDocumentFragment -> 
+
+
+qtgui/qgenericpluginfactory -> class -> QGenericPluginFactory -> 
+
+
+qtgui/qsurfaceformat -> class -> QSurfaceFormat -> 
+qtgui/qsurfaceformat -> enum -> QSurfaceFormat_FormatOption
+qtgui/qsurfaceformat -> enum -> QSurfaceFormat_SwapBehavior
+qtgui/qsurfaceformat -> enum -> QSurfaceFormat_RenderableType
+qtgui/qsurfaceformat -> enum -> QSurfaceFormat_OpenGLContextProfile
+qtgui/qsurfaceformat -> enum -> QSurfaceFormat_ColorSpace
+qtgui/qsurfaceformat -> alias -> QSurfaceFormat_FormatOptions -> 
+
+
+qtgui/qwindowdefs -> alias -> QWidgetList -> 
+qtgui/qwindowdefs -> alias -> QWindowList -> 
+qtgui/qwindowdefs -> alias -> QWidgetSet -> 
+
+
+qtgui/qundogroup -> class -> QUndoGroup -> QObject
+
+
+qtgui/qpicture -> class -> QPicture -> QPaintDevice
+qtgui/qpicture -> derivedalias -> QPicture_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtgui/qbrush -> class -> QBrushDataPointerDeleter -> 
+qtgui/qbrush -> class -> QBrush -> 
+qtgui/qbrush -> class -> QBrushData -> 
+qtgui/qbrush -> class -> QGradient -> 
+qtgui/qbrush -> enum -> QGradient_Type
+qtgui/qbrush -> enum -> QGradient_Spread
+qtgui/qbrush -> enum -> QGradient_CoordinateMode
+qtgui/qbrush -> enum -> QGradient_InterpolationMode
+qtgui/qbrush -> enum -> QGradient_Preset
+qtgui/qbrush -> class -> QLinearGradient -> QGradient
+qtgui/qbrush -> derivedalias -> QLinearGradient_Type -> QGradient_Type
+qtgui/qbrush -> derivedalias -> QLinearGradient_Spread -> QGradient_Spread
+qtgui/qbrush -> derivedalias -> QLinearGradient_CoordinateMode -> QGradient_CoordinateMode
+qtgui/qbrush -> derivedalias -> QLinearGradient_InterpolationMode -> QGradient_InterpolationMode
+qtgui/qbrush -> derivedalias -> QLinearGradient_Preset -> QGradient_Preset
+qtgui/qbrush -> class -> QRadialGradient -> QGradient
+qtgui/qbrush -> derivedalias -> QRadialGradient_Type -> QGradient_Type
+qtgui/qbrush -> derivedalias -> QRadialGradient_Spread -> QGradient_Spread
+qtgui/qbrush -> derivedalias -> QRadialGradient_CoordinateMode -> QGradient_CoordinateMode
+qtgui/qbrush -> derivedalias -> QRadialGradient_InterpolationMode -> QGradient_InterpolationMode
+qtgui/qbrush -> derivedalias -> QRadialGradient_Preset -> QGradient_Preset
+qtgui/qbrush -> class -> QConicalGradient -> QGradient
+qtgui/qbrush -> derivedalias -> QConicalGradient_Type -> QGradient_Type
+qtgui/qbrush -> derivedalias -> QConicalGradient_Spread -> QGradient_Spread
+qtgui/qbrush -> derivedalias -> QConicalGradient_CoordinateMode -> QGradient_CoordinateMode
+qtgui/qbrush -> derivedalias -> QConicalGradient_InterpolationMode -> QGradient_InterpolationMode
+qtgui/qbrush -> derivedalias -> QConicalGradient_Preset -> QGradient_Preset
+
+
+qtgui/qfontdatabase -> class -> QFontDatabase -> 
+qtgui/qfontdatabase -> enum -> QFontDatabase_WritingSystem
+qtgui/qfontdatabase -> enum -> QFontDatabase_SystemFont
+
+
+qtgui/qiconengine -> class -> QIconEngine -> 
+qtgui/qiconengine -> class -> QIconEngine_ScaledPixmapArgument -> 
+qtgui/qiconengine -> enum -> QIconEngine_IconEngineHook
+
+
+qtgui/qimage -> class -> QImage -> QPaintDevice
+qtgui/qimage -> derivedalias -> QImage_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtgui/qimage -> enum -> QImage_InvertMode
+qtgui/qimage -> enum -> QImage_Format
+
+
+qtgui/qtransform -> class -> QTransform -> 
+qtgui/qtransform -> enum -> QTransform_TransformationType
+
+
+qtgui/qvulkaninstance -> alias -> PFN_vkVoidFunction -> 
+qtgui/qvulkaninstance -> alias -> VkSurfaceKHR -> 
+qtgui/qvulkaninstance -> alias -> VkImage -> 
+qtgui/qvulkaninstance -> alias -> VkImageView -> 
+qtgui/qvulkaninstance -> alias -> VkInstance -> 
+qtgui/qvulkaninstance -> alias -> VkPhysicalDevice -> 
+qtgui/qvulkaninstance -> alias -> VkDevice -> 
+qtgui/qvulkaninstance -> alias -> VkResult -> 
+qtgui/qvulkaninstance -> alias -> VkFormat -> 
+qtgui/qvulkaninstance -> alias -> VkImageLayout -> 
+qtgui/qvulkaninstance -> alias -> VkDebugReportFlagsEXT -> 
+qtgui/qvulkaninstance -> alias -> VkDebugReportObjectTypeEXT -> 
+
+
+qtgui/qvectornd -> class -> QVector2D -> 
+qtgui/qvectornd -> class -> QVector3D -> 
+qtgui/qvectornd -> class -> QVector4D -> 
+
+
+qtgui/qdesktopservices -> class -> QDesktopServices -> 
+
+
+qtgui/qtextlayout -> class -> QTextInlineObject -> 
+qtgui/qtextlayout -> class -> QTextLayout -> 
+qtgui/qtextlayout -> class -> QTextLayout_FormatRange -> 
+qtgui/qtextlayout -> enum -> QTextLayout_CursorMode
+qtgui/qtextlayout -> class -> QTextLine -> 
+qtgui/qtextlayout -> enum -> QTextLine_Edge
+qtgui/qtextlayout -> enum -> QTextLine_CursorPosition
+
+
+qtgui/qsessionmanager -> class -> QSessionManager -> QObject
+qtgui/qsessionmanager -> enum -> QSessionManager_RestartHint
+
+
+qtgui/qinputmethod -> class -> QInputMethod -> QObject
+qtgui/qinputmethod -> enum -> QInputMethod_Action
+
+
+qtgui/qmatrix4x4 -> class -> QMatrix4x4 -> 
+qtgui/qmatrix4x4 -> enum -> QMatrix4x4_Flag
+qtgui/qmatrix4x4 -> alias -> QMatrix4x4_Flags -> 
+
+
+qtgui/qdrag -> class -> QDrag -> QObject
+
+
+qtgui/qrawfont -> class -> QRawFont -> 
+qtgui/qrawfont -> enum -> QRawFont_AntialiasingType
+qtgui/qrawfont -> enum -> QRawFont_LayoutFlag
+qtgui/qrawfont -> alias -> QRawFont_LayoutFlags -> 
+
+
+qtgui/qfontmetrics -> class -> QFontMetrics -> 
+qtgui/qfontmetrics -> class -> QFontMetricsF -> 
+
+
+qtgui/qbackingstore -> class -> QBackingStore -> 
+
+
+qtgui/qaccessible -> class -> QAccessibleInterface -> 
+qtgui/qaccessible -> class -> QAccessibleTextInterface -> 
+qtgui/qaccessible -> class -> QAccessibleEditableTextInterface -> 
+qtgui/qaccessible -> class -> QAccessibleValueInterface -> 
+qtgui/qaccessible -> class -> QAccessibleTableCellInterface -> 
+qtgui/qaccessible -> class -> QAccessibleTableInterface -> 
+qtgui/qaccessible -> class -> QAccessibleActionInterface -> 
+qtgui/qaccessible -> class -> QAccessibleImageInterface -> 
+qtgui/qaccessible -> class -> QAccessibleHyperlinkInterface -> 
+qtgui/qaccessible -> class -> QAccessibleEvent -> 
+qtgui/qaccessible -> class -> QAccessibleStateChangeEvent -> QAccessibleEvent
+qtgui/qaccessible -> class -> QAccessibleTextCursorEvent -> QAccessibleEvent
+qtgui/qaccessible -> class -> QAccessibleTextSelectionEvent -> QAccessibleTextCursorEvent
+qtgui/qaccessible -> class -> QAccessibleTextInsertEvent -> QAccessibleTextCursorEvent
+qtgui/qaccessible -> class -> QAccessibleTextRemoveEvent -> QAccessibleTextCursorEvent
+qtgui/qaccessible -> class -> QAccessibleTextUpdateEvent -> QAccessibleTextCursorEvent
+qtgui/qaccessible -> class -> QAccessibleValueChangeEvent -> QAccessibleEvent
+qtgui/qaccessible -> class -> QAccessibleTableModelChangeEvent -> QAccessibleEvent
+qtgui/qaccessible -> enum -> QAccessibleTableModelChangeEvent_ModelChangeType
+
+
+qtgui/qpaintengine -> class -> QTextItem -> 
+qtgui/qpaintengine -> enum -> QTextItem_RenderFlag
+qtgui/qpaintengine -> alias -> QTextItem_RenderFlags -> 
+qtgui/qpaintengine -> class -> QPaintEngine -> 
+qtgui/qpaintengine -> enum -> QPaintEngine_PaintEngineFeature
+qtgui/qpaintengine -> enum -> QPaintEngine_DirtyFlag
+qtgui/qpaintengine -> enum -> QPaintEngine_PolygonDrawMode
+qtgui/qpaintengine -> enum -> QPaintEngine_Type
+qtgui/qpaintengine -> alias -> QPaintEngine_PaintEngineFeatures -> 
+qtgui/qpaintengine -> alias -> QPaintEngine_DirtyFlags -> 
+qtgui/qpaintengine -> class -> QPaintEngineState -> 
+
+
+qtgui/qvalidator -> class -> QValidator -> QObject
+qtgui/qvalidator -> enum -> QValidator_State
+qtgui/qvalidator -> class -> QIntValidator -> QValidator
+qtgui/qvalidator -> derivedalias -> QIntValidator_State -> QValidator_State
+qtgui/qvalidator -> class -> QDoubleValidator -> QValidator
+qtgui/qvalidator -> derivedalias -> QDoubleValidator_State -> QValidator_State
+qtgui/qvalidator -> enum -> QDoubleValidator_Notation
+qtgui/qvalidator -> class -> QRegularExpressionValidator -> QValidator
+qtgui/qvalidator -> derivedalias -> QRegularExpressionValidator_State -> QValidator_State
+
+
+qtgui/qpagedpaintdevice -> class -> QPagedPaintDevice -> QPaintDevice
+qtgui/qpagedpaintdevice -> derivedalias -> QPagedPaintDevice_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtgui/qpagedpaintdevice -> enum -> QPagedPaintDevice_PdfVersion
+
+
+qtwidgets/qgesturerecognizer -> class -> QGestureRecognizer -> 
+qtwidgets/qgesturerecognizer -> enum -> QGestureRecognizer_ResultFlag
+qtwidgets/qgesturerecognizer -> alias -> QGestureRecognizer_Result -> 
+
+
+qtwidgets/qlayout -> class -> QLayout -> QObject < QLayoutItem
+qtwidgets/qlayout -> enum -> QLayout_SizeConstraint
+
+
+qtwidgets/qgraphicsitem -> class -> QGraphicsItem -> 
+qtwidgets/qgraphicsitem -> enum -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> enum -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> enum -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> enum -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> enum -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> alias -> QGraphicsItem_GraphicsItemFlags -> 
+qtwidgets/qgraphicsitem -> class -> QGraphicsObject -> QObject < QGraphicsItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsObject_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsObject_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsObject_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsObject_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsObject_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsObject_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QAbstractGraphicsShapeItem -> QGraphicsItem
+qtwidgets/qgraphicsitem -> derivedalias -> QAbstractGraphicsShapeItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QAbstractGraphicsShapeItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QAbstractGraphicsShapeItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QAbstractGraphicsShapeItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QAbstractGraphicsShapeItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QAbstractGraphicsShapeItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QGraphicsPathItem -> QAbstractGraphicsShapeItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPathItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPathItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPathItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPathItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPathItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPathItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QGraphicsRectItem -> QAbstractGraphicsShapeItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsRectItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsRectItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsRectItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsRectItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsRectItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsRectItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QGraphicsEllipseItem -> QAbstractGraphicsShapeItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsEllipseItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsEllipseItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsEllipseItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsEllipseItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsEllipseItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsEllipseItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QGraphicsPolygonItem -> QAbstractGraphicsShapeItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPolygonItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPolygonItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPolygonItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPolygonItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPolygonItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPolygonItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QGraphicsLineItem -> QGraphicsItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsLineItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsLineItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsLineItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsLineItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsLineItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsLineItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QGraphicsPixmapItem -> QGraphicsItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPixmapItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPixmapItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPixmapItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPixmapItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPixmapItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsPixmapItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> enum -> QGraphicsPixmapItem_ShapeMode
+qtwidgets/qgraphicsitem -> class -> QGraphicsTextItem -> QGraphicsObject
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsTextItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsTextItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsTextItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsTextItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsTextItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsTextItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QGraphicsSimpleTextItem -> QAbstractGraphicsShapeItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsSimpleTextItem_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsSimpleTextItem_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsSimpleTextItem_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsSimpleTextItem_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsSimpleTextItem_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsSimpleTextItem_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QGraphicsItemGroup -> QGraphicsItem
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsItemGroup_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsItemGroup_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsItemGroup_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsItemGroup_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsItemGroup_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsitem -> derivedalias -> QGraphicsItemGroup_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+qtwidgets/qgraphicsitem -> class -> QMetaTypeId -> 
+
+
+qtwidgets/qgraphicsscene -> class -> QGraphicsScene -> QObject
+qtwidgets/qgraphicsscene -> enum -> QGraphicsScene_ItemIndexMethod
+qtwidgets/qgraphicsscene -> enum -> QGraphicsScene_SceneLayer
+qtwidgets/qgraphicsscene -> alias -> QGraphicsScene_SceneLayers -> 
+
+
+qtwidgets/qdockwidget -> class -> QDockWidget -> QWidget
+qtwidgets/qdockwidget -> derivedalias -> QDockWidget_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qdockwidget -> derivedalias -> QDockWidget_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qdockwidget -> derivedalias -> QDockWidget_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qdockwidget -> enum -> QDockWidget_DockWidgetFeature
+qtwidgets/qdockwidget -> alias -> QDockWidget_DockWidgetFeatures -> 
+
+
+qtwidgets/qabstractbutton -> class -> QAbstractButton -> QWidget
+qtwidgets/qabstractbutton -> derivedalias -> QAbstractButton_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qabstractbutton -> derivedalias -> QAbstractButton_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qabstractbutton -> derivedalias -> QAbstractButton_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qgraphicslayoutitem -> class -> QGraphicsLayoutItem -> 
+
+
+qtwidgets/qaccessiblewidget -> class -> QAccessibleWidget -> QAccessibleObject < QAccessibleActionInterface
+
+
+qtwidgets/qitemdelegate -> class -> QItemDelegate -> QAbstractItemDelegate
+qtwidgets/qitemdelegate -> derivedalias -> QItemDelegate_EndEditHint -> QAbstractItemDelegate_EndEditHint
+
+
+qtwidgets/qstyleditemdelegate -> class -> QStyledItemDelegate -> QAbstractItemDelegate
+qtwidgets/qstyleditemdelegate -> derivedalias -> QStyledItemDelegate_EndEditHint -> QAbstractItemDelegate_EndEditHint
+
+
+qtwidgets/qfontcombobox -> class -> QFontComboBox -> QComboBox
+qtwidgets/qfontcombobox -> derivedalias -> QFontComboBox_InsertPolicy -> QComboBox_InsertPolicy
+qtwidgets/qfontcombobox -> derivedalias -> QFontComboBox_SizeAdjustPolicy -> QComboBox_SizeAdjustPolicy
+qtwidgets/qfontcombobox -> derivedalias -> QFontComboBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qfontcombobox -> derivedalias -> QFontComboBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qfontcombobox -> derivedalias -> QFontComboBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qfontcombobox -> enum -> QFontComboBox_FontFilter
+qtwidgets/qfontcombobox -> alias -> QFontComboBox_FontFilters -> 
+
+
+qtwidgets/qrubberband -> class -> QRubberBand -> QWidget
+qtwidgets/qrubberband -> derivedalias -> QRubberBand_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qrubberband -> derivedalias -> QRubberBand_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qrubberband -> derivedalias -> QRubberBand_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qrubberband -> enum -> QRubberBand_Shape
+
+
+qtwidgets/qgraphicsitemanimation -> class -> QGraphicsItemAnimation -> QObject
+
+
+qtwidgets/qstyle -> class -> QStyle -> QObject
+qtwidgets/qstyle -> enum -> QStyle_StateFlag
+qtwidgets/qstyle -> enum -> QStyle_PrimitiveElement
+qtwidgets/qstyle -> enum -> QStyle_ControlElement
+qtwidgets/qstyle -> enum -> QStyle_SubElement
+qtwidgets/qstyle -> enum -> QStyle_ComplexControl
+qtwidgets/qstyle -> enum -> QStyle_SubControl
+qtwidgets/qstyle -> enum -> QStyle_PixelMetric
+qtwidgets/qstyle -> enum -> QStyle_ContentsType
+qtwidgets/qstyle -> enum -> QStyle_RequestSoftwareInputPanel
+qtwidgets/qstyle -> enum -> QStyle_StyleHint
+qtwidgets/qstyle -> enum -> QStyle_StandardPixmap
+qtwidgets/qstyle -> alias -> QStyle_State -> 
+qtwidgets/qstyle -> alias -> QStyle_SubControls -> 
+
+
+qtwidgets/qfocusframe -> class -> QFocusFrame -> QWidget
+qtwidgets/qfocusframe -> derivedalias -> QFocusFrame_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qfocusframe -> derivedalias -> QFocusFrame_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qfocusframe -> derivedalias -> QFocusFrame_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qtoolbar -> class -> QToolBar -> QWidget
+qtwidgets/qtoolbar -> derivedalias -> QToolBar_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtoolbar -> derivedalias -> QToolBar_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtoolbar -> derivedalias -> QToolBar_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qtabbar -> class -> QTabBar -> QWidget
+qtwidgets/qtabbar -> derivedalias -> QTabBar_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtabbar -> derivedalias -> QTabBar_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtabbar -> derivedalias -> QTabBar_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qtabbar -> enum -> QTabBar_Shape
+qtwidgets/qtabbar -> enum -> QTabBar_ButtonPosition
+qtwidgets/qtabbar -> enum -> QTabBar_SelectionBehavior
+
+
+qtwidgets/qwidgetaction -> class -> QWidgetAction -> QAction
+qtwidgets/qwidgetaction -> derivedalias -> QWidgetAction_MenuRole -> QAction_MenuRole
+qtwidgets/qwidgetaction -> derivedalias -> QWidgetAction_Priority -> QAction_Priority
+qtwidgets/qwidgetaction -> derivedalias -> QWidgetAction_ActionEvent -> QAction_ActionEvent
+
+
+qtwidgets/qmainwindow -> class -> QMainWindow -> QWidget
+qtwidgets/qmainwindow -> derivedalias -> QMainWindow_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qmainwindow -> derivedalias -> QMainWindow_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qmainwindow -> derivedalias -> QMainWindow_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qmainwindow -> enum -> QMainWindow_DockOption
+qtwidgets/qmainwindow -> alias -> QMainWindow_DockOptions -> 
+
+
+qtwidgets/qcombobox -> class -> QComboBox -> QWidget
+qtwidgets/qcombobox -> derivedalias -> QComboBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qcombobox -> derivedalias -> QComboBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qcombobox -> derivedalias -> QComboBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qcombobox -> enum -> QComboBox_InsertPolicy
+qtwidgets/qcombobox -> enum -> QComboBox_SizeAdjustPolicy
+
+
+qtwidgets/qtooltip -> class -> QToolTip -> 
+
+
+qtwidgets/qdialog -> class -> QDialog -> QWidget
+qtwidgets/qdialog -> derivedalias -> QDialog_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qdialog -> derivedalias -> QDialog_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qdialog -> derivedalias -> QDialog_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qdialog -> enum -> QDialog_DialogCode
+
+
+qtwidgets/qdrawutil -> class -> QTileRules -> 
+qtwidgets/qdrawutil -> enum -> QDrawBorderPixmap_DrawingHint
+qtwidgets/qdrawutil -> alias -> QDrawBorderPixmap_DrawingHints -> 
+
+
+qtwidgets/qsystemtrayicon -> class -> QSystemTrayIcon -> QObject
+qtwidgets/qsystemtrayicon -> enum -> QSystemTrayIcon_ActivationReason
+qtwidgets/qsystemtrayicon -> enum -> QSystemTrayIcon_MessageIcon
+
+
+qtwidgets/qmenu -> class -> QMenu -> QWidget
+qtwidgets/qmenu -> derivedalias -> QMenu_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qmenu -> derivedalias -> QMenu_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qmenu -> derivedalias -> QMenu_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qheaderview -> class -> QHeaderView -> QAbstractItemView
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_State -> QAbstractItemView_State
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_Shape -> QFrame_Shape
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_Shadow -> QFrame_Shadow
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_StyleMask -> QFrame_StyleMask
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qheaderview -> derivedalias -> QHeaderView_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qheaderview -> enum -> QHeaderView_ResizeMode
+
+
+qtwidgets/qstylefactory -> class -> QStyleFactory -> 
+
+
+qtwidgets/qscrollerproperties -> class -> QScrollerProperties -> 
+qtwidgets/qscrollerproperties -> enum -> QScrollerProperties_OvershootPolicy
+qtwidgets/qscrollerproperties -> enum -> QScrollerProperties_FrameRates
+qtwidgets/qscrollerproperties -> enum -> QScrollerProperties_ScrollMetric
+
+
+qtwidgets/qscrollarea -> class -> QScrollArea -> QAbstractScrollArea
+qtwidgets/qscrollarea -> derivedalias -> QScrollArea_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qscrollarea -> derivedalias -> QScrollArea_Shape -> QFrame_Shape
+qtwidgets/qscrollarea -> derivedalias -> QScrollArea_Shadow -> QFrame_Shadow
+qtwidgets/qscrollarea -> derivedalias -> QScrollArea_StyleMask -> QFrame_StyleMask
+qtwidgets/qscrollarea -> derivedalias -> QScrollArea_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qscrollarea -> derivedalias -> QScrollArea_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qscrollarea -> derivedalias -> QScrollArea_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneEvent -> QEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneEvent_Type -> QEvent_Type
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneMouseEvent -> QGraphicsSceneEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneMouseEvent_Type -> QEvent_Type
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneWheelEvent -> QGraphicsSceneEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneWheelEvent_Type -> QEvent_Type
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneContextMenuEvent -> QGraphicsSceneEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneContextMenuEvent_Type -> QEvent_Type
+qtwidgets/qgraphicssceneevent -> enum -> QGraphicsSceneContextMenuEvent_Reason
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneHoverEvent -> QGraphicsSceneEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneHoverEvent_Type -> QEvent_Type
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneHelpEvent -> QGraphicsSceneEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneHelpEvent_Type -> QEvent_Type
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneDragDropEvent -> QGraphicsSceneEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneDragDropEvent_Type -> QEvent_Type
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneResizeEvent -> QGraphicsSceneEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneResizeEvent_Type -> QEvent_Type
+qtwidgets/qgraphicssceneevent -> class -> QGraphicsSceneMoveEvent -> QGraphicsSceneEvent
+qtwidgets/qgraphicssceneevent -> derivedalias -> QGraphicsSceneMoveEvent_Type -> QEvent_Type
+
+
+qtwidgets/qmdiarea -> class -> QMdiArea -> QAbstractScrollArea
+qtwidgets/qmdiarea -> derivedalias -> QMdiArea_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qmdiarea -> derivedalias -> QMdiArea_Shape -> QFrame_Shape
+qtwidgets/qmdiarea -> derivedalias -> QMdiArea_Shadow -> QFrame_Shadow
+qtwidgets/qmdiarea -> derivedalias -> QMdiArea_StyleMask -> QFrame_StyleMask
+qtwidgets/qmdiarea -> derivedalias -> QMdiArea_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qmdiarea -> derivedalias -> QMdiArea_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qmdiarea -> derivedalias -> QMdiArea_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qmdiarea -> enum -> QMdiArea_AreaOption
+qtwidgets/qmdiarea -> enum -> QMdiArea_WindowOrder
+qtwidgets/qmdiarea -> enum -> QMdiArea_ViewMode
+qtwidgets/qmdiarea -> alias -> QMdiArea_AreaOptions -> 
+
+
+qtwidgets/qlistwidget -> class -> QListWidgetItem -> 
+qtwidgets/qlistwidget -> enum -> QListWidgetItem_ItemType
+qtwidgets/qlistwidget -> class -> QListWidget -> QListView
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_Movement -> QListView_Movement
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_Flow -> QListView_Flow
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_ResizeMode -> QListView_ResizeMode
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_LayoutMode -> QListView_LayoutMode
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_ViewMode -> QListView_ViewMode
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_State -> QAbstractItemView_State
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_Shape -> QFrame_Shape
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_Shadow -> QFrame_Shadow
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_StyleMask -> QFrame_StyleMask
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qlistwidget -> derivedalias -> QListWidget_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qgraphicsview -> class -> QGraphicsView -> QAbstractScrollArea
+qtwidgets/qgraphicsview -> derivedalias -> QGraphicsView_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qgraphicsview -> derivedalias -> QGraphicsView_Shape -> QFrame_Shape
+qtwidgets/qgraphicsview -> derivedalias -> QGraphicsView_Shadow -> QFrame_Shadow
+qtwidgets/qgraphicsview -> derivedalias -> QGraphicsView_StyleMask -> QFrame_StyleMask
+qtwidgets/qgraphicsview -> derivedalias -> QGraphicsView_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qgraphicsview -> derivedalias -> QGraphicsView_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qgraphicsview -> derivedalias -> QGraphicsView_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qgraphicsview -> enum -> QGraphicsView_ViewportAnchor
+qtwidgets/qgraphicsview -> enum -> QGraphicsView_CacheModeFlag
+qtwidgets/qgraphicsview -> enum -> QGraphicsView_DragMode
+qtwidgets/qgraphicsview -> enum -> QGraphicsView_ViewportUpdateMode
+qtwidgets/qgraphicsview -> enum -> QGraphicsView_OptimizationFlag
+qtwidgets/qgraphicsview -> alias -> QGraphicsView_CacheMode -> 
+qtwidgets/qgraphicsview -> alias -> QGraphicsView_OptimizationFlags -> 
+
+
+qtwidgets/qradiobutton -> class -> QRadioButton -> QAbstractButton
+qtwidgets/qradiobutton -> derivedalias -> QRadioButton_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qradiobutton -> derivedalias -> QRadioButton_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qradiobutton -> derivedalias -> QRadioButton_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qsizegrip -> class -> QSizeGrip -> QWidget
+qtwidgets/qsizegrip -> derivedalias -> QSizeGrip_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qsizegrip -> derivedalias -> QSizeGrip_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qsizegrip -> derivedalias -> QSizeGrip_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qabstractscrollarea -> class -> QAbstractScrollArea -> QFrame
+qtwidgets/qabstractscrollarea -> derivedalias -> QAbstractScrollArea_Shape -> QFrame_Shape
+qtwidgets/qabstractscrollarea -> derivedalias -> QAbstractScrollArea_Shadow -> QFrame_Shadow
+qtwidgets/qabstractscrollarea -> derivedalias -> QAbstractScrollArea_StyleMask -> QFrame_StyleMask
+qtwidgets/qabstractscrollarea -> derivedalias -> QAbstractScrollArea_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qabstractscrollarea -> derivedalias -> QAbstractScrollArea_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qabstractscrollarea -> derivedalias -> QAbstractScrollArea_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qabstractscrollarea -> enum -> QAbstractScrollArea_SizeAdjustPolicy
+
+
+qtwidgets/qtreewidget -> class -> QTreeWidgetItem -> 
+qtwidgets/qtreewidget -> enum -> QTreeWidgetItem_ItemType
+qtwidgets/qtreewidget -> enum -> QTreeWidgetItem_ChildIndicatorPolicy
+qtwidgets/qtreewidget -> class -> QTreeWidget -> QTreeView
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_State -> QAbstractItemView_State
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_Shape -> QFrame_Shape
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_Shadow -> QFrame_Shadow
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_StyleMask -> QFrame_StyleMask
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtreewidget -> derivedalias -> QTreeWidget_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qpushbutton -> class -> QPushButton -> QAbstractButton
+qtwidgets/qpushbutton -> derivedalias -> QPushButton_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qpushbutton -> derivedalias -> QPushButton_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qpushbutton -> derivedalias -> QPushButton_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qgraphicsgridlayout -> class -> QGraphicsGridLayout -> QGraphicsLayout
+
+
+qtwidgets/qgroupbox -> class -> QGroupBox -> QWidget
+qtwidgets/qgroupbox -> derivedalias -> QGroupBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qgroupbox -> derivedalias -> QGroupBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qgroupbox -> derivedalias -> QGroupBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qlineedit -> class -> QLineEdit -> QWidget
+qtwidgets/qlineedit -> derivedalias -> QLineEdit_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qlineedit -> derivedalias -> QLineEdit_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qlineedit -> derivedalias -> QLineEdit_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qlineedit -> enum -> QLineEdit_ActionPosition
+qtwidgets/qlineedit -> enum -> QLineEdit_EchoMode
+
+
+qtwidgets/qdialogbuttonbox -> class -> QDialogButtonBox -> QWidget
+qtwidgets/qdialogbuttonbox -> derivedalias -> QDialogButtonBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qdialogbuttonbox -> derivedalias -> QDialogButtonBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qdialogbuttonbox -> derivedalias -> QDialogButtonBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qdialogbuttonbox -> enum -> QDialogButtonBox_ButtonRole
+qtwidgets/qdialogbuttonbox -> enum -> QDialogButtonBox_StandardButton
+qtwidgets/qdialogbuttonbox -> enum -> QDialogButtonBox_ButtonLayout
+qtwidgets/qdialogbuttonbox -> alias -> QDialogButtonBox_StandardButtons -> 
+
+
+qtwidgets/qgraphicstransform -> class -> QGraphicsTransform -> QObject
+qtwidgets/qgraphicstransform -> class -> QGraphicsScale -> QGraphicsTransform
+qtwidgets/qgraphicstransform -> class -> QGraphicsRotation -> QGraphicsTransform
+
+
+qtwidgets/qgraphicslayout -> class -> QGraphicsLayout -> QGraphicsLayoutItem
+
+
+qtwidgets/qstatusbar -> class -> QStatusBar -> QWidget
+qtwidgets/qstatusbar -> derivedalias -> QStatusBar_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qstatusbar -> derivedalias -> QStatusBar_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qstatusbar -> derivedalias -> QStatusBar_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qplaintextedit -> class -> QPlainTextEdit -> QAbstractScrollArea
+qtwidgets/qplaintextedit -> derivedalias -> QPlainTextEdit_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qplaintextedit -> derivedalias -> QPlainTextEdit_Shape -> QFrame_Shape
+qtwidgets/qplaintextedit -> derivedalias -> QPlainTextEdit_Shadow -> QFrame_Shadow
+qtwidgets/qplaintextedit -> derivedalias -> QPlainTextEdit_StyleMask -> QFrame_StyleMask
+qtwidgets/qplaintextedit -> derivedalias -> QPlainTextEdit_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qplaintextedit -> derivedalias -> QPlainTextEdit_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qplaintextedit -> derivedalias -> QPlainTextEdit_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qplaintextedit -> enum -> QPlainTextEdit_LineWrapMode
+qtwidgets/qplaintextedit -> class -> QPlainTextDocumentLayout -> QAbstractTextDocumentLayout
+
+
+qtwidgets/qwidget -> class -> QWidgetData -> 
+qtwidgets/qwidget -> class -> QWidget -> QObject < QPaintDevice
+qtwidgets/qwidget -> derivedalias -> QWidget_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qwidget -> enum -> QWidget_RenderFlag
+qtwidgets/qwidget -> alias -> QWidget_RenderFlags -> 
+
+
+qtwidgets/qsizepolicy -> class -> QSizePolicy -> 
+qtwidgets/qsizepolicy -> enum -> QSizePolicy_PolicyFlag
+qtwidgets/qsizepolicy -> enum -> QSizePolicy_Policy
+qtwidgets/qsizepolicy -> enum -> QSizePolicy_ControlType
+qtwidgets/qsizepolicy -> alias -> QSizePolicy_ControlTypes -> 
+
+
+qtwidgets/qproxystyle -> class -> QProxyStyle -> QCommonStyle
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_StateFlag -> QStyle_StateFlag
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_PrimitiveElement -> QStyle_PrimitiveElement
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_ControlElement -> QStyle_ControlElement
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_SubElement -> QStyle_SubElement
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_ComplexControl -> QStyle_ComplexControl
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_SubControl -> QStyle_SubControl
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_PixelMetric -> QStyle_PixelMetric
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_ContentsType -> QStyle_ContentsType
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_RequestSoftwareInputPanel -> QStyle_RequestSoftwareInputPanel
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_StyleHint -> QStyle_StyleHint
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_StandardPixmap -> QStyle_StandardPixmap
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_State -> QStyle_State
+qtwidgets/qproxystyle -> derivedalias -> QProxyStyle_SubControls -> QStyle_SubControls
+
+
+qtwidgets/qstylepainter -> class -> QStylePainter -> QPainter
+qtwidgets/qstylepainter -> derivedalias -> QStylePainter_RenderHint -> QPainter_RenderHint
+qtwidgets/qstylepainter -> derivedalias -> QStylePainter_PixmapFragmentHint -> QPainter_PixmapFragmentHint
+qtwidgets/qstylepainter -> derivedalias -> QStylePainter_CompositionMode -> QPainter_CompositionMode
+qtwidgets/qstylepainter -> derivedalias -> QStylePainter_RenderHints -> QPainter_RenderHints
+qtwidgets/qstylepainter -> derivedalias -> QStylePainter_PixmapFragmentHints -> QPainter_PixmapFragmentHints
+
+
+qtwidgets/qwhatsthis -> class -> QWhatsThis -> 
+
+
+qtwidgets/qapplication -> class -> QApplication -> QGuiApplication
+
+
+qtwidgets/qstackedwidget -> class -> QStackedWidget -> QFrame
+qtwidgets/qstackedwidget -> derivedalias -> QStackedWidget_Shape -> QFrame_Shape
+qtwidgets/qstackedwidget -> derivedalias -> QStackedWidget_Shadow -> QFrame_Shadow
+qtwidgets/qstackedwidget -> derivedalias -> QStackedWidget_StyleMask -> QFrame_StyleMask
+qtwidgets/qstackedwidget -> derivedalias -> QStackedWidget_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qstackedwidget -> derivedalias -> QStackedWidget_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qstackedwidget -> derivedalias -> QStackedWidget_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qdatetimeedit -> class -> QDateTimeEdit -> QAbstractSpinBox
+qtwidgets/qdatetimeedit -> derivedalias -> QDateTimeEdit_StepEnabledFlag -> QAbstractSpinBox_StepEnabledFlag
+qtwidgets/qdatetimeedit -> derivedalias -> QDateTimeEdit_ButtonSymbols -> QAbstractSpinBox_ButtonSymbols
+qtwidgets/qdatetimeedit -> derivedalias -> QDateTimeEdit_CorrectionMode -> QAbstractSpinBox_CorrectionMode
+qtwidgets/qdatetimeedit -> derivedalias -> QDateTimeEdit_StepType -> QAbstractSpinBox_StepType
+qtwidgets/qdatetimeedit -> derivedalias -> QDateTimeEdit_StepEnabled -> QAbstractSpinBox_StepEnabled
+qtwidgets/qdatetimeedit -> derivedalias -> QDateTimeEdit_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qdatetimeedit -> derivedalias -> QDateTimeEdit_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qdatetimeedit -> derivedalias -> QDateTimeEdit_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qdatetimeedit -> enum -> QDateTimeEdit_Section
+qtwidgets/qdatetimeedit -> alias -> QDateTimeEdit_Sections -> 
+qtwidgets/qdatetimeedit -> class -> QTimeEdit -> QDateTimeEdit
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_Section -> QDateTimeEdit_Section
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_Sections -> QDateTimeEdit_Sections
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_StepEnabledFlag -> QAbstractSpinBox_StepEnabledFlag
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_ButtonSymbols -> QAbstractSpinBox_ButtonSymbols
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_CorrectionMode -> QAbstractSpinBox_CorrectionMode
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_StepType -> QAbstractSpinBox_StepType
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_StepEnabled -> QAbstractSpinBox_StepEnabled
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qdatetimeedit -> derivedalias -> QTimeEdit_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qdatetimeedit -> class -> QDateEdit -> QDateTimeEdit
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_Section -> QDateTimeEdit_Section
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_Sections -> QDateTimeEdit_Sections
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_StepEnabledFlag -> QAbstractSpinBox_StepEnabledFlag
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_ButtonSymbols -> QAbstractSpinBox_ButtonSymbols
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_CorrectionMode -> QAbstractSpinBox_CorrectionMode
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_StepType -> QAbstractSpinBox_StepType
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_StepEnabled -> QAbstractSpinBox_StepEnabled
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qdatetimeedit -> derivedalias -> QDateEdit_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qtextbrowser -> class -> QTextBrowser -> QTextEdit
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_LineWrapMode -> QTextEdit_LineWrapMode
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_AutoFormattingFlag -> QTextEdit_AutoFormattingFlag
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_AutoFormatting -> QTextEdit_AutoFormatting
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_Shape -> QFrame_Shape
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_Shadow -> QFrame_Shadow
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_StyleMask -> QFrame_StyleMask
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtextbrowser -> derivedalias -> QTextBrowser_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qabstractitemdelegate -> class -> QAbstractItemDelegate -> QObject
+qtwidgets/qabstractitemdelegate -> enum -> QAbstractItemDelegate_EndEditHint
+
+
+qtwidgets/qfiledialog -> class -> QFileDialog -> QDialog
+qtwidgets/qfiledialog -> derivedalias -> QFileDialog_DialogCode -> QDialog_DialogCode
+qtwidgets/qfiledialog -> derivedalias -> QFileDialog_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qfiledialog -> derivedalias -> QFileDialog_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qfiledialog -> derivedalias -> QFileDialog_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qfiledialog -> enum -> QFileDialog_ViewMode
+qtwidgets/qfiledialog -> enum -> QFileDialog_FileMode
+qtwidgets/qfiledialog -> enum -> QFileDialog_AcceptMode
+qtwidgets/qfiledialog -> enum -> QFileDialog_DialogLabel
+qtwidgets/qfiledialog -> enum -> QFileDialog_Option
+qtwidgets/qfiledialog -> alias -> QFileDialog_Options -> 
+
+
+qtwidgets/qlabel -> class -> QLabel -> QFrame
+qtwidgets/qlabel -> derivedalias -> QLabel_Shape -> QFrame_Shape
+qtwidgets/qlabel -> derivedalias -> QLabel_Shadow -> QFrame_Shadow
+qtwidgets/qlabel -> derivedalias -> QLabel_StyleMask -> QFrame_StyleMask
+qtwidgets/qlabel -> derivedalias -> QLabel_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qlabel -> derivedalias -> QLabel_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qlabel -> derivedalias -> QLabel_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qcheckbox -> class -> QCheckBox -> QAbstractButton
+qtwidgets/qcheckbox -> derivedalias -> QCheckBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qcheckbox -> derivedalias -> QCheckBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qcheckbox -> derivedalias -> QCheckBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qerrormessage -> class -> QErrorMessage -> QDialog
+qtwidgets/qerrormessage -> derivedalias -> QErrorMessage_DialogCode -> QDialog_DialogCode
+qtwidgets/qerrormessage -> derivedalias -> QErrorMessage_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qerrormessage -> derivedalias -> QErrorMessage_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qerrormessage -> derivedalias -> QErrorMessage_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qfontdialog -> class -> QFontDialog -> QDialog
+qtwidgets/qfontdialog -> derivedalias -> QFontDialog_DialogCode -> QDialog_DialogCode
+qtwidgets/qfontdialog -> derivedalias -> QFontDialog_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qfontdialog -> derivedalias -> QFontDialog_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qfontdialog -> derivedalias -> QFontDialog_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qfontdialog -> enum -> QFontDialog_FontDialogOption
+qtwidgets/qfontdialog -> alias -> QFontDialog_FontDialogOptions -> 
+
+
+qtwidgets/qframe -> class -> QFrame -> QWidget
+qtwidgets/qframe -> derivedalias -> QFrame_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qframe -> derivedalias -> QFrame_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qframe -> derivedalias -> QFrame_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qframe -> enum -> QFrame_Shape
+qtwidgets/qframe -> enum -> QFrame_Shadow
+qtwidgets/qframe -> enum -> QFrame_StyleMask
+
+
+qtwidgets/qsplitter -> class -> QSplitter -> QFrame
+qtwidgets/qsplitter -> derivedalias -> QSplitter_Shape -> QFrame_Shape
+qtwidgets/qsplitter -> derivedalias -> QSplitter_Shadow -> QFrame_Shadow
+qtwidgets/qsplitter -> derivedalias -> QSplitter_StyleMask -> QFrame_StyleMask
+qtwidgets/qsplitter -> derivedalias -> QSplitter_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qsplitter -> derivedalias -> QSplitter_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qsplitter -> derivedalias -> QSplitter_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qsplitter -> class -> QSplitterHandle -> QWidget
+qtwidgets/qsplitter -> derivedalias -> QSplitterHandle_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qsplitter -> derivedalias -> QSplitterHandle_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qsplitter -> derivedalias -> QSplitterHandle_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qcompleter -> class -> QCompleter -> QObject
+qtwidgets/qcompleter -> enum -> QCompleter_CompletionMode
+qtwidgets/qcompleter -> enum -> QCompleter_ModelSorting
+
+
+qtwidgets/qtableview -> class -> QTableView -> QAbstractItemView
+qtwidgets/qtableview -> derivedalias -> QTableView_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qtableview -> derivedalias -> QTableView_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qtableview -> derivedalias -> QTableView_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qtableview -> derivedalias -> QTableView_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qtableview -> derivedalias -> QTableView_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qtableview -> derivedalias -> QTableView_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qtableview -> derivedalias -> QTableView_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qtableview -> derivedalias -> QTableView_State -> QAbstractItemView_State
+qtwidgets/qtableview -> derivedalias -> QTableView_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qtableview -> derivedalias -> QTableView_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qtableview -> derivedalias -> QTableView_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qtableview -> derivedalias -> QTableView_Shape -> QFrame_Shape
+qtwidgets/qtableview -> derivedalias -> QTableView_Shadow -> QFrame_Shadow
+qtwidgets/qtableview -> derivedalias -> QTableView_StyleMask -> QFrame_StyleMask
+qtwidgets/qtableview -> derivedalias -> QTableView_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtableview -> derivedalias -> QTableView_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtableview -> derivedalias -> QTableView_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qinputdialog -> class -> QInputDialog -> QDialog
+qtwidgets/qinputdialog -> derivedalias -> QInputDialog_DialogCode -> QDialog_DialogCode
+qtwidgets/qinputdialog -> derivedalias -> QInputDialog_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qinputdialog -> derivedalias -> QInputDialog_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qinputdialog -> derivedalias -> QInputDialog_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qinputdialog -> enum -> QInputDialog_InputDialogOption
+qtwidgets/qinputdialog -> enum -> QInputDialog_InputMode
+qtwidgets/qinputdialog -> alias -> QInputDialog_InputDialogOptions -> 
+
+
+qtwidgets/qtablewidget -> class -> QTableWidgetSelectionRange -> 
+qtwidgets/qtablewidget -> class -> QTableWidgetItem -> 
+qtwidgets/qtablewidget -> enum -> QTableWidgetItem_ItemType
+qtwidgets/qtablewidget -> class -> QTableWidget -> QTableView
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_State -> QAbstractItemView_State
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_Shape -> QFrame_Shape
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_Shadow -> QFrame_Shadow
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_StyleMask -> QFrame_StyleMask
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtablewidget -> derivedalias -> QTableWidget_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qitemeditorfactory -> class -> QItemEditorCreatorBase -> 
+qtwidgets/qitemeditorfactory -> class -> QItemEditorCreator -> QItemEditorCreatorBase
+qtwidgets/qitemeditorfactory -> class -> QStandardItemEditorCreator -> QItemEditorCreatorBase
+qtwidgets/qitemeditorfactory -> class -> QItemEditorFactory -> 
+
+
+qtwidgets/qtreeview -> class -> QTreeView -> QAbstractItemView
+qtwidgets/qtreeview -> derivedalias -> QTreeView_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qtreeview -> derivedalias -> QTreeView_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qtreeview -> derivedalias -> QTreeView_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qtreeview -> derivedalias -> QTreeView_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qtreeview -> derivedalias -> QTreeView_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qtreeview -> derivedalias -> QTreeView_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qtreeview -> derivedalias -> QTreeView_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qtreeview -> derivedalias -> QTreeView_State -> QAbstractItemView_State
+qtwidgets/qtreeview -> derivedalias -> QTreeView_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qtreeview -> derivedalias -> QTreeView_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qtreeview -> derivedalias -> QTreeView_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qtreeview -> derivedalias -> QTreeView_Shape -> QFrame_Shape
+qtwidgets/qtreeview -> derivedalias -> QTreeView_Shadow -> QFrame_Shadow
+qtwidgets/qtreeview -> derivedalias -> QTreeView_StyleMask -> QFrame_StyleMask
+qtwidgets/qtreeview -> derivedalias -> QTreeView_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtreeview -> derivedalias -> QTreeView_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtreeview -> derivedalias -> QTreeView_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qabstractitemview -> class -> QAbstractItemView -> QAbstractScrollArea
+qtwidgets/qabstractitemview -> derivedalias -> QAbstractItemView_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qabstractitemview -> derivedalias -> QAbstractItemView_Shape -> QFrame_Shape
+qtwidgets/qabstractitemview -> derivedalias -> QAbstractItemView_Shadow -> QFrame_Shadow
+qtwidgets/qabstractitemview -> derivedalias -> QAbstractItemView_StyleMask -> QFrame_StyleMask
+qtwidgets/qabstractitemview -> derivedalias -> QAbstractItemView_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qabstractitemview -> derivedalias -> QAbstractItemView_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qabstractitemview -> derivedalias -> QAbstractItemView_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_SelectionMode
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_SelectionBehavior
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_ScrollHint
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_EditTrigger
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_ScrollMode
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_DragDropMode
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_CursorAction
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_State
+qtwidgets/qabstractitemview -> enum -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qabstractitemview -> alias -> QAbstractItemView_EditTriggers -> 
+
+
+qtwidgets/qmenubar -> class -> QMenuBar -> QWidget
+qtwidgets/qmenubar -> derivedalias -> QMenuBar_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qmenubar -> derivedalias -> QMenuBar_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qmenubar -> derivedalias -> QMenuBar_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qbuttongroup -> class -> QButtonGroup -> QObject
+
+
+qtwidgets/qslider -> class -> QSlider -> QAbstractSlider
+qtwidgets/qslider -> derivedalias -> QSlider_SliderAction -> QAbstractSlider_SliderAction
+qtwidgets/qslider -> derivedalias -> QSlider_SliderChange -> QAbstractSlider_SliderChange
+qtwidgets/qslider -> derivedalias -> QSlider_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qslider -> derivedalias -> QSlider_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qslider -> derivedalias -> QSlider_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qslider -> enum -> QSlider_TickPosition
+
+
+qtwidgets/qscroller -> class -> QScroller -> QObject
+qtwidgets/qscroller -> enum -> QScroller_State
+qtwidgets/qscroller -> enum -> QScroller_ScrollerGestureType
+qtwidgets/qscroller -> enum -> QScroller_Input
+
+
+qtwidgets/qcolumnview -> class -> QColumnView -> QAbstractItemView
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_State -> QAbstractItemView_State
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_Shape -> QFrame_Shape
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_Shadow -> QFrame_Shadow
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_StyleMask -> QFrame_StyleMask
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qcolumnview -> derivedalias -> QColumnView_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qgraphicswidget -> class -> QGraphicsWidget -> QGraphicsObject < QGraphicsLayoutItem
+qtwidgets/qgraphicswidget -> derivedalias -> QGraphicsWidget_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicswidget -> derivedalias -> QGraphicsWidget_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicswidget -> derivedalias -> QGraphicsWidget_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicswidget -> derivedalias -> QGraphicsWidget_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicswidget -> derivedalias -> QGraphicsWidget_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicswidget -> derivedalias -> QGraphicsWidget_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+
+
+qtwidgets/qprogressdialog -> class -> QProgressDialog -> QDialog
+qtwidgets/qprogressdialog -> derivedalias -> QProgressDialog_DialogCode -> QDialog_DialogCode
+qtwidgets/qprogressdialog -> derivedalias -> QProgressDialog_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qprogressdialog -> derivedalias -> QProgressDialog_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qprogressdialog -> derivedalias -> QProgressDialog_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qscrollbar -> class -> QScrollBar -> QAbstractSlider
+qtwidgets/qscrollbar -> derivedalias -> QScrollBar_SliderAction -> QAbstractSlider_SliderAction
+qtwidgets/qscrollbar -> derivedalias -> QScrollBar_SliderChange -> QAbstractSlider_SliderChange
+qtwidgets/qscrollbar -> derivedalias -> QScrollBar_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qscrollbar -> derivedalias -> QScrollBar_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qscrollbar -> derivedalias -> QScrollBar_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qsplashscreen -> class -> QSplashScreen -> QWidget
+qtwidgets/qsplashscreen -> derivedalias -> QSplashScreen_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qsplashscreen -> derivedalias -> QSplashScreen_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qsplashscreen -> derivedalias -> QSplashScreen_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qcolordialog -> class -> QColorDialog -> QDialog
+qtwidgets/qcolordialog -> derivedalias -> QColorDialog_DialogCode -> QDialog_DialogCode
+qtwidgets/qcolordialog -> derivedalias -> QColorDialog_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qcolordialog -> derivedalias -> QColorDialog_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qcolordialog -> derivedalias -> QColorDialog_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qcolordialog -> enum -> QColorDialog_ColorDialogOption
+qtwidgets/qcolordialog -> alias -> QColorDialog_ColorDialogOptions -> 
+
+
+qtwidgets/qtextedit -> class -> QTextEdit -> QAbstractScrollArea
+qtwidgets/qtextedit -> derivedalias -> QTextEdit_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qtextedit -> derivedalias -> QTextEdit_Shape -> QFrame_Shape
+qtwidgets/qtextedit -> derivedalias -> QTextEdit_Shadow -> QFrame_Shadow
+qtwidgets/qtextedit -> derivedalias -> QTextEdit_StyleMask -> QFrame_StyleMask
+qtwidgets/qtextedit -> derivedalias -> QTextEdit_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtextedit -> derivedalias -> QTextEdit_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtextedit -> derivedalias -> QTextEdit_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qtextedit -> class -> QTextEdit_ExtraSelection -> 
+qtwidgets/qtextedit -> enum -> QTextEdit_LineWrapMode
+qtwidgets/qtextedit -> enum -> QTextEdit_AutoFormattingFlag
+qtwidgets/qtextedit -> alias -> QTextEdit_AutoFormatting -> 
+
+
+qtwidgets/qgraphicsproxywidget -> class -> QGraphicsProxyWidget -> QGraphicsWidget
+qtwidgets/qgraphicsproxywidget -> derivedalias -> QGraphicsProxyWidget_GraphicsItemFlag -> QGraphicsItem_GraphicsItemFlag
+qtwidgets/qgraphicsproxywidget -> derivedalias -> QGraphicsProxyWidget_GraphicsItemChange -> QGraphicsItem_GraphicsItemChange
+qtwidgets/qgraphicsproxywidget -> derivedalias -> QGraphicsProxyWidget_CacheMode -> QGraphicsItem_CacheMode
+qtwidgets/qgraphicsproxywidget -> derivedalias -> QGraphicsProxyWidget_PanelModality -> QGraphicsItem_PanelModality
+qtwidgets/qgraphicsproxywidget -> derivedalias -> QGraphicsProxyWidget_Extension -> QGraphicsItem_Extension
+qtwidgets/qgraphicsproxywidget -> derivedalias -> QGraphicsProxyWidget_GraphicsItemFlags -> QGraphicsItem_GraphicsItemFlags
+
+
+qtwidgets/qabstractslider -> class -> QAbstractSlider -> QWidget
+qtwidgets/qabstractslider -> derivedalias -> QAbstractSlider_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qabstractslider -> derivedalias -> QAbstractSlider_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qabstractslider -> derivedalias -> QAbstractSlider_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qabstractslider -> enum -> QAbstractSlider_SliderAction
+qtwidgets/qabstractslider -> enum -> QAbstractSlider_SliderChange
+
+
+qtwidgets/qtabwidget -> class -> QTabWidget -> QWidget
+qtwidgets/qtabwidget -> derivedalias -> QTabWidget_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtabwidget -> derivedalias -> QTabWidget_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtabwidget -> derivedalias -> QTabWidget_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qtabwidget -> enum -> QTabWidget_TabPosition
+qtwidgets/qtabwidget -> enum -> QTabWidget_TabShape
+
+
+qtwidgets/qcolormap -> class -> QColormap -> 
+qtwidgets/qcolormap -> enum -> QColormap_Mode
+
+
+qtwidgets/qgesture -> class -> QGesture -> QObject
+qtwidgets/qgesture -> enum -> QGesture_GestureCancelPolicy
+qtwidgets/qgesture -> class -> QPanGesture -> QGesture
+qtwidgets/qgesture -> derivedalias -> QPanGesture_GestureCancelPolicy -> QGesture_GestureCancelPolicy
+qtwidgets/qgesture -> class -> QPinchGesture -> QGesture
+qtwidgets/qgesture -> derivedalias -> QPinchGesture_GestureCancelPolicy -> QGesture_GestureCancelPolicy
+qtwidgets/qgesture -> enum -> QPinchGesture_ChangeFlag
+qtwidgets/qgesture -> alias -> QPinchGesture_ChangeFlags -> 
+qtwidgets/qgesture -> class -> QSwipeGesture -> QGesture
+qtwidgets/qgesture -> derivedalias -> QSwipeGesture_GestureCancelPolicy -> QGesture_GestureCancelPolicy
+qtwidgets/qgesture -> enum -> QSwipeGesture_SwipeDirection
+qtwidgets/qgesture -> class -> QTapGesture -> QGesture
+qtwidgets/qgesture -> derivedalias -> QTapGesture_GestureCancelPolicy -> QGesture_GestureCancelPolicy
+qtwidgets/qgesture -> class -> QTapAndHoldGesture -> QGesture
+qtwidgets/qgesture -> derivedalias -> QTapAndHoldGesture_GestureCancelPolicy -> QGesture_GestureCancelPolicy
+qtwidgets/qgesture -> class -> QGestureEvent -> QEvent
+qtwidgets/qgesture -> derivedalias -> QGestureEvent_Type -> QEvent_Type
+
+
+qtwidgets/qcommandlinkbutton -> class -> QCommandLinkButton -> QPushButton
+qtwidgets/qcommandlinkbutton -> derivedalias -> QCommandLinkButton_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qcommandlinkbutton -> derivedalias -> QCommandLinkButton_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qcommandlinkbutton -> derivedalias -> QCommandLinkButton_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qlayoutitem -> class -> QLayoutItem -> 
+qtwidgets/qlayoutitem -> class -> QSpacerItem -> QLayoutItem
+qtwidgets/qlayoutitem -> class -> QWidgetItem -> QLayoutItem
+qtwidgets/qlayoutitem -> class -> QWidgetItemV2 -> QWidgetItem
+
+
+qtwidgets/qcommonstyle -> class -> QCommonStyle -> QStyle
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_StateFlag -> QStyle_StateFlag
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_PrimitiveElement -> QStyle_PrimitiveElement
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_ControlElement -> QStyle_ControlElement
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_SubElement -> QStyle_SubElement
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_ComplexControl -> QStyle_ComplexControl
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_SubControl -> QStyle_SubControl
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_PixelMetric -> QStyle_PixelMetric
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_ContentsType -> QStyle_ContentsType
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_RequestSoftwareInputPanel -> QStyle_RequestSoftwareInputPanel
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_StyleHint -> QStyle_StyleHint
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_StandardPixmap -> QStyle_StandardPixmap
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_State -> QStyle_State
+qtwidgets/qcommonstyle -> derivedalias -> QCommonStyle_SubControls -> QStyle_SubControls
+
+
+qtwidgets/qformlayout -> class -> QFormLayout -> QLayout
+qtwidgets/qformlayout -> derivedalias -> QFormLayout_SizeConstraint -> QLayout_SizeConstraint
+qtwidgets/qformlayout -> class -> QFormLayout_TakeRowResult -> 
+qtwidgets/qformlayout -> enum -> QFormLayout_FieldGrowthPolicy
+qtwidgets/qformlayout -> enum -> QFormLayout_RowWrapPolicy
+qtwidgets/qformlayout -> enum -> QFormLayout_ItemRole
+
+
+qtwidgets/qdial -> class -> QDial -> QAbstractSlider
+qtwidgets/qdial -> derivedalias -> QDial_SliderAction -> QAbstractSlider_SliderAction
+qtwidgets/qdial -> derivedalias -> QDial_SliderChange -> QAbstractSlider_SliderChange
+qtwidgets/qdial -> derivedalias -> QDial_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qdial -> derivedalias -> QDial_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qdial -> derivedalias -> QDial_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qtestsupport_widgets -> class -> QTest_QTouchEventWidgetSequence -> QTest_QTouchEventSequence
+
+
+qtwidgets/qstyleplugin -> class -> QStylePlugin -> QObject
+
+
+qtwidgets/qtoolbox -> class -> QToolBox -> QFrame
+qtwidgets/qtoolbox -> derivedalias -> QToolBox_Shape -> QFrame_Shape
+qtwidgets/qtoolbox -> derivedalias -> QToolBox_Shadow -> QFrame_Shadow
+qtwidgets/qtoolbox -> derivedalias -> QToolBox_StyleMask -> QFrame_StyleMask
+qtwidgets/qtoolbox -> derivedalias -> QToolBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtoolbox -> derivedalias -> QToolBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtoolbox -> derivedalias -> QToolBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qwizard -> class -> QWizard -> QDialog
+qtwidgets/qwizard -> derivedalias -> QWizard_DialogCode -> QDialog_DialogCode
+qtwidgets/qwizard -> derivedalias -> QWizard_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qwizard -> derivedalias -> QWizard_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qwizard -> derivedalias -> QWizard_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qwizard -> enum -> QWizard_WizardButton
+qtwidgets/qwizard -> enum -> QWizard_WizardPixmap
+qtwidgets/qwizard -> enum -> QWizard_WizardStyle
+qtwidgets/qwizard -> enum -> QWizard_WizardOption
+qtwidgets/qwizard -> alias -> QWizard_WizardOptions -> 
+qtwidgets/qwizard -> class -> QWizardPage -> QWidget
+qtwidgets/qwizard -> derivedalias -> QWizardPage_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qwizard -> derivedalias -> QWizardPage_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qwizard -> derivedalias -> QWizardPage_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qgridlayout -> class -> QGridLayout -> QLayout
+qtwidgets/qgridlayout -> derivedalias -> QGridLayout_SizeConstraint -> QLayout_SizeConstraint
+
+
+qtwidgets/qlistview -> class -> QListView -> QAbstractItemView
+qtwidgets/qlistview -> derivedalias -> QListView_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qlistview -> derivedalias -> QListView_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qlistview -> derivedalias -> QListView_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qlistview -> derivedalias -> QListView_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qlistview -> derivedalias -> QListView_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qlistview -> derivedalias -> QListView_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qlistview -> derivedalias -> QListView_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qlistview -> derivedalias -> QListView_State -> QAbstractItemView_State
+qtwidgets/qlistview -> derivedalias -> QListView_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qlistview -> derivedalias -> QListView_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qlistview -> derivedalias -> QListView_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qlistview -> derivedalias -> QListView_Shape -> QFrame_Shape
+qtwidgets/qlistview -> derivedalias -> QListView_Shadow -> QFrame_Shadow
+qtwidgets/qlistview -> derivedalias -> QListView_StyleMask -> QFrame_StyleMask
+qtwidgets/qlistview -> derivedalias -> QListView_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qlistview -> derivedalias -> QListView_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qlistview -> derivedalias -> QListView_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qlistview -> enum -> QListView_Movement
+qtwidgets/qlistview -> enum -> QListView_Flow
+qtwidgets/qlistview -> enum -> QListView_ResizeMode
+qtwidgets/qlistview -> enum -> QListView_LayoutMode
+qtwidgets/qlistview -> enum -> QListView_ViewMode
+
+
+qtwidgets/qstackedlayout -> class -> QStackedLayout -> QLayout
+qtwidgets/qstackedlayout -> derivedalias -> QStackedLayout_SizeConstraint -> QLayout_SizeConstraint
+qtwidgets/qstackedlayout -> enum -> QStackedLayout_StackingMode
+
+
+qtwidgets/qlcdnumber -> class -> QLCDNumber -> QFrame
+qtwidgets/qlcdnumber -> derivedalias -> QLCDNumber_Shape -> QFrame_Shape
+qtwidgets/qlcdnumber -> derivedalias -> QLCDNumber_Shadow -> QFrame_Shadow
+qtwidgets/qlcdnumber -> derivedalias -> QLCDNumber_StyleMask -> QFrame_StyleMask
+qtwidgets/qlcdnumber -> derivedalias -> QLCDNumber_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qlcdnumber -> derivedalias -> QLCDNumber_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qlcdnumber -> derivedalias -> QLCDNumber_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qlcdnumber -> enum -> QLCDNumber_Mode
+qtwidgets/qlcdnumber -> enum -> QLCDNumber_SegmentStyle
+
+
+qtwidgets/qcalendarwidget -> class -> QCalendarWidget -> QWidget
+qtwidgets/qcalendarwidget -> derivedalias -> QCalendarWidget_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qcalendarwidget -> derivedalias -> QCalendarWidget_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qcalendarwidget -> derivedalias -> QCalendarWidget_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qcalendarwidget -> enum -> QCalendarWidget_HorizontalHeaderFormat
+qtwidgets/qcalendarwidget -> enum -> QCalendarWidget_VerticalHeaderFormat
+qtwidgets/qcalendarwidget -> enum -> QCalendarWidget_SelectionMode
+
+
+qtwidgets/qspinbox -> class -> QSpinBox -> QAbstractSpinBox
+qtwidgets/qspinbox -> derivedalias -> QSpinBox_StepEnabledFlag -> QAbstractSpinBox_StepEnabledFlag
+qtwidgets/qspinbox -> derivedalias -> QSpinBox_ButtonSymbols -> QAbstractSpinBox_ButtonSymbols
+qtwidgets/qspinbox -> derivedalias -> QSpinBox_CorrectionMode -> QAbstractSpinBox_CorrectionMode
+qtwidgets/qspinbox -> derivedalias -> QSpinBox_StepType -> QAbstractSpinBox_StepType
+qtwidgets/qspinbox -> derivedalias -> QSpinBox_StepEnabled -> QAbstractSpinBox_StepEnabled
+qtwidgets/qspinbox -> derivedalias -> QSpinBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qspinbox -> derivedalias -> QSpinBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qspinbox -> derivedalias -> QSpinBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qspinbox -> class -> QDoubleSpinBox -> QAbstractSpinBox
+qtwidgets/qspinbox -> derivedalias -> QDoubleSpinBox_StepEnabledFlag -> QAbstractSpinBox_StepEnabledFlag
+qtwidgets/qspinbox -> derivedalias -> QDoubleSpinBox_ButtonSymbols -> QAbstractSpinBox_ButtonSymbols
+qtwidgets/qspinbox -> derivedalias -> QDoubleSpinBox_CorrectionMode -> QAbstractSpinBox_CorrectionMode
+qtwidgets/qspinbox -> derivedalias -> QDoubleSpinBox_StepType -> QAbstractSpinBox_StepType
+qtwidgets/qspinbox -> derivedalias -> QDoubleSpinBox_StepEnabled -> QAbstractSpinBox_StepEnabled
+qtwidgets/qspinbox -> derivedalias -> QDoubleSpinBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qspinbox -> derivedalias -> QDoubleSpinBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qspinbox -> derivedalias -> QDoubleSpinBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qtoolbutton -> class -> QToolButton -> QAbstractButton
+qtwidgets/qtoolbutton -> derivedalias -> QToolButton_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qtoolbutton -> derivedalias -> QToolButton_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qtoolbutton -> derivedalias -> QToolButton_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qtoolbutton -> enum -> QToolButton_ToolButtonPopupMode
+
+
+qtwidgets/qmdisubwindow -> class -> QMdiSubWindow -> QWidget
+qtwidgets/qmdisubwindow -> derivedalias -> QMdiSubWindow_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qmdisubwindow -> derivedalias -> QMdiSubWindow_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qmdisubwindow -> derivedalias -> QMdiSubWindow_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qmdisubwindow -> enum -> QMdiSubWindow_SubWindowOption
+qtwidgets/qmdisubwindow -> alias -> QMdiSubWindow_SubWindowOptions -> 
+
+
+qtwidgets/qboxlayout -> class -> QBoxLayout -> QLayout
+qtwidgets/qboxlayout -> derivedalias -> QBoxLayout_SizeConstraint -> QLayout_SizeConstraint
+qtwidgets/qboxlayout -> enum -> QBoxLayout_Direction
+qtwidgets/qboxlayout -> class -> QHBoxLayout -> QBoxLayout
+qtwidgets/qboxlayout -> derivedalias -> QHBoxLayout_Direction -> QBoxLayout_Direction
+qtwidgets/qboxlayout -> derivedalias -> QHBoxLayout_SizeConstraint -> QLayout_SizeConstraint
+qtwidgets/qboxlayout -> class -> QVBoxLayout -> QBoxLayout
+qtwidgets/qboxlayout -> derivedalias -> QVBoxLayout_Direction -> QBoxLayout_Direction
+qtwidgets/qboxlayout -> derivedalias -> QVBoxLayout_SizeConstraint -> QLayout_SizeConstraint
+
+
+qtwidgets/qgraphicseffect -> class -> QGraphicsEffect -> QObject
+qtwidgets/qgraphicseffect -> enum -> QGraphicsEffect_ChangeFlag
+qtwidgets/qgraphicseffect -> enum -> QGraphicsEffect_PixmapPadMode
+qtwidgets/qgraphicseffect -> alias -> QGraphicsEffect_ChangeFlags -> 
+qtwidgets/qgraphicseffect -> class -> QGraphicsColorizeEffect -> QGraphicsEffect
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsColorizeEffect_ChangeFlag -> QGraphicsEffect_ChangeFlag
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsColorizeEffect_PixmapPadMode -> QGraphicsEffect_PixmapPadMode
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsColorizeEffect_ChangeFlags -> QGraphicsEffect_ChangeFlags
+qtwidgets/qgraphicseffect -> class -> QGraphicsBlurEffect -> QGraphicsEffect
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsBlurEffect_ChangeFlag -> QGraphicsEffect_ChangeFlag
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsBlurEffect_PixmapPadMode -> QGraphicsEffect_PixmapPadMode
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsBlurEffect_ChangeFlags -> QGraphicsEffect_ChangeFlags
+qtwidgets/qgraphicseffect -> enum -> QGraphicsBlurEffect_BlurHint
+qtwidgets/qgraphicseffect -> alias -> QGraphicsBlurEffect_BlurHints -> 
+qtwidgets/qgraphicseffect -> class -> QGraphicsDropShadowEffect -> QGraphicsEffect
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsDropShadowEffect_ChangeFlag -> QGraphicsEffect_ChangeFlag
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsDropShadowEffect_PixmapPadMode -> QGraphicsEffect_PixmapPadMode
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsDropShadowEffect_ChangeFlags -> QGraphicsEffect_ChangeFlags
+qtwidgets/qgraphicseffect -> class -> QGraphicsOpacityEffect -> QGraphicsEffect
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsOpacityEffect_ChangeFlag -> QGraphicsEffect_ChangeFlag
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsOpacityEffect_PixmapPadMode -> QGraphicsEffect_PixmapPadMode
+qtwidgets/qgraphicseffect -> derivedalias -> QGraphicsOpacityEffect_ChangeFlags -> QGraphicsEffect_ChangeFlags
+
+
+qtwidgets/qmessagebox -> class -> QMessageBox -> QDialog
+qtwidgets/qmessagebox -> derivedalias -> QMessageBox_DialogCode -> QDialog_DialogCode
+qtwidgets/qmessagebox -> derivedalias -> QMessageBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qmessagebox -> derivedalias -> QMessageBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qmessagebox -> derivedalias -> QMessageBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qmessagebox -> enum -> QMessageBox_Icon
+qtwidgets/qmessagebox -> enum -> QMessageBox_ButtonRole
+qtwidgets/qmessagebox -> enum -> QMessageBox_StandardButton
+qtwidgets/qmessagebox -> alias -> QMessageBox_Button -> 
+qtwidgets/qmessagebox -> alias -> QMessageBox_StandardButtons -> 
+
+
+qtwidgets/qundoview -> class -> QUndoView -> QListView
+qtwidgets/qundoview -> derivedalias -> QUndoView_Movement -> QListView_Movement
+qtwidgets/qundoview -> derivedalias -> QUndoView_Flow -> QListView_Flow
+qtwidgets/qundoview -> derivedalias -> QUndoView_ResizeMode -> QListView_ResizeMode
+qtwidgets/qundoview -> derivedalias -> QUndoView_LayoutMode -> QListView_LayoutMode
+qtwidgets/qundoview -> derivedalias -> QUndoView_ViewMode -> QListView_ViewMode
+qtwidgets/qundoview -> derivedalias -> QUndoView_SelectionMode -> QAbstractItemView_SelectionMode
+qtwidgets/qundoview -> derivedalias -> QUndoView_SelectionBehavior -> QAbstractItemView_SelectionBehavior
+qtwidgets/qundoview -> derivedalias -> QUndoView_ScrollHint -> QAbstractItemView_ScrollHint
+qtwidgets/qundoview -> derivedalias -> QUndoView_EditTrigger -> QAbstractItemView_EditTrigger
+qtwidgets/qundoview -> derivedalias -> QUndoView_ScrollMode -> QAbstractItemView_ScrollMode
+qtwidgets/qundoview -> derivedalias -> QUndoView_DragDropMode -> QAbstractItemView_DragDropMode
+qtwidgets/qundoview -> derivedalias -> QUndoView_CursorAction -> QAbstractItemView_CursorAction
+qtwidgets/qundoview -> derivedalias -> QUndoView_State -> QAbstractItemView_State
+qtwidgets/qundoview -> derivedalias -> QUndoView_DropIndicatorPosition -> QAbstractItemView_DropIndicatorPosition
+qtwidgets/qundoview -> derivedalias -> QUndoView_EditTriggers -> QAbstractItemView_EditTriggers
+qtwidgets/qundoview -> derivedalias -> QUndoView_SizeAdjustPolicy -> QAbstractScrollArea_SizeAdjustPolicy
+qtwidgets/qundoview -> derivedalias -> QUndoView_Shape -> QFrame_Shape
+qtwidgets/qundoview -> derivedalias -> QUndoView_Shadow -> QFrame_Shadow
+qtwidgets/qundoview -> derivedalias -> QUndoView_StyleMask -> QFrame_StyleMask
+qtwidgets/qundoview -> derivedalias -> QUndoView_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qundoview -> derivedalias -> QUndoView_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qundoview -> derivedalias -> QUndoView_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qfileiconprovider -> class -> QFileIconProvider -> QAbstractFileIconProvider
+qtwidgets/qfileiconprovider -> derivedalias -> QFileIconProvider_IconType -> QAbstractFileIconProvider_IconType
+qtwidgets/qfileiconprovider -> derivedalias -> QFileIconProvider_Option -> QAbstractFileIconProvider_Option
+qtwidgets/qfileiconprovider -> derivedalias -> QFileIconProvider_Options -> QAbstractFileIconProvider_Options
+
+
+qtwidgets/qprogressbar -> class -> QProgressBar -> QWidget
+qtwidgets/qprogressbar -> derivedalias -> QProgressBar_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qprogressbar -> derivedalias -> QProgressBar_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qprogressbar -> derivedalias -> QProgressBar_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qprogressbar -> enum -> QProgressBar_Direction
+
+
+qtwidgets/qkeysequenceedit -> class -> QKeySequenceEdit -> QWidget
+qtwidgets/qkeysequenceedit -> derivedalias -> QKeySequenceEdit_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qkeysequenceedit -> derivedalias -> QKeySequenceEdit_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qkeysequenceedit -> derivedalias -> QKeySequenceEdit_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+
+
+qtwidgets/qabstractspinbox -> class -> QAbstractSpinBox -> QWidget
+qtwidgets/qabstractspinbox -> derivedalias -> QAbstractSpinBox_RenderFlag -> QWidget_RenderFlag
+qtwidgets/qabstractspinbox -> derivedalias -> QAbstractSpinBox_RenderFlags -> QWidget_RenderFlags
+qtwidgets/qabstractspinbox -> derivedalias -> QAbstractSpinBox_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
+qtwidgets/qabstractspinbox -> enum -> QAbstractSpinBox_StepEnabledFlag
+qtwidgets/qabstractspinbox -> enum -> QAbstractSpinBox_ButtonSymbols
+qtwidgets/qabstractspinbox -> enum -> QAbstractSpinBox_CorrectionMode
+qtwidgets/qabstractspinbox -> enum -> QAbstractSpinBox_StepType
+qtwidgets/qabstractspinbox -> alias -> QAbstractSpinBox_StepEnabled -> 
+
+
+qtwidgets/qgraphicsanchorlayout -> class -> QGraphicsAnchor -> QObject
+qtwidgets/qgraphicsanchorlayout -> class -> QGraphicsAnchorLayout -> QGraphicsLayout
+
+
+qtwidgets/qgraphicslinearlayout -> class -> QGraphicsLinearLayout -> QGraphicsLayout
+
+
+qtwidgets/qdatawidgetmapper -> class -> QDataWidgetMapper -> QObject
+qtwidgets/qdatawidgetmapper -> enum -> QDataWidgetMapper_SubmitPolicy
+
+
+qtqml/qqmlabstracturlinterceptor -> class -> QQmlAbstractUrlInterceptor -> 
+qtqml/qqmlabstracturlinterceptor -> enum -> QQmlAbstractUrlInterceptor_DataType
+
+
+qtqml/qqmlextensioninterface -> class -> QQmlTypesExtensionInterface -> 
+qtqml/qqmlextensioninterface -> class -> QQmlExtensionInterface -> QQmlTypesExtensionInterface
+qtqml/qqmlextensioninterface -> class -> QQmlEngineExtensionInterface -> 
+
+
+qtqml/qqmlfileselector -> class -> QQmlFileSelector -> QObject
+
+
+qtqml/qqmlparserstatus -> class -> QQmlParserStatus -> 
+
+
+qtqml/qjsengine -> class -> QJSEngine -> QObject
+qtqml/qjsengine -> enum -> QJSEngine_ObjectOwnership
+qtqml/qjsengine -> enum -> QJSEngine_Extension
+qtqml/qjsengine -> alias -> QJSEngine_Extensions -> 
+
+
+qtqml/qqmlextensionplugin -> class -> QQmlExtensionPlugin -> QObject < QQmlExtensionInterface
+qtqml/qqmlextensionplugin -> class -> QQmlEngineExtensionPlugin -> QObject < QQmlEngineExtensionInterface
+
+
+qtqml/qjsprimitivevalue -> class -> QJSPrimitiveUndefined -> 
+qtqml/qjsprimitivevalue -> class -> QJSPrimitiveNull -> 
+qtqml/qjsprimitivevalue -> class -> QJSPrimitiveValue -> 
+qtqml/qjsprimitivevalue -> enum -> QJSPrimitiveValue_Type
+
+
+qtqml/qqmlexpression -> class -> QQmlExpression -> QObject
+
+
+qtqml/qqmlnetworkaccessmanagerfactory -> class -> QQmlNetworkAccessManagerFactory -> 
+
+
+qtqml/qqmlscriptstring -> class -> QQmlScriptString -> 
+
+
+qtqml/qqmlproperty -> class -> QQmlProperty -> 
+qtqml/qqmlproperty -> alias -> QQmlProperties -> 
+
+
+qtqml/qqmllist -> class -> QQmlListProperty -> 
+qtqml/qqmllist -> alias -> QQmlListProperty_AppendFunction -> 
+qtqml/qqmllist -> alias -> QQmlListProperty_AtFunction -> 
+qtqml/qqmllist -> alias -> QQmlListProperty_ClearFunction -> 
+qtqml/qqmllist -> alias -> QQmlListProperty_ReplaceFunction -> 
+qtqml/qqmllist -> alias -> QQmlListProperty_RemoveLastFunction -> 
+qtqml/qqmllist -> class -> QQmlListReference -> 
+
+
+qtqml/qjsmanagedvalue -> class -> QJSManagedValue -> 
+qtqml/qjsmanagedvalue -> enum -> QJSManagedValue_Type
+
+
+qtqml/qqmlmoduleregistration -> class -> QQmlModuleRegistration -> 
+
+
+qtqml/qjsvalue -> class -> QJSValue -> 
+qtqml/qjsvalue -> enum -> QJSValue_SpecialValue
+qtqml/qjsvalue -> enum -> QJSValue_ErrorType
+qtqml/qjsvalue -> enum -> QJSValue_ObjectConversionBehavior
+qtqml/qjsvalue -> alias -> QJSValueList -> 
+
+
+qtqml/qqmlerror -> class -> QQmlError -> 
+
+
+qtqml/qqmlinfo -> class -> QQmlInfo -> QDebug
+qtqml/qqmlinfo -> derivedalias -> QQmlInfo_VerbosityLevel -> QDebug_VerbosityLevel
+qtqml/qqmlinfo -> derivedalias -> QQmlInfo_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtqml/qqmlinfo -> derivedalias -> QQmlInfo_OpenMode -> QIODeviceBase_OpenMode
+
+
+qtqml/qqmlcomponent -> class -> QQmlComponent -> QObject
+
+
+qtqml/qqmlapplicationengine -> class -> QQmlApplicationEngine -> QQmlEngine
+qtqml/qqmlapplicationengine -> derivedalias -> QQmlApplicationEngine_ObjectOwnership -> QJSEngine_ObjectOwnership
+qtqml/qqmlapplicationengine -> derivedalias -> QQmlApplicationEngine_Extension -> QJSEngine_Extension
+qtqml/qqmlapplicationengine -> derivedalias -> QQmlApplicationEngine_Extensions -> QJSEngine_Extensions
+
+
+qtqml/qqmlincubator -> class -> QQmlIncubator -> 
+qtqml/qqmlincubator -> enum -> QQmlIncubator_IncubationMode
+qtqml/qqmlincubator -> enum -> QQmlIncubator_Status
+qtqml/qqmlincubator -> class -> QQmlIncubationController -> 
+
+
+qtqml/qqmlcontext -> class -> QQmlContext -> QObject
+qtqml/qqmlcontext -> class -> QQmlContext_PropertyPair -> 
+
+
+qtqml/qqmldebug -> class -> QQmlDebuggingEnabler -> 
+qtqml/qqmldebug -> enum -> QQmlDebuggingEnabler_StartMode
+qtqml/qqmldebug -> class -> _QQmlTriviallyDestructibleDebuggingEnabler -> 
+
+
+qtqml/qqmlengine -> class -> QQmlImageProviderBase -> QObject
+qtqml/qqmlengine -> enum -> QQmlImageProviderBase_ImageType
+qtqml/qqmlengine -> enum -> QQmlImageProviderBase_Flag
+qtqml/qqmlengine -> alias -> QQmlImageProviderBase_Flags -> 
+qtqml/qqmlengine -> class -> QQmlEngine -> QJSEngine
+qtqml/qqmlengine -> derivedalias -> QQmlEngine_ObjectOwnership -> QJSEngine_ObjectOwnership
+qtqml/qqmlengine -> derivedalias -> QQmlEngine_Extension -> QJSEngine_Extension
+qtqml/qqmlengine -> derivedalias -> QQmlEngine_Extensions -> QJSEngine_Extensions
+
+
+qtqml/qjsnumbercoercion -> class -> QJSNumberCoercion -> 
+
+
+qtqml/qqmlfile -> class -> QQmlFile -> 
+qtqml/qqmlfile -> enum -> QQmlFile_Status
+
+
+qtqml/qqmlpropertymap -> class -> QQmlPropertyMap -> QObject
+
+
+qtqml/qqmlpropertyvaluesource -> class -> QQmlPropertyValueSource -> 
+
+
+qtqml/qqml -> enum -> QQmlModuleImportSpecialVersions
+
+
+qtcore/qreadwritelock -> class -> QReadWriteLock -> 
+qtcore/qreadwritelock -> enum -> QReadWriteLock_RecursionMode
+qtcore/qreadwritelock -> class -> QReadLocker -> 
+qtcore/qreadwritelock -> class -> QWriteLocker -> 
+
+
+qtcore/qsequentialanimationgroup -> class -> QSequentialAnimationGroup -> QAnimationGroup
+qtcore/qsequentialanimationgroup -> derivedalias -> QSequentialAnimationGroup_Direction -> QAbstractAnimation_Direction
+qtcore/qsequentialanimationgroup -> derivedalias -> QSequentialAnimationGroup_State -> QAbstractAnimation_State
+qtcore/qsequentialanimationgroup -> derivedalias -> QSequentialAnimationGroup_DeletionPolicy -> QAbstractAnimation_DeletionPolicy
+
+
+qtcore/qabstractproxymodel -> class -> QAbstractProxyModel -> QAbstractItemModel
+qtcore/qabstractproxymodel -> derivedalias -> QAbstractProxyModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtcore/qabstractproxymodel -> derivedalias -> QAbstractProxyModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtcore/qabstractproxymodel -> derivedalias -> QAbstractProxyModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+
+
+qtcore/qanystringview -> class -> QAnyStringView -> 
+
+
+qtcore/qiodevice -> class -> QIODevice -> QObject < QIODeviceBase
+qtcore/qiodevice -> derivedalias -> QIODevice_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qiodevice -> derivedalias -> QIODevice_OpenMode -> QIODeviceBase_OpenMode
+
+
+qtcore/qlocale -> class -> QLocale -> 
+qtcore/qlocale -> enum -> QLocale_Language
+qtcore/qlocale -> enum -> QLocale_Script
+qtcore/qlocale -> enum -> QLocale_Country
+qtcore/qlocale -> enum -> QLocale_MeasurementSystem
+qtcore/qlocale -> enum -> QLocale_FormatType
+qtcore/qlocale -> enum -> QLocale_NumberOption
+qtcore/qlocale -> enum -> QLocale_FloatingPointPrecisionOption
+qtcore/qlocale -> enum -> QLocale_CurrencySymbolFormat
+qtcore/qlocale -> enum -> QLocale_DataSizeFormat
+qtcore/qlocale -> enum -> QLocale_LanguageCodeType
+qtcore/qlocale -> enum -> QLocale_QuotationStyle
+qtcore/qlocale -> alias -> QLocale_Territory -> 
+qtcore/qlocale -> alias -> QLocale_NumberOptions -> 
+qtcore/qlocale -> alias -> QLocale_DataSizeFormats -> 
+qtcore/qlocale -> alias -> QLocale_LanguageCodeTypes -> 
+
+
+qtcore/quuid -> class -> QUuid -> 
+qtcore/quuid -> enum -> QUuid_Variant
+qtcore/quuid -> enum -> QUuid_Version
+qtcore/quuid -> enum -> QUuid_StringFormat
+
+
+qtcore/qcoreevent -> class -> QEvent -> 
+qtcore/qcoreevent -> class -> QEvent_InputEventTag -> 
+qtcore/qcoreevent -> class -> QEvent_PointerEventTag -> 
+qtcore/qcoreevent -> class -> QEvent_SinglePointEventTag -> 
+qtcore/qcoreevent -> enum -> QEvent_Type
+qtcore/qcoreevent -> class -> QTimerEvent -> QEvent
+qtcore/qcoreevent -> derivedalias -> QTimerEvent_Type -> QEvent_Type
+qtcore/qcoreevent -> class -> QChildEvent -> QEvent
+qtcore/qcoreevent -> derivedalias -> QChildEvent_Type -> QEvent_Type
+qtcore/qcoreevent -> class -> QDynamicPropertyChangeEvent -> QEvent
+qtcore/qcoreevent -> derivedalias -> QDynamicPropertyChangeEvent_Type -> QEvent_Type
+qtcore/qcoreevent -> class -> QDeferredDeleteEvent -> QEvent
+qtcore/qcoreevent -> derivedalias -> QDeferredDeleteEvent_Type -> QEvent_Type
+
+
+qtcore/qsequentialiterable -> class -> QSequentialIterable -> 
+qtcore/qsequentialiterable -> enum -> QSequentialIterable_Position
+
+
+qtcore/qfiledevice -> class -> QFileDevice -> QIODevice
+qtcore/qfiledevice -> derivedalias -> QFileDevice_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qfiledevice -> derivedalias -> QFileDevice_OpenMode -> QIODeviceBase_OpenMode
+qtcore/qfiledevice -> enum -> QFileDevice_FileError
+qtcore/qfiledevice -> enum -> QFileDevice_FileTime
+qtcore/qfiledevice -> enum -> QFileDevice_Permission
+qtcore/qfiledevice -> enum -> QFileDevice_FileHandleFlag
+qtcore/qfiledevice -> enum -> QFileDevice_MemoryMapFlag
+qtcore/qfiledevice -> alias -> QFileDevice_Permissions -> 
+qtcore/qfiledevice -> alias -> QFileDevice_FileHandleFlags -> 
+qtcore/qfiledevice -> alias -> QFileDevice_MemoryMapFlags -> 
+
+
+qtcore/qsysinfo -> class -> QSysInfo -> 
+qtcore/qsysinfo -> enum -> QSysInfo_Sizes
+qtcore/qsysinfo -> enum -> QSysInfo_Endian
+
+
+qtcore/qnamespace -> class -> QInternal -> 
+qtcore/qnamespace -> enum -> QInternal_PaintDeviceFlags
+qtcore/qnamespace -> enum -> QInternal_RelayoutType
+qtcore/qnamespace -> enum -> QInternal_DockPosition
+qtcore/qnamespace -> enum -> QInternal_Callback
+qtcore/qnamespace -> class -> QKeyCombination -> 
+qtcore/qnamespace -> class -> Qt_Disambiguated_t -> 
+qtcore/qnamespace -> enum -> Qt_GlobalColor
+qtcore/qnamespace -> enum -> Qt_MouseButton
+qtcore/qnamespace -> enum -> Qt_Orientation
+qtcore/qnamespace -> enum -> Qt_FocusPolicy
+qtcore/qnamespace -> enum -> Qt_TabFocusBehavior
+qtcore/qnamespace -> enum -> Qt_SortOrder
+qtcore/qnamespace -> enum -> Qt_SplitBehaviorFlags
+qtcore/qnamespace -> enum -> Qt_TileRule
+qtcore/qnamespace -> enum -> Qt_AlignmentFlag
+qtcore/qnamespace -> enum -> Qt_TextFlag
+qtcore/qnamespace -> enum -> Qt_TextElideMode
+qtcore/qnamespace -> enum -> Qt_WhiteSpaceMode
+qtcore/qnamespace -> enum -> Qt_HitTestAccuracy
+qtcore/qnamespace -> enum -> Qt_WindowType
+qtcore/qnamespace -> enum -> Qt_WindowState
+qtcore/qnamespace -> enum -> Qt_ApplicationState
+qtcore/qnamespace -> enum -> Qt_ScreenOrientation
+qtcore/qnamespace -> enum -> Qt_WidgetAttribute
+qtcore/qnamespace -> enum -> Qt_ApplicationAttribute
+qtcore/qnamespace -> enum -> Qt_ImageConversionFlag
+qtcore/qnamespace -> enum -> Qt_BGMode
+qtcore/qnamespace -> enum -> Qt_Key
+qtcore/qnamespace -> enum -> Qt_KeyboardModifier
+qtcore/qnamespace -> enum -> Qt_Modifier
+qtcore/qnamespace -> enum -> Qt_ArrowType
+qtcore/qnamespace -> enum -> Qt_PenStyle
+qtcore/qnamespace -> enum -> Qt_PenCapStyle
+qtcore/qnamespace -> enum -> Qt_PenJoinStyle
+qtcore/qnamespace -> enum -> Qt_BrushStyle
+qtcore/qnamespace -> enum -> Qt_SizeMode
+qtcore/qnamespace -> enum -> Qt_UIEffect
+qtcore/qnamespace -> enum -> Qt_CursorShape
+qtcore/qnamespace -> enum -> Qt_TextFormat
+qtcore/qnamespace -> enum -> Qt_AspectRatioMode
+qtcore/qnamespace -> enum -> Qt_DockWidgetArea
+qtcore/qnamespace -> enum -> Qt_DockWidgetAreaSizes
+qtcore/qnamespace -> enum -> Qt_ToolBarArea
+qtcore/qnamespace -> enum -> Qt_ToolBarAreaSizes
+qtcore/qnamespace -> enum -> Qt_DateFormat
+qtcore/qnamespace -> enum -> Qt_TimeSpec
+qtcore/qnamespace -> enum -> Qt_DayOfWeek
+qtcore/qnamespace -> enum -> Qt_ScrollBarPolicy
+qtcore/qnamespace -> enum -> Qt_CaseSensitivity
+qtcore/qnamespace -> enum -> Qt_Corner
+qtcore/qnamespace -> enum -> Qt_Edge
+qtcore/qnamespace -> enum -> Qt_ConnectionType
+qtcore/qnamespace -> enum -> Qt_ShortcutContext
+qtcore/qnamespace -> enum -> Qt_FillRule
+qtcore/qnamespace -> enum -> Qt_MaskMode
+qtcore/qnamespace -> enum -> Qt_ClipOperation
+qtcore/qnamespace -> enum -> Qt_ItemSelectionMode
+qtcore/qnamespace -> enum -> Qt_ItemSelectionOperation
+qtcore/qnamespace -> enum -> Qt_TransformationMode
+qtcore/qnamespace -> enum -> Qt_Axis
+qtcore/qnamespace -> enum -> Qt_FocusReason
+qtcore/qnamespace -> enum -> Qt_ContextMenuPolicy
+qtcore/qnamespace -> enum -> Qt_InputMethodQuery
+qtcore/qnamespace -> enum -> Qt_InputMethodHint
+qtcore/qnamespace -> enum -> Qt_EnterKeyType
+qtcore/qnamespace -> enum -> Qt_ToolButtonStyle
+qtcore/qnamespace -> enum -> Qt_LayoutDirection
+qtcore/qnamespace -> enum -> Qt_AnchorPoint
+qtcore/qnamespace -> enum -> Qt_FindChildOption
+qtcore/qnamespace -> enum -> Qt_DropAction
+qtcore/qnamespace -> enum -> Qt_CheckState
+qtcore/qnamespace -> enum -> Qt_ItemDataRole
+qtcore/qnamespace -> enum -> Qt_ItemFlag
+qtcore/qnamespace -> enum -> Qt_MatchFlag
+qtcore/qnamespace -> enum -> Qt_WindowModality
+qtcore/qnamespace -> enum -> Qt_TextInteractionFlag
+qtcore/qnamespace -> enum -> Qt_EventPriority
+qtcore/qnamespace -> enum -> Qt_SizeHint
+qtcore/qnamespace -> enum -> Qt_WindowFrameSection
+qtcore/qnamespace -> enum -> Qt_Initialization
+qtcore/qnamespace -> enum -> Qt_CoordinateSystem
+qtcore/qnamespace -> enum -> Qt_TouchPointState
+qtcore/qnamespace -> enum -> Qt_GestureState
+qtcore/qnamespace -> enum -> Qt_GestureType
+qtcore/qnamespace -> enum -> Qt_GestureFlag
+qtcore/qnamespace -> enum -> Qt_NativeGestureType
+qtcore/qnamespace -> enum -> Qt_NavigationMode
+qtcore/qnamespace -> enum -> Qt_CursorMoveStyle
+qtcore/qnamespace -> enum -> Qt_TimerType
+qtcore/qnamespace -> enum -> Qt_ScrollPhase
+qtcore/qnamespace -> enum -> Qt_MouseEventSource
+qtcore/qnamespace -> enum -> Qt_MouseEventFlag
+qtcore/qnamespace -> enum -> Qt_ChecksumType
+qtcore/qnamespace -> enum -> Qt_HighDpiScaleFactorRoundingPolicy
+qtcore/qnamespace -> enum -> Qt_ReturnByValueConstant
+qtcore/qnamespace -> alias -> Qt_MouseButtons -> 
+qtcore/qnamespace -> alias -> Qt_Orientations -> 
+qtcore/qnamespace -> alias -> Qt_SplitBehavior -> 
+qtcore/qnamespace -> alias -> Qt_Alignment -> 
+qtcore/qnamespace -> alias -> Qt_WindowFlags -> 
+qtcore/qnamespace -> alias -> Qt_WindowStates -> 
+qtcore/qnamespace -> alias -> Qt_ApplicationStates -> 
+qtcore/qnamespace -> alias -> Qt_ScreenOrientations -> 
+qtcore/qnamespace -> alias -> Qt_ImageConversionFlags -> 
+qtcore/qnamespace -> alias -> Qt_KeyboardModifiers -> 
+qtcore/qnamespace -> alias -> Qt_Modifiers -> 
+qtcore/qnamespace -> alias -> Qt_DockWidgetAreas -> 
+qtcore/qnamespace -> alias -> Qt_ToolBarAreas -> 
+qtcore/qnamespace -> alias -> Qt_Edges -> 
+qtcore/qnamespace -> alias -> Qt_InputMethodQueries -> 
+qtcore/qnamespace -> alias -> Qt_InputMethodHints -> 
+qtcore/qnamespace -> alias -> Qt_FindChildOptions -> 
+qtcore/qnamespace -> alias -> Qt_DropActions -> 
+qtcore/qnamespace -> alias -> Qt_ItemFlags -> 
+qtcore/qnamespace -> alias -> Qt_MatchFlags -> 
+qtcore/qnamespace -> alias -> Qt_TextInteractionFlags -> 
+qtcore/qnamespace -> alias -> Qt_TouchPointStates -> 
+qtcore/qnamespace -> alias -> Qt_GestureFlags -> 
+qtcore/qnamespace -> alias -> Qt_MouseEventFlags -> 
+
+
+qtcore/qlibraryinfo -> class -> QLibraryInfo -> 
+qtcore/qlibraryinfo -> enum -> QLibraryInfo_LibraryPath
+qtcore/qlibraryinfo -> alias -> QLibraryInfo_LibraryLocation -> 
+
+
+qtcore/qmetacontainer -> class -> QMetaContainer -> 
+qtcore/qmetacontainer -> class -> QMetaSequence -> QMetaContainer
+qtcore/qmetacontainer -> class -> QMetaAssociation -> QMetaContainer
+
+
+qtcore/qbytearraylist -> class -> QListSpecialMethods -> 
+
+
+qtcore/qpluginloader -> class -> QPluginLoader -> QObject
+
+
+qtcore/qlibrary -> class -> QLibrary -> QObject
+qtcore/qlibrary -> enum -> QLibrary_LoadHint
+qtcore/qlibrary -> alias -> QLibrary_LoadHints -> 
+
+
+qtcore/qregularexpression -> class -> QRegularExpression -> 
+qtcore/qregularexpression -> enum -> QRegularExpression_PatternOption
+qtcore/qregularexpression -> enum -> QRegularExpression_MatchType
+qtcore/qregularexpression -> enum -> QRegularExpression_MatchOption
+qtcore/qregularexpression -> enum -> QRegularExpression_WildcardConversionOption
+qtcore/qregularexpression -> alias -> QRegularExpression_PatternOptions -> 
+qtcore/qregularexpression -> alias -> QRegularExpression_MatchOptions -> 
+qtcore/qregularexpression -> alias -> QRegularExpression_WildcardConversionOptions -> 
+qtcore/qregularexpression -> class -> QRegularExpressionMatch -> 
+
+
+qtcore/qcalendar -> class -> QCalendar -> 
+qtcore/qcalendar -> class -> QCalendar_YearMonthDay -> 
+qtcore/qcalendar -> class -> QCalendar_SystemId -> 
+qtcore/qcalendar -> enum -> QCalendar_System
+
+
+qtcore/qtemporaryfile -> class -> QTemporaryFile -> QFile
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_FileError -> QFileDevice_FileError
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_FileTime -> QFileDevice_FileTime
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_Permission -> QFileDevice_Permission
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_FileHandleFlag -> QFileDevice_FileHandleFlag
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_MemoryMapFlag -> QFileDevice_MemoryMapFlag
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_Permissions -> QFileDevice_Permissions
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_FileHandleFlags -> QFileDevice_FileHandleFlags
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_MemoryMapFlags -> QFileDevice_MemoryMapFlags
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qtemporaryfile -> derivedalias -> QTemporaryFile_OpenMode -> QIODeviceBase_OpenMode
+
+
+qtcore/qbitarray -> class -> QBitArray -> 
+
+
+qtcore/qmutex -> class -> QBasicMutex -> 
+qtcore/qmutex -> class -> QMutex -> QBasicMutex
+qtcore/qmutex -> class -> QRecursiveMutex -> 
+qtcore/qmutex -> class -> QMutexLocker -> 
+
+
+qtcore/qprocess -> class -> QProcessEnvironment -> 
+qtcore/qprocess -> enum -> QProcessEnvironment_Initialization
+qtcore/qprocess -> class -> QProcess -> QIODevice
+qtcore/qprocess -> derivedalias -> QProcess_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qprocess -> derivedalias -> QProcess_OpenMode -> QIODeviceBase_OpenMode
+qtcore/qprocess -> enum -> QProcess_ProcessError
+qtcore/qprocess -> enum -> QProcess_ProcessState
+qtcore/qprocess -> enum -> QProcess_ProcessChannel
+qtcore/qprocess -> enum -> QProcess_ProcessChannelMode
+qtcore/qprocess -> enum -> QProcess_InputChannelMode
+qtcore/qprocess -> enum -> QProcess_ExitStatus
+
+
+qtcore/qtemporarydir -> class -> QTemporaryDir -> 
+
+
+qtcore/qbasictimer -> class -> QBasicTimer -> 
+
+
+qtcore/qfutureinterface -> class -> QFutureInterfaceBase -> 
+qtcore/qfutureinterface -> enum -> QFutureInterfaceBase_State
+qtcore/qfutureinterface -> enum -> QFutureInterfaceBase_CancelMode
+qtcore/qfutureinterface -> class -> QFutureInterface -> QFutureInterfaceBase
+qtcore/qfutureinterface -> derivedalias -> QFutureInterface_State -> QFutureInterfaceBase_State
+qtcore/qfutureinterface -> derivedalias -> QFutureInterface_CancelMode -> QFutureInterfaceBase_CancelMode
+qtcore/qfutureinterface -> class -> QFutureInterface -> QFutureInterfaceBase
+qtcore/qfutureinterface -> derivedalias -> QFutureInterface_State -> QFutureInterfaceBase_State
+qtcore/qfutureinterface -> derivedalias -> QFutureInterface_CancelMode -> QFutureInterfaceBase_CancelMode
+
+
+qtcore/qlockfile -> class -> QLockFile -> 
+qtcore/qlockfile -> enum -> QLockFile_LockError
+
+
+qtcore/qelapsedtimer -> class -> QElapsedTimer -> 
+qtcore/qelapsedtimer -> enum -> QElapsedTimer_ClockType
+
+
+qtcore/qshareddata -> class -> QSharedData -> 
+qtcore/qshareddata -> class -> QAdoptSharedDataTag -> 
+qtcore/qshareddata -> class -> QSharedDataPointer -> 
+qtcore/qshareddata -> alias -> QSharedDataPointer_pointer -> 
+qtcore/qshareddata -> class -> QExplicitlySharedDataPointer -> 
+qtcore/qshareddata -> alias -> QExplicitlySharedDataPointer_pointer -> 
+
+
+qtcore/qstringlistmodel -> class -> QStringListModel -> QAbstractListModel
+qtcore/qstringlistmodel -> derivedalias -> QStringListModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtcore/qstringlistmodel -> derivedalias -> QStringListModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtcore/qstringlistmodel -> derivedalias -> QStringListModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+
+
+qtcore/qtimeline -> class -> QTimeLine -> QObject
+qtcore/qtimeline -> enum -> QTimeLine_State
+qtcore/qtimeline -> enum -> QTimeLine_Direction
+
+
+qtcore/qcryptographichash -> class -> QCryptographicHash -> 
+qtcore/qcryptographichash -> enum -> QCryptographicHash_Algorithm
+
+
+qtcore/qfuturesynchronizer -> class -> QFutureSynchronizer -> 
+
+
+qtcore/qfile -> class -> QFile -> QFileDevice
+qtcore/qfile -> derivedalias -> QFile_FileError -> QFileDevice_FileError
+qtcore/qfile -> derivedalias -> QFile_FileTime -> QFileDevice_FileTime
+qtcore/qfile -> derivedalias -> QFile_Permission -> QFileDevice_Permission
+qtcore/qfile -> derivedalias -> QFile_FileHandleFlag -> QFileDevice_FileHandleFlag
+qtcore/qfile -> derivedalias -> QFile_MemoryMapFlag -> QFileDevice_MemoryMapFlag
+qtcore/qfile -> derivedalias -> QFile_Permissions -> QFileDevice_Permissions
+qtcore/qfile -> derivedalias -> QFile_FileHandleFlags -> QFileDevice_FileHandleFlags
+qtcore/qfile -> derivedalias -> QFile_MemoryMapFlags -> QFileDevice_MemoryMapFlags
+qtcore/qfile -> derivedalias -> QFile_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qfile -> derivedalias -> QFile_OpenMode -> QIODeviceBase_OpenMode
+
+
+qtcore/qglobalstatic -> class -> QGlobalStatic -> 
+qtcore/qglobalstatic -> enum -> QtGlobalStatic_GuardValues
+
+
+qtcore/qfileinfo -> class -> QFileInfo -> 
+qtcore/qfileinfo -> alias -> QFileInfoList -> 
+
+
+qtcore/qglobal -> class -> QMacAutoReleasePool -> 
+qtcore/qglobal -> alias -> qint8 -> 
+qtcore/qglobal -> alias -> quint8 -> 
+qtcore/qglobal -> alias -> qint16 -> 
+qtcore/qglobal -> alias -> quint16 -> 
+qtcore/qglobal -> alias -> qint32 -> 
+qtcore/qglobal -> alias -> quint32 -> 
+qtcore/qglobal -> alias -> qint64 -> 
+qtcore/qglobal -> alias -> quint64 -> 
+qtcore/qglobal -> alias -> qlonglong -> 
+qtcore/qglobal -> alias -> qulonglong -> 
+qtcore/qglobal -> alias -> uchar -> 
+qtcore/qglobal -> alias -> ushort -> 
+qtcore/qglobal -> alias -> uint -> 
+qtcore/qglobal -> alias -> ulong -> 
+qtcore/qglobal -> alias -> qreal -> 
+
+
+qtcore/qeventloop -> class -> QEventLoop -> QObject
+qtcore/qeventloop -> enum -> QEventLoop_ProcessEventsFlag
+qtcore/qeventloop -> alias -> QEventLoop_ProcessEventsFlags -> 
+qtcore/qeventloop -> class -> QEventLoopLocker -> 
+
+
+qtcore/qmargins -> class -> QMargins -> 
+qtcore/qmargins -> class -> QMarginsF -> 
+
+
+qtcore/qoperatingsystemversion -> class -> QOperatingSystemVersionBase -> 
+qtcore/qoperatingsystemversion -> enum -> QOperatingSystemVersionBase_OSType
+qtcore/qoperatingsystemversion -> class -> QOperatingSystemVersion -> QOperatingSystemVersionBase
+qtcore/qoperatingsystemversion -> derivedalias -> QOperatingSystemVersion_OSType -> QOperatingSystemVersionBase_OSType
+qtcore/qoperatingsystemversion -> enum -> eQOperatingSystemVersion_OSType
+
+
+qtcore/qcontiguouscache -> class -> QContiguousCacheData -> 
+qtcore/qcontiguouscache -> class -> QContiguousCacheTypedData -> QContiguousCacheData
+qtcore/qcontiguouscache -> class -> QContiguousCache -> 
+qtcore/qcontiguouscache -> alias -> QContiguousCache_value_type -> 
+qtcore/qcontiguouscache -> alias -> QContiguousCache_pointer -> 
+qtcore/qcontiguouscache -> alias -> QContiguousCache_const_pointer -> 
+qtcore/qcontiguouscache -> alias -> QContiguousCache_reference -> 
+qtcore/qcontiguouscache -> alias -> QContiguousCache_const_reference -> 
+
+
+qtcore/qstringmatcher -> class -> QStringMatcher -> 
+
+
+qtcore/qtranslator -> class -> QTranslator -> QObject
+
+
+qtcore/qvariant -> class -> QVariant -> 
+qtcore/qvariant -> enum -> QVariant_Type
+qtcore/qvariant -> class -> QVariantRef -> 
+qtcore/qvariant -> class -> QVariantConstPointer -> 
+qtcore/qvariant -> class -> QVariantPointer -> 
+
+
+qtcore/qsharedmemory -> class -> QSharedMemory -> QObject
+qtcore/qsharedmemory -> enum -> QSharedMemory_AccessMode
+qtcore/qsharedmemory -> enum -> QSharedMemory_SharedMemoryError
+
+
+qtcore/qabstractnativeeventfilter -> class -> QAbstractNativeEventFilter -> 
+
+
+qtcore/qscopeguard -> class -> QScopeGuard -> 
+
+
+qtcore/qsortfilterproxymodel -> class -> QSortFilterProxyModel -> QAbstractProxyModel
+qtcore/qsortfilterproxymodel -> derivedalias -> QSortFilterProxyModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtcore/qsortfilterproxymodel -> derivedalias -> QSortFilterProxyModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtcore/qsortfilterproxymodel -> derivedalias -> QSortFilterProxyModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+
+
+qtcore/qsavefile -> class -> QSaveFile -> QFileDevice
+qtcore/qsavefile -> derivedalias -> QSaveFile_FileError -> QFileDevice_FileError
+qtcore/qsavefile -> derivedalias -> QSaveFile_FileTime -> QFileDevice_FileTime
+qtcore/qsavefile -> derivedalias -> QSaveFile_Permission -> QFileDevice_Permission
+qtcore/qsavefile -> derivedalias -> QSaveFile_FileHandleFlag -> QFileDevice_FileHandleFlag
+qtcore/qsavefile -> derivedalias -> QSaveFile_MemoryMapFlag -> QFileDevice_MemoryMapFlag
+qtcore/qsavefile -> derivedalias -> QSaveFile_Permissions -> QFileDevice_Permissions
+qtcore/qsavefile -> derivedalias -> QSaveFile_FileHandleFlags -> QFileDevice_FileHandleFlags
+qtcore/qsavefile -> derivedalias -> QSaveFile_MemoryMapFlags -> QFileDevice_MemoryMapFlags
+qtcore/qsavefile -> derivedalias -> QSaveFile_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qsavefile -> derivedalias -> QSaveFile_OpenMode -> QIODeviceBase_OpenMode
+
+
+qtcore/qbytearrayview -> class -> QByteArrayView -> 
+qtcore/qbytearrayview -> alias -> QByteArrayView_storage_type -> 
+qtcore/qbytearrayview -> alias -> QByteArrayView_value_type -> 
+qtcore/qbytearrayview -> alias -> QByteArrayView_reference -> 
+qtcore/qbytearrayview -> alias -> QByteArrayView_const_reference -> 
+qtcore/qbytearrayview -> alias -> QByteArrayView_pointer -> 
+qtcore/qbytearrayview -> alias -> QByteArrayView_const_pointer -> 
+
+
+qtcore/qobjectcleanuphandler -> class -> QObjectCleanupHandler -> QObject
+
+
+qtcore/qurl -> class -> QUrlTwoFlags -> 
+qtcore/qurl -> class -> QUrl -> 
+qtcore/qurl -> enum -> QUrl_ParsingMode
+qtcore/qurl -> enum -> QUrl_UrlFormattingOption
+qtcore/qurl -> enum -> QUrl_ComponentFormattingOption
+qtcore/qurl -> enum -> QUrl_UserInputResolutionOption
+qtcore/qurl -> enum -> QUrl_AceProcessingOption
+qtcore/qurl -> alias -> QUrl_ComponentFormattingOptions -> 
+qtcore/qurl -> alias -> QUrl_FormattingOptions -> 
+qtcore/qurl -> alias -> QUrl_UserInputResolutionOptions -> 
+qtcore/qurl -> alias -> QUrl_AceProcessingOptions -> 
+
+
+qtcore/qvariantanimation -> class -> QVariantAnimation -> QAbstractAnimation
+qtcore/qvariantanimation -> derivedalias -> QVariantAnimation_Direction -> QAbstractAnimation_Direction
+qtcore/qvariantanimation -> derivedalias -> QVariantAnimation_State -> QAbstractAnimation_State
+qtcore/qvariantanimation -> derivedalias -> QVariantAnimation_DeletionPolicy -> QAbstractAnimation_DeletionPolicy
+
+
+qtcore/qhashfunctions -> class -> QHashSeed -> 
+
+
+qtcore/qresource -> class -> QResource -> 
+qtcore/qresource -> enum -> QResource_Compression
+
+
+qtcore/qobject -> class -> QObjectData -> 
+qtcore/qobject -> class -> QObject -> 
+qtcore/qobject -> class -> QSignalBlocker -> 
+qtcore/qobject -> alias -> QObjectList -> 
+
+
+qtcore/qsystemsemaphore -> class -> QSystemSemaphore -> 
+qtcore/qsystemsemaphore -> enum -> QSystemSemaphore_AccessMode
+qtcore/qsystemsemaphore -> enum -> QSystemSemaphore_SystemSemaphoreError
+
+
+qtcore/qiodevicebase -> class -> QIODeviceBase -> 
+qtcore/qiodevicebase -> enum -> QIODeviceBase_OpenModeFlag
+qtcore/qiodevicebase -> alias -> QIODeviceBase_OpenMode -> 
+
+
+qtcore/qline -> class -> QLine -> 
+qtcore/qline -> class -> QLineF -> 
+qtcore/qline -> enum -> QLineF_IntersectionType
+qtcore/qline -> alias -> QLineF_IntersectType -> 
+
+
+qtcore/qpointer -> class -> QPointer -> 
+
+
+qtcore/qcollator -> class -> QCollatorSortKey -> 
+qtcore/qcollator -> class -> QCollator -> 
+
+
+qtcore/qhash -> class -> QHashDummyValue -> 
+qtcore/qhash -> class -> QHash -> 
+qtcore/qhash -> alias -> QHash_key_type -> 
+qtcore/qhash -> alias -> QHash_mapped_type -> 
+qtcore/qhash -> alias -> QHash_value_type -> 
+qtcore/qhash -> alias -> QHash_reference -> 
+qtcore/qhash -> alias -> QHash_const_reference -> 
+qtcore/qhash -> class -> QMultiHash -> 
+qtcore/qhash -> alias -> QMultiHash_key_type -> 
+qtcore/qhash -> alias -> QMultiHash_mapped_type -> 
+qtcore/qhash -> alias -> QMultiHash_value_type -> 
+qtcore/qhash -> alias -> QMultiHash_reference -> 
+qtcore/qhash -> alias -> QMultiHash_const_reference -> 
+
+
+qtcore/qabstractanimation -> class -> QAbstractAnimation -> QObject
+qtcore/qabstractanimation -> enum -> QAbstractAnimation_Direction
+qtcore/qabstractanimation -> enum -> QAbstractAnimation_State
+qtcore/qabstractanimation -> enum -> QAbstractAnimation_DeletionPolicy
+qtcore/qabstractanimation -> class -> QAnimationDriver -> QObject
+
+
+qtcore/qtaggedpointer -> class -> QTaggedPointer -> 
+qtcore/qtaggedpointer -> alias -> QTaggedPointer_Type -> 
+qtcore/qtaggedpointer -> alias -> QTaggedPointer_TagType -> 
+
+
+qtcore/qdebug -> class -> QDebug -> QIODeviceBase
+qtcore/qdebug -> derivedalias -> QDebug_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qdebug -> derivedalias -> QDebug_OpenMode -> QIODeviceBase_OpenMode
+qtcore/qdebug -> enum -> QDebug_VerbosityLevel
+qtcore/qdebug -> class -> QDebugStateSaver -> 
+qtcore/qdebug -> class -> QNoDebug -> 
+
+
+qtcore/qobjectdefs -> class -> QMethodRawArguments -> 
+qtcore/qobjectdefs -> class -> QGenericArgument -> 
+qtcore/qobjectdefs -> class -> QGenericReturnArgument -> QGenericArgument
+qtcore/qobjectdefs -> class -> QArgument -> QGenericArgument
+qtcore/qobjectdefs -> class -> QReturnArgument -> QGenericReturnArgument
+qtcore/qobjectdefs -> class -> Connection -> 
+
+
+qtcore/qanimationgroup -> class -> QAnimationGroup -> QAbstractAnimation
+qtcore/qanimationgroup -> derivedalias -> QAnimationGroup_Direction -> QAbstractAnimation_Direction
+qtcore/qanimationgroup -> derivedalias -> QAnimationGroup_State -> QAbstractAnimation_State
+qtcore/qanimationgroup -> derivedalias -> QAnimationGroup_DeletionPolicy -> QAbstractAnimation_DeletionPolicy
+
+
+qtcore/qlogging -> class -> QMessageLogContext -> 
+qtcore/qlogging -> class -> QMessageLogger -> 
+qtcore/qlogging -> enum -> QtMsgType
+qtcore/qlogging -> alias -> QtMessageHandler -> 
+
+
+qtcore/qstandardpaths -> class -> QStandardPaths -> 
+qtcore/qstandardpaths -> enum -> QStandardPaths_StandardLocation
+qtcore/qstandardpaths -> enum -> QStandardPaths_LocateOption
+qtcore/qstandardpaths -> alias -> QStandardPaths_LocateOptions -> 
+
+
+qtcore/qtextboundaryfinder -> class -> QTextBoundaryFinder -> 
+qtcore/qtextboundaryfinder -> enum -> QTextBoundaryFinder_BoundaryType
+qtcore/qtextboundaryfinder -> enum -> QTextBoundaryFinder_BoundaryReason
+qtcore/qtextboundaryfinder -> alias -> QTextBoundaryFinder_BoundaryReasons -> 
+
+
+qtcore/qiterable -> class -> QIterable -> 
+
+
+qtcore/qthread -> class -> QThread -> QObject
+qtcore/qthread -> enum -> QThread_Priority
+
+
+qtcore/qxmlstream -> class -> QXmlStreamAttribute -> 
+qtcore/qxmlstream -> class -> QXmlStreamAttributes -> 
+qtcore/qxmlstream -> class -> QXmlStreamNamespaceDeclaration -> 
+qtcore/qxmlstream -> class -> QXmlStreamNotationDeclaration -> 
+qtcore/qxmlstream -> class -> QXmlStreamEntityDeclaration -> 
+qtcore/qxmlstream -> class -> QXmlStreamEntityResolver -> 
+qtcore/qxmlstream -> class -> QXmlStreamReader -> 
+qtcore/qxmlstream -> enum -> QXmlStreamReader_TokenType
+qtcore/qxmlstream -> enum -> QXmlStreamReader_ReadElementTextBehaviour
+qtcore/qxmlstream -> enum -> QXmlStreamReader_Error
+qtcore/qxmlstream -> class -> QXmlStreamWriter -> 
+qtcore/qxmlstream -> alias -> QXmlStreamNamespaceDeclarations -> 
+qtcore/qxmlstream -> alias -> QXmlStreamNotationDeclarations -> 
+qtcore/qxmlstream -> alias -> QXmlStreamEntityDeclarations -> 
+
+
+qtcore/qthreadstorage -> class -> QThreadStorageData -> 
+qtcore/qthreadstorage -> class -> QThreadStorage -> 
+
+
+qtcore/qfileselector -> class -> QFileSelector -> QObject
+
+
+qtcore/qabstractitemmodel -> class -> QModelRoleData -> 
+qtcore/qabstractitemmodel -> class -> QModelRoleDataSpan -> 
+qtcore/qabstractitemmodel -> class -> QModelIndex -> 
+qtcore/qabstractitemmodel -> class -> QPersistentModelIndex -> 
+qtcore/qabstractitemmodel -> class -> QAbstractItemModel -> QObject
+qtcore/qabstractitemmodel -> enum -> QAbstractItemModel_LayoutChangeHint
+qtcore/qabstractitemmodel -> enum -> QAbstractItemModel_CheckIndexOption
+qtcore/qabstractitemmodel -> alias -> QAbstractItemModel_CheckIndexOptions -> 
+qtcore/qabstractitemmodel -> class -> QAbstractTableModel -> QAbstractItemModel
+qtcore/qabstractitemmodel -> derivedalias -> QAbstractTableModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtcore/qabstractitemmodel -> derivedalias -> QAbstractTableModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtcore/qabstractitemmodel -> derivedalias -> QAbstractTableModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+qtcore/qabstractitemmodel -> class -> QAbstractListModel -> QAbstractItemModel
+qtcore/qabstractitemmodel -> derivedalias -> QAbstractListModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtcore/qabstractitemmodel -> derivedalias -> QAbstractListModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtcore/qabstractitemmodel -> derivedalias -> QAbstractListModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+qtcore/qabstractitemmodel -> alias -> QModelIndexList -> 
+
+
+qtcore/qrect -> class -> QRect -> 
+qtcore/qrect -> class -> QRectF -> 
+
+
+qtcore/qstorageinfo -> class -> QStorageInfo -> 
+
+
+qtcore/qstring -> class -> QLatin1String -> 
+qtcore/qstring -> alias -> QLatin1String_value_type -> 
+qtcore/qstring -> alias -> QLatin1String_reference -> 
+qtcore/qstring -> alias -> QLatin1String_const_reference -> 
+qtcore/qstring -> class -> QString -> 
+qtcore/qstring -> enum -> QString_SectionFlag
+qtcore/qstring -> enum -> QString_NormalizationForm
+qtcore/qstring -> alias -> QString_SectionFlags -> 
+qtcore/qstring -> alias -> QString_const_reference -> 
+qtcore/qstring -> alias -> QString_reference -> 
+qtcore/qstring -> alias -> QString_pointer -> 
+qtcore/qstring -> alias -> QString_const_pointer -> 
+qtcore/qstring -> alias -> QString_value_type -> 
+
+
+qtcore/qidentityproxymodel -> class -> QIdentityProxyModel -> QAbstractProxyModel
+qtcore/qidentityproxymodel -> derivedalias -> QIdentityProxyModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtcore/qidentityproxymodel -> derivedalias -> QIdentityProxyModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtcore/qidentityproxymodel -> derivedalias -> QIdentityProxyModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+
+
+qtcore/qbytearray -> class -> QByteArray -> 
+qtcore/qbytearray -> enum -> QByteArray_Base64Option
+qtcore/qbytearray -> enum -> QByteArray_Base64DecodingStatus
+qtcore/qbytearray -> alias -> QByteArray_Base64Options -> 
+qtcore/qbytearray -> alias -> QByteArray_const_reference -> 
+qtcore/qbytearray -> alias -> QByteArray_reference -> 
+qtcore/qbytearray -> alias -> QByteArray_pointer -> 
+qtcore/qbytearray -> alias -> QByteArray_const_pointer -> 
+qtcore/qbytearray -> alias -> QByteArray_value_type -> 
+
+
+qtcore/qcommandlineoption -> class -> QCommandLineOption -> 
+qtcore/qcommandlineoption -> enum -> QCommandLineOption_Flag
+qtcore/qcommandlineoption -> alias -> QCommandLineOption_Flags -> 
+
+
+qtcore/qpromise -> class -> QPromise -> 
+
+
+qtcore/qfactoryinterface -> class -> QFactoryInterface -> 
+
+
+qtcore/qrandom -> class -> QRandomGenerator -> 
+qtcore/qrandom -> alias -> QRandomGenerator_result_type -> 
+qtcore/qrandom -> class -> QRandomGenerator64 -> QRandomGenerator
+qtcore/qrandom -> derivedalias -> QRandomGenerator64_result_type -> QRandomGenerator_result_type
+
+
+qtcore/qsize -> class -> QSize -> 
+qtcore/qsize -> class -> QSizeF -> 
+
+
+qtcore/qfuturewatcher -> class -> QFutureWatcherBase -> QObject
+qtcore/qfuturewatcher -> class -> QFutureWatcher -> QFutureWatcherBase
+
+
+qtcore/qjsonobject -> class -> QJsonObject -> 
+qtcore/qjsonobject -> alias -> QJsonObject_mapped_type -> 
+qtcore/qjsonobject -> alias -> QJsonObject_key_type -> 
+
+
+qtcore/qitemselectionmodel -> class -> QItemSelectionRange -> 
+qtcore/qitemselectionmodel -> class -> QItemSelectionModel -> QObject
+qtcore/qitemselectionmodel -> enum -> QItemSelectionModel_SelectionFlag
+qtcore/qitemselectionmodel -> alias -> QItemSelectionModel_SelectionFlags -> 
+qtcore/qitemselectionmodel -> class -> QItemSelection -> 
+
+
+qtcore/qjsonarray -> class -> QJsonArray -> 
+qtcore/qjsonarray -> alias -> QJsonArray_value_type -> 
+qtcore/qjsonarray -> alias -> QJsonArray_pointer -> 
+qtcore/qjsonarray -> alias -> QJsonArray_const_pointer -> 
+qtcore/qjsonarray -> alias -> QJsonArray_const_reference -> 
+
+
+qtcore/qpauseanimation -> class -> QPauseAnimation -> QAbstractAnimation
+qtcore/qpauseanimation -> derivedalias -> QPauseAnimation_Direction -> QAbstractAnimation_Direction
+qtcore/qpauseanimation -> derivedalias -> QPauseAnimation_State -> QAbstractAnimation_State
+qtcore/qpauseanimation -> derivedalias -> QPauseAnimation_DeletionPolicy -> QAbstractAnimation_DeletionPolicy
+
+
+qtcore/qchar -> class -> QLatin1Char -> 
+qtcore/qchar -> class -> QChar -> 
+qtcore/qchar -> enum -> QChar_SpecialCharacter
+qtcore/qchar -> enum -> QChar_Script
+qtcore/qchar -> enum -> QChar_Direction
+qtcore/qchar -> enum -> QChar_Decomposition
+qtcore/qchar -> enum -> QChar_JoiningType
+qtcore/qchar -> enum -> QChar_CombiningClass
+qtcore/qchar -> enum -> QChar_UnicodeVersion
+
+
+qtcore/qproperty -> class -> QUntypedPropertyBinding -> 
+qtcore/qproperty -> class -> QUntypedBindable -> 
+qtcore/qproperty -> class -> QBindable -> QUntypedBindable
+
+
+qtcore/qarraydata -> class -> QArrayData -> 
+qtcore/qarraydata -> enum -> QArrayData_AllocationOption
+qtcore/qarraydata -> enum -> QArrayData_GrowthPosition
+qtcore/qarraydata -> enum -> QArrayData_ArrayOption
+qtcore/qarraydata -> alias -> QArrayData_ArrayOptions -> 
+
+
+qtcore/qsettings -> class -> QSettings -> QObject
+qtcore/qsettings -> enum -> QSettings_Status
+qtcore/qsettings -> enum -> QSettings_Format
+qtcore/qsettings -> enum -> QSettings_Scope
+qtcore/qsettings -> alias -> QSettings_SettingsMap -> 
+qtcore/qsettings -> alias -> QSettings_WriteFunc -> 
+
+
+qtcore/qstringfwd -> alias -> QLatin1StringView -> 
+
+
+qtcore/qeasingcurve -> class -> QEasingCurve -> 
+qtcore/qeasingcurve -> enum -> QEasingCurve_Type
+
+
+qtcore/qscopedvaluerollback -> class -> QScopedValueRollback -> 
+
+
+qtcore/qsharedpointer -> class -> QSharedPointer -> 
+qtcore/qsharedpointer -> class -> QWeakPointer -> 
+qtcore/qsharedpointer -> class -> QEnableSharedFromThis -> 
+
+
+qtcore/qmap -> class -> QMap -> 
+qtcore/qmap -> alias -> QMap_key_type -> 
+qtcore/qmap -> alias -> QMap_mapped_type -> 
+qtcore/qmap -> class -> QMultiMap -> 
+qtcore/qmap -> alias -> QMultiMap_key_type -> 
+qtcore/qmap -> alias -> QMultiMap_mapped_type -> 
+
+
+qtcore/qflags -> class -> QFlag -> 
+qtcore/qflags -> class -> QIncompatibleFlag -> 
+qtcore/qflags -> class -> QFlags -> 
+
+
+qtcore/qstack -> class -> QStack -> QList<T>
+
+
+qtcore/qthreadpool -> class -> QThreadPool -> QObject
+
+
+qtcore/qwaitcondition -> class -> QWaitCondition -> 
+
+
+qtcore/qdatetime -> class -> QDate -> 
+qtcore/qdatetime -> class -> QTime -> 
+qtcore/qdatetime -> class -> QDateTime -> 
+qtcore/qdatetime -> enum -> QDateTime_YearRange
+
+
+qtcore/qjsondocument -> class -> QJsonParseError -> 
+qtcore/qjsondocument -> enum -> QJsonParseError_ParseError
+qtcore/qjsondocument -> class -> QJsonDocument -> 
+qtcore/qjsondocument -> enum -> QJsonDocument_JsonFormat
+
+
+qtcore/qplugin -> class -> QPluginMetaData -> 
+qtcore/qplugin -> class -> QPluginMetaData_Header -> 
+qtcore/qplugin -> class -> QPluginMetaData_MagicHeader -> 
+qtcore/qplugin -> class -> QPluginMetaData_ElfNoteHeader -> 
+qtcore/qplugin -> class -> QStaticPlugin -> 
+qtcore/qplugin -> class -> QPluginMetaDataV2 -> 
+qtcore/qplugin -> class -> QPluginMetaDataV2_ElfNotePayload -> QPluginMetaData_ElfNoteHeader
+qtcore/qplugin -> class -> QPluginMetaDataV2_RegularPayload -> QPluginMetaData_MagicHeader
+qtcore/qplugin -> class -> QPluginMetaDataV2_StaticPayload -> 
+qtcore/qplugin -> alias -> QPluginMetaDataV2_Payload -> 
+qtcore/qplugin -> alias -> QtPluginMetaDataFunction -> 
+
+
+qtcore/qlist -> class -> QList -> 
+qtcore/qlist -> class -> QList_DisableRValueRefs -> 
+qtcore/qlist -> alias -> QList_value_type -> 
+qtcore/qlist -> alias -> QList_const_pointer -> 
+qtcore/qlist -> alias -> QList_reference -> 
+qtcore/qlist -> alias -> QList_const_reference -> 
+qtcore/qlist -> alias -> QList_parameter_type -> 
+qtcore/qlist -> alias -> QList_rvalue_ref -> 
+
+
+qtcore/qmimedatabase -> class -> QMimeDatabase -> 
+qtcore/qmimedatabase -> enum -> QMimeDatabase_MatchMode
+
+
+qtcore/qsocketnotifier -> class -> QSocketNotifier -> QObject
+qtcore/qsocketnotifier -> enum -> QSocketNotifier_Type
+qtcore/qsocketnotifier -> class -> QSocketDescriptor -> 
+
+
+qtcore/qdir -> class -> QDir -> 
+qtcore/qdir -> enum -> QDir_Filter
+qtcore/qdir -> enum -> QDir_SortFlag
+qtcore/qdir -> alias -> QDir_Filters -> 
+qtcore/qdir -> alias -> QDir_SortFlags -> 
+
+
+qtcore/qfilesystemwatcher -> class -> QFileSystemWatcher -> QObject
+
+
+qtcore/qsemaphore -> class -> QSemaphore -> 
+qtcore/qsemaphore -> class -> QSemaphoreReleaser -> 
+
+
+qtcore/qstringlist -> class -> QStringList -> 
+
+
+qtcore/qurlquery -> class -> QUrlQuery -> 
+
+
+qtcore/qjsonvalue -> class -> QJsonValue -> 
+qtcore/qjsonvalue -> enum -> QJsonValue_Type
+qtcore/qjsonvalue -> class -> QJsonValueConstRef -> 
+
+
+qtcore/qdatastream -> class -> QDataStream -> QIODeviceBase
+qtcore/qdatastream -> derivedalias -> QDataStream_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qdatastream -> derivedalias -> QDataStream_OpenMode -> QIODeviceBase_OpenMode
+qtcore/qdatastream -> enum -> QDataStream_Version
+qtcore/qdatastream -> enum -> QDataStream_ByteOrder
+qtcore/qdatastream -> enum -> QDataStream_Status
+qtcore/qdatastream -> enum -> QDataStream_FloatingPointPrecision
+
+
+qtcore/qset -> class -> QSet -> 
+qtcore/qset -> alias -> QSet_key_type -> 
+qtcore/qset -> alias -> QSet_value_type -> 
+qtcore/qset -> alias -> QSet_pointer -> 
+qtcore/qset -> alias -> QSet_const_pointer -> 
+qtcore/qset -> alias -> QSet_reference -> 
+qtcore/qset -> alias -> QSet_const_reference -> 
+
+
+qtcore/qtransposeproxymodel -> class -> QTransposeProxyModel -> QAbstractProxyModel
+qtcore/qtransposeproxymodel -> derivedalias -> QTransposeProxyModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtcore/qtransposeproxymodel -> derivedalias -> QTransposeProxyModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtcore/qtransposeproxymodel -> derivedalias -> QTransposeProxyModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+
+
+qtcore/qconcatenatetablesproxymodel -> class -> QConcatenateTablesProxyModel -> QAbstractItemModel
+qtcore/qconcatenatetablesproxymodel -> derivedalias -> QConcatenateTablesProxyModel_LayoutChangeHint -> QAbstractItemModel_LayoutChangeHint
+qtcore/qconcatenatetablesproxymodel -> derivedalias -> QConcatenateTablesProxyModel_CheckIndexOption -> QAbstractItemModel_CheckIndexOption
+qtcore/qconcatenatetablesproxymodel -> derivedalias -> QConcatenateTablesProxyModel_CheckIndexOptions -> QAbstractItemModel_CheckIndexOptions
+
+
+qtcore/qmessageauthenticationcode -> class -> QMessageAuthenticationCode -> 
+
+
+qtcore/qmimetype -> class -> QMimeType -> 
+
+
+qtcore/qtimer -> class -> QTimer -> QObject
+
+
+qtcore/qversionnumber -> class -> QVersionNumber -> 
+qtcore/qversionnumber -> class -> QTypeRevision -> 
+
+
+qtcore/qqueue -> class -> QQueue -> QList<T>
+
+
+qtcore/qtimezone -> class -> QTimeZone -> 
+qtcore/qtimezone -> class -> QTimeZone_OffsetData -> 
+qtcore/qtimezone -> enum -> QTimeZone_TimeType
+qtcore/qtimezone -> enum -> QTimeZone_NameType
+qtcore/qtimezone -> alias -> QTimeZone_OffsetDataList -> 
+
+
+qtcore/qcommandlineparser -> class -> QCommandLineParser -> 
+qtcore/qcommandlineparser -> enum -> QCommandLineParser_SingleDashWordOptionMode
+qtcore/qcommandlineparser -> enum -> QCommandLineParser_OptionsAfterPositionalArgumentsMode
+
+
+qtcore/qassociativeiterable -> class -> QAssociativeIterable -> 
+
+
+qtcore/qfuture -> class -> QFuture -> 
+
+
+qtcore/qmimedata -> class -> QMimeData -> QObject
+
+
+qtcore/qpoint -> class -> QPoint -> 
+qtcore/qpoint -> class -> QPointF -> 
+
+
+qtcore/qdeadlinetimer -> class -> QDeadlineTimer -> 
+qtcore/qdeadlinetimer -> enum -> QDeadlineTimer_ForeverConstant
+
+
+qtcore/qtextstream -> class -> QTextStream -> QIODeviceBase
+qtcore/qtextstream -> derivedalias -> QTextStream_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qtextstream -> derivedalias -> QTextStream_OpenMode -> QIODeviceBase_OpenMode
+qtcore/qtextstream -> enum -> QTextStream_RealNumberNotation
+qtcore/qtextstream -> enum -> QTextStream_FieldAlignment
+qtcore/qtextstream -> enum -> QTextStream_Status
+qtcore/qtextstream -> enum -> QTextStream_NumberFlag
+qtcore/qtextstream -> alias -> QTextStream_NumberFlags -> 
+qtcore/qtextstream -> alias -> QTSMFI -> 
+qtcore/qtextstream -> alias -> QTSMFC -> 
+
+
+qtcore/qabstracteventdispatcher -> class -> QAbstractEventDispatcher -> QObject
+
+
+qtcore/qcache -> class -> QCache -> 
+qtcore/qcache -> class -> QCache_Value -> 
+qtcore/qcache -> class -> QCache_Chain -> 
+
+
+qtcore/qbindingstorage -> class -> QBindingStatus -> 
+qtcore/qbindingstorage -> class -> QBindingStorage -> 
+
+
+qtcore/qbytearraymatcher -> class -> QByteArrayMatcher -> 
+
+
+qtcore/qsignalmapper -> class -> QSignalMapper -> QObject
+
+
+qtcore/qbuffer -> class -> QBuffer -> QIODevice
+qtcore/qbuffer -> derivedalias -> QBuffer_OpenModeFlag -> QIODeviceBase_OpenModeFlag
+qtcore/qbuffer -> derivedalias -> QBuffer_OpenMode -> QIODeviceBase_OpenMode
+
+
+qtcore/qscopedpointer -> class -> QScopedPointerDeleter -> 
+qtcore/qscopedpointer -> class -> QScopedPointerArrayDeleter -> 
+qtcore/qscopedpointer -> class -> QScopedPointerPodDeleter -> 
+qtcore/qscopedpointer -> class -> QScopedPointerObjectDeleteLater -> 
+qtcore/qscopedpointer -> class -> QScopedPointer -> 
+qtcore/qscopedpointer -> alias -> QScopedPointer_pointer -> 
+qtcore/qscopedpointer -> class -> QScopedArrayPointer -> QScopedPointer<T, Cleanup>
+qtcore/qscopedpointer -> alias -> QScopedPointerDeleteLater -> 
+
+
+qtcore/qparallelanimationgroup -> class -> QParallelAnimationGroup -> QAnimationGroup
+qtcore/qparallelanimationgroup -> derivedalias -> QParallelAnimationGroup_Direction -> QAbstractAnimation_Direction
+qtcore/qparallelanimationgroup -> derivedalias -> QParallelAnimationGroup_State -> QAbstractAnimation_State
+qtcore/qparallelanimationgroup -> derivedalias -> QParallelAnimationGroup_DeletionPolicy -> QAbstractAnimation_DeletionPolicy
+
+
+qtcore/qrunnable -> class -> QRunnable -> 
+
+
+qtcore/q20functional -> class -> q20_identity -> 
+qtcore/q20functional -> class -> q20_identity_is_transparent -> 
+qtcore/q20functional -> class -> q20_remove_cvref -> 
+
+
+qtcore/qcoreapplication -> class -> QCoreApplication -> QObject
+
+
+qtcore/qcompare -> class -> QPartialOrdering -> 
+
+
+qtuitools/quiloader -> class -> QUiLoader -> QObject

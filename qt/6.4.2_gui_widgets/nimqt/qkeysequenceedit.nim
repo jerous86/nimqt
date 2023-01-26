@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qkeysequenceedit
+export qkeysequenceedit

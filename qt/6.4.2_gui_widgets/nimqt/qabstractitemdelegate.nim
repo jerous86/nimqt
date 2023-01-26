@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qabstractitemdelegate
+export qabstractitemdelegate

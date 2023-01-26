@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qplaintextedit
+export qplaintextedit

@@ -276,6 +276,8 @@ const skipRules* = @[
     "QtPluginInstanceFunction",
     "+"&newCm("qtcore","qstringconverter").id_class("QStringConverterBase"),
     "qstringconverter","QStringConverter",
+    ".*qaccessible.*",
+    ".*qvulkan.*",
     ]
 
 # E.g. QAccessible::Event is an enum, while QAccessibleEvent is a class.

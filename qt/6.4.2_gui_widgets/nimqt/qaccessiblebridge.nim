@@ -1,0 +1,2 @@
+import nimqt/qtgui/qaccessiblebridge
+export qaccessiblebridge

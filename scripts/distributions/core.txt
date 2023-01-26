@@ -5,7 +5,9 @@
 
 # Here, we do not have any includes. Look at /scripts/distributions/minimal.txt for an example.
 
-# For this distribution, we want to have the next four modules
-QObject QString QWidget
+# For this distribution, we only want the most basic classes.
+QObject QString QWidget QByteArray
+QList QObjectList
 
 QInternal # forces an import of QNamespace
+QFlag QFlags

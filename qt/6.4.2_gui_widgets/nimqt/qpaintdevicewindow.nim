@@ -1,0 +1,2 @@
+import nimqt/qtgui/qpaintdevicewindow
+export qpaintdevicewindow

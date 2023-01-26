@@ -1,0 +1,2 @@
+import nimqt/qtgui/qabstracttextdocumentlayout
+export qabstracttextdocumentlayout

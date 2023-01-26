@@ -1,0 +1,2 @@
+import nimqt/qtgui/qtestsupport_gui
+export qtestsupport_gui

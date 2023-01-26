@@ -1,9 +1,9 @@
 UNAME:=$(shell uname)
 QT_INSTALL_LIBS=$(shell nim r scripts/nimqt_paths.nim qtinstalllibs)/
-DISTR=minimal
+DISTR=gui_widgets
 VERSION=$(shell nim r scripts/nimqt_paths.nim QT_VERSION)
 VERSION_DISTR=${VERSION}_${DISTR}
-MY_PATH=qt/6.4.1_minimal/
+MY_PATH=qt/6.4.2_${DISTR}/
 
 all: calc
 
@@ -57,5 +57,8 @@ build_load_ui:
 	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_INSTALL_LIBS) examples/load_ui; fi
 run_load_ui:
 	./examples/load_ui
+
+clean:
+	rm -f ./examples/{poc,load_ui,hello,text_view,calc}
 
 FORCE:

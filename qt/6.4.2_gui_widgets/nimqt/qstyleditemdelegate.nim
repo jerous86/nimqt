@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qstyleditemdelegate
+export qstyleditemdelegate

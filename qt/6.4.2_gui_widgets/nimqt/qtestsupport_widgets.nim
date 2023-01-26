@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qtestsupport_widgets
+export qtestsupport_widgets

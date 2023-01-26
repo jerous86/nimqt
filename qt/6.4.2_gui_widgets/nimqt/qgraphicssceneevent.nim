@@ -1,0 +1,2 @@
+import nimqt/qtwidgets/qgraphicssceneevent
+export qgraphicssceneevent

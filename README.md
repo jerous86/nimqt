@@ -1,13 +1,13 @@
 # nimqt
 [Qt6](https://www.qt.io/) bindings for [nim](https://nim-lang.org/).
 It makes use of [verdigris](https://github.com/woboq/verdigris), a set of macros to use Qt without moc.
-The targeted version is Qt6, but it might also work for earlier versions of Qt.
+The targeted version is Qt6, and might work for Qt5, depending on what modules are used.
 
 # Usage
 
 ## Installation
 Install with `nimble install https://github.com/jerous86/nimqt`.
-This will install bindings that have been generated for Qt 6.4.1, but will very likely work with any Qt 6 version.
+This will install bindings that have been generated for Qt 6.4.2, but will very likely work with any Qt 6 version.
 
 `qmake` is used to determine the paths.
 The path can be overriden using the environment variable `QMAKE_PATH`, e.g.
