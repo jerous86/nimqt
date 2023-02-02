@@ -117,6 +117,11 @@ The following declaration and definitions are possible inside `inheritQObject`:
  	- `const_override METHOD_NAME(ARGUMENTS): BODY`
  	- `const_override_defer METHOD_NAME(ARGUMENTS): BODY`
  	- `const_override_decl METHOD_NAME(ARGUMENTS)`
+- Define a signal
+    - `signal SIGNAL_NAME(ARGUMENTS)`
+        Declares a custom signal. It can be connected to using the regular `connect` call.
+        The signal can be emitted using the `emit` template.
+        An example for creating and using custom signals can be found in `examples/custom_signal.nim`.
 - Define a member variable
     - `var VAR_NAME: VAR_TYPE`
         this will create a variable. 

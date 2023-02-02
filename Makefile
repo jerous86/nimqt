@@ -28,7 +28,8 @@ build_text_view:
 	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_INSTALL_LIBS) examples/text_view; fi
 run_text_view_nim:
 	./examples/text_view
-	
+
+
 hello: FORCE
 	rm -f examples/hello
 	make build_hello run_hello
@@ -58,7 +59,18 @@ build_load_ui:
 run_load_ui:
 	./examples/load_ui
 
+
+custom_signal: FORCE
+	rm -f custom_signal
+	make build_custom_signal run_custom_signal
+build_custom_signal:
+	nim cpp --path:$(MY_PATH) examples/custom_signal.nim
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_INSTALL_LIBS) examples/custom_signal; fi
+run_custom_signal:
+	./examples/custom_signal
+
+
 clean:
-	rm -f ./examples/{poc,load_ui,hello,text_view,calc}
+	rm -f ./examples/{poc,load_ui,hello,text_view,calc,custom_signal}
 
 FORCE:

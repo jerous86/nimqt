@@ -8,6 +8,7 @@ examples/calc
 examples/text_view
 examples/hello
 examples/load_ui
+examples/custom_signal
 
 scripts/cpp2xml
 scripts/distr

@@ -77,11 +77,11 @@ type
         cpp_param_types:seq[string]
         cpp_param_names:seq[string]
         nim_param_list:seq[NimNode]
-    ProcType = enum Slot, SlotDefer, SlotDecl, Override, OverrideDefer, OverrideDecl, ConstOverride, ConstOverrideDefer, ConstOverrideDecl
+    ProcType = enum Slot, SlotDefer, SlotDecl, Override, OverrideDefer, OverrideDecl, ConstOverride, ConstOverrideDefer, ConstOverrideDecl, Signal
 
 func isDeclaration(pType:ProcType): bool =
     case pType
-    of SlotDecl,OverrideDecl,ConstOverrideDecl: true
+    of SlotDecl,OverrideDecl,ConstOverrideDecl,Signal: true
     else: false
 func isSlot(pType:ProcType): bool =
     case pType
@@ -145,6 +145,7 @@ proc processProc(n:NimNode,
         of "constoverride": ProcType.ConstOverride
         of "constoverridedefer": ProcType.ConstOverrideDefer
         of "constoverridedecl": ProcType.ConstOverrideDecl
+        of "signal": ProcType.Signal
         else: assert(false, &"Unknown proc type {s}"); Slot
 
     # Replaces something like ```x:ref int``` with ```x:ptr int```
@@ -186,7 +187,7 @@ proc processProc(n:NimNode,
         let signal=n[1][0]
         let signalName:string=signal.strVal
         let callParent=ident("parent_"&signalName)
-        let pType=n[0].strVal.parseProcType # e.g. slot or override
+        let pType=n[0].strVal.parseProcType # e.g. slot or override or signal
 
         # body is the body of the function (if present)
         # ret is the return type (as a nim type)
@@ -243,40 +244,50 @@ proc processProc(n:NimNode,
                 assert false
                 (NimNode(), NimNode(), getParams(@[]), false)
         
-        if pType.isOverride:
+        if pType.isOverride and pType!=Signal:
             var def=quote do:
                 proc `callParent`(): `ret` {.importcpp, used.}
             def[3].expectKind nnkFormalParams
             for p in params.nim_param_list: def[3].add p
             cppDefinitions.add def
-        
+  
+
         block:
-            # Create the declaration
-            let xs=zip(
-                    concat(@[&"{classNameStr}*"], params.cpp_param_types), 
-                    concat(@["this_0"], params.cpp_param_names)
-                ).mapIt(&"{it[0]} {it[1]}")
-            let codegenDecl:string = &"""$1 $2({xs.join(", ")}) /*codegenDecl*/"""
-            var decl0=quote do:
-                proc `signal`(): `ret` {.exportcpp,codegenDecl:`codegenDecl`.}
-            decl0[3].expectKind nnkFormalParams
-            for p in params.nim_param_list: decl0[3].add p
-            
-            # Create the definition
-            var def0=quote do:
-                proc `signal`(): `ret` {.exportcpp.} = `body`
-            def0[3].expectKind nnkFormalParams
-            for p in params.nim_param_list: def0[3].add p
-            
-            let def=(if decl_only: decl0 else: def0)
-            
-            if pType in [SlotDefer, OverrideDefer, ConstOverrideDefer]:
-                if methodImplementations.hasKey(classNameStr)==false:
-                    methodImplementations[classNameStr] = @[]
-                methodImplementations[classNameStr].add def
-                # A forward declaration might be useful
-                fwdDeclarations.add decl0
-            else: cppDefinitions.add def
+            if pType==Signal: 
+                let importcpp = &"#.{signal}(@)"
+                var decl0=quote do:
+                    proc `signal`() {.importcpp: `importcpp`.}
+                decl0[3].expectKind nnkFormalParams
+                for p in params.nim_param_list: decl0[3].add p
+                cppDefinitions.add decl0
+            else:
+                 # Create the declaration
+                let xs=zip(
+                        concat(@[&"{classNameStr}*"], params.cpp_param_types), 
+                        concat(@["this_0"], params.cpp_param_names)
+                    ).mapIt(&"{it[0]} {it[1]}")
+                let codegenDecl:string = &"""$1 $2({xs.join(", ")}) /*codegenDecl*/"""
+                var decl0=quote do:
+                    proc `signal`(): `ret` {.exportcpp,codegenDecl:`codegenDecl`.}
+                decl0[3].expectKind nnkFormalParams
+                for p in params.nim_param_list: decl0[3].add p
+
+                # Create the definition
+                var def0=quote do:
+                    proc `signal`(): `ret` {.exportcpp.} = `body`
+                def0[3].expectKind nnkFormalParams
+                for p in params.nim_param_list: def0[3].add p
+
+                let def=(if decl_only: decl0 else: def0)
+
+                if pType in [SlotDefer, OverrideDefer, ConstOverrideDefer]:
+                    if methodImplementations.hasKey(classNameStr)==false:
+                        methodImplementations[classNameStr] = @[]
+                    methodImplementations[classNameStr].add def
+                    # A forward declaration might be useful
+                    fwdDeclarations.add decl0
+                else: 
+                    cppDefinitions.add def
     elif n.kind==nnkPragma:
         # E.g. an {.emit: "".} thingie
         structStuff.add n
@@ -284,7 +295,7 @@ proc processProc(n:NimNode,
         echo n.repr
         n.expectKind nnkCommand
     
-    #echo "processProc returns >>\n",result.repr.indent(4),"<<\n\n"
+    # echo "processProc returns >>\n",result.repr.indent(4),"<<\n\n"
 
 proc processVar(n:NimNode, class:NimNode, memberVariables:NimNode) =
     # We cannot just add a member variable to a class. The importcpp pragma on an object
@@ -367,23 +378,28 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
 
     for signal in signals:
         let signalName:string=signal.node.strVal
-        let retType=signal.retType.replaceExportCppType
         let cpp_param_decls=zip(signal.cpp_param_types, signal.cpp_param_names).mapIt(&"{it[0]} {it[1]}").join(", ")
         # param names without this
         let cpp_param_names0=signal.cpp_param_names.join(", ")
-        let cpp_param_names=concat(@[unconst(classNameStr,"this")], signal.cpp_param_names).join(", ")
-        let override = (case signal.pType
-            of Override,OverrideDefer,OverrideDecl: "override"
-            of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const override"
-            else: "")
-        result.add quote do: {.emit:"\t" & $`retType` & " " & `signalName` & "(" & `cpp_param_decls` & ") " & `override` & 
-            "{ return ::" & `signalName` & "(" & `cpp_param_names` & "); }".}
-        
-        if signal.pType.isOverride:
-            result.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
-                "{ return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
-        
-        if signal.pType.isSlot: result.add quote do: {.emit:"\tW_SLOT(" & `signalName` & ")".}
+        if signal.pType==Signal:
+            let signalNameAndParams = concat(@[signalName], signal.cpp_param_names).join(", ")
+            result.add quote do: 
+                {.emit:"\tvoid " & `signalName` & "(" & `cpp_param_decls` & ") W_SIGNAL(" & `signalNameAndParams` & ")".}
+        else:
+            let retType=signal.retType.replaceExportCppType
+            let cpp_param_names=concat(@[unconst(classNameStr,"this")], signal.cpp_param_names).join(", ")
+            let override = (case signal.pType
+                of Override,OverrideDefer,OverrideDecl: "override"
+                of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const override"
+                else: "")
+            result.add quote do: {.emit:"\t" & $`retType` & " " & `signalName` & "(" & `cpp_param_decls` & ") " & `override` & 
+                "{ return ::" & `signalName` & "(" & `cpp_param_names` & "); }".}
+            
+            if signal.pType.isOverride:
+                result.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
+                    "{ return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
+            
+            if signal.pType.isSlot: result.add quote do: {.emit:"\tW_SLOT(" & `signalName` & ")".}
     
     result.add quote do:
         {.emit: "};\n".}
@@ -631,4 +647,4 @@ template blockSignalsTmp*(o:ptr typed, body:untyped) =
 
 template SIGNAL*(signal:string): string = "2" & signal
 template SLOT*(slot:string): string = "1" & slot
-
+template emit*(x:untyped) = x
