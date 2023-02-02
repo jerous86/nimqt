@@ -300,8 +300,8 @@ Bindings are generated in three steps:
 
 These steps are carried out by `scripts/generate_distr.sh`.
 This script accepts 1 parameter, the "distribution", and determines for which classes nim modules should be generated.
-Currently, there is only one distribution defined, "minimal", which provides a subset of Qt widgets and a very limited set of classes from QtCore.
-A larger set of Qt classes should be possible in the future, so one can make use of the extensive Qt libraries (however, this comes at a cost of slower compilation as the library is quite big!).
+Currently, there is only one distribution defined, "gui_widgets", which provides bindings to most of QtWidgets, many classes of QtGui and a very limited set of classes from QtCore.
+A larger set of Qt classes should be possible in the future, so one can make use of the extensive Qt libraries.
 
 Generation of these bindings is partly automatic, but there is still some manual intervention required for some parts.
 For example, due to recursive module imports not being supported, not all methods are possible, as types inside the method parameter list or return type would result in a loop (e.g. `QLayoutItem::widget()` is not available, due to the module dependency `QLayoutItem` -> `QWidget` -> `QLayout` -> `QLayoutItem`).
