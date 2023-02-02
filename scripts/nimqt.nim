@@ -389,21 +389,22 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         {.emit: "W_OBJECT_IMPL(" & $`class` & ")\n".}
     result.add cppDefinitions
     
-    #echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
+    # echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
+
 
 macro insertSlotImplementations*(className:string) =
     result=newNimNode(nnkStmtList)
     
-    let className:string = className.strVal
-    if methodImplementations.hasKey(className)==false:
-        echo "qt::insertSlotImplementations: WARNING " & className & " not found in methodImplementations. Skipping"
+    let classNameStr:string = className.strVal
+    if methodImplementations.hasKey(classNameStr)==false:
+        echo "qt::insertSlotImplementations: WARNING " & classNameStr & " not found in methodImplementations. Skipping"
         echo "Only following are available:"
         for key,x in methodImplementations:
             echo key
         return
-    for x in methodImplementations[className]:
+    for x in methodImplementations[classNameStr]:
         result.add x
-    methodImplementations.del className
+    methodImplementations.del classNameStr
     
 macro insertAllSlotImplementations*() =
     result=newNimNode(nnkStmtList)
