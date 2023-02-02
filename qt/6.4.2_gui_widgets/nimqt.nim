@@ -107,7 +107,6 @@ func replaceExportCppType(n:NimNode): NimNode =
     elif n.strVal=="int": return ident("cint")
     else: return n
 
-
 # This procedure processes the name and arguments, but does nothing with the body
 # It expects in $n the Command that starts the procedure
 # structStuff are things that are added straight into the struct itself,
@@ -286,7 +285,35 @@ proc processProc(n:NimNode,
     
     #echo "processProc returns >>\n",result.repr.indent(4),"<<\n\n"
 
-# TODO support for variables inside a struct
+proc processVar(n:NimNode, class:NimNode, memberVariables:NimNode) =
+    n[0].expectKind nnkIdentDefs
+    # n[0][0] is the identifier/name
+    # n[0][1] is the type
+
+    let classNameStr=class.strVal
+    let className=ident(classNameStr)
+    let varName=ident(n[0][0].strVal)
+    let varNameAssign=ident(n[0][0].strVal & "=")
+    let tableName = ident(&"{class.strVal}_{n[0][0].strVal}")
+    let typ=n[0][1]
+    let this=ident("this")
+    let value=ident("value")
+
+    let x:NimNode = quote do:
+        # We do not have a Table[ptr className, typ] as the nim compiler does not generate
+        # code that compiles. There is no fwd declaration. By just using a pointer, we
+        # circumvent this problem.
+        var `tableName`:Table[pointer, `typ`]
+        template `varName`*(`this`:ptr `className`): `typ` = 
+            if not `tableName`.hasKey(`this`): 
+                var default:`typ`
+                `tableName`[`this`] = default
+            `tableName`[`this`]
+        template `varNameAssign`*(`this`:ptr `className`, `value`:`typ`) = `tableName`[`this`]=`value`
+
+    memberVariables.add x
+
+
 macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped =
     # echo &"\n\n\ninheritQobject {class.repr} {parentClass.repr} {body.repr.indent(4)}"
     result = newNimNode(nnkStmtList)
@@ -295,14 +322,28 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
     let newClassPtr = ident("new" & classNameStr)
     
     result.add quote do: {.emit: "\n\n\nstruct " & `classNameStr` & ";".}
+
     var signals:seq[SignalTuple]
     var cppDefinitions=newNimNode(nnkStmtList) # These must come at the end
     var fwdDeclarations=newNimNode(nnkStmtList)
     var structStuff=newNimNode(nnkStmtList)
-    
+    var memberVariables=newNimNode(nnkStmtList)
+
     body.expectKind(nnkStmtList)
     for decl in body:
-        result.add decl.processProc(class, parentClass, signals, fwdDeclarations, cppDefinitions, structStuff)
+        case decl.kind
+        of nnkCommand: result.add decl.processProc(class, parentClass, signals, fwdDeclarations, cppDefinitions, structStuff)
+        of nnkVarSection:
+            # We cannot just add a member variable to a class. The importcpp pragma on an object
+            # means that we will use that C++ object, and thus cannot modify the object.
+            # We "solve" this here by using a proc to read and write the variable.
+            # The variable is stored inside a table.
+            # E.g. if we have `var counter:int` for a class `Foo`, this will create
+            # `Foo_counter:Table[Foo,int]`
+            # `proc counter*(this:Foo):int = Foo_counter[this]`, and
+            # `proc counter=*(this:Foo, value:int) = Foo_counter[this]=value`.
+            decl.processVar(class, memberVariables)
+        else: assert(false, &"inheritQobject: Expected nnkCommand or nnkVarSection, but got {decl.kind}")
 
     result.add quote do:
         type `class` {.importcpp.} = object of `parentClass`
@@ -319,6 +360,8 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         # generated next two lines. But for now, let's just do it simple.
         {.emit: "\tQObject *get_sender() const { return sender(); }".}
         proc get_sender*(this:ptr `class`): ptr QObject {.importcpp:"#.get_sender(@)".}
+
+        `memberVariables`
     
 
     for signal in signals:
@@ -346,21 +389,22 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         {.emit: "W_OBJECT_IMPL(" & $`class` & ")\n".}
     result.add cppDefinitions
     
-    #echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
+    # echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
+
 
 macro insertSlotImplementations*(className:string) =
     result=newNimNode(nnkStmtList)
     
-    let className:string = className.strVal
-    if methodImplementations.hasKey(className)==false:
-        echo "qt::insertSlotImplementations: WARNING " & className & " not found in methodImplementations. Skipping"
+    let classNameStr:string = className.strVal
+    if methodImplementations.hasKey(classNameStr)==false:
+        echo "qt::insertSlotImplementations: WARNING " & classNameStr & " not found in methodImplementations. Skipping"
         echo "Only following are available:"
         for key,x in methodImplementations:
             echo key
         return
-    for x in methodImplementations[className]:
+    for x in methodImplementations[classNameStr]:
         result.add x
-    methodImplementations.del className
+    methodImplementations.del classNameStr
     
 macro insertAllSlotImplementations*() =
     result=newNimNode(nnkStmtList)

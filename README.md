@@ -19,7 +19,7 @@ will use (if it exists) Qt 5.2.1.
 On linux it will link with the Qt major version libraries (i.e. for the example it will link with `-lQt5Core` etc, while for Qt 6 it will link to `-lQt6Core`).
 
 ## Simple example
-The following example comes from `examples/hello.nim`
+The following example is based on an old `examples/hello.nim`
 ```nim
 import nimqt
 import nimqt/[qpushbutton, qboxlayout]
@@ -117,6 +117,16 @@ The following declaration and definitions are possible inside `inheritQObject`:
  	- `const_override METHOD_NAME(ARGUMENTS): BODY`
  	- `const_override_defer METHOD_NAME(ARGUMENTS): BODY`
  	- `const_override_decl METHOD_NAME(ARGUMENTS)`
+- Define a member variable
+    - `var VAR_NAME: VAR_TYPE`
+        this will create a variable. 
+        Due to limitations, this variable is not stored inside the object, but in an unrelated Table.
+        The value can be transparently set and retrieved, but bear in mind that due to this Table there will be a small performance cost.
+        See in `examples/hello.nim` for an example of how to use member variables.
+        The default value for VAR_NAME is VAR_TYPE's default value.
+        There is no way to modify this default value.
+
+
 
 
 We now explain the differences:
