@@ -343,7 +343,8 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         case decl.kind
         of nnkCommand: result.add decl.processProc(class, parentClass, signals, fwdDeclarations, cppDefinitions, structStuff)
         of nnkVarSection: decl.processVar(class, memberVariables)
-        else: assert(false, &"inheritQobject: Expected nnkCommand or nnkVarSection, but got {decl.kind}")
+        of nnkDiscardStmt: discard
+        else: assert(false, &"inheritQobject: Expected nnkCommand, nnkVarSection or nnkDiscardStmt, but got {decl.kind}")
 
     result.add quote do:
         type `class` {.importcpp.} = object of `parentClass`

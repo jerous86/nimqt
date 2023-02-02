@@ -107,6 +107,7 @@ func replaceExportCppType(n:NimNode): NimNode =
     elif n.strVal=="int": return ident("cint")
     else: return n
 
+
 # This procedure processes the name and arguments, but does nothing with the body
 # It expects in $n the Command that starts the procedure
 # structStuff are things that are added straight into the struct itself,
@@ -286,6 +287,15 @@ proc processProc(n:NimNode,
     #echo "processProc returns >>\n",result.repr.indent(4),"<<\n\n"
 
 proc processVar(n:NimNode, class:NimNode, memberVariables:NimNode) =
+    # We cannot just add a member variable to a class. The importcpp pragma on an object
+    # means that we will use that C++ object, and thus cannot modify the object.
+    # We "solve" this here by storing the values inside a table.
+    # The values are set and read transparantly for the user using a proc to read and write.
+    # E.g. if we have `var counter:int` for a class `Foo`, this will create like (simplified)
+    # `var Foo_counter:Table[pointer,int]`
+    # `proc counter*(this:Foo):int = Foo_counter[this]`, and
+    # `proc counter=*(this:Foo, value:int) = Foo_counter[this]=value`.
+    
     n[0].expectKind nnkIdentDefs
     # n[0][0] is the identifier/name
     # n[0][1] is the type
@@ -322,7 +332,6 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
     let newClassPtr = ident("new" & classNameStr)
     
     result.add quote do: {.emit: "\n\n\nstruct " & `classNameStr` & ";".}
-
     var signals:seq[SignalTuple]
     var cppDefinitions=newNimNode(nnkStmtList) # These must come at the end
     var fwdDeclarations=newNimNode(nnkStmtList)
@@ -333,17 +342,9 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
     for decl in body:
         case decl.kind
         of nnkCommand: result.add decl.processProc(class, parentClass, signals, fwdDeclarations, cppDefinitions, structStuff)
-        of nnkVarSection:
-            # We cannot just add a member variable to a class. The importcpp pragma on an object
-            # means that we will use that C++ object, and thus cannot modify the object.
-            # We "solve" this here by using a proc to read and write the variable.
-            # The variable is stored inside a table.
-            # E.g. if we have `var counter:int` for a class `Foo`, this will create
-            # `Foo_counter:Table[Foo,int]`
-            # `proc counter*(this:Foo):int = Foo_counter[this]`, and
-            # `proc counter=*(this:Foo, value:int) = Foo_counter[this]=value`.
-            decl.processVar(class, memberVariables)
-        else: assert(false, &"inheritQobject: Expected nnkCommand or nnkVarSection, but got {decl.kind}")
+        of nnkVarSection: decl.processVar(class, memberVariables)
+        of nnkDiscardStmt: discard
+        else: assert(false, &"inheritQobject: Expected nnkCommand, nnkVarSection or nnkDiscardStmt, but got {decl.kind}")
 
     result.add quote do:
         type `class` {.importcpp.} = object of `parentClass`
