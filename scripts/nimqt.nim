@@ -330,7 +330,11 @@ proc processVar(n:NimNode, class:NimNode, memberVariables:NimNode) =
                 var default:ref `typ`= new `typ`
                 `tableName`[`this`] = default
             `tableName`[`this`][]
-        template `varNameAssign`*(`this`:ptr `className`, `value`:`typ`) = `tableName`[`this`][]=`value`
+        template `varNameAssign`*(`this`:ptr `className`, `value`:`typ`) = 
+            if not `tableName`.hasKey(`this`): 
+                var default:ref `typ`= new `typ`
+                `tableName`[`this`] = default
+            `tableName`[`this`][]=`value`
 
     memberVariables.add x
 
