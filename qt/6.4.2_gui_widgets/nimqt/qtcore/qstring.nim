@@ -274,6 +274,7 @@ proc shrink_to_fit*(this: QString) {.header:headerFile, importcpp:"#.shrink_to_f
 proc isSimpleText*(this: QString): bool {.header:headerFile, importcpp:"#.isSimpleText(@)".} # Public
 proc isRightToLeft*(this: QString): bool {.header:headerFile, importcpp:"#.isRightToLeft(@)".} # Public
 proc isValidUtf16*(this: QString): bool {.header:headerFile, importcpp:"#.isValidUtf16(@)".} # Public
+
 import qbytearray
 proc toUtf8*(this: QString): QByteArray  {.header:headerFile, importcpp:"#.toUtf8(@)".} # Public
 export qnamespace
@@ -293,3 +294,4 @@ proc indexOf*(this: QLatin1String, s:QString, `from`:cint = -1, case_sensitivity
 proc lastIndexOf*(this: QLatin1String, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
 proc indexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.indexOf(@)".}
 proc lastIndexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
+proc `==`*(this,r: QString): bool {.header:headerFile, importcpp:"operator==(@)".} # Public

@@ -29,6 +29,7 @@ const customization_footer = {
         proc lastIndexOf*(this: QLatin1String, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
         proc indexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.indexOf(@)".}
         proc lastIndexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
+        proc `==`*(this,r: QString): bool {.header:headerFile, importcpp:"operator==(@)".}
         """,
     "qtcore/qanystringview": """
         converter toQAnyStringView*(x:QString): QAnyStringView = newQAnyStringView(s)
