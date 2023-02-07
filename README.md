@@ -21,11 +21,12 @@ On linux it will link with the Qt major version libraries (i.e. for the example 
 ## Simple example
 The following example is based on an old `examples/hello.nim`
 ```nim
+import os
 import nimqt
 import nimqt/[qpushbutton, qboxlayout]
 
 nimqt.init
-let app = newQApplication()
+let app = newQApplication(commandLineParams())
 
 inheritQObject(GuiHandler, QObject):
     slot_decl on_helloWorld_clicked()
