@@ -64,6 +64,9 @@ proc isMovable*(this: ptr QTabWidget): bool {.header:headerFile, importcpp:"#.is
 proc setMovable*(this: ptr QTabWidget, movable: bool) {.header:headerFile, importcpp:"#.setMovable(@)".} # Public
 proc tabShape*(this: ptr QTabWidget): QTabWidget_TabShape {.header:headerFile, importcpp:"#.tabShape(@)".} # Public
 proc setTabShape*(this: ptr QTabWidget, s: QTabWidget_TabShape) {.header:headerFile, importcpp:"#.setTabShape(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QTabWidget): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QTabWidget): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc heightForWidth*(this: ptr QTabWidget, width: cint): cint {.header:headerFile, importcpp:"#.heightForWidth(@)".} # Public
 proc hasHeightForWidth*(this: ptr QTabWidget): bool {.header:headerFile, importcpp:"#.hasHeightForWidth(@)".} # Public
 import nimqt/qtcore/qnamespace
@@ -71,6 +74,8 @@ proc setCornerWidget*(this: ptr QTabWidget, w: ptr QWidget, corner: Qt_Corner) {
 proc cornerWidget*(this: ptr QTabWidget, corner: Qt_Corner): ptr QWidget {.header:headerFile, importcpp:"#.cornerWidget(@)".} # Public
 proc elideMode*(this: ptr QTabWidget): Qt_TextElideMode {.header:headerFile, importcpp:"#.elideMode(@)".} # Public
 proc setElideMode*(this: ptr QTabWidget, mode: Qt_TextElideMode) {.header:headerFile, importcpp:"#.setElideMode(@)".} # Public
+proc iconSize*(this: ptr QTabWidget): QSize {.header:headerFile, importcpp:"#.iconSize(@)".} # Public
+proc setIconSize*(this: ptr QTabWidget, size: QSize) {.header:headerFile, importcpp:"#.setIconSize(@)".} # Public
 proc usesScrollButtons*(this: ptr QTabWidget): bool {.header:headerFile, importcpp:"#.usesScrollButtons(@)".} # Public
 proc setUsesScrollButtons*(this: ptr QTabWidget, useButtons: bool) {.header:headerFile, importcpp:"#.setUsesScrollButtons(@)".} # Public
 proc documentMode*(this: ptr QTabWidget): bool {.header:headerFile, importcpp:"#.documentMode(@)".} # Public
@@ -102,6 +107,7 @@ proc event*(this: ptr QTabWidget, arg_0: ptr QEvent): bool {.header:headerFile, 
 
 export qevent
 export qstring
+export qsize
 export qnamespace
 export qtabbar
 export qwidget

@@ -34,16 +34,23 @@ proc newQRadioButton*(text: QString): ptr QRadioButton {. header:headerFile, imp
 # 1 default parameters!
 proc static_QRadioButton_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QRadioButton::tr(@)".} # Public static
 proc static_QRadioButton_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QRadioButton::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QRadioButton): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QRadioButton): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 
 # Protected methods methods for QRadioButton
 import nimqt/qtcore/qcoreevent
 proc event*(this: ptr QRadioButton, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
+import nimqt/qtcore/qpoint
+proc hitButton*(this: ptr QRadioButton, arg_0: QPoint): bool {.header:headerFile, importcpp:"#.hitButton(@)".} # Protected
 import nimqt/qtgui/qevent
 proc paintEvent*(this: ptr QRadioButton, arg_0: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected
 proc mouseMoveEvent*(this: ptr QRadioButton, arg_0: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseMoveEvent(@)".} # Protected
 
 export qevent
 export qstring
+export qsize
+export qpoint
 export qabstractbutton
 export qwidget
 export qpaintdevice

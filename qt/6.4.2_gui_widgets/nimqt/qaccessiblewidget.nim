@@ -1,2 +1,0 @@
-import nimqt/qtwidgets/qaccessiblewidget
-export qaccessiblewidget

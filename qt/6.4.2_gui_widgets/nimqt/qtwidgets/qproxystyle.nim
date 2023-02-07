@@ -43,7 +43,15 @@ proc static_QProxyStyle_tr*(s: ptr char, c: ptr char, n: cint): QString {.header
 proc static_QProxyStyle_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QProxyStyle::tr(@)".} # Public static
 proc baseStyle*(this: ptr QProxyStyle): ptr QStyle {.header:headerFile, importcpp:"#.baseStyle(@)".} # Public
 proc setBaseStyle*(this: ptr QProxyStyle, style: ptr QStyle) {.header:headerFile, importcpp:"#.setBaseStyle(@)".} # Public
+import nimqt/qtgui/qpainter
+import nimqt/qtcore/qrect
 import nimqt/qtgui/qpalette
+proc drawItemText*(this: ptr QProxyStyle, painter: ptr QPainter, rect: QRect, flags: cint, pal: QPalette, enabled: bool, text: QString, textRole: QPalette_ColorRole) {.header:headerFile, importcpp:"#.drawItemText(@)".} # Public
+import nimqt/qtgui/qpixmap
+proc drawItemPixmap*(this: ptr QProxyStyle, painter: ptr QPainter, rect: QRect, alignment: cint, pixmap: QPixmap) {.header:headerFile, importcpp:"#.drawItemPixmap(@)".} # Public
+import nimqt/qtgui/qfontmetrics
+proc itemTextRect*(this: ptr QProxyStyle, fm: QFontMetrics, r: QRect, flags: cint, enabled: bool, text: QString): QRect {.header:headerFile, importcpp:"#.itemTextRect(@)".} # Public
+proc itemPixmapRect*(this: ptr QProxyStyle, r: QRect, flags: cint, pixmap: QPixmap): QRect {.header:headerFile, importcpp:"#.itemPixmapRect(@)".} # Public
 proc standardPalette*(this: ptr QProxyStyle): QPalette {.header:headerFile, importcpp:"#.standardPalette(@)".} # Public
 import nimqt/qtwidgets/qwidget
 proc polish*(this: ptr QProxyStyle, widget: ptr QWidget) {.header:headerFile, importcpp:"#.polish(@)".} # Public
@@ -57,10 +65,14 @@ proc unpolish*(this: ptr QProxyStyle, app: ptr QApplication) {.header:headerFile
 import nimqt/qtcore/qcoreevent
 proc event*(this: ptr QProxyStyle, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 
+export qpixmap
+export qfontmetrics
 export qstring
 export qcommonstyle
+export qpainter
 export qstyle
 export qwidget
+export qrect
 export qcoreevent
 export qpalette
 export qapplication

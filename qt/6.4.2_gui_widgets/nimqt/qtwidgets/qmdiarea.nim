@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qabstractscrollarea
 type
     # Classes and enums found in the C++ code
     # Global
-    QMdiArea_AreaOption* {.header:headerFile,importcpp:"QMdiArea::AreaOption".} = enum DontMaximizeSubWindowOnActivation = 0
+    QMdiArea_AreaOption* {.header:headerFile,importcpp:"QMdiArea::AreaOption".} = enum DontMaximizeSubWindowOnActivation = 0x1
     QMdiArea_WindowOrder* {.header:headerFile,importcpp:"QMdiArea::WindowOrder".} = enum CreationOrder = 0, StackingOrder = 0x1, ActivationHistoryOrder = 0x2
     QMdiArea_ViewMode* {.header:headerFile,importcpp:"QMdiArea::ViewMode".} = enum SubWindowView = 0, TabbedView = 0x1
     QMdiArea* {.header:headerFile,importcpp:"QMdiArea" ,pure.} = object of QAbstractScrollArea
@@ -42,9 +42,14 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QMdiArea_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QMdiArea::tr(@)".} # Public static
 proc static_QMdiArea_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QMdiArea::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QMdiArea): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QMdiArea): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 import nimqt/qtwidgets/qmdisubwindow
 proc currentSubWindow*(this: ptr QMdiArea): ptr QMdiSubWindow {.header:headerFile, importcpp:"#.currentSubWindow(@)".} # Public
 proc activeSubWindow*(this: ptr QMdiArea): ptr QMdiSubWindow {.header:headerFile, importcpp:"#.activeSubWindow(@)".} # Public
+import nimqt/qtcore/qlist
+proc subWindowList*(this: ptr QMdiArea, order: QMdiArea_WindowOrder): QList[ptr QMdiSubWindow] {.header:headerFile, importcpp:"#.subWindowList(@)".} # Public
 import nimqt/qtcore/qnamespace
 # 1 default parameters!
 proc addSubWindow*(this: ptr QMdiArea, widget: ptr QWidget, flags: Qt_WindowFlags): ptr QMdiSubWindow {.header:headerFile, importcpp:"#.addSubWindow(@)".} # Public
@@ -98,8 +103,10 @@ proc scrollContentsBy*(this: ptr QMdiArea, dx: cint, dy: cint) {.header:headerFi
 
 export qevent
 export qstring
+export qsize
 export qabstractscrollarea
 export qnamespace
+export qlist
 export qtabwidget
 export qbrush
 export qwidget

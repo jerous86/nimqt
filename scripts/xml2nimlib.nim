@@ -439,7 +439,7 @@ func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts
     var xs:seq[string]
     var counter=0
     var kvs:seq[(string,int)]
-    
+
     var values:Table[int,seq[string]]
     for x in e.kvs:
         let name=x[0]
@@ -546,10 +546,15 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
                     cm.id_enum(it.attr("full_name").fixNameSpace).skippable(cm, Enum)==false
                 ).map(proc(it:XmlNode):EnumData=
                     let fullName=it.attr("full_name")
+                    for e in it.items:
+                        assert e.attr("expression").len>0 xor e.attr("value").len>0, $e
+
                     EnumData(
                         enumName: it.attr("name").strip,
                         fqName: fullName.toFqName,
-                        kvs: it.items.toSeq.mapIt((it.attr("name"), it.attr("expression"))),
+                        # Above we assert expr.len>0 xor value.len>0, so we can here just 
+                        # concatenate them together :)
+                        kvs: it.items.toSeq.mapIt((it.attr("name"), it.attr("value") & it.attr("expression"))),
                         )
                     )
         

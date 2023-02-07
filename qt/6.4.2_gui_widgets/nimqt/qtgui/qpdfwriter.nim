@@ -22,6 +22,8 @@ type
 # Public constructors for QPdfWriter
 import nimqt/qtcore/qstring
 proc newQPdfWriter*(filename: QString): ptr QPdfWriter {. header:headerFile, importcpp:"new QPdfWriter(@)" .} #
+import nimqt/qtcore/qiodevice
+proc newQPdfWriter*(device: ptr QIODevice): ptr QPdfWriter {. header:headerFile, importcpp:"new QPdfWriter(@)" .} #
 
 # Public methods for QPdfWriter
 # 1 default parameters!
@@ -36,6 +38,12 @@ proc setCreator*(this: ptr QPdfWriter, creator: QString) {.header:headerFile, im
 proc newPage*(this: ptr QPdfWriter): bool {.header:headerFile, importcpp:"#.newPage(@)".} # Public
 proc setResolution*(this: ptr QPdfWriter, resolution: cint) {.header:headerFile, importcpp:"#.setResolution(@)".} # Public
 proc resolution*(this: ptr QPdfWriter): cint {.header:headerFile, importcpp:"#.resolution(@)".} # Public
+import nimqt/qtcore/qbytearray
+proc setDocumentXmpMetadata*(this: ptr QPdfWriter, xmpMetadata: QByteArray) {.header:headerFile, importcpp:"#.setDocumentXmpMetadata(@)".} # Public
+proc documentXmpMetadata*(this: ptr QPdfWriter): QByteArray {.header:headerFile, importcpp:"#.documentXmpMetadata(@)".} # Public
+# 1 default parameters!
+proc addFileAttachment*(this: ptr QPdfWriter, fileName: QString, data: QByteArray, mimeType: QString) {.header:headerFile, importcpp:"#.addFileAttachment(@)".} # Public
+proc addFileAttachment*(this: ptr QPdfWriter, fileName: QString, data: QByteArray) {.header:headerFile, importcpp:"#.addFileAttachment(@)".} # Public
 
 # Protected methods methods for QPdfWriter
 import nimqt/qtgui/qpaintengine
@@ -45,4 +53,6 @@ proc metric*(this: ptr QPdfWriter, id: QPaintDevice_PaintDeviceMetric): cint {.h
 export qpaintengine
 export qstring
 export qpagedpaintdevice
+export qbytearray
 export qpaintdevice
+export qiodevice

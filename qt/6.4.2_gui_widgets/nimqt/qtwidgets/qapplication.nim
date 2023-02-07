@@ -45,7 +45,10 @@ proc static_QApplication_activeModalWidget*(): ptr QWidget {.header:headerFile, 
 proc static_QApplication_focusWidget*(): ptr QWidget {.header:headerFile, importcpp:"QApplication::focusWidget(@)".} # Public static
 proc static_QApplication_activeWindow*(): ptr QWidget {.header:headerFile, importcpp:"QApplication::activeWindow(@)".} # Public static
 proc static_QApplication_setActiveWindow*(act: ptr QWidget) {.header:headerFile, importcpp:"QApplication::setActiveWindow(@)".} # Public static
+import nimqt/qtcore/qpoint
+proc static_QApplication_widgetAt*(p: QPoint): ptr QWidget {.header:headerFile, importcpp:"QApplication::widgetAt(@)".} # Public static
 proc static_QApplication_widgetAt*(x: cint, y: cint): ptr QWidget {.header:headerFile, importcpp:"QApplication::widgetAt(@)".} # Public static
+proc static_QApplication_topLevelAt*(p: QPoint): ptr QWidget {.header:headerFile, importcpp:"QApplication::topLevelAt(@)".} # Public static
 proc static_QApplication_topLevelAt*(x: cint, y: cint): ptr QWidget {.header:headerFile, importcpp:"QApplication::topLevelAt(@)".} # Public static
 proc static_QApplication_beep*() {.header:headerFile, importcpp:"QApplication::beep(@)".} # Public static
 # 1 default parameters!
@@ -89,6 +92,7 @@ export qfontmetrics
 export qstring
 export qnamespace
 export qstyle
+export qpoint
 export qwidget
 export qobject
 export qcoreevent

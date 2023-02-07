@@ -28,6 +28,8 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QPaintDeviceWindow_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QPaintDeviceWindow::tr(@)".} # Public static
 proc static_QPaintDeviceWindow_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QPaintDeviceWindow::tr(@)".} # Public static
+import nimqt/qtcore/qrect
+proc update*(this: ptr QPaintDeviceWindow, rect: QRect) {.header:headerFile, importcpp:"#.update(@)".} # Public
 import nimqt/qtgui/qregion
 proc update*(this: ptr QPaintDeviceWindow, region: QRegion) {.header:headerFile, importcpp:"#.update(@)".} # Public
 proc update*(this: ptr QPaintDeviceWindow) {.header:headerFile, importcpp:"#.update(@)".} # Public
@@ -44,6 +46,7 @@ export qevent
 export qwindow
 export qstring
 export qregion
+export qrect
 export qsurface
 export qpaintdevice
 export qcoreevent

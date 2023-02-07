@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qtreeview
 type
     # Classes and enums found in the C++ code
     # Global
-    QTreeWidgetItem_ItemType* {.header:headerFile,importcpp:"QTreeWidgetItem::ItemType".} = enum Type = 0, UserType = 0x1
+    QTreeWidgetItem_ItemType* {.header:headerFile,importcpp:"QTreeWidgetItem::ItemType".} = enum Type = 0, UserType = 0x3e8
     QTreeWidgetItem_ChildIndicatorPolicy* {.header:headerFile,importcpp:"QTreeWidgetItem::ChildIndicatorPolicy".} = enum ShowIndicator = 0, DontShowIndicator = 0x1, DontShowIndicatorWhenChildless = 0x2
     QTreeWidgetItem* {.header:headerFile,importcpp:"QTreeWidgetItem" ,pure.} = object {.inheritable.}
     QTreeWidget* {.header:headerFile,importcpp:"QTreeWidget" ,pure.} = object of QTreeView
@@ -46,15 +46,25 @@ type
 # 1 default parameters!
 proc newQTreeWidgetItem*(`type`: cint): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 proc newQTreeWidgetItem*(): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
+import nimqt/qtcore/qstringlist
+# 1 default parameters!
+proc newQTreeWidgetItem*(strings: QStringList, `type`: cint): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
+proc newQTreeWidgetItem*(strings: QStringList): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 # 1 default parameters!
 proc newQTreeWidgetItem*(treeview: ptr QTreeWidget, `type`: cint): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 proc newQTreeWidgetItem*(treeview: ptr QTreeWidget): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
+# 1 default parameters!
+proc newQTreeWidgetItem*(treeview: ptr QTreeWidget, strings: QStringList, `type`: cint): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
+proc newQTreeWidgetItem*(treeview: ptr QTreeWidget, strings: QStringList): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 # 1 default parameters!
 proc newQTreeWidgetItem*(treeview: ptr QTreeWidget, after: ptr QTreeWidgetItem, `type`: cint): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 proc newQTreeWidgetItem*(treeview: ptr QTreeWidget, after: ptr QTreeWidgetItem): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 # 1 default parameters!
 proc newQTreeWidgetItem*(parent: ptr QTreeWidgetItem, `type`: cint): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 proc newQTreeWidgetItem*(parent: ptr QTreeWidgetItem): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
+# 1 default parameters!
+proc newQTreeWidgetItem*(parent: ptr QTreeWidgetItem, strings: QStringList, `type`: cint): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
+proc newQTreeWidgetItem*(parent: ptr QTreeWidgetItem, strings: QStringList): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 # 1 default parameters!
 proc newQTreeWidgetItem*(parent: ptr QTreeWidgetItem, after: ptr QTreeWidgetItem, `type`: cint): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
 proc newQTreeWidgetItem*(parent: ptr QTreeWidgetItem, after: ptr QTreeWidgetItem): QTreeWidgetItem {. header:headerFile, importcpp:"QTreeWidgetItem(@)", constructor .} #
@@ -104,6 +114,12 @@ proc foreground*(this: QTreeWidgetItem, column: cint): QBrush {.header:headerFil
 proc setForeground*(this: QTreeWidgetItem, column: cint, brush: QBrush) {.header:headerFile, importcpp:"#.setForeground(@)".} # Public
 proc checkState*(this: QTreeWidgetItem, column: cint): Qt_CheckState {.header:headerFile, importcpp:"#.checkState(@)".} # Public
 proc setCheckState*(this: QTreeWidgetItem, column: cint, state: Qt_CheckState) {.header:headerFile, importcpp:"#.setCheckState(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: QTreeWidgetItem, column: cint): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc setSizeHint*(this: QTreeWidgetItem, column: cint, size: QSize) {.header:headerFile, importcpp:"#.setSizeHint(@)".} # Public
+import nimqt/qtcore/qvariant
+proc data*(this: QTreeWidgetItem, column: cint, role: cint): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
+proc setData*(this: QTreeWidgetItem, column: cint, role: cint, value: QVariant) {.header:headerFile, importcpp:"#.setData(@)".} # Public
 proc `<`*(this: QTreeWidgetItem, other: QTreeWidgetItem): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
 proc parent*(this: QTreeWidgetItem): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.parent(@)".} # Public
 proc child*(this: QTreeWidgetItem, index: cint): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.child(@)".} # Public
@@ -114,6 +130,10 @@ proc addChild*(this: QTreeWidgetItem, child: ptr QTreeWidgetItem) {.header:heade
 proc insertChild*(this: QTreeWidgetItem, index: cint, child: ptr QTreeWidgetItem) {.header:headerFile, importcpp:"#.insertChild(@)".} # Public
 proc removeChild*(this: QTreeWidgetItem, child: ptr QTreeWidgetItem) {.header:headerFile, importcpp:"#.removeChild(@)".} # Public
 proc takeChild*(this: QTreeWidgetItem, index: cint): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.takeChild(@)".} # Public
+import nimqt/qtcore/qlist
+proc addChildren*(this: QTreeWidgetItem, children: QList[ptr QTreeWidgetItem]) {.header:headerFile, importcpp:"#.addChildren(@)".} # Public
+proc insertChildren*(this: QTreeWidgetItem, index: cint, children: QList[ptr QTreeWidgetItem]) {.header:headerFile, importcpp:"#.insertChildren(@)".} # Public
+proc takeChildren*(this: QTreeWidgetItem): QList[ptr QTreeWidgetItem] {.header:headerFile, importcpp:"#.takeChildren(@)".} # Public
 proc `type`*(this: QTreeWidgetItem): cint {.header:headerFile, importcpp:"#.type(@)".} # Public
 proc sortChildren*(this: QTreeWidgetItem, column: cint, order: Qt_SortOrder) {.header:headerFile, importcpp:"#.sortChildren(@)".} # Public
 
@@ -139,14 +159,21 @@ proc insertTopLevelItem*(this: ptr QTreeWidget, index: cint, item: ptr QTreeWidg
 proc addTopLevelItem*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem) {.header:headerFile, importcpp:"#.addTopLevelItem(@)".} # Public
 proc takeTopLevelItem*(this: ptr QTreeWidget, index: cint): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.takeTopLevelItem(@)".} # Public
 proc indexOfTopLevelItem*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem): cint {.header:headerFile, importcpp:"#.indexOfTopLevelItem(@)".} # Public
+proc insertTopLevelItems*(this: ptr QTreeWidget, index: cint, items: QList[ptr QTreeWidgetItem]) {.header:headerFile, importcpp:"#.insertTopLevelItems(@)".} # Public
+proc addTopLevelItems*(this: ptr QTreeWidget, items: QList[ptr QTreeWidgetItem]) {.header:headerFile, importcpp:"#.addTopLevelItems(@)".} # Public
 proc headerItem*(this: ptr QTreeWidget): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.headerItem(@)".} # Public
 proc setHeaderItem*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem) {.header:headerFile, importcpp:"#.setHeaderItem(@)".} # Public
+proc setHeaderLabels*(this: ptr QTreeWidget, labels: QStringList) {.header:headerFile, importcpp:"#.setHeaderLabels(@)".} # Public
 proc setHeaderLabel*(this: ptr QTreeWidget, label: QString) {.header:headerFile, importcpp:"#.setHeaderLabel(@)".} # Public
 proc currentItem*(this: ptr QTreeWidget): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.currentItem(@)".} # Public
 proc currentColumn*(this: ptr QTreeWidget): cint {.header:headerFile, importcpp:"#.currentColumn(@)".} # Public
 proc setCurrentItem*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem) {.header:headerFile, importcpp:"#.setCurrentItem(@)".} # Public
 proc setCurrentItem*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem, column: cint) {.header:headerFile, importcpp:"#.setCurrentItem(@)".} # Public
+import nimqt/qtcore/qpoint
+proc itemAt*(this: ptr QTreeWidget, p: QPoint): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
 proc itemAt*(this: ptr QTreeWidget, x: cint, y: cint): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
+import nimqt/qtcore/qrect
+proc visualItemRect*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem): QRect {.header:headerFile, importcpp:"#.visualItemRect(@)".} # Public
 proc sortColumn*(this: ptr QTreeWidget): cint {.header:headerFile, importcpp:"#.sortColumn(@)".} # Public
 proc sortItems*(this: ptr QTreeWidget, column: cint, order: Qt_SortOrder) {.header:headerFile, importcpp:"#.sortItems(@)".} # Public
 # 1 default parameters!
@@ -164,6 +191,10 @@ proc isPersistentEditorOpen*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem): 
 proc itemWidget*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem, column: cint): ptr QWidget {.header:headerFile, importcpp:"#.itemWidget(@)".} # Public
 proc setItemWidget*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem, column: cint, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setItemWidget(@)".} # Public
 proc removeItemWidget*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem, column: cint) {.header:headerFile, importcpp:"#.removeItemWidget(@)".} # Public
+proc selectedItems*(this: ptr QTreeWidget): QList[ptr QTreeWidgetItem] {.header:headerFile, importcpp:"#.selectedItems(@)".} # Public
+# 1 default parameters!
+proc findItems*(this: ptr QTreeWidget, text: QString, flags: Qt_MatchFlags, column: cint): QList[ptr QTreeWidgetItem] {.header:headerFile, importcpp:"#.findItems(@)".} # Public
+proc findItems*(this: ptr QTreeWidget, text: QString, flags: Qt_MatchFlags): QList[ptr QTreeWidgetItem] {.header:headerFile, importcpp:"#.findItems(@)".} # Public
 proc itemAbove*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.itemAbove(@)".} # Public
 proc itemBelow*(this: ptr QTreeWidget, item: ptr QTreeWidgetItem): ptr QTreeWidgetItem {.header:headerFile, importcpp:"#.itemBelow(@)".} # Public
 import nimqt/qtcore/qabstractitemmodel
@@ -189,20 +220,27 @@ proc itemSelectionChanged*(this: ptr QTreeWidget) {.header:headerFile, importcpp
 # Protected methods methods for QTreeWidget
 import nimqt/qtcore/qcoreevent
 proc event*(this: ptr QTreeWidget, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
+proc mimeTypes*(this: ptr QTreeWidget): QStringList {.header:headerFile, importcpp:"#.mimeTypes(@)".} # Protected
 proc supportedDropActions*(this: ptr QTreeWidget): Qt_DropActions {.header:headerFile, importcpp:"#.supportedDropActions(@)".} # Protected
 import nimqt/qtgui/qevent
 proc dropEvent*(this: ptr QTreeWidget, event: ptr QDropEvent) {.header:headerFile, importcpp:"#.dropEvent(@)".} # Protected
 
 export qevent
 export qfont
+export qstringlist
 export qstring
 export qtreeview
+export qsize
 export qabstractitemview
 export qabstractscrollarea
 export qnamespace
+export qlist
 export qabstractitemmodel
 export qbrush
+export qvariant
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qframe

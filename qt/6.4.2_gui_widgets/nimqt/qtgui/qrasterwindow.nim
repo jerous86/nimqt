@@ -37,9 +37,12 @@ proc static_QRasterWindow_tr*(s: ptr char, c: ptr char): QString {.header:header
 
 # Protected methods methods for QRasterWindow
 proc metric*(this: ptr QRasterWindow, metric: QPaintDevice_PaintDeviceMetric): cint {.header:headerFile, importcpp:"#.metric(@)".} # Protected
+import nimqt/qtcore/qpoint
+proc redirected*(this: ptr QRasterWindow, arg_1: ptr QPoint): ptr QPaintDevice {.header:headerFile, importcpp:"#.redirected(@)".} # Protected
 
 export qwindow
 export qstring
 export qpaintdevicewindow
+export qpoint
 export qsurface
 export qpaintdevice

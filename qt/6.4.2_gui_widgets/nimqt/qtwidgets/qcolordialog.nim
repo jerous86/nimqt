@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qdialog
 type
     # Classes and enums found in the C++ code
     # Global
-    QColorDialog_ColorDialogOption* {.header:headerFile,importcpp:"QColorDialog::ColorDialogOption".} = enum ShowAlphaChannel = 0, NoButtons = 0x1, DontUseNativeDialog = 0x2
+    QColorDialog_ColorDialogOption* {.header:headerFile,importcpp:"QColorDialog::ColorDialogOption".} = enum ShowAlphaChannel = 0x1, NoButtons = 0x2, DontUseNativeDialog = 0x4
     QColorDialog* {.header:headerFile,importcpp:"QColorDialog" ,pure.} = object of QDialog
 {.push warning[Deprecated]: on.}
 import nimqt/qtwidgets/qwidget

@@ -8,8 +8,7 @@ import nimqt/qtwidgets/qabstractslider
 type
     # Classes and enums found in the C++ code
     # Global
-    QSlider_TickPosition* {.header:headerFile,importcpp:"QSlider::TickPosition".} = enum NoTicks = 0, TicksAbove = 0x1, TicksLeft = 0x2, TicksBelow = 0x3, 
-        TicksRight = 0x4, TicksBothSides = 0x5
+    QSlider_TickPosition* {.header:headerFile,importcpp:"QSlider::TickPosition".} = enum NoTicks = 0, TicksAbove = 0x1, TicksBelow = 0x2, TicksBothSides = 0x3
     QSlider* {.header:headerFile,importcpp:"QSlider" ,pure.} = object of QAbstractSlider
 {.push warning[Deprecated]: on.}
 import nimqt/qtwidgets/qwidget
@@ -23,6 +22,12 @@ type
     QSlider_RenderFlag * = QWidget_RenderFlag
     QSlider_RenderFlags * = QWidget_RenderFlags
     QSlider_PaintDeviceMetric * = QPaintDevice_PaintDeviceMetric
+
+# Consts
+const
+    # Global
+    QSlider_TickPositionTicksLeft* = 1 # from anonymous enum TicksAbove
+    QSlider_TickPositionTicksRight* = 2 # from anonymous enum TicksBelow
 
 # Stuff for class QSlider
 
@@ -40,6 +45,9 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QSlider_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QSlider::tr(@)".} # Public static
 proc static_QSlider_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QSlider::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QSlider): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QSlider): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc setTickPosition*(this: ptr QSlider, position: QSlider_TickPosition) {.header:headerFile, importcpp:"#.setTickPosition(@)".} # Public
 proc tickPosition*(this: ptr QSlider): QSlider_TickPosition {.header:headerFile, importcpp:"#.tickPosition(@)".} # Public
 proc setTickInterval*(this: ptr QSlider, ti: cint) {.header:headerFile, importcpp:"#.setTickInterval(@)".} # Public
@@ -57,6 +65,7 @@ proc mouseMoveEvent*(this: ptr QSlider, ev: ptr QMouseEvent) {.header:headerFile
 export qevent
 export qabstractslider
 export qstring
+export qsize
 export qnamespace
 export qwidget
 export qpaintdevice

@@ -36,6 +36,9 @@ proc static_QDialog_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:hea
 proc static_QDialog_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QDialog::tr(@)".} # Public static
 proc result*(this: ptr QDialog): cint {.header:headerFile, importcpp:"#.result(@)".} # Public
 proc setVisible*(this: ptr QDialog, visible: bool) {.header:headerFile, importcpp:"#.setVisible(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QDialog): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QDialog): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc setSizeGripEnabled*(this: ptr QDialog, arg_0: bool) {.header:headerFile, importcpp:"#.setSizeGripEnabled(@)".} # Public
 proc isSizeGripEnabled*(this: ptr QDialog): bool {.header:headerFile, importcpp:"#.isSizeGripEnabled(@)".} # Public
 proc setModal*(this: ptr QDialog, modal: bool) {.header:headerFile, importcpp:"#.setModal(@)".} # Public
@@ -63,6 +66,7 @@ proc adjustPosition*(this: ptr QDialog, arg_0: ptr QWidget) {.header:headerFile,
 
 export qevent
 export qstring
+export qsize
 export qnamespace
 export qwidget
 export qpaintdevice

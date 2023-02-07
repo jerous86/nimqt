@@ -78,7 +78,11 @@ proc setWordWrap*(this: ptr QTableView, on: bool) {.header:headerFile, importcpp
 proc wordWrap*(this: ptr QTableView): bool {.header:headerFile, importcpp:"#.wordWrap(@)".} # Public
 proc setCornerButtonEnabled*(this: ptr QTableView, enable: bool) {.header:headerFile, importcpp:"#.setCornerButtonEnabled(@)".} # Public
 proc isCornerButtonEnabled*(this: ptr QTableView): bool {.header:headerFile, importcpp:"#.isCornerButtonEnabled(@)".} # Public
+import nimqt/qtcore/qrect
+proc visualRect*(this: ptr QTableView, index: QModelIndex): QRect {.header:headerFile, importcpp:"#.visualRect(@)".} # Public
 proc scrollTo*(this: ptr QTableView, index: QModelIndex, hint: QAbstractItemView_ScrollHint) {.header:headerFile, importcpp:"#.scrollTo(@)".} # Public
+import nimqt/qtcore/qpoint
+proc indexAt*(this: ptr QTableView, p: QPoint): QModelIndex {.header:headerFile, importcpp:"#.indexAt(@)".} # Public
 proc setSpan*(this: ptr QTableView, row: cint, column: cint, rowSpan: cint, columnSpan: cint) {.header:headerFile, importcpp:"#.setSpan(@)".} # Public
 proc rowSpan*(this: ptr QTableView, row: cint, column: cint): cint {.header:headerFile, importcpp:"#.rowSpan(@)".} # Public
 proc columnSpan*(this: ptr QTableView, row: cint, column: cint): cint {.header:headerFile, importcpp:"#.columnSpan(@)".} # Public
@@ -113,6 +117,8 @@ proc verticalOffset*(this: ptr QTableView): cint {.header:headerFile, importcpp:
 proc moveCursor*(this: ptr QTableView, cursorAction: QAbstractItemView_CursorAction, modifiers: Qt_KeyboardModifiers): QModelIndex {.header:headerFile, importcpp:"#.moveCursor(@)".} # Protected
 proc selectedIndexes*(this: ptr QTableView): QModelIndexList {.header:headerFile, importcpp:"#.selectedIndexes(@)".} # Protected
 proc updateGeometries*(this: ptr QTableView) {.header:headerFile, importcpp:"#.updateGeometries(@)".} # Protected
+import nimqt/qtcore/qsize
+proc viewportSizeHint*(this: ptr QTableView): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected
 proc sizeHintForRow*(this: ptr QTableView, row: cint): cint {.header:headerFile, importcpp:"#.sizeHintForRow(@)".} # Protected
 proc sizeHintForColumn*(this: ptr QTableView, column: cint): cint {.header:headerFile, importcpp:"#.sizeHintForColumn(@)".} # Protected
 proc verticalScrollbarAction*(this: ptr QTableView, action: cint) {.header:headerFile, importcpp:"#.verticalScrollbarAction(@)".} # Protected
@@ -123,11 +129,14 @@ proc currentChanged*(this: ptr QTableView, current: QModelIndex, previous: QMode
 export qevent
 export qstring
 export qheaderview
+export qsize
 export qabstractitemview
 export qabstractscrollarea
 export qnamespace
 export qabstractitemmodel
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qframe

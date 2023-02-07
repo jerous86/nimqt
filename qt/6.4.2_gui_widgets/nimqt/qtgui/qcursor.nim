@@ -31,11 +31,18 @@ proc mask*(this: QCursor, arg_1: Qt_ReturnByValueConstant): QBitmap {.header:hea
 proc bitmap*(this: QCursor): QBitmap {.header:headerFile, importcpp:"#.bitmap(@)".} # Public
 proc mask*(this: QCursor): QBitmap {.header:headerFile, importcpp:"#.mask(@)".} # Public
 proc pixmap*(this: QCursor): QPixmap {.header:headerFile, importcpp:"#.pixmap(@)".} # Public
-proc static_QCursor_setPos*(x: cint, y: cint) {.header:headerFile, importcpp:"QCursor::setPos(@)".} # Public static
+import nimqt/qtcore/qpoint
+proc hotSpot*(this: QCursor): QPoint {.header:headerFile, importcpp:"#.hotSpot(@)".} # Public
+proc static_QCursor_pos*(): QPoint {.header:headerFile, importcpp:"QCursor::pos(@)".} # Public static
 import nimqt/qtgui/qscreen
+proc static_QCursor_pos*(screen: ptr QScreen): QPoint {.header:headerFile, importcpp:"QCursor::pos(@)".} # Public static
+proc static_QCursor_setPos*(x: cint, y: cint) {.header:headerFile, importcpp:"QCursor::setPos(@)".} # Public static
 proc static_QCursor_setPos*(screen: ptr QScreen, x: cint, y: cint) {.header:headerFile, importcpp:"QCursor::setPos(@)".} # Public static
+proc static_QCursor_setPos*(p: QPoint) {.header:headerFile, importcpp:"QCursor::setPos(@)".} # Public static
+proc static_QCursor_setPos*(screen: ptr QScreen, p: QPoint) {.header:headerFile, importcpp:"QCursor::setPos(@)".} # Public static
 
 export qpixmap
 export qscreen
 export qbitmap
 export qnamespace
+export qpoint

@@ -26,5 +26,8 @@ proc size*(this: QColormap): cint {.header:headerFile, importcpp:"#.size(@)".} #
 import nimqt/qtgui/qcolor
 proc pixel*(this: QColormap, color: QColor): cuint {.header:headerFile, importcpp:"#.pixel(@)".} # Public
 proc colorAt*(this: QColormap, pixel: cuint): QColor {.header:headerFile, importcpp:"#.colorAt(@)".} # Public
+import nimqt/qtcore/qlist
+proc colormap*(this: QColormap): QList[QColor] {.header:headerFile, importcpp:"#.colormap(@)".} # Public
 
+export qlist
 export qcolor

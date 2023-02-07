@@ -7,19 +7,19 @@ const headerFile* = "QtCore/qvariant.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QVariant_Type* {.header:headerFile,importcpp:"QVariant::Type".} = enum Invalid = 0, Bool = 0x1, Int = 0x2, UInt = 0x3, 
-        LongLong = 0x4, ULongLong = 0x5, Double = 0x6, Char = 0x7, Map = 0x8, 
-        List = 0x9, String = 0xa, StringList = 0xb, ByteArray = 0xc, BitArray = 0xd, 
-        Date = 0xe, Time = 0xf, DateTime = 0x10, Url = 0x11, Locale = 0x12, 
-        Rect = 0x13, RectF = 0x14, Size = 0x15, SizeF = 0x16, Line = 0x17, 
-        LineF = 0x18, Point = 0x19, PointF = 0x1a, RegularExpression = 0x1b, Hash = 0x1c, 
-        EasingCurve = 0x1d, Uuid = 0x1e, ModelIndex = 0x1f, PersistentModelIndex = 0x20, LastCoreType = 0x21, 
-        Font = 0x22, Pixmap = 0x23, Brush = 0x24, Color = 0x25, Palette = 0x26, 
-        Image = 0x27, Polygon = 0x28, Region = 0x29, Bitmap = 0x2a, Cursor = 0x2b, 
-        KeySequence = 0x2c, Pen = 0x2d, TextLength = 0x2e, TextFormat = 0x2f, Transform = 0x30, 
-        Matrix4x4 = 0x31, Vector2D = 0x32, Vector3D = 0x33, Vector4D = 0x34, Quaternion = 0x35, 
-        PolygonF = 0x36, Icon = 0x37, LastGuiType = 0x38, SizePolicy = 0x39, UserType = 0x3a, 
-        LastType = 0x3b
+    QVariant_Type* {.header:headerFile,importcpp:"QVariant::Type".} = enum LastType = -1, Invalid = 0, Bool = 0x1, Int = 0x2, 
+        UInt = 0x3, LongLong = 0x4, ULongLong = 0x5, Double = 0x6, Char = 0x7, 
+        Map = 0x8, List = 0x9, String = 0xa, StringList = 0xb, ByteArray = 0xc, 
+        BitArray = 0xd, Date = 0xe, Time = 0xf, DateTime = 0x10, Url = 0x11, 
+        Locale = 0x12, Rect = 0x13, RectF = 0x14, Size = 0x15, SizeF = 0x16, 
+        Line = 0x17, LineF = 0x18, Point = 0x19, PointF = 0x1a, Hash = 0x1c, 
+        EasingCurve = 0x1d, Uuid = 0x1e, ModelIndex = 0x2a, RegularExpression = 0x2c, PersistentModelIndex = 0x32, 
+        LastCoreType = 0x3a, Font = 0x1000, Pixmap = 0x1001, Brush = 0x1002, Color = 0x1003, 
+        Palette = 0x1004, Icon = 0x1005, Image = 0x1006, Polygon = 0x1007, Region = 0x1008, 
+        Bitmap = 0x1009, Cursor = 0x100a, KeySequence = 0x100b, Pen = 0x100c, TextLength = 0x100d, 
+        TextFormat = 0x100e, Transform = 0x1010, Matrix4x4 = 0x1011, Vector2D = 0x1012, Vector3D = 0x1013, 
+        Vector4D = 0x1014, Quaternion = 0x1015, PolygonF = 0x1016, LastGuiType = 0x1017, SizePolicy = 0x2000, 
+        UserType = 0x10000
     QVariant* {.header:headerFile,importcpp:"QVariant" ,pure.} = object {.inheritable.}
     QVariantRef*[Pointer] {.header:headerFile,importcpp:"QVariantRef" ,pure.} = object {.inheritable.}
     QVariantConstPointer* {.header:headerFile,importcpp:"QVariantConstPointer" ,pure.} = object {.inheritable.}

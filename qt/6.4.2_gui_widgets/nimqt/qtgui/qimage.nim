@@ -40,6 +40,10 @@ proc devType*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.devType(
 proc `!=`*(this: ptr QImage, arg_0: QImage): bool {.header:headerFile, importcpp:"#.operator!=(@)".} # Public
 proc detach*(this: ptr QImage) {.header:headerFile, importcpp:"#.detach(@)".} # Public
 proc isDetached*(this: ptr QImage): bool {.header:headerFile, importcpp:"#.isDetached(@)".} # Public
+import nimqt/qtcore/qrect
+# 1 default parameters!
+proc copy*(this: ptr QImage, rect: QRect): QImage {.header:headerFile, importcpp:"#.copy(@)".} # Public
+proc copy*(this: ptr QImage): QImage {.header:headerFile, importcpp:"#.copy(@)".} # Public
 proc copy*(this: ptr QImage, x: cint, y: cint, w: cint, h: cint): QImage {.header:headerFile, importcpp:"#.copy(@)".} # Public
 proc format*(this: ptr QImage): QImage_Format {.header:headerFile, importcpp:"#.format(@)".} # Public
 import nimqt/qtcore/qnamespace
@@ -57,6 +61,9 @@ proc convertTo*(this: ptr QImage, f: QImage_Format, flags: Qt_ImageConversionFla
 proc convertTo*(this: ptr QImage, f: QImage_Format) {.header:headerFile, importcpp:"#.convertTo(@)".} # Public
 proc width*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.width(@)".} # Public
 proc height*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.height(@)".} # Public
+import nimqt/qtcore/qsize
+proc size*(this: ptr QImage): QSize {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc rect*(this: ptr QImage): QRect {.header:headerFile, importcpp:"#.rect(@)".} # Public
 proc depth*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.depth(@)".} # Public
 proc colorCount*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.colorCount(@)".} # Public
 proc bitPlaneCount*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.bitPlaneCount(@)".} # Public
@@ -70,13 +77,20 @@ proc scanLine*(this: ptr QImage, arg_1: cint): ptr char {.header:headerFile, imp
 proc constScanLine*(this: ptr QImage, arg_1: cint): ptr char {.header:headerFile, importcpp:"#.constScanLine(@)".} # Public
 proc bytesPerLine*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.bytesPerLine(@)".} # Public
 proc valid*(this: ptr QImage, x: cint, y: cint): bool {.header:headerFile, importcpp:"#.valid(@)".} # Public
+import nimqt/qtcore/qpoint
+proc valid*(this: ptr QImage, pt: QPoint): bool {.header:headerFile, importcpp:"#.valid(@)".} # Public
 proc pixelIndex*(this: ptr QImage, x: cint, y: cint): cint {.header:headerFile, importcpp:"#.pixelIndex(@)".} # Public
+proc pixelIndex*(this: ptr QImage, pt: QPoint): cint {.header:headerFile, importcpp:"#.pixelIndex(@)".} # Public
 proc setPixel*(this: ptr QImage, x: cint, y: cint, index_or_rgb: cuint) {.header:headerFile, importcpp:"#.setPixel(@)".} # Public
+proc setPixel*(this: ptr QImage, pt: QPoint, index_or_rgb: cuint) {.header:headerFile, importcpp:"#.setPixel(@)".} # Public
 import nimqt/qtgui/qcolor
 proc pixelColor*(this: ptr QImage, x: cint, y: cint): QColor {.header:headerFile, importcpp:"#.pixelColor(@)".} # Public
+proc pixelColor*(this: ptr QImage, pt: QPoint): QColor {.header:headerFile, importcpp:"#.pixelColor(@)".} # Public
 proc setPixelColor*(this: ptr QImage, x: cint, y: cint, c: QColor) {.header:headerFile, importcpp:"#.setPixelColor(@)".} # Public
+proc setPixelColor*(this: ptr QImage, pt: QPoint, c: QColor) {.header:headerFile, importcpp:"#.setPixelColor(@)".} # Public
 proc devicePixelRatio*(this: ptr QImage): cfloat {.header:headerFile, importcpp:"#.devicePixelRatio(@)".} # Public
 proc setDevicePixelRatio*(this: ptr QImage, scaleFactor: cfloat) {.header:headerFile, importcpp:"#.setDevicePixelRatio(@)".} # Public
+proc deviceIndependentSize*(this: ptr QImage): QSizeF {.header:headerFile, importcpp:"#.deviceIndependentSize(@)".} # Public
 proc fill*(this: ptr QImage, pixel: cuint) {.header:headerFile, importcpp:"#.fill(@)".} # Public
 proc fill*(this: ptr QImage, color: QColor) {.header:headerFile, importcpp:"#.fill(@)".} # Public
 proc fill*(this: ptr QImage, color: Qt_GlobalColor) {.header:headerFile, importcpp:"#.fill(@)".} # Public
@@ -89,6 +103,7 @@ proc createAlphaMask*(this: ptr QImage): QImage {.header:headerFile, importcpp:"
 proc createHeuristicMask*(this: ptr QImage, clipTight: bool): QImage {.header:headerFile, importcpp:"#.createHeuristicMask(@)".} # Public
 proc createHeuristicMask*(this: ptr QImage): QImage {.header:headerFile, importcpp:"#.createHeuristicMask(@)".} # Public
 proc scaled*(this: ptr QImage, w: cint, h: cint, aspectMode: Qt_AspectRatioMode, mode: Qt_TransformationMode): QImage {.header:headerFile, importcpp:"#.scaled(@)".} # Public
+proc scaled*(this: ptr QImage, s: QSize, aspectMode: Qt_AspectRatioMode, mode: Qt_TransformationMode): QImage {.header:headerFile, importcpp:"#.scaled(@)".} # Public
 proc scaledToWidth*(this: ptr QImage, w: cint, mode: Qt_TransformationMode): QImage {.header:headerFile, importcpp:"#.scaledToWidth(@)".} # Public
 proc scaledToHeight*(this: ptr QImage, h: cint, mode: Qt_TransformationMode): QImage {.header:headerFile, importcpp:"#.scaledToHeight(@)".} # Public
 import nimqt/qtgui/qtransform
@@ -114,6 +129,8 @@ proc setColorSpace*(this: ptr QImage, arg_0: QColorSpace) {.header:headerFile, i
 import nimqt/qtgui/qcolortransform
 proc colorTransformed*(this: ptr QImage, transform: QColorTransform): QImage {.header:headerFile, importcpp:"#.colorTransformed(@)".} # Public
 proc applyColorTransform*(this: ptr QImage, transform: QColorTransform) {.header:headerFile, importcpp:"#.applyColorTransform(@)".} # Public
+import nimqt/qtcore/qiodevice
+proc load*(this: ptr QImage, device: ptr QIODevice, format: ptr char): bool {.header:headerFile, importcpp:"#.load(@)".} # Public
 import nimqt/qtcore/qstring
 # 1 default parameters!
 proc load*(this: ptr QImage, fileName: QString, format: ptr char): bool {.header:headerFile, importcpp:"#.load(@)".} # Public
@@ -121,12 +138,22 @@ proc load*(this: ptr QImage, fileName: QString): bool {.header:headerFile, impor
 # 1 default parameters!
 proc loadFromData*(this: ptr QImage, buf: ptr char, len: cint, format: ptr char): bool {.header:headerFile, importcpp:"#.loadFromData(@)".} # Public
 proc loadFromData*(this: ptr QImage, buf: ptr char, len: cint): bool {.header:headerFile, importcpp:"#.loadFromData(@)".} # Public
+import nimqt/qtcore/qbytearray
+# 1 default parameters!
+proc loadFromData*(this: ptr QImage, data: QByteArray, format: ptr char): bool {.header:headerFile, importcpp:"#.loadFromData(@)".} # Public
+proc loadFromData*(this: ptr QImage, data: QByteArray): bool {.header:headerFile, importcpp:"#.loadFromData(@)".} # Public
 # 1 default parameters!
 proc save*(this: ptr QImage, fileName: QString, format: ptr char, quality: cint): bool {.header:headerFile, importcpp:"#.save(@)".} # Public
 proc save*(this: ptr QImage, fileName: QString, format: ptr char): bool {.header:headerFile, importcpp:"#.save(@)".} # Public
 # 1 default parameters!
+proc save*(this: ptr QImage, device: ptr QIODevice, format: ptr char, quality: cint): bool {.header:headerFile, importcpp:"#.save(@)".} # Public
+proc save*(this: ptr QImage, device: ptr QIODevice, format: ptr char): bool {.header:headerFile, importcpp:"#.save(@)".} # Public
+# 1 default parameters!
 proc static_QImage_fromData*(data: ptr char, size: cint, format: ptr char): QImage {.header:headerFile, importcpp:"QImage::fromData(@)".} # Public static
 proc static_QImage_fromData*(data: ptr char, size: cint): QImage {.header:headerFile, importcpp:"QImage::fromData(@)".} # Public static
+# 1 default parameters!
+proc static_QImage_fromData*(data: QByteArray, format: ptr char): QImage {.header:headerFile, importcpp:"QImage::fromData(@)".} # Public static
+proc static_QImage_fromData*(data: QByteArray): QImage {.header:headerFile, importcpp:"QImage::fromData(@)".} # Public static
 proc cacheKey*(this: ptr QImage): clonglong {.header:headerFile, importcpp:"#.cacheKey(@)".} # Public
 import nimqt/qtgui/qpaintengine
 proc paintEngine*(this: ptr QImage): ptr QPaintEngine {.header:headerFile, importcpp:"#.paintEngine(@)".} # Public
@@ -134,6 +161,10 @@ proc dotsPerMeterX*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.do
 proc dotsPerMeterY*(this: ptr QImage): cint {.header:headerFile, importcpp:"#.dotsPerMeterY(@)".} # Public
 proc setDotsPerMeterX*(this: ptr QImage, arg_0: cint) {.header:headerFile, importcpp:"#.setDotsPerMeterX(@)".} # Public
 proc setDotsPerMeterY*(this: ptr QImage, arg_0: cint) {.header:headerFile, importcpp:"#.setDotsPerMeterY(@)".} # Public
+proc offset*(this: ptr QImage): QPoint {.header:headerFile, importcpp:"#.offset(@)".} # Public
+proc setOffset*(this: ptr QImage, arg_0: QPoint) {.header:headerFile, importcpp:"#.setOffset(@)".} # Public
+import nimqt/qtcore/qstringlist
+proc textKeys*(this: ptr QImage): QStringList {.header:headerFile, importcpp:"#.textKeys(@)".} # Public
 # 1 default parameters!
 proc text*(this: ptr QImage, key: QString): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
 proc text*(this: ptr QImage): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
@@ -159,9 +190,15 @@ proc detachMetadata*(this: ptr QImage) {.header:headerFile, importcpp:"#.detachM
 export qpaintengine
 export qcolorspace
 export qpixelformat
+export qstringlist
 export qcolortransform
 export qstring
+export qsize
 export qnamespace
+export qbytearray
+export qpoint
+export qrect
 export qpaintdevice
 export qtransform
+export qiodevice
 export qcolor

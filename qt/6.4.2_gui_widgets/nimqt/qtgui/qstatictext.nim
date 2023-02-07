@@ -31,6 +31,8 @@ proc textWidth*(this: QStaticText): cfloat {.header:headerFile, importcpp:"#.tex
 import nimqt/qtgui/qtextoption
 proc setTextOption*(this: QStaticText, textOption: QTextOption) {.header:headerFile, importcpp:"#.setTextOption(@)".} # Public
 proc textOption*(this: QStaticText): QTextOption {.header:headerFile, importcpp:"#.textOption(@)".} # Public
+import nimqt/qtcore/qsize
+proc size*(this: QStaticText): QSizeF {.header:headerFile, importcpp:"#.size(@)".} # Public
 import nimqt/qtgui/qfont
 import nimqt/qtgui/qtransform
 # 2 default parameters!
@@ -43,6 +45,7 @@ proc `!=`*(this: QStaticText, arg_0: QStaticText): bool {.header:headerFile, imp
 
 export qfont
 export qstring
+export qsize
 export qtextoption
 export qnamespace
 export qtransform

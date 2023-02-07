@@ -9,7 +9,7 @@ type
     # Classes and enums found in the C++ code
     # Global
     QTextEdit_LineWrapMode* {.header:headerFile,importcpp:"QTextEdit::LineWrapMode".} = enum NoWrap = 0, WidgetWidth = 0x1, FixedPixelWidth = 0x2, FixedColumnWidth = 0x3
-    QTextEdit_AutoFormattingFlag* {.header:headerFile,importcpp:"QTextEdit::AutoFormattingFlag".} = enum AutoNone = 0, AutoBulletList = 0x1, AutoAll = 0x2
+    QTextEdit_AutoFormattingFlag* {.header:headerFile,importcpp:"QTextEdit::AutoFormattingFlag".} = enum AutoAll = -1, AutoNone = 0, AutoBulletList = 0x1
     QTextEdit* {.header:headerFile,importcpp:"QTextEdit" ,pure.} = object of QAbstractScrollArea
     QTextEdit_ExtraSelection* {.header:headerFile,importcpp:"QTextEdit::ExtraSelection" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
@@ -97,8 +97,18 @@ proc toHtml*(this: ptr QTextEdit): QString {.header:headerFile, importcpp:"#.toH
 proc toMarkdown*(this: ptr QTextEdit, features: QTextDocument_MarkdownFeatures): QString {.header:headerFile, importcpp:"#.toMarkdown(@)".} # Public
 proc toMarkdown*(this: ptr QTextEdit): QString {.header:headerFile, importcpp:"#.toMarkdown(@)".} # Public
 proc ensureCursorVisible*(this: ptr QTextEdit) {.header:headerFile, importcpp:"#.ensureCursorVisible(@)".} # Public
+import nimqt/qtcore/qurl
+import nimqt/qtcore/qvariant
+proc loadResource*(this: ptr QTextEdit, `type`: cint, name: QUrl): QVariant {.header:headerFile, importcpp:"#.loadResource(@)".} # Public
 import nimqt/qtwidgets/qmenu
 proc createStandardContextMenu*(this: ptr QTextEdit): ptr QMenu {.header:headerFile, importcpp:"#.createStandardContextMenu(@)".} # Public
+import nimqt/qtcore/qpoint
+proc createStandardContextMenu*(this: ptr QTextEdit, position: QPoint): ptr QMenu {.header:headerFile, importcpp:"#.createStandardContextMenu(@)".} # Public
+proc cursorForPosition*(this: ptr QTextEdit, pos: QPoint): QTextCursor {.header:headerFile, importcpp:"#.cursorForPosition(@)".} # Public
+import nimqt/qtcore/qrect
+proc cursorRect*(this: ptr QTextEdit, cursor: QTextCursor): QRect {.header:headerFile, importcpp:"#.cursorRect(@)".} # Public
+proc cursorRect*(this: ptr QTextEdit): QRect {.header:headerFile, importcpp:"#.cursorRect(@)".} # Public
+proc anchorAt*(this: ptr QTextEdit, pos: QPoint): QString {.header:headerFile, importcpp:"#.anchorAt(@)".} # Public
 proc overwriteMode*(this: ptr QTextEdit): bool {.header:headerFile, importcpp:"#.overwriteMode(@)".} # Public
 proc setOverwriteMode*(this: ptr QTextEdit, overwrite: bool) {.header:headerFile, importcpp:"#.setOverwriteMode(@)".} # Public
 proc tabStopDistance*(this: ptr QTextEdit): cfloat {.header:headerFile, importcpp:"#.tabStopDistance(@)".} # Public
@@ -107,10 +117,15 @@ proc cursorWidth*(this: ptr QTextEdit): cint {.header:headerFile, importcpp:"#.c
 proc setCursorWidth*(this: ptr QTextEdit, width: cint) {.header:headerFile, importcpp:"#.setCursorWidth(@)".} # Public
 proc acceptRichText*(this: ptr QTextEdit): bool {.header:headerFile, importcpp:"#.acceptRichText(@)".} # Public
 proc setAcceptRichText*(this: ptr QTextEdit, accept: bool) {.header:headerFile, importcpp:"#.setAcceptRichText(@)".} # Public
+import nimqt/qtcore/qlist
+proc setExtraSelections*(this: ptr QTextEdit, selections: QList[QTextEdit_ExtraSelection]) {.header:headerFile, importcpp:"#.setExtraSelections(@)".} # Public
+proc extraSelections*(this: ptr QTextEdit): QList[QTextEdit_ExtraSelection] {.header:headerFile, importcpp:"#.extraSelections(@)".} # Public
 proc moveCursor*(this: ptr QTextEdit, operation: QTextCursor_MoveOperation, mode: QTextCursor_MoveMode) {.header:headerFile, importcpp:"#.moveCursor(@)".} # Public
 proc canPaste*(this: ptr QTextEdit): bool {.header:headerFile, importcpp:"#.canPaste(@)".} # Public
 import nimqt/qtgui/qpagedpaintdevice
 proc print*(this: ptr QTextEdit, printer: ptr QPagedPaintDevice) {.header:headerFile, importcpp:"#.print(@)".} # Public
+proc inputMethodQuery*(this: ptr QTextEdit, property: Qt_InputMethodQuery): QVariant {.header:headerFile, importcpp:"#.inputMethodQuery(@)".} # Public
+proc inputMethodQuery*(this: ptr QTextEdit, query: Qt_InputMethodQuery, argument: QVariant): QVariant {.header:headerFile, importcpp:"#.inputMethodQuery(@)".} # Public
 proc setFontPointSize*(this: ptr QTextEdit, s: cfloat) {.header:headerFile, importcpp:"#.setFontPointSize(@)".} # Public
 proc setFontFamily*(this: ptr QTextEdit, fontFamily: QString) {.header:headerFile, importcpp:"#.setFontFamily(@)".} # Public
 proc setFontWeight*(this: ptr QTextEdit, w: cint) {.header:headerFile, importcpp:"#.setFontWeight(@)".} # Public
@@ -181,6 +196,7 @@ proc zoomInF*(this: ptr QTextEdit, range: cfloat) {.header:headerFile, importcpp
 export qevent
 export qfont
 export qtextformat
+export qurl
 export qmenu
 export qstring
 export qpagedpaintdevice
@@ -188,7 +204,11 @@ export qtextoption
 export qtextcursor
 export qabstractscrollarea
 export qnamespace
+export qlist
+export qvariant
+export qpoint
 export qwidget
+export qrect
 export qflags
 export qpaintdevice
 export qcoreevent

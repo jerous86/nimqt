@@ -56,6 +56,15 @@ proc setOpaqueResize*(this: ptr QSplitter, opaque: bool) {.header:headerFile, im
 proc setOpaqueResize*(this: ptr QSplitter) {.header:headerFile, importcpp:"#.setOpaqueResize(@)".} # Public
 proc opaqueResize*(this: ptr QSplitter): bool {.header:headerFile, importcpp:"#.opaqueResize(@)".} # Public
 proc refresh*(this: ptr QSplitter) {.header:headerFile, importcpp:"#.refresh(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QSplitter): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QSplitter): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
+import nimqt/qtcore/qlist
+proc sizes*(this: ptr QSplitter): QList[cint] {.header:headerFile, importcpp:"#.sizes(@)".} # Public
+proc setSizes*(this: ptr QSplitter, list: QList[cint]) {.header:headerFile, importcpp:"#.setSizes(@)".} # Public
+import nimqt/qtcore/qbytearray
+proc saveState*(this: ptr QSplitter): QByteArray {.header:headerFile, importcpp:"#.saveState(@)".} # Public
+proc restoreState*(this: ptr QSplitter, state: QByteArray): bool {.header:headerFile, importcpp:"#.restoreState(@)".} # Public
 proc handleWidth*(this: ptr QSplitter): cint {.header:headerFile, importcpp:"#.handleWidth(@)".} # Public
 proc setHandleWidth*(this: ptr QSplitter, arg_0: cint) {.header:headerFile, importcpp:"#.setHandleWidth(@)".} # Public
 proc indexOf*(this: ptr QSplitter, w: ptr QWidget): cint {.header:headerFile, importcpp:"#.indexOf(@)".} # Public
@@ -90,6 +99,7 @@ proc setOrientation*(this: ptr QSplitterHandle, o: Qt_Orientation) {.header:head
 proc orientation*(this: ptr QSplitterHandle): Qt_Orientation {.header:headerFile, importcpp:"#.orientation(@)".} # Public
 proc opaqueResize*(this: ptr QSplitterHandle): bool {.header:headerFile, importcpp:"#.opaqueResize(@)".} # Public
 proc splitter*(this: ptr QSplitterHandle): ptr QSplitter {.header:headerFile, importcpp:"#.splitter(@)".} # Public
+proc sizeHint*(this: ptr QSplitterHandle): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 
 # Protected methods methods for QSplitterHandle
 proc paintEvent*(this: ptr QSplitterHandle, arg_0: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected
@@ -103,7 +113,10 @@ proc closestLegalPosition*(this: ptr QSplitterHandle, p: cint): cint {.header:he
 
 export qevent
 export qstring
+export qsize
 export qnamespace
+export qbytearray
+export qlist
 export qwidget
 export qpaintdevice
 export qcoreevent

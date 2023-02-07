@@ -7,29 +7,36 @@ const headerFile* = "QtGui/qfont.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QFont_StyleHint* {.header:headerFile,importcpp:"QFont::StyleHint".} = enum Helvetica = 0, SansSerif = 0x1, Times = 0x2, Serif = 0x3, 
-        Courier = 0x4, TypeWriter = 0x5, OldEnglish = 0x6, Decorative = 0x7, System = 0x8, 
-        AnyStyle = 0x9, Cursive = 0xa, Monospace = 0xb, Fantasy = 0xc
-    QFont_StyleStrategy* {.header:headerFile,importcpp:"QFont::StyleStrategy".} = enum PreferDefault = 0, PreferBitmap = 0x1, PreferDevice = 0x2, PreferOutline = 0x3, 
-        ForceOutline = 0x4, PreferMatch = 0x5, PreferQuality = 0x6, PreferAntialias = 0x7, NoAntialias = 0x8, 
-        NoSubpixelAntialias = 0x9, PreferNoShaping = 0xa, NoFontMerging = 0xb
+    QFont_StyleHint* {.header:headerFile,importcpp:"QFont::StyleHint".} = enum Helvetica = 0, Times = 0x1, Courier = 0x2, OldEnglish = 0x3, 
+        System = 0x4, AnyStyle = 0x5, Cursive = 0x6, Monospace = 0x7, Fantasy = 0x8
+    QFont_StyleStrategy* {.header:headerFile,importcpp:"QFont::StyleStrategy".} = enum PreferDefault = 0x1, PreferBitmap = 0x2, PreferDevice = 0x4, PreferOutline = 0x8, 
+        ForceOutline = 0x10, PreferMatch = 0x20, PreferQuality = 0x40, PreferAntialias = 0x80, NoAntialias = 0x100, 
+        NoSubpixelAntialias = 0x800, PreferNoShaping = 0x1000, NoFontMerging = 0x8000
     QFont_HintingPreference* {.header:headerFile,importcpp:"QFont::HintingPreference".} = enum PreferDefaultHinting = 0, PreferNoHinting = 0x1, PreferVerticalHinting = 0x2, PreferFullHinting = 0x3
-    QFont_Weight* {.header:headerFile,importcpp:"QFont::Weight".} = enum Thin = 0, ExtraLight = 0x1, Light = 0x2, Normal = 0x3, 
-        Medium = 0x4, DemiBold = 0x5, Bold = 0x6, ExtraBold = 0x7, Black = 0x8
+    QFont_Weight* {.header:headerFile,importcpp:"QFont::Weight".} = enum Thin = 0x64, ExtraLight = 0xc8, Light = 0x12c, Normal = 0x190, 
+        Medium = 0x1f4, DemiBold = 0x258, Bold = 0x2bc, ExtraBold = 0x320, Black = 0x384
     QFont_Style* {.header:headerFile,importcpp:"QFont::Style".} = enum StyleNormal = 0, StyleItalic = 0x1, StyleOblique = 0x2
-    QFont_Stretch* {.header:headerFile,importcpp:"QFont::Stretch".} = enum AnyStretch = 0, UltraCondensed = 0x1, ExtraCondensed = 0x2, Condensed = 0x3, 
-        SemiCondensed = 0x4, Unstretched = 0x5, SemiExpanded = 0x6, Expanded = 0x7, ExtraExpanded = 0x8, 
-        UltraExpanded = 0x9
+    QFont_Stretch* {.header:headerFile,importcpp:"QFont::Stretch".} = enum AnyStretch = 0, UltraCondensed = 0x32, ExtraCondensed = 0x3e, Condensed = 0x4b, 
+        SemiCondensed = 0x57, Unstretched = 0x64, SemiExpanded = 0x70, Expanded = 0x7d, ExtraExpanded = 0x96, 
+        UltraExpanded = 0xc8
     QFont_Capitalization* {.header:headerFile,importcpp:"QFont::Capitalization".} = enum MixedCase = 0, AllUppercase = 0x1, AllLowercase = 0x2, SmallCaps = 0x3, 
         Capitalize = 0x4
     QFont_SpacingType* {.header:headerFile,importcpp:"QFont::SpacingType".} = enum PercentageSpacing = 0, AbsoluteSpacing = 0x1
-    QFont_ResolveProperties* {.header:headerFile,importcpp:"QFont::ResolveProperties".} = enum NoPropertiesResolved = 0, FamilyResolved = 0x1, SizeResolved = 0x2, StyleHintResolved = 0x3, 
-        StyleStrategyResolved = 0x4, WeightResolved = 0x5, StyleResolved = 0x6, UnderlineResolved = 0x7, OverlineResolved = 0x8, 
-        StrikeOutResolved = 0x9, FixedPitchResolved = 0xa, StretchResolved = 0xb, KerningResolved = 0xc, CapitalizationResolved = 0xd, 
-        LetterSpacingResolved = 0xe, WordSpacingResolved = 0xf, HintingPreferenceResolved = 0x10, StyleNameResolved = 0x11, FamiliesResolved = 0x12, 
-        AllPropertiesResolved = 0x13
+    QFont_ResolveProperties* {.header:headerFile,importcpp:"QFont::ResolveProperties".} = enum NoPropertiesResolved = 0, FamilyResolved = 0x1, SizeResolved = 0x2, StyleHintResolved = 0x4, 
+        StyleStrategyResolved = 0x8, WeightResolved = 0x10, StyleResolved = 0x20, UnderlineResolved = 0x40, OverlineResolved = 0x80, 
+        StrikeOutResolved = 0x100, FixedPitchResolved = 0x200, StretchResolved = 0x400, KerningResolved = 0x800, CapitalizationResolved = 0x1000, 
+        LetterSpacingResolved = 0x2000, WordSpacingResolved = 0x4000, HintingPreferenceResolved = 0x8000, StyleNameResolved = 0x10000, FamiliesResolved = 0x20000, 
+        AllPropertiesResolved = 0x3ffff
     QFont* {.header:headerFile,importcpp:"QFont" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
+
+# Consts
+const
+    # Global
+    QFont_StyleHintSansSerif* = 0 # from anonymous enum Helvetica
+    QFont_StyleHintSerif* = 1 # from anonymous enum Times
+    QFont_StyleHintTypeWriter* = 2 # from anonymous enum Courier
+    QFont_StyleHintDecorative* = 3 # from anonymous enum OldEnglish
 
 # Stuff for class QFont
 
@@ -39,6 +46,10 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc newQFont*(family: QString, pointSize: cint, weight: cint, italic: bool): QFont {. header:headerFile, importcpp:"QFont(@)", constructor .} #
 proc newQFont*(family: QString, pointSize: cint, weight: cint): QFont {. header:headerFile, importcpp:"QFont(@)", constructor .} #
+import nimqt/qtcore/qstringlist
+# 1 default parameters!
+proc newQFont*(families: QStringList, pointSize: cint, weight: cint, italic: bool): QFont {. header:headerFile, importcpp:"QFont(@)", constructor .} #
+proc newQFont*(families: QStringList, pointSize: cint, weight: cint): QFont {. header:headerFile, importcpp:"QFont(@)", constructor .} #
 import nimqt/qtgui/qpaintdevice
 proc newQFont*(font: QFont, pd: ptr QPaintDevice): QFont {. header:headerFile, importcpp:"QFont(@)", constructor .} #
 proc newQFont*(font: QFont): QFont {. header:headerFile, importcpp:"QFont(@)", constructor .} #
@@ -48,6 +59,8 @@ proc qt_check_for_QGADGET_macro*(this: QFont) {.header:headerFile, importcpp:"#.
 proc swap*(this: QFont, other: QFont) {.header:headerFile, importcpp:"#.swap(@)".} # Public
 proc family*(this: QFont): QString {.header:headerFile, importcpp:"#.family(@)".} # Public
 proc setFamily*(this: QFont, arg_0: QString) {.header:headerFile, importcpp:"#.setFamily(@)".} # Public
+proc families*(this: QFont): QStringList {.header:headerFile, importcpp:"#.families(@)".} # Public
+proc setFamilies*(this: QFont, arg_0: QStringList) {.header:headerFile, importcpp:"#.setFamilies(@)".} # Public
 proc styleName*(this: QFont): QString {.header:headerFile, importcpp:"#.styleName(@)".} # Public
 proc setStyleName*(this: QFont, arg_0: QString) {.header:headerFile, importcpp:"#.setStyleName(@)".} # Public
 proc pointSize*(this: QFont): cint {.header:headerFile, importcpp:"#.pointSize(@)".} # Public
@@ -97,7 +110,10 @@ proc key*(this: QFont): QString {.header:headerFile, importcpp:"#.key(@)".} # Pu
 proc toString*(this: QFont): QString {.header:headerFile, importcpp:"#.toString(@)".} # Public
 proc fromString*(this: QFont, arg_0: QString): bool {.header:headerFile, importcpp:"#.fromString(@)".} # Public
 proc static_QFont_substitute*(arg_1: QString): QString {.header:headerFile, importcpp:"QFont::substitute(@)".} # Public static
+proc static_QFont_substitutes*(arg_1: QString): QStringList {.header:headerFile, importcpp:"QFont::substitutes(@)".} # Public static
+proc static_QFont_substitutions*(): QStringList {.header:headerFile, importcpp:"QFont::substitutions(@)".} # Public static
 proc static_QFont_insertSubstitution*(arg_0: QString, arg_1: QString) {.header:headerFile, importcpp:"QFont::insertSubstitution(@)".} # Public static
+proc static_QFont_insertSubstitutions*(arg_0: QString, arg_1: QStringList) {.header:headerFile, importcpp:"QFont::insertSubstitutions(@)".} # Public static
 proc static_QFont_removeSubstitutions*(arg_0: QString) {.header:headerFile, importcpp:"QFont::removeSubstitutions(@)".} # Public static
 proc static_QFont_initialize*() {.header:headerFile, importcpp:"QFont::initialize(@)".} # Public static
 proc static_QFont_cleanup*() {.header:headerFile, importcpp:"QFont::cleanup(@)".} # Public static
@@ -109,5 +125,6 @@ proc setResolveMask*(this: QFont, mask: cuint) {.header:headerFile, importcpp:"#
 proc setLegacyWeight*(this: QFont, legacyWeight: cint) {.header:headerFile, importcpp:"#.setLegacyWeight(@)".} # Public
 proc legacyWeight*(this: QFont): cint {.header:headerFile, importcpp:"#.legacyWeight(@)".} # Public
 
+export qstringlist
 export qstring
 export qpaintdevice

@@ -40,9 +40,12 @@ proc event*(this: ptr QWidgetAction, arg_0: ptr QEvent): bool {.header:headerFil
 proc eventFilter*(this: ptr QWidgetAction, arg_0: ptr QObject, arg_1: ptr QEvent): bool {.header:headerFile, importcpp:"#.eventFilter(@)".} # Protected
 proc createWidget*(this: ptr QWidgetAction, parent: ptr QWidget): ptr QWidget {.header:headerFile, importcpp:"#.createWidget(@)".} # Protected
 proc deleteWidget*(this: ptr QWidgetAction, widget: ptr QWidget) {.header:headerFile, importcpp:"#.deleteWidget(@)".} # Protected
+import nimqt/qtcore/qlist
+proc createdWidgets*(this: ptr QWidgetAction): QList[ptr QWidget] {.header:headerFile, importcpp:"#.createdWidgets(@)".} # Protected
 
 export qstring
 export qaction
+export qlist
 export qwidget
 export qobject
 export qcoreevent

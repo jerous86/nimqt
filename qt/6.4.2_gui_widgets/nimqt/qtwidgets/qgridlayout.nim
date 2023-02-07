@@ -28,6 +28,10 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QGridLayout_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QGridLayout::tr(@)".} # Public static
 proc static_QGridLayout_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QGridLayout::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QGridLayout): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSize*(this: ptr QGridLayout): QSize {.header:headerFile, importcpp:"#.minimumSize(@)".} # Public
+proc maximumSize*(this: ptr QGridLayout): QSize {.header:headerFile, importcpp:"#.maximumSize(@)".} # Public
 proc setHorizontalSpacing*(this: ptr QGridLayout, spacing: cint) {.header:headerFile, importcpp:"#.setHorizontalSpacing(@)".} # Public
 proc horizontalSpacing*(this: ptr QGridLayout): cint {.header:headerFile, importcpp:"#.horizontalSpacing(@)".} # Public
 proc setVerticalSpacing*(this: ptr QGridLayout, spacing: cint) {.header:headerFile, importcpp:"#.setVerticalSpacing(@)".} # Public
@@ -44,6 +48,8 @@ proc rowMinimumHeight*(this: ptr QGridLayout, row: cint): cint {.header:headerFi
 proc columnMinimumWidth*(this: ptr QGridLayout, column: cint): cint {.header:headerFile, importcpp:"#.columnMinimumWidth(@)".} # Public
 proc columnCount*(this: ptr QGridLayout): cint {.header:headerFile, importcpp:"#.columnCount(@)".} # Public
 proc rowCount*(this: ptr QGridLayout): cint {.header:headerFile, importcpp:"#.rowCount(@)".} # Public
+import nimqt/qtcore/qrect
+proc cellRect*(this: ptr QGridLayout, row: cint, column: cint): QRect {.header:headerFile, importcpp:"#.cellRect(@)".} # Public
 proc hasHeightForWidth*(this: ptr QGridLayout): bool {.header:headerFile, importcpp:"#.hasHeightForWidth(@)".} # Public
 proc heightForWidth*(this: ptr QGridLayout, arg_0: cint): cint {.header:headerFile, importcpp:"#.heightForWidth(@)".} # Public
 proc minimumHeightForWidth*(this: ptr QGridLayout, arg_0: cint): cint {.header:headerFile, importcpp:"#.minimumHeightForWidth(@)".} # Public
@@ -70,6 +76,7 @@ proc itemAt*(this: ptr QGridLayout, index: cint): ptr QLayoutItem {.header:heade
 proc itemAtPosition*(this: ptr QGridLayout, row: cint, column: cint): ptr QLayoutItem {.header:headerFile, importcpp:"#.itemAtPosition(@)".} # Public
 proc takeAt*(this: ptr QGridLayout, index: cint): ptr QLayoutItem {.header:headerFile, importcpp:"#.takeAt(@)".} # Public
 proc count*(this: ptr QGridLayout): cint {.header:headerFile, importcpp:"#.count(@)".} # Public
+proc setGeometry*(this: ptr QGridLayout, arg_0: QRect) {.header:headerFile, importcpp:"#.setGeometry(@)".} # Public
 # 3 default parameters!
 proc addItem*(this: ptr QGridLayout, item: ptr QLayoutItem, row: cint, column: cint, rowSpan: cint, columnSpan: cint, arg_5: Qt_Alignment) {.header:headerFile, importcpp:"#.addItem(@)".} # Public
 proc addItem*(this: ptr QGridLayout, item: ptr QLayoutItem, row: cint, column: cint, rowSpan: cint, columnSpan: cint) {.header:headerFile, importcpp:"#.addItem(@)".} # Public
@@ -82,7 +89,9 @@ proc getItemPosition*(this: ptr QGridLayout, idx: cint, row: ptr cint, column: p
 proc addItem*(this: ptr QGridLayout, arg_0: ptr QLayoutItem) {.header:headerFile, importcpp:"#.addItem(@)".} # Protected
 
 export qstring
+export qsize
 export qnamespace
 export qlayout
 export qwidget
+export qrect
 export qlayoutitem

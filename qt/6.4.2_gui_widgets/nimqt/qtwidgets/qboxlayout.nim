@@ -8,8 +8,7 @@ import nimqt/qtwidgets/qlayout
 type
     # Classes and enums found in the C++ code
     # Global
-    QBoxLayout_Direction* {.header:headerFile,importcpp:"QBoxLayout::Direction".} = enum LeftToRight = 0, RightToLeft = 0x1, TopToBottom = 0x2, BottomToTop = 0x3, 
-        Down = 0x4, Up = 0x5
+    QBoxLayout_Direction* {.header:headerFile,importcpp:"QBoxLayout::Direction".} = enum LeftToRight = 0, RightToLeft = 0x1, TopToBottom = 0x2, BottomToTop = 0x3
     QBoxLayout* {.header:headerFile,importcpp:"QBoxLayout" ,pure.} = object of QLayout
     QHBoxLayout* {.header:headerFile,importcpp:"QHBoxLayout" ,pure.} = object of QBoxLayout
     QVBoxLayout* {.header:headerFile,importcpp:"QVBoxLayout" ,pure.} = object of QBoxLayout
@@ -23,6 +22,12 @@ type
     QHBoxLayout_SizeConstraint * = QLayout_SizeConstraint
     QVBoxLayout_Direction * = QBoxLayout_Direction
     QVBoxLayout_SizeConstraint * = QLayout_SizeConstraint
+
+# Consts
+const
+    # Global
+    QBoxLayout_DirectionDown* = 2 # from anonymous enum TopToBottom
+    QBoxLayout_DirectionUp* = 3 # from anonymous enum BottomToTop
 
 # Stuff for class QBoxLayout
 
@@ -74,6 +79,10 @@ proc setStretchFactor*(this: ptr QBoxLayout, w: ptr QWidget, stretch: cint): boo
 proc setStretchFactor*(this: ptr QBoxLayout, l: ptr QLayout, stretch: cint): bool {.header:headerFile, importcpp:"#.setStretchFactor(@)".} # Public
 proc setStretch*(this: ptr QBoxLayout, index: cint, stretch: cint) {.header:headerFile, importcpp:"#.setStretch(@)".} # Public
 proc stretch*(this: ptr QBoxLayout, index: cint): cint {.header:headerFile, importcpp:"#.stretch(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QBoxLayout): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSize*(this: ptr QBoxLayout): QSize {.header:headerFile, importcpp:"#.minimumSize(@)".} # Public
+proc maximumSize*(this: ptr QBoxLayout): QSize {.header:headerFile, importcpp:"#.maximumSize(@)".} # Public
 proc hasHeightForWidth*(this: ptr QBoxLayout): bool {.header:headerFile, importcpp:"#.hasHeightForWidth(@)".} # Public
 proc heightForWidth*(this: ptr QBoxLayout, arg_0: cint): cint {.header:headerFile, importcpp:"#.heightForWidth(@)".} # Public
 proc minimumHeightForWidth*(this: ptr QBoxLayout, arg_0: cint): cint {.header:headerFile, importcpp:"#.minimumHeightForWidth(@)".} # Public
@@ -82,6 +91,8 @@ proc invalidate*(this: ptr QBoxLayout) {.header:headerFile, importcpp:"#.invalid
 proc itemAt*(this: ptr QBoxLayout, arg_1: cint): ptr QLayoutItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
 proc takeAt*(this: ptr QBoxLayout, arg_1: cint): ptr QLayoutItem {.header:headerFile, importcpp:"#.takeAt(@)".} # Public
 proc count*(this: ptr QBoxLayout): cint {.header:headerFile, importcpp:"#.count(@)".} # Public
+import nimqt/qtcore/qrect
+proc setGeometry*(this: ptr QBoxLayout, arg_0: QRect) {.header:headerFile, importcpp:"#.setGeometry(@)".} # Public
 # Stuff for class QHBoxLayout
 
 # Public constructors for QHBoxLayout
@@ -104,7 +115,9 @@ proc static_QVBoxLayout_tr*(s: ptr char, c: ptr char, n: cint): QString {.header
 proc static_QVBoxLayout_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QVBoxLayout::tr(@)".} # Public static
 
 export qstring
+export qsize
 export qnamespace
 export qlayout
 export qwidget
+export qrect
 export qlayoutitem

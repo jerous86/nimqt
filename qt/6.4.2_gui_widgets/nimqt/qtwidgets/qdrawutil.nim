@@ -7,9 +7,9 @@ const headerFile* = "QtWidgets/qdrawutil.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QDrawBorderPixmap_DrawingHint* {.header:headerFile,importcpp:"QDrawBorderPixmap::DrawingHint".} = enum OpaqueTopLeft = 0, OpaqueTop = 0x1, OpaqueTopRight = 0x2, OpaqueLeft = 0x3, 
-        OpaqueCenter = 0x4, OpaqueRight = 0x5, OpaqueBottomLeft = 0x6, OpaqueBottom = 0x7, OpaqueBottomRight = 0x8, 
-        OpaqueCorners = 0x9, OpaqueEdges = 0xa, OpaqueFrame = 0xb, OpaqueAll = 0xc
+    QDrawBorderPixmap_DrawingHint* {.header:headerFile,importcpp:"QDrawBorderPixmap::DrawingHint".} = enum OpaqueTopLeft = 0x1, OpaqueTop = 0x2, OpaqueTopRight = 0x4, OpaqueLeft = 0x8, 
+        OpaqueCenter = 0x10, OpaqueRight = 0x20, OpaqueBottomLeft = 0x40, OpaqueBottom = 0x80, OpaqueEdges = 0xaa, 
+        OpaqueBottomRight = 0x100, OpaqueCorners = 0x145, OpaqueFrame = 0x1ef, OpaqueAll = 0x1ff
     QTileRules* {.header:headerFile,importcpp:"QTileRules" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags

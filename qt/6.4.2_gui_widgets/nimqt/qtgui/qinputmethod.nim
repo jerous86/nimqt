@@ -22,11 +22,20 @@ proc static_QInputMethod_tr*(s: ptr char, c: ptr char): QString {.header:headerF
 import nimqt/qtgui/qtransform
 proc inputItemTransform*(this: ptr QInputMethod): QTransform {.header:headerFile, importcpp:"#.inputItemTransform(@)".} # Public
 proc setInputItemTransform*(this: ptr QInputMethod, transform: QTransform) {.header:headerFile, importcpp:"#.setInputItemTransform(@)".} # Public
+import nimqt/qtcore/qrect
+proc inputItemRectangle*(this: ptr QInputMethod): QRectF {.header:headerFile, importcpp:"#.inputItemRectangle(@)".} # Public
+proc setInputItemRectangle*(this: ptr QInputMethod, rect: QRectF) {.header:headerFile, importcpp:"#.setInputItemRectangle(@)".} # Public
+proc cursorRectangle*(this: ptr QInputMethod): QRectF {.header:headerFile, importcpp:"#.cursorRectangle(@)".} # Public
+proc anchorRectangle*(this: ptr QInputMethod): QRectF {.header:headerFile, importcpp:"#.anchorRectangle(@)".} # Public
+proc keyboardRectangle*(this: ptr QInputMethod): QRectF {.header:headerFile, importcpp:"#.keyboardRectangle(@)".} # Public
+proc inputItemClipRectangle*(this: ptr QInputMethod): QRectF {.header:headerFile, importcpp:"#.inputItemClipRectangle(@)".} # Public
 proc isVisible*(this: ptr QInputMethod): bool {.header:headerFile, importcpp:"#.isVisible(@)".} # Public
 proc setVisible*(this: ptr QInputMethod, visible: bool) {.header:headerFile, importcpp:"#.setVisible(@)".} # Public
 proc isAnimating*(this: ptr QInputMethod): bool {.header:headerFile, importcpp:"#.isAnimating(@)".} # Public
 import nimqt/qtcore/qnamespace
 proc inputDirection*(this: ptr QInputMethod): Qt_LayoutDirection {.header:headerFile, importcpp:"#.inputDirection(@)".} # Public
+import nimqt/qtcore/qvariant
+proc static_QInputMethod_queryFocusObject*(query: Qt_InputMethodQuery, argument: QVariant): QVariant {.header:headerFile, importcpp:"QInputMethod::queryFocusObject(@)".} # Public static
 proc show*(this: ptr QInputMethod) {.header:headerFile, importcpp:"#.show(@)".} # Public
 proc hide*(this: ptr QInputMethod) {.header:headerFile, importcpp:"#.hide(@)".} # Public
 proc update*(this: ptr QInputMethod, queries: Qt_InputMethodQueries) {.header:headerFile, importcpp:"#.update(@)".} # Public
@@ -44,5 +53,7 @@ proc inputDirectionChanged*(this: ptr QInputMethod, newDirection: Qt_LayoutDirec
 
 export qstring
 export qnamespace
+export qvariant
+export qrect
 export qobject
 export qtransform

@@ -35,6 +35,8 @@ proc text*(this: ptr QAbstractButton): QString {.header:headerFile, importcpp:"#
 import nimqt/qtgui/qicon
 proc setIcon*(this: ptr QAbstractButton, icon: QIcon) {.header:headerFile, importcpp:"#.setIcon(@)".} # Public
 proc icon*(this: ptr QAbstractButton): QIcon {.header:headerFile, importcpp:"#.icon(@)".} # Public
+import nimqt/qtcore/qsize
+proc iconSize*(this: ptr QAbstractButton): QSize {.header:headerFile, importcpp:"#.iconSize(@)".} # Public
 import nimqt/qtgui/qkeysequence
 proc setShortcut*(this: ptr QAbstractButton, key: QKeySequence) {.header:headerFile, importcpp:"#.setShortcut(@)".} # Public
 proc shortcut*(this: ptr QAbstractButton): QKeySequence {.header:headerFile, importcpp:"#.shortcut(@)".} # Public
@@ -53,6 +55,7 @@ proc setAutoExclusive*(this: ptr QAbstractButton, arg_0: bool) {.header:headerFi
 proc autoExclusive*(this: ptr QAbstractButton): bool {.header:headerFile, importcpp:"#.autoExclusive(@)".} # Public
 import nimqt/qtwidgets/qbuttongroup
 proc group*(this: ptr QAbstractButton): ptr QButtonGroup {.header:headerFile, importcpp:"#.group(@)".} # Public
+proc setIconSize*(this: ptr QAbstractButton, size: QSize) {.header:headerFile, importcpp:"#.setIconSize(@)".} # Public
 proc animateClick*(this: ptr QAbstractButton) {.header:headerFile, importcpp:"#.animateClick(@)".} # Public
 proc click*(this: ptr QAbstractButton) {.header:headerFile, importcpp:"#.click(@)".} # Public
 proc toggle*(this: ptr QAbstractButton) {.header:headerFile, importcpp:"#.toggle(@)".} # Public
@@ -67,6 +70,8 @@ proc toggled*(this: ptr QAbstractButton, checked: bool) {.header:headerFile, imp
 # Protected methods methods for QAbstractButton
 import nimqt/qtgui/qevent
 proc paintEvent*(this: ptr QAbstractButton, e: ptr QPaintEvent) {.header:headerFile, importcpp:"#.paintEvent(@)".} # Protected
+import nimqt/qtcore/qpoint
+proc hitButton*(this: ptr QAbstractButton, pos: QPoint): bool {.header:headerFile, importcpp:"#.hitButton(@)".} # Protected
 proc checkStateSet*(this: ptr QAbstractButton) {.header:headerFile, importcpp:"#.checkStateSet(@)".} # Protected
 proc nextCheckState*(this: ptr QAbstractButton) {.header:headerFile, importcpp:"#.nextCheckState(@)".} # Protected
 import nimqt/qtcore/qcoreevent
@@ -84,7 +89,9 @@ proc timerEvent*(this: ptr QAbstractButton, e: ptr QTimerEvent) {.header:headerF
 export qevent
 export qbuttongroup
 export qstring
+export qsize
 export qkeysequence
+export qpoint
 export qwidget
 export qpaintdevice
 export qcoreevent

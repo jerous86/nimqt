@@ -7,9 +7,9 @@ const headerFile* = "QtGui/qpaintdevice.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QPaintDevice_PaintDeviceMetric* {.header:headerFile,importcpp:"QPaintDevice::PaintDeviceMetric".} = enum PdmWidth = 0, PdmHeight = 0x1, PdmWidthMM = 0x2, PdmHeightMM = 0x3, 
-        PdmNumColors = 0x4, PdmDepth = 0x5, PdmDpiX = 0x6, PdmDpiY = 0x7, PdmPhysicalDpiX = 0x8, 
-        PdmPhysicalDpiY = 0x9, PdmDevicePixelRatio = 0xa, PdmDevicePixelRatioScaled = 0xb
+    QPaintDevice_PaintDeviceMetric* {.header:headerFile,importcpp:"QPaintDevice::PaintDeviceMetric".} = enum PdmWidth = 0x1, PdmHeight = 0x2, PdmWidthMM = 0x3, PdmHeightMM = 0x4, 
+        PdmNumColors = 0x5, PdmDepth = 0x6, PdmDpiX = 0x7, PdmDpiY = 0x8, PdmPhysicalDpiX = 0x9, 
+        PdmPhysicalDpiY = 0xa, PdmDevicePixelRatio = 0xb, PdmDevicePixelRatioScaled = 0xc
     QPaintDevice* {.header:headerFile,importcpp:"QPaintDevice" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 
@@ -34,3 +34,7 @@ proc static_QPaintDevice_devicePixelRatioFScale*(): cfloat {.header:headerFile, 
 
 # Protected methods methods for QPaintDevice
 proc metric*(this: ptr QPaintDevice, metric: QPaintDevice_PaintDeviceMetric): cint {.header:headerFile, importcpp:"#.metric(@)".} # Protected
+import nimqt/qtcore/qpoint
+proc redirected*(this: ptr QPaintDevice, offset: ptr QPoint): ptr QPaintDevice {.header:headerFile, importcpp:"#.redirected(@)".} # Protected
+
+export qpoint

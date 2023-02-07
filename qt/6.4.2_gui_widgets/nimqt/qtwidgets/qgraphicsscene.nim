@@ -8,8 +8,8 @@ import nimqt/qtcore/qobject
 type
     # Classes and enums found in the C++ code
     # Global
-    QGraphicsScene_ItemIndexMethod* {.header:headerFile,importcpp:"QGraphicsScene::ItemIndexMethod".} = enum BspTreeIndex = 0, NoIndex = 0x1
-    QGraphicsScene_SceneLayer* {.header:headerFile,importcpp:"QGraphicsScene::SceneLayer".} = enum ItemLayer = 0, BackgroundLayer = 0x1, ForegroundLayer = 0x2, AllLayers = 0x3
+    QGraphicsScene_ItemIndexMethod* {.header:headerFile,importcpp:"QGraphicsScene::ItemIndexMethod".} = enum NoIndex = -1, BspTreeIndex = 0
+    QGraphicsScene_SceneLayer* {.header:headerFile,importcpp:"QGraphicsScene::SceneLayer".} = enum ItemLayer = 0x1, BackgroundLayer = 0x2, ForegroundLayer = 0x4, AllLayers = 0xffff
     QGraphicsScene* {.header:headerFile,importcpp:"QGraphicsScene" ,pure.} = object of QObject
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags

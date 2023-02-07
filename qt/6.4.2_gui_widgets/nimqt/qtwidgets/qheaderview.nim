@@ -8,8 +8,7 @@ import nimqt/qtwidgets/qabstractitemview
 type
     # Classes and enums found in the C++ code
     # Global
-    QHeaderView_ResizeMode* {.header:headerFile,importcpp:"QHeaderView::ResizeMode".} = enum Interactive = 0, Stretch = 0x1, Fixed = 0x2, ResizeToContents = 0x3, 
-        Custom = 0x4
+    QHeaderView_ResizeMode* {.header:headerFile,importcpp:"QHeaderView::ResizeMode".} = enum Interactive = 0, Stretch = 0x1, Fixed = 0x2, ResizeToContents = 0x3
     QHeaderView* {.header:headerFile,importcpp:"QHeaderView" ,pure.} = object of QAbstractItemView
 {.push warning[Deprecated]: on.}
 import nimqt/qtwidgets/qabstractscrollarea
@@ -38,6 +37,11 @@ type
     QHeaderView_RenderFlags * = QWidget_RenderFlags
     QHeaderView_PaintDeviceMetric * = QPaintDevice_PaintDeviceMetric
 
+# Consts
+const
+    # Global
+    QHeaderView_ResizeModeCustom* = 2 # from anonymous enum Fixed
+
 # Stuff for class QHeaderView
 
 # Public constructors for QHeaderView
@@ -56,11 +60,15 @@ proc setModel*(this: ptr QHeaderView, model: ptr QAbstractItemModel) {.header:he
 proc orientation*(this: ptr QHeaderView): Qt_Orientation {.header:headerFile, importcpp:"#.orientation(@)".} # Public
 proc offset*(this: ptr QHeaderView): cint {.header:headerFile, importcpp:"#.offset(@)".} # Public
 proc length*(this: ptr QHeaderView): cint {.header:headerFile, importcpp:"#.length(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QHeaderView): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc setVisible*(this: ptr QHeaderView, v: bool) {.header:headerFile, importcpp:"#.setVisible(@)".} # Public
 proc sectionSizeHint*(this: ptr QHeaderView, logicalIndex: cint): cint {.header:headerFile, importcpp:"#.sectionSizeHint(@)".} # Public
 proc visualIndexAt*(this: ptr QHeaderView, position: cint): cint {.header:headerFile, importcpp:"#.visualIndexAt(@)".} # Public
 proc logicalIndexAt*(this: ptr QHeaderView, position: cint): cint {.header:headerFile, importcpp:"#.logicalIndexAt(@)".} # Public
 proc logicalIndexAt*(this: ptr QHeaderView, x: cint, y: cint): cint {.header:headerFile, importcpp:"#.logicalIndexAt(@)".} # Public
+import nimqt/qtcore/qpoint
+proc logicalIndexAt*(this: ptr QHeaderView, pos: QPoint): cint {.header:headerFile, importcpp:"#.logicalIndexAt(@)".} # Public
 proc sectionSize*(this: ptr QHeaderView, logicalIndex: cint): cint {.header:headerFile, importcpp:"#.sectionSize(@)".} # Public
 proc sectionPosition*(this: ptr QHeaderView, logicalIndex: cint): cint {.header:headerFile, importcpp:"#.sectionPosition(@)".} # Public
 proc sectionViewportPosition*(this: ptr QHeaderView, logicalIndex: cint): cint {.header:headerFile, importcpp:"#.sectionViewportPosition(@)".} # Public
@@ -113,6 +121,9 @@ proc setDefaultAlignment*(this: ptr QHeaderView, alignment: Qt_Alignment) {.head
 proc doItemsLayout*(this: ptr QHeaderView) {.header:headerFile, importcpp:"#.doItemsLayout(@)".} # Public
 proc sectionsMoved*(this: ptr QHeaderView): bool {.header:headerFile, importcpp:"#.sectionsMoved(@)".} # Public
 proc sectionsHidden*(this: ptr QHeaderView): bool {.header:headerFile, importcpp:"#.sectionsHidden(@)".} # Public
+import nimqt/qtcore/qbytearray
+proc saveState*(this: ptr QHeaderView): QByteArray {.header:headerFile, importcpp:"#.saveState(@)".} # Public
+proc restoreState*(this: ptr QHeaderView, state: QByteArray): bool {.header:headerFile, importcpp:"#.restoreState(@)".} # Public
 proc reset*(this: ptr QHeaderView) {.header:headerFile, importcpp:"#.reset(@)".} # Public
 proc setOffset*(this: ptr QHeaderView, offset: cint) {.header:headerFile, importcpp:"#.setOffset(@)".} # Public
 proc setOffsetToSectionPosition*(this: ptr QHeaderView, visualIndex: cint) {.header:headerFile, importcpp:"#.setOffsetToSectionPosition(@)".} # Public
@@ -148,22 +159,38 @@ proc mouseMoveEvent*(this: ptr QHeaderView, e: ptr QMouseEvent) {.header:headerF
 proc mouseReleaseEvent*(this: ptr QHeaderView, e: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseReleaseEvent(@)".} # Protected
 proc mouseDoubleClickEvent*(this: ptr QHeaderView, e: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseDoubleClickEvent(@)".} # Protected
 proc viewportEvent*(this: ptr QHeaderView, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.viewportEvent(@)".} # Protected
+import nimqt/qtgui/qpainter
+import nimqt/qtcore/qrect
+proc paintSection*(this: ptr QHeaderView, painter: ptr QPainter, rect: QRect, logicalIndex: cint) {.header:headerFile, importcpp:"#.paintSection(@)".} # Protected
+proc sectionSizeFromContents*(this: ptr QHeaderView, logicalIndex: cint): QSize {.header:headerFile, importcpp:"#.sectionSizeFromContents(@)".} # Protected
 proc horizontalOffset*(this: ptr QHeaderView): cint {.header:headerFile, importcpp:"#.horizontalOffset(@)".} # Protected
 proc verticalOffset*(this: ptr QHeaderView): cint {.header:headerFile, importcpp:"#.verticalOffset(@)".} # Protected
 proc updateGeometries*(this: ptr QHeaderView) {.header:headerFile, importcpp:"#.updateGeometries(@)".} # Protected
 proc scrollContentsBy*(this: ptr QHeaderView, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollContentsBy(@)".} # Protected
+import nimqt/qtcore/qlist
+# 1 default parameters!
+proc dataChanged*(this: ptr QHeaderView, topLeft: QModelIndex, bottomRight: QModelIndex, roles: QList[cint]) {.header:headerFile, importcpp:"#.dataChanged(@)".} # Protected
+proc dataChanged*(this: ptr QHeaderView, topLeft: QModelIndex, bottomRight: QModelIndex) {.header:headerFile, importcpp:"#.dataChanged(@)".} # Protected
 proc rowsInserted*(this: ptr QHeaderView, parent: QModelIndex, start: cint, `end`: cint) {.header:headerFile, importcpp:"#.rowsInserted(@)".} # Protected
+proc visualRect*(this: ptr QHeaderView, index: QModelIndex): QRect {.header:headerFile, importcpp:"#.visualRect(@)".} # Protected
 proc scrollTo*(this: ptr QHeaderView, index: QModelIndex, hint: QAbstractItemView_ScrollHint) {.header:headerFile, importcpp:"#.scrollTo(@)".} # Protected
+proc indexAt*(this: ptr QHeaderView, p: QPoint): QModelIndex {.header:headerFile, importcpp:"#.indexAt(@)".} # Protected
 proc isIndexHidden*(this: ptr QHeaderView, index: QModelIndex): bool {.header:headerFile, importcpp:"#.isIndexHidden(@)".} # Protected
 proc moveCursor*(this: ptr QHeaderView, arg_1: QAbstractItemView_CursorAction, arg_2: Qt_KeyboardModifiers): QModelIndex {.header:headerFile, importcpp:"#.moveCursor(@)".} # Protected
 
 export qevent
 export qstring
+export qsize
 export qabstractitemview
 export qabstractscrollarea
 export qnamespace
+export qbytearray
+export qlist
 export qabstractitemmodel
+export qpainter
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qframe

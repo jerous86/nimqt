@@ -39,7 +39,10 @@ proc static_QCommandLinkButton_tr*(s: ptr char, c: ptr char, n: cint): QString {
 proc static_QCommandLinkButton_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QCommandLinkButton::tr(@)".} # Public static
 proc description*(this: ptr QCommandLinkButton): QString {.header:headerFile, importcpp:"#.description(@)".} # Public
 proc setDescription*(this: ptr QCommandLinkButton, description: QString) {.header:headerFile, importcpp:"#.setDescription(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QCommandLinkButton): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc heightForWidth*(this: ptr QCommandLinkButton, arg_0: cint): cint {.header:headerFile, importcpp:"#.heightForWidth(@)".} # Public
+proc minimumSizeHint*(this: ptr QCommandLinkButton): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 
 # Protected methods methods for QCommandLinkButton
 import nimqt/qtcore/qcoreevent
@@ -50,6 +53,7 @@ proc paintEvent*(this: ptr QCommandLinkButton, arg_0: ptr QPaintEvent) {.header:
 export qevent
 export qpushbutton
 export qstring
+export qsize
 export qwidget
 export qpaintdevice
 export qcoreevent

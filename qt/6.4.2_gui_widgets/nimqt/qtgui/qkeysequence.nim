@@ -49,8 +49,12 @@ proc count*(this: QKeySequence): cint {.header:headerFile, importcpp:"#.count(@)
 proc isEmpty*(this: QKeySequence): bool {.header:headerFile, importcpp:"#.isEmpty(@)".} # Public
 proc toString*(this: QKeySequence, format: QKeySequence_SequenceFormat): QString {.header:headerFile, importcpp:"#.toString(@)".} # Public
 proc static_QKeySequence_fromString*(str: QString, format: QKeySequence_SequenceFormat): QKeySequence {.header:headerFile, importcpp:"QKeySequence::fromString(@)".} # Public static
+import nimqt/qtcore/qlist
+proc static_QKeySequence_listFromString*(str: QString, format: QKeySequence_SequenceFormat): QList[QKeySequence] {.header:headerFile, importcpp:"QKeySequence::listFromString(@)".} # Public static
+proc static_QKeySequence_listToString*(list: QList[QKeySequence], format: QKeySequence_SequenceFormat): QString {.header:headerFile, importcpp:"QKeySequence::listToString(@)".} # Public static
 proc matches*(this: QKeySequence, seq: QKeySequence): QKeySequence_SequenceMatch {.header:headerFile, importcpp:"#.matches(@)".} # Public
 proc static_QKeySequence_mnemonic*(text: QString): QKeySequence {.header:headerFile, importcpp:"QKeySequence::mnemonic(@)".} # Public static
+proc static_QKeySequence_keyBindings*(key: QKeySequence_StandardKey): QList[QKeySequence] {.header:headerFile, importcpp:"QKeySequence::keyBindings(@)".} # Public static
 proc `[]`*(this: QKeySequence, i: cuint): QKeyCombination {.header:headerFile, importcpp:"#.operator[](@)".} # Public
 proc swap*(this: QKeySequence, other: QKeySequence) {.header:headerFile, importcpp:"#.swap(@)".} # Public
 proc `!=`*(this: QKeySequence, other: QKeySequence): bool {.header:headerFile, importcpp:"#.operator!=(@)".} # Public
@@ -62,3 +66,4 @@ proc isDetached*(this: QKeySequence): bool {.header:headerFile, importcpp:"#.isD
 
 export qstring
 export qnamespace
+export qlist

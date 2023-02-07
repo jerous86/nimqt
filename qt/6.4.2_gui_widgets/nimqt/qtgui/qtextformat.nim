@@ -8,34 +8,33 @@ type
     # Classes and enums found in the C++ code
     # Global
     QTextLength_Type* {.header:headerFile,importcpp:"QTextLength::Type".} = enum VariableLength = 0, FixedLength = 0x1, PercentageLength = 0x2
-    QTextFormat_FormatType* {.header:headerFile,importcpp:"QTextFormat::FormatType".} = enum InvalidFormat = 0, BlockFormat = 0x1, CharFormat = 0x2, ListFormat = 0x3, 
-        FrameFormat = 0x4, UserFormat = 0x5
-    QTextFormat_Property* {.header:headerFile,importcpp:"QTextFormat::Property".} = enum ObjectIndex = 0, CssFloat = 0x1, LayoutDirection = 0x2, OutlinePen = 0x3, 
-        BackgroundBrush = 0x4, ForegroundBrush = 0x5, BackgroundImageUrl = 0x6, BlockAlignment = 0x7, BlockTopMargin = 0x8, 
-        BlockBottomMargin = 0x9, BlockLeftMargin = 0xa, BlockRightMargin = 0xb, TextIndent = 0xc, TabPositions = 0xd, 
-        BlockIndent = 0xe, LineHeight = 0xf, LineHeightType = 0x10, BlockNonBreakableLines = 0x11, BlockTrailingHorizontalRulerWidth = 0x12, 
-        HeadingLevel = 0x13, BlockQuoteLevel = 0x14, BlockCodeLanguage = 0x15, BlockCodeFence = 0x16, BlockMarker = 0x17, 
-        FirstFontProperty = 0x18, FontCapitalization = 0x19, FontLetterSpacing = 0x1a, FontWordSpacing = 0x1b, FontStyleHint = 0x1c, 
-        FontStyleStrategy = 0x1d, FontKerning = 0x1e, FontHintingPreference = 0x1f, FontFamilies = 0x20, FontStyleName = 0x21, 
-        FontLetterSpacingType = 0x22, FontStretch = 0x23, FontFamily = 0x24, FontPointSize = 0x25, FontSizeAdjustment = 0x26, 
-        FontSizeIncrement = 0x27, FontWeight = 0x28, FontItalic = 0x29, FontUnderline = 0x2a, FontOverline = 0x2b, 
-        FontStrikeOut = 0x2c, FontFixedPitch = 0x2d, FontPixelSize = 0x2e, LastFontProperty = 0x2f, TextUnderlineColor = 0x30, 
-        TextVerticalAlignment = 0x31, TextOutline = 0x32, TextUnderlineStyle = 0x33, TextToolTip = 0x34, TextSuperScriptBaseline = 0x35, 
-        TextSubScriptBaseline = 0x36, TextBaselineOffset = 0x37, IsAnchor = 0x38, AnchorHref = 0x39, AnchorName = 0x3a, 
-        OldFontLetterSpacingType = 0x3b, OldFontStretch = 0x3c, OldTextUnderlineColor = 0x3d, OldFontFamily = 0x3e, ObjectType = 0x3f, 
-        ListStyle = 0x40, ListIndent = 0x41, ListNumberPrefix = 0x42, ListNumberSuffix = 0x43, FrameBorder = 0x44, 
-        FrameMargin = 0x45, FramePadding = 0x46, FrameWidth = 0x47, FrameHeight = 0x48, FrameTopMargin = 0x49, 
-        FrameBottomMargin = 0x4a, FrameLeftMargin = 0x4b, FrameRightMargin = 0x4c, FrameBorderBrush = 0x4d, FrameBorderStyle = 0x4e, 
-        TableColumns = 0x4f, TableColumnWidthConstraints = 0x50, TableCellSpacing = 0x51, TableCellPadding = 0x52, TableHeaderRowCount = 0x53, 
-        TableBorderCollapse = 0x54, TableCellRowSpan = 0x55, TableCellColumnSpan = 0x56, TableCellTopPadding = 0x57, TableCellBottomPadding = 0x58, 
-        TableCellLeftPadding = 0x59, TableCellRightPadding = 0x5a, TableCellTopBorder = 0x5b, TableCellBottomBorder = 0x5c, TableCellLeftBorder = 0x5d, 
-        TableCellRightBorder = 0x5e, TableCellTopBorderStyle = 0x5f, TableCellBottomBorderStyle = 0x60, TableCellLeftBorderStyle = 0x61, TableCellRightBorderStyle = 0x62, 
-        TableCellTopBorderBrush = 0x63, TableCellBottomBorderBrush = 0x64, TableCellLeftBorderBrush = 0x65, TableCellRightBorderBrush = 0x66, ImageName = 0x67, 
-        ImageTitle = 0x68, ImageAltText = 0x69, ImageWidth = 0x6a, ImageHeight = 0x6b, ImageQuality = 0x6c, 
-        FullWidthSelection = 0x6d, PageBreakPolicy = 0x6e, UserProperty = 0x6f
+    QTextFormat_FormatType* {.header:headerFile,importcpp:"QTextFormat::FormatType".} = enum InvalidFormat = -1, BlockFormat = 0x1, CharFormat = 0x2, ListFormat = 0x3, 
+        FrameFormat = 0x5, UserFormat = 0x64
+    QTextFormat_Property* {.header:headerFile,importcpp:"QTextFormat::Property".} = enum ObjectIndex = 0, CssFloat = 0x800, LayoutDirection = 0x801, OutlinePen = 0x810, 
+        BackgroundBrush = 0x820, ForegroundBrush = 0x821, BackgroundImageUrl = 0x823, BlockAlignment = 0x1010, BlockTopMargin = 0x1030, 
+        BlockBottomMargin = 0x1031, BlockLeftMargin = 0x1032, BlockRightMargin = 0x1033, TextIndent = 0x1034, TabPositions = 0x1035, 
+        BlockIndent = 0x1040, LineHeight = 0x1048, LineHeightType = 0x1049, BlockNonBreakableLines = 0x1050, BlockTrailingHorizontalRulerWidth = 0x1060, 
+        HeadingLevel = 0x1070, BlockQuoteLevel = 0x1080, BlockCodeLanguage = 0x1090, BlockCodeFence = 0x1091, BlockMarker = 0x10a0, 
+        FirstFontProperty = 0x1fe0, FontLetterSpacing = 0x1fe1, FontWordSpacing = 0x1fe2, FontStyleHint = 0x1fe3, FontStyleStrategy = 0x1fe4, 
+        FontKerning = 0x1fe5, FontHintingPreference = 0x1fe6, FontFamilies = 0x1fe7, FontStyleName = 0x1fe8, FontLetterSpacingType = 0x1fe9, 
+        FontStretch = 0x1fea, FontFamily = 0x2000, FontPointSize = 0x2001, FontSizeAdjustment = 0x2002, FontWeight = 0x2003, 
+        FontItalic = 0x2004, FontUnderline = 0x2005, FontOverline = 0x2006, FontStrikeOut = 0x2007, FontFixedPitch = 0x2008, 
+        FontPixelSize = 0x2009, OldTextUnderlineColor = 0x2010, TextUnderlineColor = 0x2020, TextVerticalAlignment = 0x2021, TextOutline = 0x2022, 
+        TextUnderlineStyle = 0x2023, TextToolTip = 0x2024, TextSuperScriptBaseline = 0x2025, TextSubScriptBaseline = 0x2026, TextBaselineOffset = 0x2027, 
+        IsAnchor = 0x2030, AnchorHref = 0x2031, AnchorName = 0x2032, OldFontLetterSpacingType = 0x2033, OldFontStretch = 0x2034, 
+        ObjectType = 0x2f00, ListStyle = 0x3000, ListIndent = 0x3001, ListNumberPrefix = 0x3002, ListNumberSuffix = 0x3003, 
+        FrameBorder = 0x4000, FrameMargin = 0x4001, FramePadding = 0x4002, FrameWidth = 0x4003, FrameHeight = 0x4004, 
+        FrameTopMargin = 0x4005, FrameBottomMargin = 0x4006, FrameLeftMargin = 0x4007, FrameRightMargin = 0x4008, FrameBorderBrush = 0x4009, 
+        FrameBorderStyle = 0x4010, TableColumns = 0x4100, TableColumnWidthConstraints = 0x4101, TableCellSpacing = 0x4102, TableCellPadding = 0x4103, 
+        TableHeaderRowCount = 0x4104, TableBorderCollapse = 0x4105, TableCellRowSpan = 0x4810, TableCellColumnSpan = 0x4811, TableCellTopPadding = 0x4812, 
+        TableCellBottomPadding = 0x4813, TableCellLeftPadding = 0x4814, TableCellRightPadding = 0x4815, TableCellTopBorder = 0x4816, TableCellBottomBorder = 0x4817, 
+        TableCellLeftBorder = 0x4818, TableCellRightBorder = 0x4819, TableCellTopBorderStyle = 0x481a, TableCellBottomBorderStyle = 0x481b, TableCellLeftBorderStyle = 0x481c, 
+        TableCellRightBorderStyle = 0x481d, TableCellTopBorderBrush = 0x481e, TableCellBottomBorderBrush = 0x481f, TableCellLeftBorderBrush = 0x4820, TableCellRightBorderBrush = 0x4821, 
+        ImageName = 0x5000, ImageTitle = 0x5001, ImageAltText = 0x5002, ImageWidth = 0x5010, ImageHeight = 0x5011, 
+        ImageQuality = 0x5014, FullWidthSelection = 0x6000, PageBreakPolicy = 0x7000, UserProperty = 0x100000
     QTextFormat_ObjectTypes* {.header:headerFile,importcpp:"QTextFormat::ObjectTypes".} = enum NoObject = 0, ImageObject = 0x1, TableObject = 0x2, TableCellObject = 0x3, 
-        UserObject = 0x4
-    QTextFormat_PageBreakFlag* {.header:headerFile,importcpp:"QTextFormat::PageBreakFlag".} = enum PageBreak_Auto = 0, PageBreak_AlwaysBefore = 0x1, PageBreak_AlwaysAfter = 0x2
+        UserObject = 0x1000
+    QTextFormat_PageBreakFlag* {.header:headerFile,importcpp:"QTextFormat::PageBreakFlag".} = enum PageBreak_Auto = 0, PageBreak_AlwaysBefore = 0x1, PageBreak_AlwaysAfter = 0x10
     QTextCharFormat_VerticalAlignment* {.header:headerFile,importcpp:"QTextCharFormat::VerticalAlignment".} = enum AlignNormal = 0, AlignSuperScript = 0x1, AlignSubScript = 0x2, AlignMiddle = 0x3, 
         AlignTop = 0x4, AlignBottom = 0x5, AlignBaseline = 0x6
     QTextCharFormat_UnderlineStyle* {.header:headerFile,importcpp:"QTextCharFormat::UnderlineStyle".} = enum NoUnderline = 0, SingleUnderline = 0x1, DashUnderline = 0x2, DotLine = 0x3, 
@@ -44,8 +43,8 @@ type
     QTextBlockFormat_LineHeightTypes* {.header:headerFile,importcpp:"QTextBlockFormat::LineHeightTypes".} = enum SingleHeight = 0, ProportionalHeight = 0x1, FixedHeight = 0x2, MinimumHeight = 0x3, 
         LineDistanceHeight = 0x4
     QTextBlockFormat_MarkerType* {.header:headerFile,importcpp:"QTextBlockFormat::MarkerType".} = enum NoMarker = 0, Unchecked = 0x1, Checked = 0x2
-    QTextListFormat_Style* {.header:headerFile,importcpp:"QTextListFormat::Style".} = enum ListDisc = 0, ListCircle = 0x1, ListSquare = 0x2, ListDecimal = 0x3, 
-        ListLowerAlpha = 0x4, ListUpperAlpha = 0x5, ListLowerRoman = 0x6, ListUpperRoman = 0x7, ListStyleUndefined = 0x8
+    QTextListFormat_Style* {.header:headerFile,importcpp:"QTextListFormat::Style".} = enum ListUpperRoman = -8, ListLowerRoman = -7, ListUpperAlpha = -6, ListLowerAlpha = -5, 
+        ListDecimal = -4, ListSquare = -3, ListCircle = -2, ListDisc = -1, ListStyleUndefined = 0
     QTextFrameFormat_Position* {.header:headerFile,importcpp:"QTextFrameFormat::Position".} = enum InFlow = 0, FloatLeft = 0x1, FloatRight = 0x2
     QTextFrameFormat_BorderStyle* {.header:headerFile,importcpp:"QTextFrameFormat::BorderStyle".} = enum BorderStyle_None = 0, BorderStyle_Dotted = 0x1, BorderStyle_Dashed = 0x2, BorderStyle_Solid = 0x3, 
         BorderStyle_Double = 0x4, BorderStyle_DotDash = 0x5, BorderStyle_DotDotDash = 0x6, BorderStyle_Groove = 0x7, BorderStyle_Ridge = 0x8, 
@@ -110,6 +109,14 @@ type
     QTextTableCellFormat_PageBreakFlags * = QTextFormat_PageBreakFlags
     QTextFormat_PageBreakFlags * = QFlags[QTextFormat_PageBreakFlag]
 
+# Consts
+const
+    # Global
+    QTextFormat_PropertyFontCapitalization* = 8160 # from anonymous enum FirstFontProperty
+    QTextFormat_PropertyOldFontFamily* = 8192 # from anonymous enum FontFamily
+    QTextFormat_PropertyFontSizeIncrement* = 8194 # from anonymous enum FontSizeAdjustment
+    QTextFormat_PropertyLastFontProperty* = 8201 # from anonymous enum FontPixelSize
+
 # Stuff for class QTextLength
 
 # Public constructors for QTextLength
@@ -137,6 +144,9 @@ proc isEmpty*(this: ptr QTextFormat): bool {.header:headerFile, importcpp:"#.isE
 proc `type`*(this: ptr QTextFormat): cint {.header:headerFile, importcpp:"#.type(@)".} # Public
 proc objectIndex*(this: ptr QTextFormat): cint {.header:headerFile, importcpp:"#.objectIndex(@)".} # Public
 proc setObjectIndex*(this: ptr QTextFormat, `object`: cint) {.header:headerFile, importcpp:"#.setObjectIndex(@)".} # Public
+import nimqt/qtcore/qvariant
+proc property*(this: ptr QTextFormat, propertyId: cint): QVariant {.header:headerFile, importcpp:"#.property(@)".} # Public
+proc setProperty*(this: ptr QTextFormat, propertyId: cint, value: QVariant) {.header:headerFile, importcpp:"#.setProperty(@)".} # Public
 proc clearProperty*(this: ptr QTextFormat, propertyId: cint) {.header:headerFile, importcpp:"#.clearProperty(@)".} # Public
 proc hasProperty*(this: ptr QTextFormat, propertyId: cint): bool {.header:headerFile, importcpp:"#.hasProperty(@)".} # Public
 proc boolProperty*(this: ptr QTextFormat, propertyId: cint): bool {.header:headerFile, importcpp:"#.boolProperty(@)".} # Public
@@ -151,6 +161,9 @@ proc penProperty*(this: ptr QTextFormat, propertyId: cint): QPen {.header:header
 import nimqt/qtgui/qbrush
 proc brushProperty*(this: ptr QTextFormat, propertyId: cint): QBrush {.header:headerFile, importcpp:"#.brushProperty(@)".} # Public
 proc lengthProperty*(this: ptr QTextFormat, propertyId: cint): QTextLength {.header:headerFile, importcpp:"#.lengthProperty(@)".} # Public
+import nimqt/qtcore/qlist
+proc lengthVectorProperty*(this: ptr QTextFormat, propertyId: cint): QList[QTextLength] {.header:headerFile, importcpp:"#.lengthVectorProperty(@)".} # Public
+proc setProperty*(this: ptr QTextFormat, propertyId: cint, lengths: QList[QTextLength]) {.header:headerFile, importcpp:"#.setProperty(@)".} # Public
 proc propertyCount*(this: ptr QTextFormat): cint {.header:headerFile, importcpp:"#.propertyCount(@)".} # Public
 proc setObjectType*(this: ptr QTextFormat, `type`: cint) {.header:headerFile, importcpp:"#.setObjectType(@)".} # Public
 proc objectType*(this: ptr QTextFormat): cint {.header:headerFile, importcpp:"#.objectType(@)".} # Public
@@ -190,7 +203,11 @@ proc setFont*(this: ptr QTextCharFormat, font: QFont, behavior: QTextCharFormat_
 proc font*(this: ptr QTextCharFormat): QFont {.header:headerFile, importcpp:"#.font(@)".} # Public
 proc setFontFamily*(this: ptr QTextCharFormat, family: QString) {.header:headerFile, importcpp:"#.setFontFamily(@)".} # Public
 proc fontFamily*(this: ptr QTextCharFormat): QString {.header:headerFile, importcpp:"#.fontFamily(@)".} # Public
+import nimqt/qtcore/qstringlist
+proc setFontFamilies*(this: ptr QTextCharFormat, families: QStringList) {.header:headerFile, importcpp:"#.setFontFamilies(@)".} # Public
+proc fontFamilies*(this: ptr QTextCharFormat): QVariant {.header:headerFile, importcpp:"#.fontFamilies(@)".} # Public
 proc setFontStyleName*(this: ptr QTextCharFormat, styleName: QString) {.header:headerFile, importcpp:"#.setFontStyleName(@)".} # Public
+proc fontStyleName*(this: ptr QTextCharFormat): QVariant {.header:headerFile, importcpp:"#.fontStyleName(@)".} # Public
 proc setFontPointSize*(this: ptr QTextCharFormat, size: cfloat) {.header:headerFile, importcpp:"#.setFontPointSize(@)".} # Public
 proc fontPointSize*(this: ptr QTextCharFormat): cfloat {.header:headerFile, importcpp:"#.fontPointSize(@)".} # Public
 proc setFontWeight*(this: ptr QTextCharFormat, weight: cint) {.header:headerFile, importcpp:"#.setFontWeight(@)".} # Public
@@ -243,6 +260,8 @@ proc setAnchor*(this: ptr QTextCharFormat, anchor: bool) {.header:headerFile, im
 proc isAnchor*(this: ptr QTextCharFormat): bool {.header:headerFile, importcpp:"#.isAnchor(@)".} # Public
 proc setAnchorHref*(this: ptr QTextCharFormat, value: QString) {.header:headerFile, importcpp:"#.setAnchorHref(@)".} # Public
 proc anchorHref*(this: ptr QTextCharFormat): QString {.header:headerFile, importcpp:"#.anchorHref(@)".} # Public
+proc setAnchorNames*(this: ptr QTextCharFormat, names: QStringList) {.header:headerFile, importcpp:"#.setAnchorNames(@)".} # Public
+proc anchorNames*(this: ptr QTextCharFormat): QStringList {.header:headerFile, importcpp:"#.anchorNames(@)".} # Public
 proc setTableCellRowSpan*(this: ptr QTextCharFormat, tableCellRowSpan: cint) {.header:headerFile, importcpp:"#.setTableCellRowSpan(@)".} # Public
 proc tableCellRowSpan*(this: ptr QTextCharFormat): cint {.header:headerFile, importcpp:"#.tableCellRowSpan(@)".} # Public
 proc setTableCellColumnSpan*(this: ptr QTextCharFormat, tableCellColumnSpan: cint) {.header:headerFile, importcpp:"#.setTableCellColumnSpan(@)".} # Public
@@ -278,6 +297,9 @@ proc setNonBreakableLines*(this: ptr QTextBlockFormat, b: bool) {.header:headerF
 proc nonBreakableLines*(this: ptr QTextBlockFormat): bool {.header:headerFile, importcpp:"#.nonBreakableLines(@)".} # Public
 proc setPageBreakPolicy*(this: ptr QTextBlockFormat, flags: QTextFormat_PageBreakFlags) {.header:headerFile, importcpp:"#.setPageBreakPolicy(@)".} # Public
 proc pageBreakPolicy*(this: ptr QTextBlockFormat): QTextFormat_PageBreakFlags {.header:headerFile, importcpp:"#.pageBreakPolicy(@)".} # Public
+import nimqt/qtgui/qtextoption
+proc setTabPositions*(this: ptr QTextBlockFormat, tabs: QList[QTextOption_Tab]) {.header:headerFile, importcpp:"#.setTabPositions(@)".} # Public
+proc tabPositions*(this: ptr QTextBlockFormat): QList[QTextOption_Tab] {.header:headerFile, importcpp:"#.tabPositions(@)".} # Public
 proc setMarker*(this: ptr QTextBlockFormat, marker: QTextBlockFormat_MarkerType) {.header:headerFile, importcpp:"#.setMarker(@)".} # Public
 proc marker*(this: ptr QTextBlockFormat): QTextBlockFormat_MarkerType {.header:headerFile, importcpp:"#.marker(@)".} # Public
 # Stuff for class QTextListFormat
@@ -355,6 +377,8 @@ proc newQTextTableFormat*(): ptr QTextTableFormat {. header:headerFile, importcp
 proc isValid*(this: ptr QTextTableFormat): bool {.header:headerFile, importcpp:"#.isValid(@)".} # Public
 proc columns*(this: ptr QTextTableFormat): cint {.header:headerFile, importcpp:"#.columns(@)".} # Public
 proc setColumns*(this: ptr QTextTableFormat, columns: cint) {.header:headerFile, importcpp:"#.setColumns(@)".} # Public
+proc setColumnWidthConstraints*(this: ptr QTextTableFormat, constraints: QList[QTextLength]) {.header:headerFile, importcpp:"#.setColumnWidthConstraints(@)".} # Public
+proc columnWidthConstraints*(this: ptr QTextTableFormat): QList[QTextLength] {.header:headerFile, importcpp:"#.columnWidthConstraints(@)".} # Public
 proc clearColumnWidthConstraints*(this: ptr QTextTableFormat) {.header:headerFile, importcpp:"#.clearColumnWidthConstraints(@)".} # Public
 proc cellSpacing*(this: ptr QTextTableFormat): cfloat {.header:headerFile, importcpp:"#.cellSpacing(@)".} # Public
 proc setCellSpacing*(this: ptr QTextTableFormat, spacing: cfloat) {.header:headerFile, importcpp:"#.setCellSpacing(@)".} # Public
@@ -411,9 +435,13 @@ proc rightBorderBrush*(this: ptr QTextTableCellFormat): QBrush {.header:headerFi
 proc setBorderBrush*(this: ptr QTextTableCellFormat, brush: QBrush) {.header:headerFile, importcpp:"#.setBorderBrush(@)".} # Public
 
 export qfont
+export qstringlist
 export qstring
+export qtextoption
 export qnamespace
+export qlist
 export qbrush
+export qvariant
 export qflags
 export qpen
 export qcolor

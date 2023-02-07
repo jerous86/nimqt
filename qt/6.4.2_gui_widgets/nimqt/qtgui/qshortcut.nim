@@ -33,6 +33,9 @@ proc static_QShortcut_tr*(s: ptr char, c: ptr char): QString {.header:headerFile
 proc setKey*(this: ptr QShortcut, key: QKeySequence) {.header:headerFile, importcpp:"#.setKey(@)".} # Public
 proc key*(this: ptr QShortcut): QKeySequence {.header:headerFile, importcpp:"#.key(@)".} # Public
 proc setKeys*(this: ptr QShortcut, key: QKeySequence_StandardKey) {.header:headerFile, importcpp:"#.setKeys(@)".} # Public
+import nimqt/qtcore/qlist
+proc setKeys*(this: ptr QShortcut, keys: QList[QKeySequence]) {.header:headerFile, importcpp:"#.setKeys(@)".} # Public
+proc keys*(this: ptr QShortcut): QList[QKeySequence] {.header:headerFile, importcpp:"#.keys(@)".} # Public
 proc setEnabled*(this: ptr QShortcut, enable: bool) {.header:headerFile, importcpp:"#.setEnabled(@)".} # Public
 proc isEnabled*(this: ptr QShortcut): bool {.header:headerFile, importcpp:"#.isEnabled(@)".} # Public
 proc setContext*(this: ptr QShortcut, context: Qt_ShortcutContext) {.header:headerFile, importcpp:"#.setContext(@)".} # Public
@@ -51,6 +54,7 @@ proc event*(this: ptr QShortcut, e: ptr QEvent): bool {.header:headerFile, impor
 
 export qstring
 export qnamespace
+export qlist
 export qkeysequence
 export qobject
 export qcoreevent

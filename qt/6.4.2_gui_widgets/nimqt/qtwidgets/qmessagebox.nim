@@ -10,15 +10,14 @@ type
     # Global
     QMessageBox_Icon* {.header:headerFile,importcpp:"QMessageBox::Icon".} = enum NoIcon = 0, Information = 0x1, Warning = 0x2, Critical = 0x3, 
         Question = 0x4
-    QMessageBox_ButtonRole* {.header:headerFile,importcpp:"QMessageBox::ButtonRole".} = enum InvalidRole = 0, AcceptRole = 0x1, RejectRole = 0x2, DestructiveRole = 0x3, 
-        ActionRole = 0x4, HelpRole = 0x5, YesRole = 0x6, NoRole = 0x7, ResetRole = 0x8, 
-        ApplyRole = 0x9, NRoles = 0xa
-    QMessageBox_StandardButton* {.header:headerFile,importcpp:"QMessageBox::StandardButton".} = enum NoButton = 0, Ok = 0x1, Save = 0x2, SaveAll = 0x3, 
-        Open = 0x4, Yes = 0x5, YesToAll = 0x6, No = 0x7, NoToAll = 0x8, 
-        Abort = 0x9, Retry = 0xa, Ignore = 0xb, Close = 0xc, Cancel = 0xd, 
-        Discard = 0xe, Help = 0xf, Apply = 0x10, Reset = 0x11, RestoreDefaults = 0x12, 
-        FirstButton = 0x13, LastButton = 0x14, YesAll = 0x15, NoAll = 0x16, Default = 0x17, 
-        Escape = 0x18, FlagMask = 0x19, ButtonMask = 0x1a
+    QMessageBox_ButtonRole* {.header:headerFile,importcpp:"QMessageBox::ButtonRole".} = enum InvalidRole = -1, AcceptRole = 0, RejectRole = 0x1, DestructiveRole = 0x2, 
+        ActionRole = 0x3, HelpRole = 0x4, YesRole = 0x5, NoRole = 0x6, ResetRole = 0x7, 
+        ApplyRole = 0x8, NRoles = 0x9
+    QMessageBox_StandardButton* {.header:headerFile,importcpp:"QMessageBox::StandardButton".} = enum ButtonMask = -769, NoButton = 0, Default = 0x100, Escape = 0x200, 
+        FlagMask = 0x300, Ok = 0x400, Save = 0x800, SaveAll = 0x1000, Open = 0x2000, 
+        Yes = 0x4000, YesToAll = 0x8000, No = 0x10000, NoToAll = 0x20000, Abort = 0x40000, 
+        Retry = 0x80000, Ignore = 0x100000, Close = 0x200000, Cancel = 0x400000, Discard = 0x800000, 
+        Help = 0x1000000, Apply = 0x2000000, Reset = 0x4000000, RestoreDefaults = 0x8000000
     QMessageBox* {.header:headerFile,importcpp:"QMessageBox" ,pure.} = object of QDialog
 {.push warning[Deprecated]: on.}
 import nimqt/qtwidgets/qwidget
@@ -34,6 +33,14 @@ type
     QMessageBox_PaintDeviceMetric * = QPaintDevice_PaintDeviceMetric
     QMessageBox_Button * = QMessageBox_StandardButton
     QMessageBox_StandardButtons * = QFlags[QMessageBox_StandardButton]
+
+# Consts
+const
+    # Global
+    QMessageBox_StandardButtonFirstButton* = 1024 # from anonymous enum Ok
+    QMessageBox_StandardButtonYesAll* = 32768 # from anonymous enum YesToAll
+    QMessageBox_StandardButtonNoAll* = 131072 # from anonymous enum NoToAll
+    QMessageBox_StandardButtonLastButton* = 134217728 # from anonymous enum RestoreDefaults
 
 # Stuff for class QMessageBox
 
@@ -65,6 +72,8 @@ proc addButton*(this: ptr QMessageBox, button: QMessageBox_StandardButton): ptr 
 proc removeButton*(this: ptr QMessageBox, button: ptr QAbstractButton) {.header:headerFile, importcpp:"#.removeButton(@)".} # Public
 import nimqt/qtcore/qobject
 proc open*(this: ptr QMessageBox, receiver: ptr QObject, member: ptr char) {.header:headerFile, importcpp:"#.open(@)".} # Public
+import nimqt/qtcore/qlist
+proc buttons*(this: ptr QMessageBox): QList[ptr QAbstractButton] {.header:headerFile, importcpp:"#.buttons(@)".} # Public
 proc buttonRole*(this: ptr QMessageBox, button: ptr QAbstractButton): QMessageBox_ButtonRole {.header:headerFile, importcpp:"#.buttonRole(@)".} # Public
 proc setStandardButtons*(this: ptr QMessageBox, buttons: QFlags[QMessageBox_StandardButton]) {.header:headerFile, importcpp:"#.setStandardButtons(@)".} # Public
 proc standardButtons*(this: ptr QMessageBox): QFlags[QMessageBox_StandardButton] {.header:headerFile, importcpp:"#.standardButtons(@)".} # Public
@@ -172,6 +181,7 @@ export qpushbutton
 export qstring
 export qcheckbox
 export qnamespace
+export qlist
 export qdialog
 export qabstractbutton
 export qwidget

@@ -11,8 +11,8 @@ type
     QTextStream_RealNumberNotation* {.header:headerFile,importcpp:"QTextStream::RealNumberNotation".} = enum SmartNotation = 0, FixedNotation = 0x1, ScientificNotation = 0x2
     QTextStream_FieldAlignment* {.header:headerFile,importcpp:"QTextStream::FieldAlignment".} = enum AlignLeft = 0, AlignRight = 0x1, AlignCenter = 0x2, AlignAccountingStyle = 0x3
     QTextStream_Status* {.header:headerFile,importcpp:"QTextStream::Status".} = enum Ok = 0, ReadPastEnd = 0x1, ReadCorruptData = 0x2, WriteFailed = 0x3
-    QTextStream_NumberFlag* {.header:headerFile,importcpp:"QTextStream::NumberFlag".} = enum ShowBase = 0, ForcePoint = 0x1, ForceSign = 0x2, UppercaseBase = 0x3, 
-        UppercaseDigits = 0x4
+    QTextStream_NumberFlag* {.header:headerFile,importcpp:"QTextStream::NumberFlag".} = enum ShowBase = 0x1, ForcePoint = 0x2, ForceSign = 0x4, UppercaseBase = 0x8, 
+        UppercaseDigits = 0x10
     QTextStream* {.header:headerFile,importcpp:"QTextStream" ,pure.} = object of QIODeviceBase
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags

@@ -33,9 +33,15 @@ import nimqt/qtcore/qstring
 proc static_QRubberBand_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QRubberBand::tr(@)".} # Public static
 proc static_QRubberBand_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QRubberBand::tr(@)".} # Public static
 proc shape*(this: ptr QRubberBand): QRubberBand_Shape {.header:headerFile, importcpp:"#.shape(@)".} # Public
+import nimqt/qtcore/qrect
+proc setGeometry*(this: ptr QRubberBand, r: QRect) {.header:headerFile, importcpp:"#.setGeometry(@)".} # Public
 proc setGeometry*(this: ptr QRubberBand, x: cint, y: cint, w: cint, h: cint) {.header:headerFile, importcpp:"#.setGeometry(@)".} # Public
 proc move*(this: ptr QRubberBand, x: cint, y: cint) {.header:headerFile, importcpp:"#.move(@)".} # Public
+import nimqt/qtcore/qpoint
+proc move*(this: ptr QRubberBand, p: QPoint) {.header:headerFile, importcpp:"#.move(@)".} # Public
 proc resize*(this: ptr QRubberBand, w: cint, h: cint) {.header:headerFile, importcpp:"#.resize(@)".} # Public
+import nimqt/qtcore/qsize
+proc resize*(this: ptr QRubberBand, s: QSize) {.header:headerFile, importcpp:"#.resize(@)".} # Public
 
 # Protected methods methods for QRubberBand
 import nimqt/qtcore/qcoreevent
@@ -49,6 +55,9 @@ proc moveEvent*(this: ptr QRubberBand, arg_0: ptr QMoveEvent) {.header:headerFil
 
 export qevent
 export qstring
+export qsize
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent

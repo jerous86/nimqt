@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QMdiSubWindow_SubWindowOption* {.header:headerFile,importcpp:"QMdiSubWindow::SubWindowOption".} = enum AllowOutsideAreaHorizontally = 0, AllowOutsideAreaVertically = 0x1, RubberBandResize = 0x2, RubberBandMove = 0x3
+    QMdiSubWindow_SubWindowOption* {.header:headerFile,importcpp:"QMdiSubWindow::SubWindowOption".} = enum AllowOutsideAreaHorizontally = 0x1, AllowOutsideAreaVertically = 0x2, RubberBandResize = 0x4, RubberBandMove = 0x8
     QMdiSubWindow* {.header:headerFile,importcpp:"QMdiSubWindow" ,pure.} = object of QWidget
 {.push warning[Deprecated]: on.}
 import nimqt/qtgui/qpaintdevice
@@ -36,6 +36,9 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QMdiSubWindow_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QMdiSubWindow::tr(@)".} # Public static
 proc static_QMdiSubWindow_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QMdiSubWindow::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QMdiSubWindow): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QMdiSubWindow): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc setWidget*(this: ptr QMdiSubWindow, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setWidget(@)".} # Public
 proc widget*(this: ptr QMdiSubWindow): ptr QWidget {.header:headerFile, importcpp:"#.widget(@)".} # Public
 proc maximizedButtonsWidget*(this: ptr QMdiSubWindow): ptr QWidget {.header:headerFile, importcpp:"#.maximizedButtonsWidget(@)".} # Public
@@ -87,6 +90,7 @@ proc childEvent*(this: ptr QMdiSubWindow, childEvent: ptr QChildEvent) {.header:
 export qevent
 export qmenu
 export qstring
+export qsize
 export qnamespace
 export qmdiarea
 export qwidget

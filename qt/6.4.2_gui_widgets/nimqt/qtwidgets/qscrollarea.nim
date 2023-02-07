@@ -41,6 +41,8 @@ proc setWidget*(this: ptr QScrollArea, widget: ptr QWidget) {.header:headerFile,
 proc takeWidget*(this: ptr QScrollArea): ptr QWidget {.header:headerFile, importcpp:"#.takeWidget(@)".} # Public
 proc widgetResizable*(this: ptr QScrollArea): bool {.header:headerFile, importcpp:"#.widgetResizable(@)".} # Public
 proc setWidgetResizable*(this: ptr QScrollArea, resizable: bool) {.header:headerFile, importcpp:"#.setWidgetResizable(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QScrollArea): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc focusNextPrevChild*(this: ptr QScrollArea, next: bool): bool {.header:headerFile, importcpp:"#.focusNextPrevChild(@)".} # Public
 import nimqt/qtcore/qnamespace
 proc alignment*(this: ptr QScrollArea): Qt_Alignment {.header:headerFile, importcpp:"#.alignment(@)".} # Public
@@ -62,9 +64,11 @@ proc eventFilter*(this: ptr QScrollArea, arg_0: ptr QObject, arg_1: ptr QEvent):
 import nimqt/qtgui/qevent
 proc resizeEvent*(this: ptr QScrollArea, arg_0: ptr QResizeEvent) {.header:headerFile, importcpp:"#.resizeEvent(@)".} # Protected
 proc scrollContentsBy*(this: ptr QScrollArea, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollContentsBy(@)".} # Protected
+proc viewportSizeHint*(this: ptr QScrollArea): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected
 
 export qevent
 export qstring
+export qsize
 export qabstractscrollarea
 export qnamespace
 export qwidget

@@ -23,6 +23,10 @@ import nimqt/qtcore/qabstractitemmodel
 # 1 default parameters!
 proc newQCompleter*(model: ptr QAbstractItemModel, parent: ptr QObject): ptr QCompleter {. header:headerFile, importcpp:"new QCompleter(@)" .} #
 proc newQCompleter*(model: ptr QAbstractItemModel): ptr QCompleter {. header:headerFile, importcpp:"new QCompleter(@)" .} #
+import nimqt/qtcore/qstringlist
+# 1 default parameters!
+proc newQCompleter*(completions: QStringList, parent: ptr QObject): ptr QCompleter {. header:headerFile, importcpp:"new QCompleter(@)" .} #
+proc newQCompleter*(completions: QStringList): ptr QCompleter {. header:headerFile, importcpp:"new QCompleter(@)" .} #
 
 # Public methods for QCompleter
 import nimqt/qtcore/qstring
@@ -61,8 +65,13 @@ proc currentCompletion*(this: ptr QCompleter): QString {.header:headerFile, impo
 proc completionModel*(this: ptr QCompleter): ptr QAbstractItemModel {.header:headerFile, importcpp:"#.completionModel(@)".} # Public
 proc completionPrefix*(this: ptr QCompleter): QString {.header:headerFile, importcpp:"#.completionPrefix(@)".} # Public
 proc setCompletionPrefix*(this: ptr QCompleter, prefix: QString) {.header:headerFile, importcpp:"#.setCompletionPrefix(@)".} # Public
+import nimqt/qtcore/qrect
+# 1 default parameters!
+proc complete*(this: ptr QCompleter, rect: QRect) {.header:headerFile, importcpp:"#.complete(@)".} # Public
+proc complete*(this: ptr QCompleter) {.header:headerFile, importcpp:"#.complete(@)".} # Public
 proc setWrapAround*(this: ptr QCompleter, wrap: bool) {.header:headerFile, importcpp:"#.setWrapAround(@)".} # Public
 proc pathFromIndex*(this: ptr QCompleter, index: QModelIndex): QString {.header:headerFile, importcpp:"#.pathFromIndex(@)".} # Public
+proc splitPath*(this: ptr QCompleter, path: QString): QStringList {.header:headerFile, importcpp:"#.splitPath(@)".} # Public
 proc activated*(this: ptr QCompleter, text: QString) {.header:headerFile, importcpp:"#.activated(@)".} # Public
 proc activated*(this: ptr QCompleter, index: QModelIndex) {.header:headerFile, importcpp:"#.activated(@)".} # Public
 proc highlighted*(this: ptr QCompleter, text: QString) {.header:headerFile, importcpp:"#.highlighted(@)".} # Public
@@ -73,10 +82,12 @@ import nimqt/qtcore/qcoreevent
 proc eventFilter*(this: ptr QCompleter, o: ptr QObject, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.eventFilter(@)".} # Protected
 proc event*(this: ptr QCompleter, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 
+export qstringlist
 export qstring
 export qabstractitemview
 export qnamespace
 export qabstractitemmodel
 export qwidget
+export qrect
 export qobject
 export qcoreevent

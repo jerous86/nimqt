@@ -38,6 +38,9 @@ proc newQPushButton*(icon: QIcon, text: QString): ptr QPushButton {. header:head
 # 1 default parameters!
 proc static_QPushButton_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QPushButton::tr(@)".} # Public static
 proc static_QPushButton_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QPushButton::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QPushButton): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QPushButton): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc autoDefault*(this: ptr QPushButton): bool {.header:headerFile, importcpp:"#.autoDefault(@)".} # Public
 proc setAutoDefault*(this: ptr QPushButton, arg_0: bool) {.header:headerFile, importcpp:"#.setAutoDefault(@)".} # Public
 proc isDefault*(this: ptr QPushButton): bool {.header:headerFile, importcpp:"#.isDefault(@)".} # Public
@@ -58,10 +61,14 @@ proc keyPressEvent*(this: ptr QPushButton, arg_0: ptr QKeyEvent) {.header:header
 proc focusInEvent*(this: ptr QPushButton, arg_0: ptr QFocusEvent) {.header:headerFile, importcpp:"#.focusInEvent(@)".} # Protected
 proc focusOutEvent*(this: ptr QPushButton, arg_0: ptr QFocusEvent) {.header:headerFile, importcpp:"#.focusOutEvent(@)".} # Protected
 proc mouseMoveEvent*(this: ptr QPushButton, arg_0: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseMoveEvent(@)".} # Protected
+import nimqt/qtcore/qpoint
+proc hitButton*(this: ptr QPushButton, pos: QPoint): bool {.header:headerFile, importcpp:"#.hitButton(@)".} # Protected
 
 export qevent
 export qmenu
 export qstring
+export qsize
+export qpoint
 export qabstractbutton
 export qwidget
 export qpaintdevice

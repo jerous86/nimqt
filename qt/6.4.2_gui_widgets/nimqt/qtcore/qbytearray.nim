@@ -7,8 +7,7 @@ const headerFile* = "QtCore/qbytearray.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QByteArray_Base64Option* {.header:headerFile,importcpp:"QByteArray::Base64Option".} = enum Base64Encoding = 0, Base64UrlEncoding = 0x1, KeepTrailingEquals = 0x2, OmitTrailingEquals = 0x3, 
-        IgnoreBase64DecodingErrors = 0x4, AbortOnBase64DecodingErrors = 0x5
+    QByteArray_Base64Option* {.header:headerFile,importcpp:"QByteArray::Base64Option".} = enum Base64Encoding = 0, Base64UrlEncoding = 0x1, OmitTrailingEquals = 0x2, AbortOnBase64DecodingErrors = 0x4
     QByteArray_Base64DecodingStatus* {.header:headerFile,importcpp:"QByteArray::Base64DecodingStatus".} = enum Ok = 0, IllegalInputLength = 0x1, IllegalCharacter = 0x2, IllegalPadding = 0x3
     QByteArray* {.header:headerFile,importcpp:"QByteArray" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
@@ -23,6 +22,12 @@ type
     QByteArray_pointer * = ptr char
     QByteArray_const_pointer * = ptr char
     QByteArray_value_type * = char
+
+# Consts
+const
+    # Global
+    QByteArray_Base64OptionKeepTrailingEquals* = 0 # from anonymous enum Base64Encoding
+    QByteArray_Base64OptionIgnoreBase64DecodingErrors* = 0 # from anonymous enum Base64Encoding
 
 # Stuff for class QByteArray
 
@@ -104,6 +109,8 @@ proc replace*(this: QByteArray, before: char, after: char): QByteArray {.header:
 proc `+=`*(this: QByteArray, c: char): QByteArray {.header:headerFile, importcpp:"#.operator+=(@)".} # Public
 proc `+=`*(this: QByteArray, s: ptr char): QByteArray {.header:headerFile, importcpp:"#.operator+=(@)".} # Public
 proc `+=`*(this: QByteArray, a: QByteArray): QByteArray {.header:headerFile, importcpp:"#.operator+=(@)".} # Public
+import nimqt/qtcore/qlist
+proc split*(this: QByteArray, sep: char): QList[QByteArray] {.header:headerFile, importcpp:"#.split(@)".} # Public
 proc repeated*(this: QByteArray, times: cint): QByteArray {.header:headerFile, importcpp:"#.repeated(@)".} # Public
 # 2 default parameters!
 proc toShort*(this: QByteArray, ok: ptr bool, base: cint): cshort {.header:headerFile, importcpp:"#.toShort(@)".} # Public
@@ -228,6 +235,7 @@ proc length*(this: QByteArray): cint {.header:headerFile, importcpp:"#.length(@)
 proc isNull*(this: QByteArray): bool {.header:headerFile, importcpp:"#.isNull(@)".} # Public
 
 export qnamespace
+export qlist
 export qflags
 # Additional code for qtcore/qbytearray
 func newQByteArray*(xs: seq[char]): QbyteArray = (if xs.len>0: newQByteArray(xs[0].unsafeAddr, xs.len.cint) else: newQByteArray())

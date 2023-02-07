@@ -24,17 +24,22 @@ proc static_QGuiApplication_setApplicationDisplayName*(name: QString) {.header:h
 proc static_QGuiApplication_applicationDisplayName*(): QString {.header:headerFile, importcpp:"QGuiApplication::applicationDisplayName(@)".} # Public static
 proc static_QGuiApplication_setDesktopFileName*(name: QString) {.header:headerFile, importcpp:"QGuiApplication::setDesktopFileName(@)".} # Public static
 proc static_QGuiApplication_desktopFileName*(): QString {.header:headerFile, importcpp:"QGuiApplication::desktopFileName(@)".} # Public static
+import nimqt/qtgui/qwindow
+import nimqt/qtcore/qpoint
+proc static_QGuiApplication_topLevelAt*(pos: QPoint): ptr QWindow {.header:headerFile, importcpp:"QGuiApplication::topLevelAt(@)".} # Public static
 import nimqt/qtgui/qicon
 proc static_QGuiApplication_setWindowIcon*(icon: QIcon) {.header:headerFile, importcpp:"QGuiApplication::setWindowIcon(@)".} # Public static
 proc static_QGuiApplication_windowIcon*(): QIcon {.header:headerFile, importcpp:"QGuiApplication::windowIcon(@)".} # Public static
 proc static_QGuiApplication_platformName*(): QString {.header:headerFile, importcpp:"QGuiApplication::platformName(@)".} # Public static
-import nimqt/qtgui/qwindow
 proc static_QGuiApplication_modalWindow*(): ptr QWindow {.header:headerFile, importcpp:"QGuiApplication::modalWindow(@)".} # Public static
 proc static_QGuiApplication_focusWindow*(): ptr QWindow {.header:headerFile, importcpp:"QGuiApplication::focusWindow(@)".} # Public static
 import nimqt/qtcore/qobject
 proc static_QGuiApplication_focusObject*(): ptr QObject {.header:headerFile, importcpp:"QGuiApplication::focusObject(@)".} # Public static
 import nimqt/qtgui/qscreen
 proc static_QGuiApplication_primaryScreen*(): ptr QScreen {.header:headerFile, importcpp:"QGuiApplication::primaryScreen(@)".} # Public static
+import nimqt/qtcore/qlist
+proc static_QGuiApplication_screens*(): QList[ptr QScreen] {.header:headerFile, importcpp:"QGuiApplication::screens(@)".} # Public static
+proc static_QGuiApplication_screenAt*(point: QPoint): ptr QScreen {.header:headerFile, importcpp:"QGuiApplication::screenAt(@)".} # Public static
 proc devicePixelRatio*(this: ptr QGuiApplication): cfloat {.header:headerFile, importcpp:"#.devicePixelRatio(@)".} # Public
 import nimqt/qtgui/qcursor
 proc static_QGuiApplication_overrideCursor*(): ptr QCursor {.header:headerFile, importcpp:"QGuiApplication::overrideCursor(@)".} # Public static
@@ -104,8 +109,10 @@ export qstylehints
 export qcoreapplication
 export qcursor
 export qnamespace
+export qlist
 export qinputmethod
 export qclipboard
+export qpoint
 export qobject
 export qcoreevent
 export qpalette

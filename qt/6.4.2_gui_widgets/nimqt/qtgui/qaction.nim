@@ -10,7 +10,7 @@ type
     # Global
     QAction_MenuRole* {.header:headerFile,importcpp:"QAction::MenuRole".} = enum NoRole = 0, TextHeuristicRole = 0x1, ApplicationSpecificRole = 0x2, AboutQtRole = 0x3, 
         AboutRole = 0x4, PreferencesRole = 0x5, QuitRole = 0x6
-    QAction_Priority* {.header:headerFile,importcpp:"QAction::Priority".} = enum LowPriority = 0, NormalPriority = 0x1, HighPriority = 0x2
+    QAction_Priority* {.header:headerFile,importcpp:"QAction::Priority".} = enum LowPriority = 0, NormalPriority = 0x80, HighPriority = 0x100
     QAction_ActionEvent* {.header:headerFile,importcpp:"QAction::ActionEvent".} = enum Trigger = 0, Hover = 0x1
     QAction* {.header:headerFile,importcpp:"QAction" ,pure.} = object of QObject
 {.push warning[Deprecated]: on.}
@@ -34,6 +34,8 @@ proc newQAction*(icon: QIcon, text: QString): ptr QAction {. header:headerFile, 
 # 1 default parameters!
 proc static_QAction_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QAction::tr(@)".} # Public static
 proc static_QAction_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QAction::tr(@)".} # Public static
+import nimqt/qtcore/qlist
+proc associatedObjects*(this: ptr QAction): QList[ptr QObject] {.header:headerFile, importcpp:"#.associatedObjects(@)".} # Public
 import nimqt/qtgui/qactiongroup
 proc setActionGroup*(this: ptr QAction, group: ptr QActionGroup) {.header:headerFile, importcpp:"#.setActionGroup(@)".} # Public
 proc actionGroup*(this: ptr QAction): ptr QActionGroup {.header:headerFile, importcpp:"#.actionGroup(@)".} # Public
@@ -56,7 +58,9 @@ proc isSeparator*(this: ptr QAction): bool {.header:headerFile, importcpp:"#.isS
 import nimqt/qtgui/qkeysequence
 proc setShortcut*(this: ptr QAction, shortcut: QKeySequence) {.header:headerFile, importcpp:"#.setShortcut(@)".} # Public
 proc shortcut*(this: ptr QAction): QKeySequence {.header:headerFile, importcpp:"#.shortcut(@)".} # Public
+proc setShortcuts*(this: ptr QAction, shortcuts: QList[QKeySequence]) {.header:headerFile, importcpp:"#.setShortcuts(@)".} # Public
 proc setShortcuts*(this: ptr QAction, arg_0: QKeySequence_StandardKey) {.header:headerFile, importcpp:"#.setShortcuts(@)".} # Public
+proc shortcuts*(this: ptr QAction): QList[QKeySequence] {.header:headerFile, importcpp:"#.shortcuts(@)".} # Public
 import nimqt/qtcore/qnamespace
 proc setShortcutContext*(this: ptr QAction, context: Qt_ShortcutContext) {.header:headerFile, importcpp:"#.setShortcutContext(@)".} # Public
 proc shortcutContext*(this: ptr QAction): Qt_ShortcutContext {.header:headerFile, importcpp:"#.shortcutContext(@)".} # Public
@@ -67,6 +71,9 @@ proc setFont*(this: ptr QAction, font: QFont) {.header:headerFile, importcpp:"#.
 proc font*(this: ptr QAction): QFont {.header:headerFile, importcpp:"#.font(@)".} # Public
 proc setCheckable*(this: ptr QAction, arg_0: bool) {.header:headerFile, importcpp:"#.setCheckable(@)".} # Public
 proc isCheckable*(this: ptr QAction): bool {.header:headerFile, importcpp:"#.isCheckable(@)".} # Public
+import nimqt/qtcore/qvariant
+proc data*(this: ptr QAction): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
+proc setData*(this: ptr QAction, `var`: QVariant) {.header:headerFile, importcpp:"#.setData(@)".} # Public
 proc isChecked*(this: ptr QAction): bool {.header:headerFile, importcpp:"#.isChecked(@)".} # Public
 proc isEnabled*(this: ptr QAction): bool {.header:headerFile, importcpp:"#.isEnabled(@)".} # Public
 proc isVisible*(this: ptr QAction): bool {.header:headerFile, importcpp:"#.isVisible(@)".} # Public
@@ -106,7 +113,9 @@ export qactiongroup
 export qfont
 export qstring
 export qnamespace
+export qlist
 export qkeysequence
+export qvariant
 export qobject
 export qcoreevent
 export qicon

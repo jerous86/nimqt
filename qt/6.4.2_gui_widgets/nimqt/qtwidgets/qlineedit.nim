@@ -56,8 +56,13 @@ proc validator*(this: ptr QLineEdit): ptr QValidator {.header:headerFile, import
 import nimqt/qtwidgets/qcompleter
 proc setCompleter*(this: ptr QLineEdit, completer: ptr QCompleter) {.header:headerFile, importcpp:"#.setCompleter(@)".} # Public
 proc completer*(this: ptr QLineEdit): ptr QCompleter {.header:headerFile, importcpp:"#.completer(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QLineEdit): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QLineEdit): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc cursorPosition*(this: ptr QLineEdit): cint {.header:headerFile, importcpp:"#.cursorPosition(@)".} # Public
 proc setCursorPosition*(this: ptr QLineEdit, arg_0: cint) {.header:headerFile, importcpp:"#.setCursorPosition(@)".} # Public
+import nimqt/qtcore/qpoint
+proc cursorPositionAt*(this: ptr QLineEdit, pos: QPoint): cint {.header:headerFile, importcpp:"#.cursorPositionAt(@)".} # Public
 import nimqt/qtcore/qnamespace
 proc setAlignment*(this: ptr QLineEdit, flag: Qt_Alignment) {.header:headerFile, importcpp:"#.setAlignment(@)".} # Public
 proc alignment*(this: ptr QLineEdit): Qt_Alignment {.header:headerFile, importcpp:"#.alignment(@)".} # Public
@@ -114,6 +119,9 @@ proc returnPressed*(this: ptr QLineEdit) {.header:headerFile, importcpp:"#.retur
 proc editingFinished*(this: ptr QLineEdit) {.header:headerFile, importcpp:"#.editingFinished(@)".} # Public
 proc selectionChanged*(this: ptr QLineEdit) {.header:headerFile, importcpp:"#.selectionChanged(@)".} # Public
 proc inputRejected*(this: ptr QLineEdit) {.header:headerFile, importcpp:"#.inputRejected(@)".} # Public
+import nimqt/qtcore/qvariant
+proc inputMethodQuery*(this: ptr QLineEdit, arg_1: Qt_InputMethodQuery): QVariant {.header:headerFile, importcpp:"#.inputMethodQuery(@)".} # Public
+proc inputMethodQuery*(this: ptr QLineEdit, property: Qt_InputMethodQuery, argument: QVariant): QVariant {.header:headerFile, importcpp:"#.inputMethodQuery(@)".} # Public
 import nimqt/qtcore/qcoreevent
 proc timerEvent*(this: ptr QLineEdit, arg_0: ptr QTimerEvent) {.header:headerFile, importcpp:"#.timerEvent(@)".} # Public
 proc event*(this: ptr QLineEdit, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Public
@@ -136,15 +144,21 @@ proc dropEvent*(this: ptr QLineEdit, arg_0: ptr QDropEvent) {.header:headerFile,
 proc changeEvent*(this: ptr QLineEdit, arg_0: ptr QEvent) {.header:headerFile, importcpp:"#.changeEvent(@)".} # Protected
 proc contextMenuEvent*(this: ptr QLineEdit, arg_0: ptr QContextMenuEvent) {.header:headerFile, importcpp:"#.contextMenuEvent(@)".} # Protected
 proc inputMethodEvent*(this: ptr QLineEdit, arg_0: ptr QInputMethodEvent) {.header:headerFile, importcpp:"#.inputMethodEvent(@)".} # Protected
+import nimqt/qtcore/qrect
+proc cursorRect*(this: ptr QLineEdit): QRect {.header:headerFile, importcpp:"#.cursorRect(@)".} # Protected
 
 export qevent
 export qmenu
 export qstring
+export qsize
 export qcompleter
 export qaction
 export qnamespace
 export qvalidator
+export qpoint
+export qvariant
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qicon

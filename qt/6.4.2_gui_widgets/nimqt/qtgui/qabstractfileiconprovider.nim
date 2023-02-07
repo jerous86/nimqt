@@ -9,7 +9,7 @@ type
     # Global
     QAbstractFileIconProvider_IconType* {.header:headerFile,importcpp:"QAbstractFileIconProvider::IconType".} = enum Computer = 0, Desktop = 0x1, Trashcan = 0x2, Network = 0x3, 
         Drive = 0x4, Folder = 0x5, File = 0x6
-    QAbstractFileIconProvider_Option* {.header:headerFile,importcpp:"QAbstractFileIconProvider::Option".} = enum DontUseCustomDirectoryIcons = 0
+    QAbstractFileIconProvider_Option* {.header:headerFile,importcpp:"QAbstractFileIconProvider::Option".} = enum DontUseCustomDirectoryIcons = 0x1
     QAbstractFileIconProvider* {.header:headerFile,importcpp:"QAbstractFileIconProvider" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags

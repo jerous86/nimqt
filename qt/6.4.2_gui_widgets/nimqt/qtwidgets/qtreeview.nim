@@ -91,11 +91,19 @@ proc wordWrap*(this: ptr QTreeView): bool {.header:headerFile, importcpp:"#.word
 proc setTreePosition*(this: ptr QTreeView, logicalIndex: cint) {.header:headerFile, importcpp:"#.setTreePosition(@)".} # Public
 proc treePosition*(this: ptr QTreeView): cint {.header:headerFile, importcpp:"#.treePosition(@)".} # Public
 proc keyboardSearch*(this: ptr QTreeView, search: QString) {.header:headerFile, importcpp:"#.keyboardSearch(@)".} # Public
+import nimqt/qtcore/qrect
+proc visualRect*(this: ptr QTreeView, index: QModelIndex): QRect {.header:headerFile, importcpp:"#.visualRect(@)".} # Public
 proc scrollTo*(this: ptr QTreeView, index: QModelIndex, hint: QAbstractItemView_ScrollHint) {.header:headerFile, importcpp:"#.scrollTo(@)".} # Public
+import nimqt/qtcore/qpoint
+proc indexAt*(this: ptr QTreeView, p: QPoint): QModelIndex {.header:headerFile, importcpp:"#.indexAt(@)".} # Public
 proc indexAbove*(this: ptr QTreeView, index: QModelIndex): QModelIndex {.header:headerFile, importcpp:"#.indexAbove(@)".} # Public
 proc indexBelow*(this: ptr QTreeView, index: QModelIndex): QModelIndex {.header:headerFile, importcpp:"#.indexBelow(@)".} # Public
 proc doItemsLayout*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.doItemsLayout(@)".} # Public
 proc reset*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.reset(@)".} # Public
+import nimqt/qtcore/qlist
+# 1 default parameters!
+proc dataChanged*(this: ptr QTreeView, topLeft: QModelIndex, bottomRight: QModelIndex, roles: QList[cint]) {.header:headerFile, importcpp:"#.dataChanged(@)".} # Public
+proc dataChanged*(this: ptr QTreeView, topLeft: QModelIndex, bottomRight: QModelIndex) {.header:headerFile, importcpp:"#.dataChanged(@)".} # Public
 proc selectAll*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.selectAll(@)".} # Public
 proc expanded*(this: ptr QTreeView, index: QModelIndex) {.header:headerFile, importcpp:"#.expanded(@)".} # Public
 proc collapsed*(this: ptr QTreeView, index: QModelIndex) {.header:headerFile, importcpp:"#.collapsed(@)".} # Public
@@ -133,6 +141,7 @@ proc paintEvent*(this: ptr QTreeView, event: ptr QPaintEvent) {.header:headerFil
 import nimqt/qtgui/qpainter
 import nimqt/qtgui/qregion
 proc drawTree*(this: ptr QTreeView, painter: ptr QPainter, region: QRegion) {.header:headerFile, importcpp:"#.drawTree(@)".} # Protected
+proc drawBranches*(this: ptr QTreeView, painter: ptr QPainter, rect: QRect, index: QModelIndex) {.header:headerFile, importcpp:"#.drawBranches(@)".} # Protected
 proc mousePressEvent*(this: ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mousePressEvent(@)".} # Protected
 proc mouseReleaseEvent*(this: ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseReleaseEvent(@)".} # Protected
 proc mouseDoubleClickEvent*(this: ptr QTreeView, event: ptr QMouseEvent) {.header:headerFile, importcpp:"#.mouseDoubleClickEvent(@)".} # Protected
@@ -141,6 +150,8 @@ proc keyPressEvent*(this: ptr QTreeView, event: ptr QKeyEvent) {.header:headerFi
 proc dragMoveEvent*(this: ptr QTreeView, event: ptr QDragMoveEvent) {.header:headerFile, importcpp:"#.dragMoveEvent(@)".} # Protected
 proc viewportEvent*(this: ptr QTreeView, event: ptr QEvent): bool {.header:headerFile, importcpp:"#.viewportEvent(@)".} # Protected
 proc updateGeometries*(this: ptr QTreeView) {.header:headerFile, importcpp:"#.updateGeometries(@)".} # Protected
+import nimqt/qtcore/qsize
+proc viewportSizeHint*(this: ptr QTreeView): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected
 proc sizeHintForColumn*(this: ptr QTreeView, column: cint): cint {.header:headerFile, importcpp:"#.sizeHintForColumn(@)".} # Protected
 proc indexRowSizeHint*(this: ptr QTreeView, index: QModelIndex): cint {.header:headerFile, importcpp:"#.indexRowSizeHint(@)".} # Protected
 proc rowHeight*(this: ptr QTreeView, index: QModelIndex): cint {.header:headerFile, importcpp:"#.rowHeight(@)".} # Protected
@@ -151,13 +162,17 @@ proc currentChanged*(this: ptr QTreeView, current: QModelIndex, previous: QModel
 export qevent
 export qstring
 export qheaderview
+export qsize
 export qabstractitemview
 export qabstractscrollarea
 export qnamespace
+export qlist
 export qabstractitemmodel
 export qpainter
+export qpoint
 export qwidget
 export qregion
+export qrect
 export qpaintdevice
 export qcoreevent
 export qframe

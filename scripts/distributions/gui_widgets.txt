@@ -83,8 +83,6 @@ QScreen # qtgui/qscreen class QScreen :: QObject
 QBitmap # qtgui/qbitmap class QBitmap :: QPixmap
 QTextCursor # qtgui/qtextcursor class QTextCursor ::
 QOffscreenSurface # qtgui/qoffscreensurface class QOffscreenSurface :: QObject < QSurface
-QAccessibleObject # qtgui/qaccessibleobject class QAccessibleObject :: QAccessibleInterface
-QAccessibleApplication # qtgui/qaccessibleobject class QAccessibleApplication :: QAccessibleObject
 QKeySequence # qtgui/qkeysequence class QKeySequence ::
 QInputDevice # qtgui/qinputdevice class QInputDevice :: QObject
 QRegion # qtgui/qregion class QRegion ::
@@ -107,14 +105,8 @@ QShortcut # qtgui/qshortcut class QShortcut :: QObject
 QPainterPath # qtgui/qpainterpath class QPainterPath ::
 QPainterPath_Element # qtgui/qpainterpath class QPainterPath_Element ::
 QPainterPathStroker # qtgui/qpainterpath class QPainterPathStroker ::
-QVulkanFunctions # qtgui/qvulkanfunctions class QVulkanFunctions ::
-QVulkanDeviceFunctions # qtgui/qvulkanfunctions class QVulkanDeviceFunctions ::
-QAccessiblePlugin # qtgui/qaccessibleplugin class QAccessiblePlugin :: QObject
 QIconEnginePlugin # qtgui/qiconengineplugin class QIconEnginePlugin :: QObject
 QTest_QTouchEventSequence # qtgui/qtestsupport_gui class QTest_QTouchEventSequence ::
-QAccessible # qtgui/qaccessible_base class QAccessible ::
-QAccessible_State # qtgui/qaccessible_base class QAccessible_State ::
-QAccessible_ActivationObserver # qtgui/qaccessible_base class QAccessible_ActivationObserver ::
 QPolygon # qtgui/qpolygon class QPolygon ::
 QPolygonF # qtgui/qpolygon class QPolygonF ::
 QRasterWindow # qtgui/qrasterwindow class QRasterWindow :: QPaintDeviceWindow
@@ -127,8 +119,6 @@ QStandardItemModel # qtgui/qstandarditemmodel class QStandardItemModel :: QAbstr
 QFileSystemModel # qtgui/qfilesystemmodel class QFileSystemModel :: QAbstractItemModel
 QColorSpace # qtgui/qcolorspace class QColorSpace ::
 QFont # qtgui/qfont class QFont ::
-QVulkanWindowRenderer # qtgui/qvulkanwindow class QVulkanWindowRenderer ::
-QVulkanWindow # qtgui/qvulkanwindow class QVulkanWindow :: QWindow
 QImageIOHandler # qtgui/qimageiohandler class QImageIOHandler ::
 QImageIOPlugin # qtgui/qimageiohandler class QImageIOPlugin :: QObject
 QPen # qtgui/qpen class QPen ::
@@ -146,8 +136,6 @@ QPointingDevice # qtgui/qpointingdevice class QPointingDevice :: QInputDevice
 QPaintDeviceWindow # qtgui/qpaintdevicewindow class QPaintDeviceWindow :: QWindow < QPaintDevice
 QFontInfo # qtgui/qfontinfo class QFontInfo ::
 QColor # qtgui/qcolor class QColor ::
-QAccessibleBridge # qtgui/qaccessiblebridge class QAccessibleBridge ::
-QAccessibleBridgePlugin # qtgui/qaccessiblebridge class QAccessibleBridgePlugin :: QObject
 QSyntaxHighlighter # qtgui/qsyntaxhighlighter class QSyntaxHighlighter :: QObject
 QPixmap # qtgui/qpixmap class QPixmap :: QPaintDevice
 QTextLength # qtgui/qtextformat class QTextLength ::
@@ -194,24 +182,6 @@ QRawFont # qtgui/qrawfont class QRawFont ::
 QFontMetrics # qtgui/qfontmetrics class QFontMetrics ::
 QFontMetricsF # qtgui/qfontmetrics class QFontMetricsF ::
 QBackingStore # qtgui/qbackingstore class QBackingStore ::
-QAccessibleInterface # qtgui/qaccessible class QAccessibleInterface ::
-QAccessibleTextInterface # qtgui/qaccessible class QAccessibleTextInterface ::
-QAccessibleEditableTextInterface # qtgui/qaccessible class QAccessibleEditableTextInterface ::
-QAccessibleValueInterface # qtgui/qaccessible class QAccessibleValueInterface ::
-QAccessibleTableCellInterface # qtgui/qaccessible class QAccessibleTableCellInterface ::
-QAccessibleTableInterface # qtgui/qaccessible class QAccessibleTableInterface ::
-QAccessibleActionInterface # qtgui/qaccessible class QAccessibleActionInterface ::
-QAccessibleImageInterface # qtgui/qaccessible class QAccessibleImageInterface ::
-QAccessibleHyperlinkInterface # qtgui/qaccessible class QAccessibleHyperlinkInterface ::
-QAccessibleEvent # qtgui/qaccessible class QAccessibleEvent ::
-QAccessibleStateChangeEvent # qtgui/qaccessible class QAccessibleStateChangeEvent :: QAccessibleEvent
-QAccessibleTextCursorEvent # qtgui/qaccessible class QAccessibleTextCursorEvent :: QAccessibleEvent
-QAccessibleTextSelectionEvent # qtgui/qaccessible class QAccessibleTextSelectionEvent :: QAccessibleTextCursorEvent
-QAccessibleTextInsertEvent # qtgui/qaccessible class QAccessibleTextInsertEvent :: QAccessibleTextCursorEvent
-QAccessibleTextRemoveEvent # qtgui/qaccessible class QAccessibleTextRemoveEvent :: QAccessibleTextCursorEvent
-QAccessibleTextUpdateEvent # qtgui/qaccessible class QAccessibleTextUpdateEvent :: QAccessibleTextCursorEvent
-QAccessibleValueChangeEvent # qtgui/qaccessible class QAccessibleValueChangeEvent :: QAccessibleEvent
-QAccessibleTableModelChangeEvent # qtgui/qaccessible class QAccessibleTableModelChangeEvent :: QAccessibleEvent
 QTextItem # qtgui/qpaintengine class QTextItem ::
 QPaintEngine # qtgui/qpaintengine class QPaintEngine ::
 QPaintEngineState # qtgui/qpaintengine class QPaintEngineState ::
@@ -239,7 +209,6 @@ QGraphicsScene # qtwidgets/qgraphicsscene class QGraphicsScene :: QObject
 QDockWidget # qtwidgets/qdockwidget class QDockWidget :: QWidget
 QAbstractButton # qtwidgets/qabstractbutton class QAbstractButton :: QWidget
 QGraphicsLayoutItem # qtwidgets/qgraphicslayoutitem class QGraphicsLayoutItem ::
-QAccessibleWidget # qtwidgets/qaccessiblewidget class QAccessibleWidget :: QAccessibleObject < QAccessibleActionInterface
 QItemDelegate # qtwidgets/qitemdelegate class QItemDelegate :: QAbstractItemDelegate
 QStyledItemDelegate # qtwidgets/qstyleditemdelegate class QStyledItemDelegate :: QAbstractItemDelegate
 QFontComboBox # qtwidgets/qfontcombobox class QFontComboBox :: QComboBox

@@ -8,8 +8,8 @@ import nimqt/qtwidgets/qcombobox
 type
     # Classes and enums found in the C++ code
     # Global
-    QFontComboBox_FontFilter* {.header:headerFile,importcpp:"QFontComboBox::FontFilter".} = enum AllFonts = 0, ScalableFonts = 0x1, NonScalableFonts = 0x2, MonospacedFonts = 0x3, 
-        ProportionalFonts = 0x4
+    QFontComboBox_FontFilter* {.header:headerFile,importcpp:"QFontComboBox::FontFilter".} = enum AllFonts = 0, ScalableFonts = 0x1, NonScalableFonts = 0x2, MonospacedFonts = 0x4, 
+        ProportionalFonts = 0x8
     QFontComboBox* {.header:headerFile,importcpp:"QFontComboBox" ,pure.} = object of QComboBox
 {.push warning[Deprecated]: on.}
 import nimqt/qtwidgets/qwidget
@@ -45,6 +45,8 @@ proc setFontFilters*(this: ptr QFontComboBox, filters: QFlags[QFontComboBox_Font
 proc fontFilters*(this: ptr QFontComboBox): QFlags[QFontComboBox_FontFilter] {.header:headerFile, importcpp:"#.fontFilters(@)".} # Public
 import nimqt/qtgui/qfont
 proc currentFont*(this: ptr QFontComboBox): QFont {.header:headerFile, importcpp:"#.currentFont(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QFontComboBox): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc setSampleTextForSystem*(this: ptr QFontComboBox, writingSystem: QFontDatabase_WritingSystem, sampleText: QString) {.header:headerFile, importcpp:"#.setSampleTextForSystem(@)".} # Public
 proc sampleTextForSystem*(this: ptr QFontComboBox, writingSystem: QFontDatabase_WritingSystem): QString {.header:headerFile, importcpp:"#.sampleTextForSystem(@)".} # Public
 proc setSampleTextForFont*(this: ptr QFontComboBox, fontFamily: QString, sampleText: QString) {.header:headerFile, importcpp:"#.setSampleTextForFont(@)".} # Public
@@ -59,6 +61,7 @@ proc event*(this: ptr QFontComboBox, e: ptr QEvent): bool {.header:headerFile, i
 
 export qfont
 export qstring
+export qsize
 export qfontdatabase
 export qcombobox
 export qwidget

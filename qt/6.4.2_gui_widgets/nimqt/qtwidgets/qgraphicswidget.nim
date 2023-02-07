@@ -23,7 +23,7 @@ type
 # Consts
 const
     # Global
-    QGraphicsWidget_Type* = 0 # from anonymous enum Type
+    QGraphicsWidget_Type* = 11 # from anonymous enum Type
 
 
 export qgraphicsitem

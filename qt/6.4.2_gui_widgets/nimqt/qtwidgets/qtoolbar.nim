@@ -47,18 +47,26 @@ proc addSeparator*(this: ptr QToolBar): ptr QAction {.header:headerFile, importc
 proc insertSeparator*(this: ptr QToolBar, before: ptr QAction): ptr QAction {.header:headerFile, importcpp:"#.insertSeparator(@)".} # Public
 proc addWidget*(this: ptr QToolBar, widget: ptr QWidget): ptr QAction {.header:headerFile, importcpp:"#.addWidget(@)".} # Public
 proc insertWidget*(this: ptr QToolBar, before: ptr QAction, widget: ptr QWidget): ptr QAction {.header:headerFile, importcpp:"#.insertWidget(@)".} # Public
+import nimqt/qtcore/qrect
+proc actionGeometry*(this: ptr QToolBar, action: ptr QAction): QRect {.header:headerFile, importcpp:"#.actionGeometry(@)".} # Public
+import nimqt/qtcore/qpoint
+proc actionAt*(this: ptr QToolBar, p: QPoint): ptr QAction {.header:headerFile, importcpp:"#.actionAt(@)".} # Public
 proc actionAt*(this: ptr QToolBar, x: cint, y: cint): ptr QAction {.header:headerFile, importcpp:"#.actionAt(@)".} # Public
 proc toggleViewAction*(this: ptr QToolBar): ptr QAction {.header:headerFile, importcpp:"#.toggleViewAction(@)".} # Public
+import nimqt/qtcore/qsize
+proc iconSize*(this: ptr QToolBar): QSize {.header:headerFile, importcpp:"#.iconSize(@)".} # Public
 proc toolButtonStyle*(this: ptr QToolBar): Qt_ToolButtonStyle {.header:headerFile, importcpp:"#.toolButtonStyle(@)".} # Public
 proc widgetForAction*(this: ptr QToolBar, action: ptr QAction): ptr QWidget {.header:headerFile, importcpp:"#.widgetForAction(@)".} # Public
 proc isFloatable*(this: ptr QToolBar): bool {.header:headerFile, importcpp:"#.isFloatable(@)".} # Public
 proc setFloatable*(this: ptr QToolBar, floatable: bool) {.header:headerFile, importcpp:"#.setFloatable(@)".} # Public
 proc isFloating*(this: ptr QToolBar): bool {.header:headerFile, importcpp:"#.isFloating(@)".} # Public
+proc setIconSize*(this: ptr QToolBar, iconSize: QSize) {.header:headerFile, importcpp:"#.setIconSize(@)".} # Public
 proc setToolButtonStyle*(this: ptr QToolBar, toolButtonStyle: Qt_ToolButtonStyle) {.header:headerFile, importcpp:"#.setToolButtonStyle(@)".} # Public
 proc actionTriggered*(this: ptr QToolBar, action: ptr QAction) {.header:headerFile, importcpp:"#.actionTriggered(@)".} # Public
 proc movableChanged*(this: ptr QToolBar, movable: bool) {.header:headerFile, importcpp:"#.movableChanged(@)".} # Public
 proc allowedAreasChanged*(this: ptr QToolBar, allowedAreas: Qt_ToolBarAreas) {.header:headerFile, importcpp:"#.allowedAreasChanged(@)".} # Public
 proc orientationChanged*(this: ptr QToolBar, orientation: Qt_Orientation) {.header:headerFile, importcpp:"#.orientationChanged(@)".} # Public
+proc iconSizeChanged*(this: ptr QToolBar, iconSize: QSize) {.header:headerFile, importcpp:"#.iconSizeChanged(@)".} # Public
 proc toolButtonStyleChanged*(this: ptr QToolBar, toolButtonStyle: Qt_ToolButtonStyle) {.header:headerFile, importcpp:"#.toolButtonStyleChanged(@)".} # Public
 proc topLevelChanged*(this: ptr QToolBar, topLevel: bool) {.header:headerFile, importcpp:"#.topLevelChanged(@)".} # Public
 proc visibilityChanged*(this: ptr QToolBar, visible: bool) {.header:headerFile, importcpp:"#.visibilityChanged(@)".} # Public
@@ -73,8 +81,11 @@ proc event*(this: ptr QToolBar, event: ptr QEvent): bool {.header:headerFile, im
 
 export qevent
 export qstring
+export qsize
 export qaction
 export qnamespace
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent

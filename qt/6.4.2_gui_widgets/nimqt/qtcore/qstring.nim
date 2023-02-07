@@ -7,8 +7,8 @@ const headerFile* = "QtCore/qstring.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QString_SectionFlag* {.header:headerFile,importcpp:"QString::SectionFlag".} = enum SectionDefault = 0, SectionSkipEmpty = 0x1, SectionIncludeLeadingSep = 0x2, SectionIncludeTrailingSep = 0x3, 
-        SectionCaseInsensitiveSeps = 0x4
+    QString_SectionFlag* {.header:headerFile,importcpp:"QString::SectionFlag".} = enum SectionDefault = 0, SectionSkipEmpty = 0x1, SectionIncludeLeadingSep = 0x2, SectionIncludeTrailingSep = 0x4, 
+        SectionCaseInsensitiveSeps = 0x8
     QString_NormalizationForm* {.header:headerFile,importcpp:"QString::NormalizationForm".} = enum NormalizationForm_D = 0, NormalizationForm_C = 0x1, NormalizationForm_KD = 0x2, NormalizationForm_KC = 0x3
     QLatin1String* {.header:headerFile,importcpp:"QLatin1String" ,pure.} = object {.inheritable.}
     QString* {.header:headerFile,importcpp:"QString" .} = object
@@ -30,6 +30,8 @@ proc newQLatin1String*(): QLatin1String {. header:headerFile, importcpp:"QLatin1
 proc newQLatin1String*(s: ptr char): QLatin1String {. header:headerFile, importcpp:"QLatin1String(@)", constructor .} #
 proc newQLatin1String*(f: ptr char, l: ptr char): QLatin1String {. header:headerFile, importcpp:"QLatin1String(@)", constructor .} #
 proc newQLatin1String*(s: ptr char, sz: cint): QLatin1String {. header:headerFile, importcpp:"QLatin1String(@)", constructor .} #
+import nimqt/qtcore/qbytearray
+proc newQLatin1String*(s: QByteArray): QLatin1String {. header:headerFile, importcpp:"QLatin1String(@)", constructor .} #
 
 # Public methods for QLatin1String
 proc toString*(this: QLatin1String): QString {.header:headerFile, importcpp:"#.toString(@)".} # Public
@@ -91,6 +93,11 @@ proc `<`*(this: QLatin1String, s: ptr char): bool {.header:headerFile, importcpp
 proc `>`*(this: QLatin1String, s: ptr char): bool {.header:headerFile, importcpp:"#.operator>(@)".} # Public
 proc `<=`*(this: QLatin1String, s: ptr char): bool {.header:headerFile, importcpp:"#.operator<=(@)".} # Public
 proc `>=`*(this: QLatin1String, s: ptr char): bool {.header:headerFile, importcpp:"#.operator>=(@)".} # Public
+proc `!=`*(this: QLatin1String, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator!=(@)".} # Public
+proc `<`*(this: QLatin1String, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
+proc `>`*(this: QLatin1String, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator>(@)".} # Public
+proc `<=`*(this: QLatin1String, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator<=(@)".} # Public
+proc `>=`*(this: QLatin1String, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator>=(@)".} # Public
 # Stuff for class QString
 
 # Public constructors for QString
@@ -98,6 +105,7 @@ proc newQString*(): QString {. header:headerFile, importcpp:"QString(@)", constr
 proc newQString*(arg_0: QString): QString {. header:headerFile, importcpp:"QString(@)", constructor .} #
 proc newQString*(other: QString): QString {. header:headerFile, importcpp:"QString(@)", constructor .} #
 proc newQString*(ch: ptr char): QString {. header:headerFile, importcpp:"QString(@)", constructor .} #
+proc newQString*(a: QByteArray): QString {. header:headerFile, importcpp:"QString(@)", constructor .} #
 import nimqt/qtcore/qnamespace
 proc newQString*(size: cint, arg_1: Qt_Initialization): QString {. header:headerFile, importcpp:"QString(@)", constructor .} #
 
@@ -152,8 +160,16 @@ proc replace*(this: QString, i: cint, len: cint, after: QString): QString {.head
 proc replace*(this: QString, before: QString, after: QString, cs: Qt_CaseSensitivity): QString {.header:headerFile, importcpp:"#.replace(@)".} # Public
 proc repeated*(this: QString, times: cint): QString {.header:headerFile, importcpp:"#.repeated(@)".} # Public
 proc utf16*(this: QString): ptr cushort {.header:headerFile, importcpp:"#.utf16(@)".} # Public
+proc toLatin1*(this: QString): QByteArray {.header:headerFile, importcpp:"#.toLatin1(@)".} # Public
+proc toUtf8*(this: QString): QByteArray {.header:headerFile, importcpp:"#.toUtf8(@)".} # Public
+proc toLocal8Bit*(this: QString): QByteArray {.header:headerFile, importcpp:"#.toLocal8Bit(@)".} # Public
+import nimqt/qtcore/qlist
+proc toUcs4*(this: QString): QList[cuint] {.header:headerFile, importcpp:"#.toUcs4(@)".} # Public
+proc static_QString_fromLatin1*(ba: QByteArray): QString {.header:headerFile, importcpp:"QString::fromLatin1(@)".} # Public static
 proc static_QString_fromLatin1*(str: ptr char, size: cint): QString {.header:headerFile, importcpp:"QString::fromLatin1(@)".} # Public static
+proc static_QString_fromUtf8*(ba: QByteArray): QString {.header:headerFile, importcpp:"QString::fromUtf8(@)".} # Public static
 proc static_QString_fromUtf8*(utf8: ptr char, size: cint): QString {.header:headerFile, importcpp:"QString::fromUtf8(@)".} # Public static
+proc static_QString_fromLocal8Bit*(ba: QByteArray): QString {.header:headerFile, importcpp:"QString::fromLocal8Bit(@)".} # Public static
 proc static_QString_fromLocal8Bit*(str: ptr char, size: cint): QString {.header:headerFile, importcpp:"QString::fromLocal8Bit(@)".} # Public static
 proc static_QString_fromUtf16*(arg_1: ptr cushort, size: cint): QString {.header:headerFile, importcpp:"QString::fromUtf16(@)".} # Public static
 proc static_QString_fromUtf16*(str: ptr cushort, size: cint): QString {.header:headerFile, importcpp:"QString::fromUtf16(@)".} # Public static
@@ -260,14 +276,23 @@ proc static_QString_number*(arg_1: culonglong): QString {.header:headerFile, imp
 proc static_QString_number*(arg_1: cdouble, format: char, precision: cint): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
 proc static_QString_number*(arg_1: cdouble, format: char): QString {.header:headerFile, importcpp:"QString::number(@)".} # Public static
 proc prepend*(this: QString, s: ptr char): QString {.header:headerFile, importcpp:"#.prepend(@)".} # Public
+proc prepend*(this: QString, s: QByteArray): QString {.header:headerFile, importcpp:"#.prepend(@)".} # Public
 proc append*(this: QString, s: ptr char): QString {.header:headerFile, importcpp:"#.append(@)".} # Public
+proc append*(this: QString, s: QByteArray): QString {.header:headerFile, importcpp:"#.append(@)".} # Public
 proc insert*(this: QString, i: cint, s: ptr char): QString {.header:headerFile, importcpp:"#.insert(@)".} # Public
+proc insert*(this: QString, i: cint, s: QByteArray): QString {.header:headerFile, importcpp:"#.insert(@)".} # Public
 proc `+=`*(this: QString, s: ptr char): QString {.header:headerFile, importcpp:"#.operator+=(@)".} # Public
+proc `+=`*(this: QString, s: QByteArray): QString {.header:headerFile, importcpp:"#.operator+=(@)".} # Public
 proc `!=`*(this: QString, s: ptr char): bool {.header:headerFile, importcpp:"#.operator!=(@)".} # Public
 proc `<`*(this: QString, s: ptr char): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
 proc `<=`*(this: QString, s: ptr char): bool {.header:headerFile, importcpp:"#.operator<=(@)".} # Public
 proc `>`*(this: QString, s: ptr char): bool {.header:headerFile, importcpp:"#.operator>(@)".} # Public
 proc `>=`*(this: QString, s: ptr char): bool {.header:headerFile, importcpp:"#.operator>=(@)".} # Public
+proc `!=`*(this: QString, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator!=(@)".} # Public
+proc `<`*(this: QString, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
+proc `>`*(this: QString, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator>(@)".} # Public
+proc `<=`*(this: QString, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator<=(@)".} # Public
+proc `>=`*(this: QString, s: QByteArray): bool {.header:headerFile, importcpp:"#.operator>=(@)".} # Public
 proc push_back*(this: QString, s: QString) {.header:headerFile, importcpp:"#.push_back(@)".} # Public
 proc push_front*(this: QString, s: QString) {.header:headerFile, importcpp:"#.push_front(@)".} # Public
 proc shrink_to_fit*(this: QString) {.header:headerFile, importcpp:"#.shrink_to_fit(@)".} # Public
@@ -275,9 +300,9 @@ proc isSimpleText*(this: QString): bool {.header:headerFile, importcpp:"#.isSimp
 proc isRightToLeft*(this: QString): bool {.header:headerFile, importcpp:"#.isRightToLeft(@)".} # Public
 proc isValidUtf16*(this: QString): bool {.header:headerFile, importcpp:"#.isValidUtf16(@)".} # Public
 
-import qbytearray
-proc toUtf8*(this: QString): QByteArray  {.header:headerFile, importcpp:"#.toUtf8(@)".} # Public
 export qnamespace
+export qbytearray
+export qlist
 export qflags
 # Additional code for qtcore/qstring
 proc newQString(s:cstring): QString {.header:headerFile, importcpp:"QString(@)",constructor.}
@@ -294,4 +319,4 @@ proc indexOf*(this: QLatin1String, s:QString, `from`:cint = -1, case_sensitivity
 proc lastIndexOf*(this: QLatin1String, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
 proc indexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.indexOf(@)".}
 proc lastIndexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
-proc `==`*(this,r: QString): bool {.header:headerFile, importcpp:"operator==(@)".} # Public
+proc `==`*(this,r: QString): bool {.header:headerFile, importcpp:"operator==(@)".}

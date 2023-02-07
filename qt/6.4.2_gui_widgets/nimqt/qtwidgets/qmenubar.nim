@@ -44,7 +44,14 @@ proc activeAction*(this: ptr QMenuBar): ptr QAction {.header:headerFile, importc
 proc setActiveAction*(this: ptr QMenuBar, action: ptr QAction) {.header:headerFile, importcpp:"#.setActiveAction(@)".} # Public
 proc setDefaultUp*(this: ptr QMenuBar, arg_0: bool) {.header:headerFile, importcpp:"#.setDefaultUp(@)".} # Public
 proc isDefaultUp*(this: ptr QMenuBar): bool {.header:headerFile, importcpp:"#.isDefaultUp(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QMenuBar): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QMenuBar): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc heightForWidth*(this: ptr QMenuBar, arg_0: cint): cint {.header:headerFile, importcpp:"#.heightForWidth(@)".} # Public
+import nimqt/qtcore/qrect
+proc actionGeometry*(this: ptr QMenuBar, arg_1: ptr QAction): QRect {.header:headerFile, importcpp:"#.actionGeometry(@)".} # Public
+import nimqt/qtcore/qpoint
+proc actionAt*(this: ptr QMenuBar, arg_1: QPoint): ptr QAction {.header:headerFile, importcpp:"#.actionAt(@)".} # Public
 import nimqt/qtcore/qnamespace
 proc setCornerWidget*(this: ptr QMenuBar, w: ptr QWidget, corner: Qt_Corner) {.header:headerFile, importcpp:"#.setCornerWidget(@)".} # Public
 proc cornerWidget*(this: ptr QMenuBar, corner: Qt_Corner): ptr QWidget {.header:headerFile, importcpp:"#.cornerWidget(@)".} # Public
@@ -76,9 +83,12 @@ proc event*(this: ptr QMenuBar, arg_0: ptr QEvent): bool {.header:headerFile, im
 export qevent
 export qmenu
 export qstring
+export qsize
 export qaction
 export qnamespace
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qobject
 export qcoreevent

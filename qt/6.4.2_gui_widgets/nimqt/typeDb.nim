@@ -3,7 +3,6 @@ import sequtils
 import streams
 import strutils
 import tables
-# import re
 # import pegs
 
 import skips
@@ -30,10 +29,6 @@ func summary*(db:TypeDb): string =
 
 func toImport*(i:TypeInfo): string = &"{i.component}/{i.module}"
 func add*(db:var TypeDb, i:TypeInfo) =
-    #var i=i
-    #i.component=i.component.toLowerAscii
-    #i.module=i.module.toLowerAscii
-    
     db.xs.add i
     if not db.components.hasKey(i.component):
         db.components[i.component] = @[]

@@ -30,11 +30,14 @@ import nimqt/qtwidgets/qwidget
 proc destroyEditor*(this: ptr QAbstractItemDelegate, editor: ptr QWidget, index: QModelIndex) {.header:headerFile, importcpp:"#.destroyEditor(@)".} # Public
 proc setEditorData*(this: ptr QAbstractItemDelegate, editor: ptr QWidget, index: QModelIndex) {.header:headerFile, importcpp:"#.setEditorData(@)".} # Public
 proc setModelData*(this: ptr QAbstractItemDelegate, editor: ptr QWidget, model: ptr QAbstractItemModel, index: QModelIndex) {.header:headerFile, importcpp:"#.setModelData(@)".} # Public
+import nimqt/qtcore/qlist
+proc paintingRoles*(this: ptr QAbstractItemDelegate): QList[cint] {.header:headerFile, importcpp:"#.paintingRoles(@)".} # Public
 proc commitData*(this: ptr QAbstractItemDelegate, editor: ptr QWidget) {.header:headerFile, importcpp:"#.commitData(@)".} # Public
 proc closeEditor*(this: ptr QAbstractItemDelegate, editor: ptr QWidget, hint: QAbstractItemDelegate_EndEditHint) {.header:headerFile, importcpp:"#.closeEditor(@)".} # Public
 proc sizeHintChanged*(this: ptr QAbstractItemDelegate, arg_0: QModelIndex) {.header:headerFile, importcpp:"#.sizeHintChanged(@)".} # Public
 
 export qstring
+export qlist
 export qabstractitemmodel
 export qwidget
 export qobject

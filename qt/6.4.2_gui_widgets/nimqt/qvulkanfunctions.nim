@@ -1,2 +1,0 @@
-import nimqt/qtgui/qvulkanfunctions
-export qvulkanfunctions

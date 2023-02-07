@@ -8,9 +8,14 @@ import nimqt/qtcore/qobject
 type
     # Classes and enums found in the C++ code
     # Global
-    QClipboard_Mode* {.header:headerFile,importcpp:"QClipboard::Mode".} = enum Clipboard = 0, Selection = 0x1, FindBuffer = 0x2, LastMode = 0x3
+    QClipboard_Mode* {.header:headerFile,importcpp:"QClipboard::Mode".} = enum Clipboard = 0, Selection = 0x1, FindBuffer = 0x2
     QClipboard* {.header:headerFile,importcpp:"QClipboard" ,pure.} = object of QObject
 {.push warning[Deprecated]: on.}
+
+# Consts
+const
+    # Global
+    QClipboard_ModeLastMode* = 2 # from anonymous enum FindBuffer
 
 # Stuff for class QClipboard
 

@@ -55,12 +55,30 @@ proc setTearOffEnabled*(this: ptr QMenu, arg_0: bool) {.header:headerFile, impor
 proc isTearOffEnabled*(this: ptr QMenu): bool {.header:headerFile, importcpp:"#.isTearOffEnabled(@)".} # Public
 proc isTearOffMenuVisible*(this: ptr QMenu): bool {.header:headerFile, importcpp:"#.isTearOffMenuVisible(@)".} # Public
 proc showTearOffMenu*(this: ptr QMenu) {.header:headerFile, importcpp:"#.showTearOffMenu(@)".} # Public
+import nimqt/qtcore/qpoint
+proc showTearOffMenu*(this: ptr QMenu, pos: QPoint) {.header:headerFile, importcpp:"#.showTearOffMenu(@)".} # Public
 proc hideTearOffMenu*(this: ptr QMenu) {.header:headerFile, importcpp:"#.hideTearOffMenu(@)".} # Public
 proc setDefaultAction*(this: ptr QMenu, arg_0: ptr QAction) {.header:headerFile, importcpp:"#.setDefaultAction(@)".} # Public
 proc defaultAction*(this: ptr QMenu): ptr QAction {.header:headerFile, importcpp:"#.defaultAction(@)".} # Public
 proc setActiveAction*(this: ptr QMenu, act: ptr QAction) {.header:headerFile, importcpp:"#.setActiveAction(@)".} # Public
 proc activeAction*(this: ptr QMenu): ptr QAction {.header:headerFile, importcpp:"#.activeAction(@)".} # Public
+# 1 default parameters!
+proc popup*(this: ptr QMenu, pos: QPoint, at: ptr QAction) {.header:headerFile, importcpp:"#.popup(@)".} # Public
+proc popup*(this: ptr QMenu, pos: QPoint) {.header:headerFile, importcpp:"#.popup(@)".} # Public
 proc exec*(this: ptr QMenu): ptr QAction {.header:headerFile, importcpp:"#.exec(@)".} # Public
+# 1 default parameters!
+proc exec*(this: ptr QMenu, pos: QPoint, at: ptr QAction): ptr QAction {.header:headerFile, importcpp:"#.exec(@)".} # Public
+proc exec*(this: ptr QMenu, pos: QPoint): ptr QAction {.header:headerFile, importcpp:"#.exec(@)".} # Public
+import nimqt/qtcore/qlist
+# 2 default parameters!
+proc static_QMenu_exec*(actions: QList[ptr QAction], pos: QPoint, at: ptr QAction, parent: ptr QWidget): ptr QAction {.header:headerFile, importcpp:"QMenu::exec(@)".} # Public static
+proc static_QMenu_exec*(actions: QList[ptr QAction], pos: QPoint, at: ptr QAction): ptr QAction {.header:headerFile, importcpp:"QMenu::exec(@)".} # Public static
+proc static_QMenu_exec*(actions: QList[ptr QAction], pos: QPoint): ptr QAction {.header:headerFile, importcpp:"QMenu::exec(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QMenu): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+import nimqt/qtcore/qrect
+proc actionGeometry*(this: ptr QMenu, arg_1: ptr QAction): QRect {.header:headerFile, importcpp:"#.actionGeometry(@)".} # Public
+proc actionAt*(this: ptr QMenu, arg_1: QPoint): ptr QAction {.header:headerFile, importcpp:"#.actionAt(@)".} # Public
 proc menuAction*(this: ptr QMenu): ptr QAction {.header:headerFile, importcpp:"#.menuAction(@)".} # Public
 proc static_QMenu_menuInAction*(action: ptr QAction): ptr QMenu {.header:headerFile, importcpp:"QMenu::menuInAction(@)".} # Public static
 proc title*(this: ptr QMenu): QString {.header:headerFile, importcpp:"#.title(@)".} # Public
@@ -99,9 +117,13 @@ proc focusNextPrevChild*(this: ptr QMenu, next: bool): bool {.header:headerFile,
 
 export qevent
 export qstring
+export qsize
 export qaction
+export qlist
 export qkeysequence
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qobject
 export qcoreevent

@@ -41,6 +41,9 @@ proc isTextVisible*(this: ptr QProgressBar): bool {.header:headerFile, importcpp
 import nimqt/qtcore/qnamespace
 proc alignment*(this: ptr QProgressBar): Qt_Alignment {.header:headerFile, importcpp:"#.alignment(@)".} # Public
 proc setAlignment*(this: ptr QProgressBar, alignment: Qt_Alignment) {.header:headerFile, importcpp:"#.setAlignment(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QProgressBar): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QProgressBar): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc orientation*(this: ptr QProgressBar): Qt_Orientation {.header:headerFile, importcpp:"#.orientation(@)".} # Public
 proc setInvertedAppearance*(this: ptr QProgressBar, invert: bool) {.header:headerFile, importcpp:"#.setInvertedAppearance(@)".} # Public
 proc invertedAppearance*(this: ptr QProgressBar): bool {.header:headerFile, importcpp:"#.invertedAppearance(@)".} # Public
@@ -65,6 +68,7 @@ proc paintEvent*(this: ptr QProgressBar, arg_0: ptr QPaintEvent) {.header:header
 
 export qevent
 export qstring
+export qsize
 export qnamespace
 export qwidget
 export qpaintdevice

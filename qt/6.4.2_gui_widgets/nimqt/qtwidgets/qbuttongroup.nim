@@ -27,6 +27,8 @@ proc exclusive*(this: ptr QButtonGroup): bool {.header:headerFile, importcpp:"#.
 import nimqt/qtwidgets/qabstractbutton
 proc addButton*(this: ptr QButtonGroup, arg_0: ptr QAbstractButton, id: cint) {.header:headerFile, importcpp:"#.addButton(@)".} # Public
 proc removeButton*(this: ptr QButtonGroup, arg_0: ptr QAbstractButton) {.header:headerFile, importcpp:"#.removeButton(@)".} # Public
+import nimqt/qtcore/qlist
+proc buttons*(this: ptr QButtonGroup): QList[ptr QAbstractButton] {.header:headerFile, importcpp:"#.buttons(@)".} # Public
 proc checkedButton*(this: ptr QButtonGroup): ptr QAbstractButton {.header:headerFile, importcpp:"#.checkedButton(@)".} # Public
 proc button*(this: ptr QButtonGroup, id: cint): ptr QAbstractButton {.header:headerFile, importcpp:"#.button(@)".} # Public
 proc setId*(this: ptr QButtonGroup, button: ptr QAbstractButton, id: cint) {.header:headerFile, importcpp:"#.setId(@)".} # Public
@@ -42,5 +44,6 @@ proc idReleased*(this: ptr QButtonGroup, arg_0: cint) {.header:headerFile, impor
 proc idToggled*(this: ptr QButtonGroup, arg_0: cint, arg_1: bool) {.header:headerFile, importcpp:"#.idToggled(@)".} # Public
 
 export qstring
+export qlist
 export qabstractbutton
 export qobject

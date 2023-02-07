@@ -10,8 +10,8 @@ type
     # Global
     QFrame_Shape* {.header:headerFile,importcpp:"QFrame::Shape".} = enum NoFrame = 0, Box = 0x1, Panel = 0x2, WinPanel = 0x3, 
         HLine = 0x4, VLine = 0x5, StyledPanel = 0x6
-    QFrame_Shadow* {.header:headerFile,importcpp:"QFrame::Shadow".} = enum Plain = 0, Raised = 0x1, Sunken = 0x2
-    QFrame_StyleMask* {.header:headerFile,importcpp:"QFrame::StyleMask".} = enum Shadow_Mask = 0, Shape_Mask = 0x1
+    QFrame_Shadow* {.header:headerFile,importcpp:"QFrame::Shadow".} = enum Plain = 0x10, Raised = 0x20, Sunken = 0x30
+    QFrame_StyleMask* {.header:headerFile,importcpp:"QFrame::StyleMask".} = enum Shape_Mask = 0xf, Shadow_Mask = 0xf0
     QFrame* {.header:headerFile,importcpp:"QFrame" ,pure.} = object of QWidget
 {.push warning[Deprecated]: on.}
 import nimqt/qtgui/qpaintdevice
@@ -40,6 +40,8 @@ proc static_QFrame_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, i
 proc frameStyle*(this: ptr QFrame): cint {.header:headerFile, importcpp:"#.frameStyle(@)".} # Public
 proc setFrameStyle*(this: ptr QFrame, arg_0: cint) {.header:headerFile, importcpp:"#.setFrameStyle(@)".} # Public
 proc frameWidth*(this: ptr QFrame): cint {.header:headerFile, importcpp:"#.frameWidth(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QFrame): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc frameShape*(this: ptr QFrame): QFrame_Shape {.header:headerFile, importcpp:"#.frameShape(@)".} # Public
 proc setFrameShape*(this: ptr QFrame, arg_0: QFrame_Shape) {.header:headerFile, importcpp:"#.setFrameShape(@)".} # Public
 proc frameShadow*(this: ptr QFrame): QFrame_Shadow {.header:headerFile, importcpp:"#.frameShadow(@)".} # Public
@@ -48,6 +50,9 @@ proc lineWidth*(this: ptr QFrame): cint {.header:headerFile, importcpp:"#.lineWi
 proc setLineWidth*(this: ptr QFrame, arg_0: cint) {.header:headerFile, importcpp:"#.setLineWidth(@)".} # Public
 proc midLineWidth*(this: ptr QFrame): cint {.header:headerFile, importcpp:"#.midLineWidth(@)".} # Public
 proc setMidLineWidth*(this: ptr QFrame, arg_0: cint) {.header:headerFile, importcpp:"#.setMidLineWidth(@)".} # Public
+import nimqt/qtcore/qrect
+proc frameRect*(this: ptr QFrame): QRect {.header:headerFile, importcpp:"#.frameRect(@)".} # Public
+proc setFrameRect*(this: ptr QFrame, arg_0: QRect) {.header:headerFile, importcpp:"#.setFrameRect(@)".} # Public
 
 # Protected methods methods for QFrame
 import nimqt/qtcore/qcoreevent
@@ -60,8 +65,10 @@ proc drawFrame*(this: ptr QFrame, arg_0: ptr QPainter) {.header:headerFile, impo
 
 export qevent
 export qstring
+export qsize
 export qnamespace
 export qpainter
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent

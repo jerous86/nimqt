@@ -38,6 +38,9 @@ proc notchSize*(this: ptr QDial): cint {.header:headerFile, importcpp:"#.notchSi
 proc setNotchTarget*(this: ptr QDial, target: cdouble) {.header:headerFile, importcpp:"#.setNotchTarget(@)".} # Public
 proc notchTarget*(this: ptr QDial): cfloat {.header:headerFile, importcpp:"#.notchTarget(@)".} # Public
 proc notchesVisible*(this: ptr QDial): bool {.header:headerFile, importcpp:"#.notchesVisible(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QDial): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QDial): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc setNotchesVisible*(this: ptr QDial, visible: bool) {.header:headerFile, importcpp:"#.setNotchesVisible(@)".} # Public
 proc setWrapping*(this: ptr QDial, on: bool) {.header:headerFile, importcpp:"#.setWrapping(@)".} # Public
 
@@ -55,6 +58,7 @@ proc sliderChange*(this: ptr QDial, change: QAbstractSlider_SliderChange) {.head
 export qevent
 export qabstractslider
 export qstring
+export qsize
 export qwidget
 export qpaintdevice
 export qcoreevent

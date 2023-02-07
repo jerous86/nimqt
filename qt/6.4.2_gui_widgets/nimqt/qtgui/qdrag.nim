@@ -23,6 +23,9 @@ proc static_QDrag_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, im
 import nimqt/qtgui/qpixmap
 proc setPixmap*(this: ptr QDrag, arg_0: QPixmap) {.header:headerFile, importcpp:"#.setPixmap(@)".} # Public
 proc pixmap*(this: ptr QDrag): QPixmap {.header:headerFile, importcpp:"#.pixmap(@)".} # Public
+import nimqt/qtcore/qpoint
+proc setHotSpot*(this: ptr QDrag, hotspot: QPoint) {.header:headerFile, importcpp:"#.setHotSpot(@)".} # Public
+proc hotSpot*(this: ptr QDrag): QPoint {.header:headerFile, importcpp:"#.hotSpot(@)".} # Public
 proc source*(this: ptr QDrag): ptr QObject {.header:headerFile, importcpp:"#.source(@)".} # Public
 proc target*(this: ptr QDrag): ptr QObject {.header:headerFile, importcpp:"#.target(@)".} # Public
 import nimqt/qtcore/qnamespace
@@ -41,4 +44,5 @@ proc targetChanged*(this: ptr QDrag, newTarget: ptr QObject) {.header:headerFile
 export qpixmap
 export qstring
 export qnamespace
+export qpoint
 export qobject

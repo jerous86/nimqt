@@ -7,8 +7,8 @@ const headerFile* = "QtGui/qcolorspace.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QColorSpace_NamedColorSpace* {.header:headerFile,importcpp:"QColorSpace::NamedColorSpace", pure.} = enum SRgb = 0, SRgbLinear = 0x1, AdobeRgb = 0x2, DisplayP3 = 0x3, 
-        ProPhotoRgb = 0x4
+    QColorSpace_NamedColorSpace* {.header:headerFile,importcpp:"QColorSpace::NamedColorSpace", pure.} = enum SRgb = 0x1, SRgbLinear = 0x2, AdobeRgb = 0x3, DisplayP3 = 0x4, 
+        ProPhotoRgb = 0x5
     QColorSpace_Primaries* {.header:headerFile,importcpp:"QColorSpace::Primaries", pure.} = enum Custom = 0, SRgb = 0x1, AdobeRgb = 0x2, DciP3D65 = 0x3, 
         ProPhotoRgb = 0x4
     QColorSpace_TransferFunction* {.header:headerFile,importcpp:"QColorSpace::TransferFunction", pure.} = enum Custom = 0, Linear = 0x1, Gamma = 0x2, SRgb = 0x3, 

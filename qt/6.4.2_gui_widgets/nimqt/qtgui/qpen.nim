@@ -26,6 +26,9 @@ proc newQPen*(other: QPen): QPen {. header:headerFile, importcpp:"QPen(@)", cons
 proc swap*(this: QPen, other: QPen) {.header:headerFile, importcpp:"#.swap(@)".} # Public
 proc style*(this: QPen): Qt_PenStyle {.header:headerFile, importcpp:"#.style(@)".} # Public
 proc setStyle*(this: QPen, arg_0: Qt_PenStyle) {.header:headerFile, importcpp:"#.setStyle(@)".} # Public
+import nimqt/qtcore/qlist
+proc dashPattern*(this: QPen): QList[cfloat] {.header:headerFile, importcpp:"#.dashPattern(@)".} # Public
+proc setDashPattern*(this: QPen, pattern: QList[cfloat]) {.header:headerFile, importcpp:"#.setDashPattern(@)".} # Public
 proc dashOffset*(this: QPen): cfloat {.header:headerFile, importcpp:"#.dashOffset(@)".} # Public
 proc setDashOffset*(this: QPen, doffset: cfloat) {.header:headerFile, importcpp:"#.setDashOffset(@)".} # Public
 proc miterLimit*(this: QPen): cfloat {.header:headerFile, importcpp:"#.miterLimit(@)".} # Public
@@ -49,5 +52,6 @@ proc `!=`*(this: QPen, p: QPen): bool {.header:headerFile, importcpp:"#.operator
 proc isDetached*(this: QPen): bool {.header:headerFile, importcpp:"#.isDetached(@)".} # Public
 
 export qnamespace
+export qlist
 export qbrush
 export qcolor

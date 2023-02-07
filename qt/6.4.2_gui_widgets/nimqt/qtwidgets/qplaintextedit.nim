@@ -82,19 +82,35 @@ proc find*(this: ptr QPlainTextEdit, exp: QString, options: QTextDocument_FindFl
 proc find*(this: ptr QPlainTextEdit, exp: QString): bool {.header:headerFile, importcpp:"#.find(@)".} # Public
 proc toPlainText*(this: ptr QPlainTextEdit): QString {.header:headerFile, importcpp:"#.toPlainText(@)".} # Public
 proc ensureCursorVisible*(this: ptr QPlainTextEdit) {.header:headerFile, importcpp:"#.ensureCursorVisible(@)".} # Public
+import nimqt/qtcore/qurl
+import nimqt/qtcore/qvariant
+proc loadResource*(this: ptr QPlainTextEdit, `type`: cint, name: QUrl): QVariant {.header:headerFile, importcpp:"#.loadResource(@)".} # Public
 import nimqt/qtwidgets/qmenu
 proc createStandardContextMenu*(this: ptr QPlainTextEdit): ptr QMenu {.header:headerFile, importcpp:"#.createStandardContextMenu(@)".} # Public
+import nimqt/qtcore/qpoint
+proc createStandardContextMenu*(this: ptr QPlainTextEdit, position: QPoint): ptr QMenu {.header:headerFile, importcpp:"#.createStandardContextMenu(@)".} # Public
+proc cursorForPosition*(this: ptr QPlainTextEdit, pos: QPoint): QTextCursor {.header:headerFile, importcpp:"#.cursorForPosition(@)".} # Public
+import nimqt/qtcore/qrect
+proc cursorRect*(this: ptr QPlainTextEdit, cursor: QTextCursor): QRect {.header:headerFile, importcpp:"#.cursorRect(@)".} # Public
+proc cursorRect*(this: ptr QPlainTextEdit): QRect {.header:headerFile, importcpp:"#.cursorRect(@)".} # Public
+proc anchorAt*(this: ptr QPlainTextEdit, pos: QPoint): QString {.header:headerFile, importcpp:"#.anchorAt(@)".} # Public
 proc overwriteMode*(this: ptr QPlainTextEdit): bool {.header:headerFile, importcpp:"#.overwriteMode(@)".} # Public
 proc setOverwriteMode*(this: ptr QPlainTextEdit, overwrite: bool) {.header:headerFile, importcpp:"#.setOverwriteMode(@)".} # Public
 proc tabStopDistance*(this: ptr QPlainTextEdit): cfloat {.header:headerFile, importcpp:"#.tabStopDistance(@)".} # Public
 proc setTabStopDistance*(this: ptr QPlainTextEdit, distance: cfloat) {.header:headerFile, importcpp:"#.setTabStopDistance(@)".} # Public
 proc cursorWidth*(this: ptr QPlainTextEdit): cint {.header:headerFile, importcpp:"#.cursorWidth(@)".} # Public
 proc setCursorWidth*(this: ptr QPlainTextEdit, width: cint) {.header:headerFile, importcpp:"#.setCursorWidth(@)".} # Public
+import nimqt/qtcore/qlist
+import nimqt/qtwidgets/qtextedit
+proc setExtraSelections*(this: ptr QPlainTextEdit, selections: QList[QTextEdit_ExtraSelection]) {.header:headerFile, importcpp:"#.setExtraSelections(@)".} # Public
+proc extraSelections*(this: ptr QPlainTextEdit): QList[QTextEdit_ExtraSelection] {.header:headerFile, importcpp:"#.extraSelections(@)".} # Public
 proc moveCursor*(this: ptr QPlainTextEdit, operation: QTextCursor_MoveOperation, mode: QTextCursor_MoveMode) {.header:headerFile, importcpp:"#.moveCursor(@)".} # Public
 proc canPaste*(this: ptr QPlainTextEdit): bool {.header:headerFile, importcpp:"#.canPaste(@)".} # Public
 import nimqt/qtgui/qpagedpaintdevice
 proc print*(this: ptr QPlainTextEdit, printer: ptr QPagedPaintDevice) {.header:headerFile, importcpp:"#.print(@)".} # Public
 proc blockCount*(this: ptr QPlainTextEdit): cint {.header:headerFile, importcpp:"#.blockCount(@)".} # Public
+proc inputMethodQuery*(this: ptr QPlainTextEdit, property: Qt_InputMethodQuery): QVariant {.header:headerFile, importcpp:"#.inputMethodQuery(@)".} # Public
+proc inputMethodQuery*(this: ptr QPlainTextEdit, query: Qt_InputMethodQuery, argument: QVariant): QVariant {.header:headerFile, importcpp:"#.inputMethodQuery(@)".} # Public
 proc setPlainText*(this: ptr QPlainTextEdit, text: QString) {.header:headerFile, importcpp:"#.setPlainText(@)".} # Public
 proc cut*(this: ptr QPlainTextEdit) {.header:headerFile, importcpp:"#.cut(@)".} # Public
 proc copy*(this: ptr QPlainTextEdit) {.header:headerFile, importcpp:"#.copy(@)".} # Public
@@ -119,6 +135,7 @@ proc redoAvailable*(this: ptr QPlainTextEdit, b: bool) {.header:headerFile, impo
 proc copyAvailable*(this: ptr QPlainTextEdit, b: bool) {.header:headerFile, importcpp:"#.copyAvailable(@)".} # Public
 proc selectionChanged*(this: ptr QPlainTextEdit) {.header:headerFile, importcpp:"#.selectionChanged(@)".} # Public
 proc cursorPositionChanged*(this: ptr QPlainTextEdit) {.header:headerFile, importcpp:"#.cursorPositionChanged(@)".} # Public
+proc updateRequest*(this: ptr QPlainTextEdit, rect: QRect, dy: cint) {.header:headerFile, importcpp:"#.updateRequest(@)".} # Public
 proc blockCountChanged*(this: ptr QPlainTextEdit, newBlockCount: cint) {.header:headerFile, importcpp:"#.blockCountChanged(@)".} # Public
 proc modificationChanged*(this: ptr QPlainTextEdit, arg_0: bool) {.header:headerFile, importcpp:"#.modificationChanged(@)".} # Public
 
@@ -151,6 +168,9 @@ proc scrollContentsBy*(this: ptr QPlainTextEdit, dx: cint, dy: cint) {.header:he
 proc doSetTextCursor*(this: ptr QPlainTextEdit, cursor: QTextCursor) {.header:headerFile, importcpp:"#.doSetTextCursor(@)".} # Protected
 import nimqt/qtgui/qtextobject
 proc firstVisibleBlock*(this: ptr QPlainTextEdit): QTextBlock {.header:headerFile, importcpp:"#.firstVisibleBlock(@)".} # Protected
+proc contentOffset*(this: ptr QPlainTextEdit): QPointF {.header:headerFile, importcpp:"#.contentOffset(@)".} # Protected
+proc blockBoundingRect*(this: ptr QPlainTextEdit, `block`: QTextBlock): QRectF {.header:headerFile, importcpp:"#.blockBoundingRect(@)".} # Protected
+proc blockBoundingGeometry*(this: ptr QPlainTextEdit, `block`: QTextBlock): QRectF {.header:headerFile, importcpp:"#.blockBoundingGeometry(@)".} # Protected
 proc getPaintContext*(this: ptr QPlainTextEdit): QAbstractTextDocumentLayout_PaintContext {.header:headerFile, importcpp:"#.getPaintContext(@)".} # Protected
 proc zoomInF*(this: ptr QPlainTextEdit, range: cfloat) {.header:headerFile, importcpp:"#.zoomInF(@)".} # Protected
 # Stuff for class QPlainTextDocumentLayout
@@ -164,7 +184,12 @@ proc static_QPlainTextDocumentLayout_tr*(s: ptr char, c: ptr char, n: cint): QSt
 proc static_QPlainTextDocumentLayout_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QPlainTextDocumentLayout::tr(@)".} # Public static
 import nimqt/qtgui/qpainter
 proc draw*(this: ptr QPlainTextDocumentLayout, arg_0: ptr QPainter, arg_1: QAbstractTextDocumentLayout_PaintContext) {.header:headerFile, importcpp:"#.draw(@)".} # Public
+proc hitTest*(this: ptr QPlainTextDocumentLayout, arg_0: QPointF, arg_1: Qt_HitTestAccuracy): cint {.header:headerFile, importcpp:"#.hitTest(@)".} # Public
 proc pageCount*(this: ptr QPlainTextDocumentLayout): cint {.header:headerFile, importcpp:"#.pageCount(@)".} # Public
+import nimqt/qtcore/qsize
+proc documentSize*(this: ptr QPlainTextDocumentLayout): QSizeF {.header:headerFile, importcpp:"#.documentSize(@)".} # Public
+proc frameBoundingRect*(this: ptr QPlainTextDocumentLayout, arg_1: ptr QTextFrame): QRectF {.header:headerFile, importcpp:"#.frameBoundingRect(@)".} # Public
+proc blockBoundingRect*(this: ptr QPlainTextDocumentLayout, `block`: QTextBlock): QRectF {.header:headerFile, importcpp:"#.blockBoundingRect(@)".} # Public
 proc ensureBlockLayout*(this: ptr QPlainTextDocumentLayout, `block`: QTextBlock) {.header:headerFile, importcpp:"#.ensureBlockLayout(@)".} # Public
 proc setCursorWidth*(this: ptr QPlainTextDocumentLayout, width: cint) {.header:headerFile, importcpp:"#.setCursorWidth(@)".} # Public
 proc cursorWidth*(this: ptr QPlainTextDocumentLayout): cint {.header:headerFile, importcpp:"#.cursorWidth(@)".} # Public
@@ -175,17 +200,24 @@ proc documentChanged*(this: ptr QPlainTextDocumentLayout, `from`: cint, arg_1: c
 
 export qevent
 export qtextformat
+export qurl
 export qmenu
 export qstring
 export qpagedpaintdevice
+export qsize
 export qtextoption
 export qtextcursor
 export qabstracttextdocumentlayout
 export qabstractscrollarea
 export qnamespace
 export qtextobject
+export qlist
+export qtextedit
 export qpainter
+export qvariant
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qtextdocument

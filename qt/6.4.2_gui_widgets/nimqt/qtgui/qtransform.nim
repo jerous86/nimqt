@@ -7,8 +7,8 @@ const headerFile* = "QtGui/qtransform.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QTransform_TransformationType* {.header:headerFile,importcpp:"QTransform::TransformationType".} = enum TxNone = 0, TxTranslate = 0x1, TxScale = 0x2, TxRotate = 0x3, 
-        TxShear = 0x4, TxProject = 0x5
+    QTransform_TransformationType* {.header:headerFile,importcpp:"QTransform::TransformationType".} = enum TxNone = 0, TxTranslate = 0x1, TxScale = 0x2, TxRotate = 0x4, 
+        TxShear = 0x8, TxProject = 0x10
     QTransform* {.header:headerFile,importcpp:"QTransform" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 
@@ -60,12 +60,19 @@ proc `!=`*(this: QTransform, arg_0: QTransform): bool {.header:headerFile, impor
 proc `*=`*(this: QTransform, arg_1: QTransform): QTransform {.header:headerFile, importcpp:"#.operator*=(@)".} # Public
 proc `*`*(this: QTransform, o: QTransform): QTransform {.header:headerFile, importcpp:"#.operator*(@)".} # Public
 proc reset*(this: QTransform) {.header:headerFile, importcpp:"#.reset(@)".} # Public
+import nimqt/qtcore/qpoint
+proc map*(this: QTransform, p: QPoint): QPoint {.header:headerFile, importcpp:"#.map(@)".} # Public
+proc map*(this: QTransform, p: QPointF): QPointF {.header:headerFile, importcpp:"#.map(@)".} # Public
 proc map*(this: QTransform, a: QPolygonF): QPolygonF {.header:headerFile, importcpp:"#.map(@)".} # Public
 proc map*(this: QTransform, a: QPolygon): QPolygon {.header:headerFile, importcpp:"#.map(@)".} # Public
 import nimqt/qtgui/qregion
 proc map*(this: QTransform, r: QRegion): QRegion {.header:headerFile, importcpp:"#.map(@)".} # Public
 import nimqt/qtgui/qpainterpath
 proc map*(this: QTransform, p: QPainterPath): QPainterPath {.header:headerFile, importcpp:"#.map(@)".} # Public
+import nimqt/qtcore/qrect
+proc mapToPolygon*(this: QTransform, r: QRect): QPolygon {.header:headerFile, importcpp:"#.mapToPolygon(@)".} # Public
+proc mapRect*(this: QTransform, arg_1: QRect): QRect {.header:headerFile, importcpp:"#.mapRect(@)".} # Public
+proc mapRect*(this: QTransform, arg_1: QRectF): QRectF {.header:headerFile, importcpp:"#.mapRect(@)".} # Public
 proc map*(this: QTransform, x: cint, y: cint, tx: ptr cint, ty: ptr cint) {.header:headerFile, importcpp:"#.map(@)".} # Public
 proc map*(this: QTransform, x: cfloat, y: cfloat, tx: ptr cfloat, ty: ptr cfloat) {.header:headerFile, importcpp:"#.map(@)".} # Public
 proc `*=`*(this: QTransform, `div`: cfloat): QTransform {.header:headerFile, importcpp:"#.operator*=(@)".} # Public
@@ -78,4 +85,6 @@ proc static_QTransform_fromScale*(dx: cfloat, dy: cfloat): QTransform {.header:h
 export qnamespace
 export qpainterpath
 export qpolygon
+export qpoint
 export qregion
+export qrect

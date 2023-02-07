@@ -80,11 +80,30 @@ proc minimumWidth*(this: ptr QWindow): cint {.header:headerFile, importcpp:"#.mi
 proc minimumHeight*(this: ptr QWindow): cint {.header:headerFile, importcpp:"#.minimumHeight(@)".} # Public
 proc maximumWidth*(this: ptr QWindow): cint {.header:headerFile, importcpp:"#.maximumWidth(@)".} # Public
 proc maximumHeight*(this: ptr QWindow): cint {.header:headerFile, importcpp:"#.maximumHeight(@)".} # Public
+import nimqt/qtcore/qsize
+proc minimumSize*(this: ptr QWindow): QSize {.header:headerFile, importcpp:"#.minimumSize(@)".} # Public
+proc maximumSize*(this: ptr QWindow): QSize {.header:headerFile, importcpp:"#.maximumSize(@)".} # Public
+proc baseSize*(this: ptr QWindow): QSize {.header:headerFile, importcpp:"#.baseSize(@)".} # Public
+proc sizeIncrement*(this: ptr QWindow): QSize {.header:headerFile, importcpp:"#.sizeIncrement(@)".} # Public
+proc setMinimumSize*(this: ptr QWindow, size: QSize) {.header:headerFile, importcpp:"#.setMinimumSize(@)".} # Public
+proc setMaximumSize*(this: ptr QWindow, size: QSize) {.header:headerFile, importcpp:"#.setMaximumSize(@)".} # Public
+proc setBaseSize*(this: ptr QWindow, size: QSize) {.header:headerFile, importcpp:"#.setBaseSize(@)".} # Public
+proc setSizeIncrement*(this: ptr QWindow, size: QSize) {.header:headerFile, importcpp:"#.setSizeIncrement(@)".} # Public
+import nimqt/qtcore/qrect
+proc geometry*(this: ptr QWindow): QRect {.header:headerFile, importcpp:"#.geometry(@)".} # Public
+proc frameGeometry*(this: ptr QWindow): QRect {.header:headerFile, importcpp:"#.frameGeometry(@)".} # Public
+import nimqt/qtcore/qpoint
+proc framePosition*(this: ptr QWindow): QPoint {.header:headerFile, importcpp:"#.framePosition(@)".} # Public
+proc setFramePosition*(this: ptr QWindow, point: QPoint) {.header:headerFile, importcpp:"#.setFramePosition(@)".} # Public
 proc width*(this: ptr QWindow): cint {.header:headerFile, importcpp:"#.width(@)".} # Public
 proc height*(this: ptr QWindow): cint {.header:headerFile, importcpp:"#.height(@)".} # Public
 proc x*(this: ptr QWindow): cint {.header:headerFile, importcpp:"#.x(@)".} # Public
 proc y*(this: ptr QWindow): cint {.header:headerFile, importcpp:"#.y(@)".} # Public
+proc size*(this: ptr QWindow): QSize {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc position*(this: ptr QWindow): QPoint {.header:headerFile, importcpp:"#.position(@)".} # Public
+proc setPosition*(this: ptr QWindow, pt: QPoint) {.header:headerFile, importcpp:"#.setPosition(@)".} # Public
 proc setPosition*(this: ptr QWindow, posx: cint, posy: cint) {.header:headerFile, importcpp:"#.setPosition(@)".} # Public
+proc resize*(this: ptr QWindow, newSize: QSize) {.header:headerFile, importcpp:"#.resize(@)".} # Public
 proc resize*(this: ptr QWindow, w: cint, h: cint) {.header:headerFile, importcpp:"#.resize(@)".} # Public
 proc setFilePath*(this: ptr QWindow, filePath: QString) {.header:headerFile, importcpp:"#.setFilePath(@)".} # Public
 proc filePath*(this: ptr QWindow): QString {.header:headerFile, importcpp:"#.filePath(@)".} # Public
@@ -96,9 +115,11 @@ proc setKeyboardGrabEnabled*(this: ptr QWindow, grab: bool): bool {.header:heade
 proc setMouseGrabEnabled*(this: ptr QWindow, grab: bool): bool {.header:headerFile, importcpp:"#.setMouseGrabEnabled(@)".} # Public
 proc screen*(this: ptr QWindow): ptr QScreen {.header:headerFile, importcpp:"#.screen(@)".} # Public
 proc setScreen*(this: ptr QWindow, screen: ptr QScreen) {.header:headerFile, importcpp:"#.setScreen(@)".} # Public
-import nimqt/qtgui/qaccessible
-proc accessibleRoot*(this: ptr QWindow): ptr QAccessibleInterface {.header:headerFile, importcpp:"#.accessibleRoot(@)".} # Public
 proc focusObject*(this: ptr QWindow): ptr QObject {.header:headerFile, importcpp:"#.focusObject(@)".} # Public
+proc mapToGlobal*(this: ptr QWindow, pos: QPointF): QPointF {.header:headerFile, importcpp:"#.mapToGlobal(@)".} # Public
+proc mapFromGlobal*(this: ptr QWindow, pos: QPointF): QPointF {.header:headerFile, importcpp:"#.mapFromGlobal(@)".} # Public
+proc mapToGlobal*(this: ptr QWindow, pos: QPoint): QPoint {.header:headerFile, importcpp:"#.mapToGlobal(@)".} # Public
+proc mapFromGlobal*(this: ptr QWindow, pos: QPoint): QPoint {.header:headerFile, importcpp:"#.mapFromGlobal(@)".} # Public
 import nimqt/qtgui/qcursor
 proc cursor*(this: ptr QWindow): QCursor {.header:headerFile, importcpp:"#.cursor(@)".} # Public
 proc setCursor*(this: ptr QWindow, arg_0: QCursor) {.header:headerFile, importcpp:"#.setCursor(@)".} # Public
@@ -122,6 +143,7 @@ proc setY*(this: ptr QWindow, arg: cint) {.header:headerFile, importcpp:"#.setY(
 proc setWidth*(this: ptr QWindow, arg: cint) {.header:headerFile, importcpp:"#.setWidth(@)".} # Public
 proc setHeight*(this: ptr QWindow, arg: cint) {.header:headerFile, importcpp:"#.setHeight(@)".} # Public
 proc setGeometry*(this: ptr QWindow, posx: cint, posy: cint, w: cint, h: cint) {.header:headerFile, importcpp:"#.setGeometry(@)".} # Public
+proc setGeometry*(this: ptr QWindow, rect: QRect) {.header:headerFile, importcpp:"#.setGeometry(@)".} # Public
 proc setMinimumWidth*(this: ptr QWindow, w: cint) {.header:headerFile, importcpp:"#.setMinimumWidth(@)".} # Public
 proc setMinimumHeight*(this: ptr QWindow, h: cint) {.header:headerFile, importcpp:"#.setMinimumHeight(@)".} # Public
 proc setMaximumWidth*(this: ptr QWindow, w: cint) {.header:headerFile, importcpp:"#.setMaximumWidth(@)".} # Public
@@ -170,16 +192,21 @@ proc mouseMoveEvent*(this: ptr QWindow, arg_0: ptr QMouseEvent) {.header:headerF
 proc wheelEvent*(this: ptr QWindow, arg_0: ptr QWheelEvent) {.header:headerFile, importcpp:"#.wheelEvent(@)".} # Protected
 proc touchEvent*(this: ptr QWindow, arg_0: ptr QTouchEvent) {.header:headerFile, importcpp:"#.touchEvent(@)".} # Protected
 proc tabletEvent*(this: ptr QWindow, arg_0: ptr QTabletEvent) {.header:headerFile, importcpp:"#.tabletEvent(@)".} # Protected
+import nimqt/qtcore/qbytearray
+proc nativeEvent*(this: ptr QWindow, eventType: QByteArray, message: ptr, result: ptr cint): bool {.header:headerFile, importcpp:"#.nativeEvent(@)".} # Protected
 
 export qevent
 export qscreen
 export qstring
+export qsize
 export qnamespace
 export qcursor
+export qbytearray
+export qpoint
 export qregion
+export qrect
 export qsurface
 export qobject
 export qsurfaceformat
 export qcoreevent
-export qaccessible
 export qicon

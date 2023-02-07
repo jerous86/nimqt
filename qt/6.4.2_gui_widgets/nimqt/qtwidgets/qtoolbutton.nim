@@ -33,6 +33,9 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QToolButton_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QToolButton::tr(@)".} # Public static
 proc static_QToolButton_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QToolButton::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QToolButton): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QToolButton): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 import nimqt/qtcore/qnamespace
 proc toolButtonStyle*(this: ptr QToolButton): Qt_ToolButtonStyle {.header:headerFile, importcpp:"#.toolButtonStyle(@)".} # Public
 proc arrowType*(this: ptr QToolButton): Qt_ArrowType {.header:headerFile, importcpp:"#.arrowType(@)".} # Public
@@ -63,14 +66,18 @@ proc enterEvent*(this: ptr QToolButton, arg_0: ptr QEnterEvent) {.header:headerF
 proc leaveEvent*(this: ptr QToolButton, arg_0: ptr QEvent) {.header:headerFile, importcpp:"#.leaveEvent(@)".} # Protected
 proc timerEvent*(this: ptr QToolButton, arg_0: ptr QTimerEvent) {.header:headerFile, importcpp:"#.timerEvent(@)".} # Protected
 proc changeEvent*(this: ptr QToolButton, arg_0: ptr QEvent) {.header:headerFile, importcpp:"#.changeEvent(@)".} # Protected
+import nimqt/qtcore/qpoint
+proc hitButton*(this: ptr QToolButton, pos: QPoint): bool {.header:headerFile, importcpp:"#.hitButton(@)".} # Protected
 proc checkStateSet*(this: ptr QToolButton) {.header:headerFile, importcpp:"#.checkStateSet(@)".} # Protected
 proc nextCheckState*(this: ptr QToolButton) {.header:headerFile, importcpp:"#.nextCheckState(@)".} # Protected
 
 export qevent
 export qmenu
 export qstring
+export qsize
 export qaction
 export qnamespace
+export qpoint
 export qabstractbutton
 export qwidget
 export qpaintdevice

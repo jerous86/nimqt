@@ -20,7 +20,7 @@ type
 # Consts
 const
     # Global
-    QObjectData_CheckForParentChildLoopsWarnDepth* = 0 # from anonymous enum CheckForParentChildLoopsWarnDepth
+    QObjectData_CheckForParentChildLoopsWarnDepth* = 4096 # from anonymous enum CheckForParentChildLoopsWarnDepth
 
 # Stuff for class QObjectData
 
@@ -66,6 +66,9 @@ proc disconnect*(this: ptr QObject, receiver: ptr QObject, member: ptr char): bo
 proc disconnect*(this: ptr QObject, receiver: ptr QObject): bool {.header:headerFile, importcpp:"#.disconnect(@)".} # Public
 proc dumpObjectTree*(this: ptr QObject) {.header:headerFile, importcpp:"#.dumpObjectTree(@)".} # Public
 proc dumpObjectInfo*(this: ptr QObject) {.header:headerFile, importcpp:"#.dumpObjectInfo(@)".} # Public
+import nimqt/qtcore/qvariant
+proc setProperty*(this: ptr QObject, name: ptr char, value: QVariant): bool {.header:headerFile, importcpp:"#.setProperty(@)".} # Public
+proc property*(this: ptr QObject, name: ptr char): QVariant {.header:headerFile, importcpp:"#.property(@)".} # Public
 import nimqt/qtcore/qbytearray
 proc dynamicPropertyNames*(this: ptr QObject): QList[QByteArray] {.header:headerFile, importcpp:"#.dynamicPropertyNames(@)".} # Public
 # 1 default parameters!
@@ -97,6 +100,7 @@ export qstring
 export qnamespace
 export qbytearray
 export qlist
+export qvariant
 export qcoreevent
 # Additional code for qtcore/qobject
 proc connect*(src:ptr QObject, signal:cstring, dst:ptr QObject, mth:cstring, `type`=AutoConnection) {.header:headerFile ,importcpp:"QObject::connect(@)".}

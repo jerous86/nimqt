@@ -39,6 +39,8 @@ proc toolTip*(this: ptr QSystemTrayIcon): QString {.header:headerFile, importcpp
 proc setToolTip*(this: ptr QSystemTrayIcon, tip: QString) {.header:headerFile, importcpp:"#.setToolTip(@)".} # Public
 proc static_QSystemTrayIcon_isSystemTrayAvailable*(): bool {.header:headerFile, importcpp:"QSystemTrayIcon::isSystemTrayAvailable(@)".} # Public static
 proc static_QSystemTrayIcon_supportsMessages*(): bool {.header:headerFile, importcpp:"QSystemTrayIcon::supportsMessages(@)".} # Public static
+import nimqt/qtcore/qrect
+proc geometry*(this: ptr QSystemTrayIcon): QRect {.header:headerFile, importcpp:"#.geometry(@)".} # Public
 proc isVisible*(this: ptr QSystemTrayIcon): bool {.header:headerFile, importcpp:"#.isVisible(@)".} # Public
 proc setVisible*(this: ptr QSystemTrayIcon, visible: bool) {.header:headerFile, importcpp:"#.setVisible(@)".} # Public
 proc show*(this: ptr QSystemTrayIcon) {.header:headerFile, importcpp:"#.show(@)".} # Public
@@ -58,6 +60,7 @@ proc event*(this: ptr QSystemTrayIcon, event: ptr QEvent): bool {.header:headerF
 
 export qmenu
 export qstring
+export qrect
 export qobject
 export qcoreevent
 export qicon

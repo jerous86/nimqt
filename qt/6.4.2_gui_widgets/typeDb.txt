@@ -207,10 +207,6 @@ qtgui/qoffscreensurface -> derivedalias -> QOffscreenSurface_SurfaceClass -> QSu
 qtgui/qoffscreensurface -> derivedalias -> QOffscreenSurface_SurfaceType -> QSurface_SurfaceType
 
 
-qtgui/qaccessibleobject -> class -> QAccessibleObject -> QAccessibleInterface
-qtgui/qaccessibleobject -> class -> QAccessibleApplication -> QAccessibleObject
-
-
 qtgui/qkeysequence -> class -> QKeySequence -> 
 qtgui/qkeysequence -> enum -> QKeySequence_StandardKey
 qtgui/qkeysequence -> enum -> QKeySequence_SequenceFormat
@@ -268,33 +264,10 @@ qtgui/qpainterpath -> enum -> QPainterPath_ElementType
 qtgui/qpainterpath -> class -> QPainterPathStroker -> 
 
 
-qtgui/qvulkanfunctions -> class -> QVulkanFunctions -> 
-qtgui/qvulkanfunctions -> class -> QVulkanDeviceFunctions -> 
-
-
-qtgui/qaccessibleplugin -> class -> QAccessiblePlugin -> QObject
-
-
 qtgui/qiconengineplugin -> class -> QIconEnginePlugin -> QObject
 
 
 qtgui/qtestsupport_gui -> class -> QTest_QTouchEventSequence -> 
-
-
-qtgui/qaccessible_base -> class -> QAccessible -> 
-qtgui/qaccessible_base -> class -> QAccessible_State -> 
-qtgui/qaccessible_base -> class -> QAccessible_ActivationObserver -> 
-qtgui/qaccessible_base -> enum -> eQAccessible_Event
-qtgui/qaccessible_base -> enum -> QAccessible_Role
-qtgui/qaccessible_base -> enum -> QAccessible_Text
-qtgui/qaccessible_base -> enum -> QAccessible_RelationFlag
-qtgui/qaccessible_base -> enum -> QAccessible_InterfaceType
-qtgui/qaccessible_base -> enum -> QAccessible_TextBoundaryType
-qtgui/qaccessible_base -> alias -> QAccessible_Relation -> 
-qtgui/qaccessible_base -> alias -> QAccessible_InterfaceFactory -> 
-qtgui/qaccessible_base -> alias -> QAccessible_UpdateHandler -> 
-qtgui/qaccessible_base -> alias -> QAccessible_RootObjectHandler -> 
-qtgui/qaccessible_base -> alias -> QAccessible_Id -> 
 
 
 qtgui/qpolygon -> class -> QPolygon -> 
@@ -363,17 +336,6 @@ qtgui/qfont -> enum -> QFont_Stretch
 qtgui/qfont -> enum -> QFont_Capitalization
 qtgui/qfont -> enum -> QFont_SpacingType
 qtgui/qfont -> enum -> QFont_ResolveProperties
-
-
-qtgui/qvulkanwindow -> class -> QVulkanWindowRenderer -> 
-qtgui/qvulkanwindow -> class -> QVulkanWindow -> QWindow
-qtgui/qvulkanwindow -> derivedalias -> QVulkanWindow_Visibility -> QWindow_Visibility
-qtgui/qvulkanwindow -> derivedalias -> QVulkanWindow_AncestorMode -> QWindow_AncestorMode
-qtgui/qvulkanwindow -> derivedalias -> QVulkanWindow_SurfaceClass -> QSurface_SurfaceClass
-qtgui/qvulkanwindow -> derivedalias -> QVulkanWindow_SurfaceType -> QSurface_SurfaceType
-qtgui/qvulkanwindow -> enum -> QVulkanWindow_Flag
-qtgui/qvulkanwindow -> alias -> QVulkanWindow_Flags -> 
-qtgui/qvulkanwindow -> alias -> QVulkanWindow_EnabledFeaturesModifier -> 
 
 
 qtgui/qimageiohandler -> class -> QImageIOHandler -> 
@@ -457,17 +419,6 @@ qtgui/qcolor -> enum -> QColor_Spec
 qtgui/qcolor -> enum -> QColor_NameFormat
 
 
-qtgui/qaccessiblebridge -> class -> QAccessibleBridge -> 
-qtgui/qaccessiblebridge -> class -> QAccessibleBridgePlugin -> QObject
-
-
-qtgui/qsyntaxhighlighter -> class -> QSyntaxHighlighter -> QObject
-
-
-qtgui/qpixmap -> class -> QPixmap -> QPaintDevice
-qtgui/qpixmap -> derivedalias -> QPixmap_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
-
-
 qtgui/qtextformat -> class -> QTextLength -> 
 qtgui/qtextformat -> enum -> QTextLength_Type
 qtgui/qtextformat -> class -> QTextFormat -> 
@@ -534,6 +485,13 @@ qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_Property -> QTextForma
 qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_ObjectTypes -> QTextFormat_ObjectTypes
 qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_PageBreakFlag -> QTextFormat_PageBreakFlag
 qtgui/qtextformat -> derivedalias -> QTextTableCellFormat_PageBreakFlags -> QTextFormat_PageBreakFlags
+
+
+qtgui/qsyntaxhighlighter -> class -> QSyntaxHighlighter -> QObject
+
+
+qtgui/qpixmap -> class -> QPixmap -> QPaintDevice
+qtgui/qpixmap -> derivedalias -> QPixmap_PaintDeviceMetric -> QPaintDevice_PaintDeviceMetric
 
 
 qtgui/qtexttable -> class -> QTextTableCell -> 
@@ -614,20 +572,6 @@ qtgui/qimage -> enum -> QImage_Format
 
 qtgui/qtransform -> class -> QTransform -> 
 qtgui/qtransform -> enum -> QTransform_TransformationType
-
-
-qtgui/qvulkaninstance -> alias -> PFN_vkVoidFunction -> 
-qtgui/qvulkaninstance -> alias -> VkSurfaceKHR -> 
-qtgui/qvulkaninstance -> alias -> VkImage -> 
-qtgui/qvulkaninstance -> alias -> VkImageView -> 
-qtgui/qvulkaninstance -> alias -> VkInstance -> 
-qtgui/qvulkaninstance -> alias -> VkPhysicalDevice -> 
-qtgui/qvulkaninstance -> alias -> VkDevice -> 
-qtgui/qvulkaninstance -> alias -> VkResult -> 
-qtgui/qvulkaninstance -> alias -> VkFormat -> 
-qtgui/qvulkaninstance -> alias -> VkImageLayout -> 
-qtgui/qvulkaninstance -> alias -> VkDebugReportFlagsEXT -> 
-qtgui/qvulkaninstance -> alias -> VkDebugReportObjectTypeEXT -> 
 
 
 qtgui/qvectornd -> class -> QVector2D -> 

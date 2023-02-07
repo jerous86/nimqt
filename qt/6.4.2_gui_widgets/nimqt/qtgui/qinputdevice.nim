@@ -8,12 +8,12 @@ import nimqt/qtcore/qobject
 type
     # Classes and enums found in the C++ code
     # Global
-    QInputDevice_DeviceType* {.header:headerFile,importcpp:"QInputDevice::DeviceType".} = enum Unknown = 0, Mouse = 0x1, TouchScreen = 0x2, TouchPad = 0x3, 
-        Puck = 0x4, Stylus = 0x5, Airbrush = 0x6, Keyboard = 0x7, AllDevices = 0x8
-    QInputDevice_Capability* {.header:headerFile,importcpp:"QInputDevice::Capability".} = enum None = 0, Position = 0x1, Area = 0x2, Pressure = 0x3, 
-        Velocity = 0x4, NormalizedPosition = 0x5, MouseEmulation = 0x6, PixelScroll = 0x7, Scroll = 0x8, 
-        Hover = 0x9, Rotation = 0xa, XTilt = 0xb, YTilt = 0xc, TangentialPressure = 0xd, 
-        ZPosition = 0xe, All = 0xf
+    QInputDevice_DeviceType* {.header:headerFile,importcpp:"QInputDevice::DeviceType".} = enum Unknown = 0, Mouse = 0x1, TouchScreen = 0x2, TouchPad = 0x4, 
+        Puck = 0x8, Stylus = 0x10, Airbrush = 0x20, Keyboard = 0x1000, AllDevices = 0x7fffffff
+    QInputDevice_Capability* {.header:headerFile,importcpp:"QInputDevice::Capability".} = enum None = 0, Position = 0x1, Area = 0x2, Pressure = 0x4, 
+        Velocity = 0x8, NormalizedPosition = 0x20, MouseEmulation = 0x40, PixelScroll = 0x80, Scroll = 0x100, 
+        Hover = 0x200, Rotation = 0x400, XTilt = 0x800, YTilt = 0x1000, TangentialPressure = 0x2000, 
+        ZPosition = 0x4000, All = 0x7fffffff
     QInputDevice* {.header:headerFile,importcpp:"QInputDevice" ,pure.} = object of QObject
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags
@@ -46,10 +46,20 @@ proc capabilities*(this: ptr QInputDevice): QFlags[QInputDevice_Capability] {.he
 proc hasCapability*(this: ptr QInputDevice, cap: QInputDevice_Capability): bool {.header:headerFile, importcpp:"#.hasCapability(@)".} # Public
 proc systemId*(this: ptr QInputDevice): clonglong {.header:headerFile, importcpp:"#.systemId(@)".} # Public
 proc seatName*(this: ptr QInputDevice): QString {.header:headerFile, importcpp:"#.seatName(@)".} # Public
+import nimqt/qtcore/qrect
+proc availableVirtualGeometry*(this: ptr QInputDevice): QRect {.header:headerFile, importcpp:"#.availableVirtualGeometry(@)".} # Public
+import nimqt/qtcore/qstringlist
+proc static_QInputDevice_seatNames*(): QStringList {.header:headerFile, importcpp:"QInputDevice::seatNames(@)".} # Public static
+import nimqt/qtcore/qlist
+proc static_QInputDevice_devices*(): QList[ptr QInputDevice] {.header:headerFile, importcpp:"QInputDevice::devices(@)".} # Public static
 # 1 default parameters!
 proc static_QInputDevice_primaryKeyboard*(seatName: QString): ptr QInputDevice {.header:headerFile, importcpp:"QInputDevice::primaryKeyboard(@)".} # Public static
 proc static_QInputDevice_primaryKeyboard*(): ptr QInputDevice {.header:headerFile, importcpp:"QInputDevice::primaryKeyboard(@)".} # Public static
+proc availableVirtualGeometryChanged*(this: ptr QInputDevice, area: QRect) {.header:headerFile, importcpp:"#.availableVirtualGeometryChanged(@)".} # Public
 
+export qstringlist
 export qstring
+export qlist
+export qrect
 export qflags
 export qobject

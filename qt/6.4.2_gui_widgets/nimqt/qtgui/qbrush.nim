@@ -11,40 +11,40 @@ type
     QGradient_Spread* {.header:headerFile,importcpp:"QGradient::Spread".} = enum PadSpread = 0, ReflectSpread = 0x1, RepeatSpread = 0x2
     QGradient_CoordinateMode* {.header:headerFile,importcpp:"QGradient::CoordinateMode".} = enum LogicalMode = 0, StretchToDeviceMode = 0x1, ObjectBoundingMode = 0x2, ObjectMode = 0x3
     QGradient_InterpolationMode* {.header:headerFile,importcpp:"QGradient::InterpolationMode".} = enum ColorInterpolation = 0, ComponentInterpolation = 0x1
-    QGradient_Preset* {.header:headerFile,importcpp:"QGradient::Preset".} = enum WarmFlame = 0, NightFade = 0x1, SpringWarmth = 0x2, JuicyPeach = 0x3, 
-        YoungPassion = 0x4, LadyLips = 0x5, SunnyMorning = 0x6, RainyAshville = 0x7, FrozenDreams = 0x8, 
-        WinterNeva = 0x9, DustyGrass = 0xa, TemptingAzure = 0xb, HeavyRain = 0xc, AmyCrisp = 0xd, 
-        MeanFruit = 0xe, DeepBlue = 0xf, RipeMalinka = 0x10, CloudyKnoxville = 0x11, MalibuBeach = 0x12, 
-        NewLife = 0x13, TrueSunset = 0x14, MorpheusDen = 0x15, RareWind = 0x16, NearMoon = 0x17, 
-        WildApple = 0x18, SaintPetersburg = 0x19, PlumPlate = 0x1a, EverlastingSky = 0x1b, HappyFisher = 0x1c, 
-        Blessing = 0x1d, SharpeyeEagle = 0x1e, LadogaBottom = 0x1f, LemonGate = 0x20, ItmeoBranding = 0x21, 
-        ZeusMiracle = 0x22, OldHat = 0x23, StarWine = 0x24, HappyAcid = 0x25, AwesomePine = 0x26, 
-        NewYork = 0x27, ShyRainbow = 0x28, MixedHopes = 0x29, FlyHigh = 0x2a, StrongBliss = 0x2b, 
-        FreshMilk = 0x2c, SnowAgain = 0x2d, FebruaryInk = 0x2e, KindSteel = 0x2f, SoftGrass = 0x30, 
-        GrownEarly = 0x31, SharpBlues = 0x32, ShadyWater = 0x33, DirtyBeauty = 0x34, GreatWhale = 0x35, 
-        TeenNotebook = 0x36, PoliteRumors = 0x37, SweetPeriod = 0x38, WideMatrix = 0x39, SoftCherish = 0x3a, 
-        RedSalvation = 0x3b, BurningSpring = 0x3c, NightParty = 0x3d, SkyGlider = 0x3e, HeavenPeach = 0x3f, 
-        PurpleDivision = 0x40, AquaSplash = 0x41, SpikyNaga = 0x42, LoveKiss = 0x43, CleanMirror = 0x44, 
-        PremiumDark = 0x45, ColdEvening = 0x46, CochitiLake = 0x47, SummerGames = 0x48, PassionateBed = 0x49, 
-        MountainRock = 0x4a, DesertHump = 0x4b, JungleDay = 0x4c, PhoenixStart = 0x4d, OctoberSilence = 0x4e, 
-        FarawayRiver = 0x4f, AlchemistLab = 0x50, OverSun = 0x51, PremiumWhite = 0x52, MarsParty = 0x53, 
-        EternalConstance = 0x54, JapanBlush = 0x55, SmilingRain = 0x56, CloudyApple = 0x57, BigMango = 0x58, 
-        HealthyWater = 0x59, AmourAmour = 0x5a, RiskyConcrete = 0x5b, StrongStick = 0x5c, ViciousStance = 0x5d, 
-        PaloAlto = 0x5e, HappyMemories = 0x5f, MidnightBloom = 0x60, Crystalline = 0x61, PartyBliss = 0x62, 
-        ConfidentCloud = 0x63, LeCocktail = 0x64, RiverCity = 0x65, FrozenBerry = 0x66, ChildCare = 0x67, 
-        FlyingLemon = 0x68, NewRetrowave = 0x69, HiddenJaguar = 0x6a, AboveTheSky = 0x6b, Nega = 0x6c, 
-        DenseWater = 0x6d, Seashore = 0x6e, MarbleWall = 0x6f, CheerfulCaramel = 0x70, NightSky = 0x71, 
-        MagicLake = 0x72, YoungGrass = 0x73, ColorfulPeach = 0x74, GentleCare = 0x75, PlumBath = 0x76, 
-        HappyUnicorn = 0x77, AfricanField = 0x78, SolidStone = 0x79, OrangeJuice = 0x7a, GlassWater = 0x7b, 
-        NorthMiracle = 0x7c, FruitBlend = 0x7d, MillenniumPine = 0x7e, HighFlight = 0x7f, MoleHall = 0x80, 
-        SpaceShift = 0x81, ForestInei = 0x82, RoyalGarden = 0x83, RichMetal = 0x84, JuicyCake = 0x85, 
-        SmartIndigo = 0x86, SandStrike = 0x87, NorseBeauty = 0x88, AquaGuidance = 0x89, SunVeggie = 0x8a, 
-        SeaLord = 0x8b, BlackSea = 0x8c, GrassShampoo = 0x8d, LandingAircraft = 0x8e, WitchDance = 0x8f, 
-        SleeplessNight = 0x90, AngelCare = 0x91, CrystalRiver = 0x92, SoftLipstick = 0x93, SaltMountain = 0x94, 
-        PerfectWhite = 0x95, FreshOasis = 0x96, StrictNovember = 0x97, MorningSalad = 0x98, DeepRelief = 0x99, 
-        SeaStrike = 0x9a, NightCall = 0x9b, SupremeSky = 0x9c, LightBlue = 0x9d, MindCrawl = 0x9e, 
-        LilyMeadow = 0x9f, SugarLollipop = 0xa0, SweetDessert = 0xa1, MagicRay = 0xa2, TeenParty = 0xa3, 
-        FrozenHeat = 0xa4, GagarinView = 0xa5, FabledSunset = 0xa6, PerfectBlue = 0xa7, NumPresets = 0xa8
+    QGradient_Preset* {.header:headerFile,importcpp:"QGradient::Preset".} = enum WarmFlame = 0x1, NightFade = 0x2, SpringWarmth = 0x3, JuicyPeach = 0x4, 
+        YoungPassion = 0x5, LadyLips = 0x6, SunnyMorning = 0x7, RainyAshville = 0x8, FrozenDreams = 0x9, 
+        WinterNeva = 0xa, DustyGrass = 0xb, TemptingAzure = 0xc, HeavyRain = 0xd, AmyCrisp = 0xe, 
+        MeanFruit = 0xf, DeepBlue = 0x10, RipeMalinka = 0x11, CloudyKnoxville = 0x12, MalibuBeach = 0x13, 
+        NewLife = 0x14, TrueSunset = 0x15, MorpheusDen = 0x16, RareWind = 0x17, NearMoon = 0x18, 
+        WildApple = 0x19, SaintPetersburg = 0x1a, PlumPlate = 0x1c, EverlastingSky = 0x1d, HappyFisher = 0x1e, 
+        Blessing = 0x1f, SharpeyeEagle = 0x20, LadogaBottom = 0x21, LemonGate = 0x22, ItmeoBranding = 0x23, 
+        ZeusMiracle = 0x24, OldHat = 0x25, StarWine = 0x26, HappyAcid = 0x29, AwesomePine = 0x2a, 
+        NewYork = 0x2b, ShyRainbow = 0x2c, MixedHopes = 0x2e, FlyHigh = 0x2f, StrongBliss = 0x30, 
+        FreshMilk = 0x31, SnowAgain = 0x32, FebruaryInk = 0x33, KindSteel = 0x34, SoftGrass = 0x35, 
+        GrownEarly = 0x36, SharpBlues = 0x37, ShadyWater = 0x38, DirtyBeauty = 0x39, GreatWhale = 0x3a, 
+        TeenNotebook = 0x3b, PoliteRumors = 0x3c, SweetPeriod = 0x3d, WideMatrix = 0x3e, SoftCherish = 0x3f, 
+        RedSalvation = 0x40, BurningSpring = 0x41, NightParty = 0x42, SkyGlider = 0x43, HeavenPeach = 0x44, 
+        PurpleDivision = 0x45, AquaSplash = 0x46, SpikyNaga = 0x48, LoveKiss = 0x49, CleanMirror = 0x4b, 
+        PremiumDark = 0x4c, ColdEvening = 0x4d, CochitiLake = 0x4e, SummerGames = 0x4f, PassionateBed = 0x50, 
+        MountainRock = 0x51, DesertHump = 0x52, JungleDay = 0x53, PhoenixStart = 0x54, OctoberSilence = 0x55, 
+        FarawayRiver = 0x56, AlchemistLab = 0x57, OverSun = 0x58, PremiumWhite = 0x59, MarsParty = 0x5a, 
+        EternalConstance = 0x5b, JapanBlush = 0x5c, SmilingRain = 0x5d, CloudyApple = 0x5e, BigMango = 0x5f, 
+        HealthyWater = 0x60, AmourAmour = 0x61, RiskyConcrete = 0x62, StrongStick = 0x63, ViciousStance = 0x64, 
+        PaloAlto = 0x65, HappyMemories = 0x66, MidnightBloom = 0x67, Crystalline = 0x68, PartyBliss = 0x6a, 
+        ConfidentCloud = 0x6b, LeCocktail = 0x6c, RiverCity = 0x6d, FrozenBerry = 0x6e, ChildCare = 0x70, 
+        FlyingLemon = 0x71, NewRetrowave = 0x72, HiddenJaguar = 0x73, AboveTheSky = 0x74, Nega = 0x75, 
+        DenseWater = 0x76, Seashore = 0x78, MarbleWall = 0x79, CheerfulCaramel = 0x7a, NightSky = 0x7b, 
+        MagicLake = 0x7c, YoungGrass = 0x7d, ColorfulPeach = 0x7e, GentleCare = 0x7f, PlumBath = 0x80, 
+        HappyUnicorn = 0x81, AfricanField = 0x83, SolidStone = 0x84, OrangeJuice = 0x85, GlassWater = 0x86, 
+        NorthMiracle = 0x88, FruitBlend = 0x89, MillenniumPine = 0x8a, HighFlight = 0x8b, MoleHall = 0x8c, 
+        SpaceShift = 0x8e, ForestInei = 0x8f, RoyalGarden = 0x90, RichMetal = 0x91, JuicyCake = 0x92, 
+        SmartIndigo = 0x93, SandStrike = 0x94, NorseBeauty = 0x95, AquaGuidance = 0x96, SunVeggie = 0x97, 
+        SeaLord = 0x98, BlackSea = 0x99, GrassShampoo = 0x9a, LandingAircraft = 0x9b, WitchDance = 0x9c, 
+        SleeplessNight = 0x9d, AngelCare = 0x9e, CrystalRiver = 0x9f, SoftLipstick = 0xa0, SaltMountain = 0xa1, 
+        PerfectWhite = 0xa2, FreshOasis = 0xa3, StrictNovember = 0xa4, MorningSalad = 0xa5, DeepRelief = 0xa6, 
+        SeaStrike = 0xa7, NightCall = 0xa8, SupremeSky = 0xa9, LightBlue = 0xaa, MindCrawl = 0xab, 
+        LilyMeadow = 0xac, SugarLollipop = 0xad, SweetDessert = 0xae, MagicRay = 0xaf, TeenParty = 0xb0, 
+        FrozenHeat = 0xb1, GagarinView = 0xb2, FabledSunset = 0xb3, PerfectBlue = 0xb4, NumPresets = 0xb5
     QBrushDataPointerDeleter* {.header:headerFile,importcpp:"QBrushDataPointerDeleter" ,pure.} = object {.inheritable.}
     QBrush* {.header:headerFile,importcpp:"QBrush" ,pure.} = object {.inheritable.}
     QBrushData* {.header:headerFile,importcpp:"QBrushData" ,pure.} = object {.inheritable.}
@@ -130,21 +130,34 @@ proc `!=`*(this: ptr QGradient, other: QGradient): bool {.header:headerFile, imp
 
 # Public constructors for QLinearGradient
 proc newQLinearGradient*(): ptr QLinearGradient {. header:headerFile, importcpp:"new QLinearGradient(@)" .} #
+import nimqt/qtcore/qpoint
+proc newQLinearGradient*(start: QPointF, finalStop: QPointF): ptr QLinearGradient {. header:headerFile, importcpp:"new QLinearGradient(@)" .} #
 proc newQLinearGradient*(xStart: cfloat, yStart: cfloat, xFinalStop: cfloat, yFinalStop: cfloat): ptr QLinearGradient {. header:headerFile, importcpp:"new QLinearGradient(@)" .} #
 
 # Public methods for QLinearGradient
+proc start*(this: ptr QLinearGradient): QPointF {.header:headerFile, importcpp:"#.start(@)".} # Public
+proc setStart*(this: ptr QLinearGradient, start: QPointF) {.header:headerFile, importcpp:"#.setStart(@)".} # Public
 proc setStart*(this: ptr QLinearGradient, x: cfloat, y: cfloat) {.header:headerFile, importcpp:"#.setStart(@)".} # Public
+proc finalStop*(this: ptr QLinearGradient): QPointF {.header:headerFile, importcpp:"#.finalStop(@)".} # Public
+proc setFinalStop*(this: ptr QLinearGradient, stop: QPointF) {.header:headerFile, importcpp:"#.setFinalStop(@)".} # Public
 proc setFinalStop*(this: ptr QLinearGradient, x: cfloat, y: cfloat) {.header:headerFile, importcpp:"#.setFinalStop(@)".} # Public
 # Stuff for class QRadialGradient
 
 # Public constructors for QRadialGradient
 proc newQRadialGradient*(): ptr QRadialGradient {. header:headerFile, importcpp:"new QRadialGradient(@)" .} #
+proc newQRadialGradient*(center: QPointF, radius: cfloat, focalPoint: QPointF): ptr QRadialGradient {. header:headerFile, importcpp:"new QRadialGradient(@)" .} #
 proc newQRadialGradient*(cx: cfloat, cy: cfloat, radius: cfloat, fx: cfloat, fy: cfloat): ptr QRadialGradient {. header:headerFile, importcpp:"new QRadialGradient(@)" .} #
+proc newQRadialGradient*(center: QPointF, radius: cfloat): ptr QRadialGradient {. header:headerFile, importcpp:"new QRadialGradient(@)" .} #
 proc newQRadialGradient*(cx: cfloat, cy: cfloat, radius: cfloat): ptr QRadialGradient {. header:headerFile, importcpp:"new QRadialGradient(@)" .} #
+proc newQRadialGradient*(center: QPointF, centerRadius: cfloat, focalPoint: QPointF, focalRadius: cfloat): ptr QRadialGradient {. header:headerFile, importcpp:"new QRadialGradient(@)" .} #
 proc newQRadialGradient*(cx: cfloat, cy: cfloat, centerRadius: cfloat, fx: cfloat, fy: cfloat, focalRadius: cfloat): ptr QRadialGradient {. header:headerFile, importcpp:"new QRadialGradient(@)" .} #
 
 # Public methods for QRadialGradient
+proc center*(this: ptr QRadialGradient): QPointF {.header:headerFile, importcpp:"#.center(@)".} # Public
+proc setCenter*(this: ptr QRadialGradient, center: QPointF) {.header:headerFile, importcpp:"#.setCenter(@)".} # Public
 proc setCenter*(this: ptr QRadialGradient, x: cfloat, y: cfloat) {.header:headerFile, importcpp:"#.setCenter(@)".} # Public
+proc focalPoint*(this: ptr QRadialGradient): QPointF {.header:headerFile, importcpp:"#.focalPoint(@)".} # Public
+proc setFocalPoint*(this: ptr QRadialGradient, focalPoint: QPointF) {.header:headerFile, importcpp:"#.setFocalPoint(@)".} # Public
 proc setFocalPoint*(this: ptr QRadialGradient, x: cfloat, y: cfloat) {.header:headerFile, importcpp:"#.setFocalPoint(@)".} # Public
 proc radius*(this: ptr QRadialGradient): cfloat {.header:headerFile, importcpp:"#.radius(@)".} # Public
 proc setRadius*(this: ptr QRadialGradient, radius: cfloat) {.header:headerFile, importcpp:"#.setRadius(@)".} # Public
@@ -156,9 +169,12 @@ proc setFocalRadius*(this: ptr QRadialGradient, radius: cfloat) {.header:headerF
 
 # Public constructors for QConicalGradient
 proc newQConicalGradient*(): ptr QConicalGradient {. header:headerFile, importcpp:"new QConicalGradient(@)" .} #
+proc newQConicalGradient*(center: QPointF, startAngle: cfloat): ptr QConicalGradient {. header:headerFile, importcpp:"new QConicalGradient(@)" .} #
 proc newQConicalGradient*(cx: cfloat, cy: cfloat, startAngle: cfloat): ptr QConicalGradient {. header:headerFile, importcpp:"new QConicalGradient(@)" .} #
 
 # Public methods for QConicalGradient
+proc center*(this: ptr QConicalGradient): QPointF {.header:headerFile, importcpp:"#.center(@)".} # Public
+proc setCenter*(this: ptr QConicalGradient, center: QPointF) {.header:headerFile, importcpp:"#.setCenter(@)".} # Public
 proc setCenter*(this: ptr QConicalGradient, x: cfloat, y: cfloat) {.header:headerFile, importcpp:"#.setCenter(@)".} # Public
 proc angle*(this: ptr QConicalGradient): cfloat {.header:headerFile, importcpp:"#.angle(@)".} # Public
 proc setAngle*(this: ptr QConicalGradient, angle: cfloat) {.header:headerFile, importcpp:"#.setAngle(@)".} # Public
@@ -166,5 +182,6 @@ proc setAngle*(this: ptr QConicalGradient, angle: cfloat) {.header:headerFile, i
 export qpixmap
 export qimage
 export qnamespace
+export qpoint
 export qtransform
 export qcolor

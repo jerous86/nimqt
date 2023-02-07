@@ -8,7 +8,7 @@ import nimqt/qtcore/qobject
 type
     # Classes and enums found in the C++ code
     # Global
-    QGraphicsEffect_ChangeFlag* {.header:headerFile,importcpp:"QGraphicsEffect::ChangeFlag".} = enum SourceAttached = 0, SourceDetached = 0x1, SourceBoundingRectChanged = 0x2, SourceInvalidated = 0x3
+    QGraphicsEffect_ChangeFlag* {.header:headerFile,importcpp:"QGraphicsEffect::ChangeFlag".} = enum SourceAttached = 0x1, SourceDetached = 0x2, SourceBoundingRectChanged = 0x4, SourceInvalidated = 0x8
     QGraphicsEffect_PixmapPadMode* {.header:headerFile,importcpp:"QGraphicsEffect::PixmapPadMode".} = enum NoPad = 0, PadToTransparentBorder = 0x1, PadToEffectiveBoundingRect = 0x2
     QGraphicsBlurEffect_BlurHint* {.header:headerFile,importcpp:"QGraphicsBlurEffect::BlurHint".} = enum PerformanceHint = 0, QualityHint = 0x1, AnimationHint = 0x2
     QGraphicsEffect* {.header:headerFile,importcpp:"QGraphicsEffect" ,pure.} = object of QObject

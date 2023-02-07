@@ -49,7 +49,13 @@ proc static_QColumnView_tr*(s: ptr char, c: ptr char, n: cint): QString {.header
 proc static_QColumnView_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QColumnView::tr(@)".} # Public static
 import nimqt/qtcore/qabstractitemmodel
 proc updatePreviewWidget*(this: ptr QColumnView, index: QModelIndex) {.header:headerFile, importcpp:"#.updatePreviewWidget(@)".} # Public
+import nimqt/qtcore/qpoint
+proc indexAt*(this: ptr QColumnView, point: QPoint): QModelIndex {.header:headerFile, importcpp:"#.indexAt(@)".} # Public
 proc scrollTo*(this: ptr QColumnView, index: QModelIndex, hint: QAbstractItemView_ScrollHint) {.header:headerFile, importcpp:"#.scrollTo(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QColumnView): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+import nimqt/qtcore/qrect
+proc visualRect*(this: ptr QColumnView, index: QModelIndex): QRect {.header:headerFile, importcpp:"#.visualRect(@)".} # Public
 proc setModel*(this: ptr QColumnView, model: ptr QAbstractItemModel) {.header:headerFile, importcpp:"#.setModel(@)".} # Public
 proc setRootIndex*(this: ptr QColumnView, index: QModelIndex) {.header:headerFile, importcpp:"#.setRootIndex(@)".} # Public
 proc selectAll*(this: ptr QColumnView) {.header:headerFile, importcpp:"#.selectAll(@)".} # Public
@@ -57,6 +63,9 @@ proc setResizeGripsVisible*(this: ptr QColumnView, visible: bool) {.header:heade
 proc resizeGripsVisible*(this: ptr QColumnView): bool {.header:headerFile, importcpp:"#.resizeGripsVisible(@)".} # Public
 proc previewWidget*(this: ptr QColumnView): ptr QWidget {.header:headerFile, importcpp:"#.previewWidget(@)".} # Public
 proc setPreviewWidget*(this: ptr QColumnView, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setPreviewWidget(@)".} # Public
+import nimqt/qtcore/qlist
+proc setColumnWidths*(this: ptr QColumnView, list: QList[cint]) {.header:headerFile, importcpp:"#.setColumnWidths(@)".} # Public
+proc columnWidths*(this: ptr QColumnView): QList[cint] {.header:headerFile, importcpp:"#.columnWidths(@)".} # Public
 
 # Protected methods methods for QColumnView
 proc isIndexHidden*(this: ptr QColumnView, index: QModelIndex): bool {.header:headerFile, importcpp:"#.isIndexHidden(@)".} # Protected
@@ -74,10 +83,14 @@ proc initializeColumn*(this: ptr QColumnView, column: ptr QAbstractItemView) {.h
 
 export qevent
 export qstring
+export qsize
 export qabstractitemview
 export qabstractscrollarea
 export qnamespace
+export qlist
 export qabstractitemmodel
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qframe

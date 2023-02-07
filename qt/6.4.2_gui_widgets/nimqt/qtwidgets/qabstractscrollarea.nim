@@ -51,6 +51,10 @@ proc setCornerWidget*(this: ptr QAbstractScrollArea, widget: ptr QWidget) {.head
 proc addScrollBarWidget*(this: ptr QAbstractScrollArea, widget: ptr QWidget, alignment: Qt_Alignment) {.header:headerFile, importcpp:"#.addScrollBarWidget(@)".} # Public
 proc viewport*(this: ptr QAbstractScrollArea): ptr QWidget {.header:headerFile, importcpp:"#.viewport(@)".} # Public
 proc setViewport*(this: ptr QAbstractScrollArea, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setViewport(@)".} # Public
+import nimqt/qtcore/qsize
+proc maximumViewportSize*(this: ptr QAbstractScrollArea): QSize {.header:headerFile, importcpp:"#.maximumViewportSize(@)".} # Public
+proc minimumSizeHint*(this: ptr QAbstractScrollArea): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
+proc sizeHint*(this: ptr QAbstractScrollArea): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc setupViewport*(this: ptr QAbstractScrollArea, viewport: ptr QWidget) {.header:headerFile, importcpp:"#.setupViewport(@)".} # Public
 proc sizeAdjustPolicy*(this: ptr QAbstractScrollArea): QAbstractScrollArea_SizeAdjustPolicy {.header:headerFile, importcpp:"#.sizeAdjustPolicy(@)".} # Public
 proc setSizeAdjustPolicy*(this: ptr QAbstractScrollArea, policy: QAbstractScrollArea_SizeAdjustPolicy) {.header:headerFile, importcpp:"#.setSizeAdjustPolicy(@)".} # Public
@@ -77,9 +81,11 @@ proc dragLeaveEvent*(this: ptr QAbstractScrollArea, arg_0: ptr QDragLeaveEvent) 
 proc dropEvent*(this: ptr QAbstractScrollArea, arg_0: ptr QDropEvent) {.header:headerFile, importcpp:"#.dropEvent(@)".} # Protected
 proc keyPressEvent*(this: ptr QAbstractScrollArea, arg_0: ptr QKeyEvent) {.header:headerFile, importcpp:"#.keyPressEvent(@)".} # Protected
 proc scrollContentsBy*(this: ptr QAbstractScrollArea, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollContentsBy(@)".} # Protected
+proc viewportSizeHint*(this: ptr QAbstractScrollArea): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected
 
 export qevent
 export qstring
+export qsize
 export qnamespace
 export qwidget
 export qpaintdevice

@@ -7,8 +7,8 @@ const headerFile* = "QtGui/qmatrix4x4.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QMatrix4x4_Flag* {.header:headerFile,importcpp:"QMatrix4x4::Flag".} = enum Identity = 0, Translation = 0x1, Scale = 0x2, Rotation2D = 0x3, 
-        Rotation = 0x4, Perspective = 0x5, General = 0x6
+    QMatrix4x4_Flag* {.header:headerFile,importcpp:"QMatrix4x4::Flag".} = enum Identity = 0, Translation = 0x1, Scale = 0x2, Rotation2D = 0x4, 
+        Rotation = 0x8, Perspective = 0x10, General = 0x1f
     QMatrix4x4* {.header:headerFile,importcpp:"QMatrix4x4" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags
@@ -62,18 +62,28 @@ proc translate*(this: QMatrix4x4, x: cfloat, y: cfloat, z: cfloat) {.header:head
 proc rotate*(this: QMatrix4x4, angle: cfloat, x: cfloat, y: cfloat, z: cfloat) {.header:headerFile, importcpp:"#.rotate(@)".} # Public
 import nimqt/qtgui/qquaternion
 proc rotate*(this: QMatrix4x4, quaternion: QQuaternion) {.header:headerFile, importcpp:"#.rotate(@)".} # Public
+import nimqt/qtcore/qrect
+proc ortho*(this: QMatrix4x4, rect: QRect) {.header:headerFile, importcpp:"#.ortho(@)".} # Public
+proc ortho*(this: QMatrix4x4, rect: QRectF) {.header:headerFile, importcpp:"#.ortho(@)".} # Public
 proc ortho*(this: QMatrix4x4, left: cfloat, right: cfloat, bottom: cfloat, top: cfloat, nearPlane: cfloat, farPlane: cfloat) {.header:headerFile, importcpp:"#.ortho(@)".} # Public
 proc frustum*(this: QMatrix4x4, left: cfloat, right: cfloat, bottom: cfloat, top: cfloat, nearPlane: cfloat, farPlane: cfloat) {.header:headerFile, importcpp:"#.frustum(@)".} # Public
 proc perspective*(this: QMatrix4x4, verticalAngle: cfloat, aspectRatio: cfloat, nearPlane: cfloat, farPlane: cfloat) {.header:headerFile, importcpp:"#.perspective(@)".} # Public
 proc lookAt*(this: QMatrix4x4, eye: QVector3D, center: QVector3D, up: QVector3D) {.header:headerFile, importcpp:"#.lookAt(@)".} # Public
+proc viewport*(this: QMatrix4x4, rect: QRectF) {.header:headerFile, importcpp:"#.viewport(@)".} # Public
 proc viewport*(this: QMatrix4x4, left: cfloat, bottom: cfloat, width: cfloat, height: cfloat, nearPlane: cfloat, farPlane: cfloat) {.header:headerFile, importcpp:"#.viewport(@)".} # Public
 proc flipCoordinates*(this: QMatrix4x4) {.header:headerFile, importcpp:"#.flipCoordinates(@)".} # Public
 proc copyDataTo*(this: QMatrix4x4, values: ptr cfloat) {.header:headerFile, importcpp:"#.copyDataTo(@)".} # Public
 proc toTransform*(this: QMatrix4x4): QTransform {.header:headerFile, importcpp:"#.toTransform(@)".} # Public
 proc toTransform*(this: QMatrix4x4, distanceToPlane: cfloat): QTransform {.header:headerFile, importcpp:"#.toTransform(@)".} # Public
+import nimqt/qtcore/qpoint
+proc map*(this: QMatrix4x4, point: QPoint): QPoint {.header:headerFile, importcpp:"#.map(@)".} # Public
+proc map*(this: QMatrix4x4, point: QPointF): QPointF {.header:headerFile, importcpp:"#.map(@)".} # Public
 proc map*(this: QMatrix4x4, point: QVector3D): QVector3D {.header:headerFile, importcpp:"#.map(@)".} # Public
 proc mapVector*(this: QMatrix4x4, vector: QVector3D): QVector3D {.header:headerFile, importcpp:"#.mapVector(@)".} # Public
 proc map*(this: QMatrix4x4, point: QVector4D): QVector4D {.header:headerFile, importcpp:"#.map(@)".} # Public
+proc mapRect*(this: QMatrix4x4, rect: QRect): QRect {.header:headerFile, importcpp:"#.mapRect(@)".} # Public
+proc mapRect*(this: QMatrix4x4, rect: QRectF): QRectF {.header:headerFile, importcpp:"#.mapRect(@)".} # Public
+proc toGenericMatrix*[N](this: QMatrix4x4): QGenericMatrix[N] {.header:headerFile, importcpp:"#.toGenericMatrix(@)".} # Public
 proc data*(this: QMatrix4x4): ptr cfloat {.header:headerFile, importcpp:"#.data(@)".} # Public
 proc constData*(this: QMatrix4x4): ptr cfloat {.header:headerFile, importcpp:"#.constData(@)".} # Public
 proc optimize*(this: QMatrix4x4) {.header:headerFile, importcpp:"#.optimize(@)".} # Public
@@ -83,6 +93,8 @@ proc flags*(this: QMatrix4x4): QFlags[QMatrix4x4_Flag] {.header:headerFile, impo
 export qvectornd
 export qnamespace
 export qgenericmatrix
+export qpoint
 export qquaternion
+export qrect
 export qflags
 export qtransform

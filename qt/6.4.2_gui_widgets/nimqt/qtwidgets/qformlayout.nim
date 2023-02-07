@@ -85,6 +85,11 @@ proc labelForField*(this: ptr QFormLayout, field: ptr QLayout): ptr QWidget {.he
 proc addItem*(this: ptr QFormLayout, item: ptr QLayoutItem) {.header:headerFile, importcpp:"#.addItem(@)".} # Public
 proc itemAt*(this: ptr QFormLayout, index: cint): ptr QLayoutItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
 proc takeAt*(this: ptr QFormLayout, index: cint): ptr QLayoutItem {.header:headerFile, importcpp:"#.takeAt(@)".} # Public
+import nimqt/qtcore/qrect
+proc setGeometry*(this: ptr QFormLayout, rect: QRect) {.header:headerFile, importcpp:"#.setGeometry(@)".} # Public
+import nimqt/qtcore/qsize
+proc minimumSize*(this: ptr QFormLayout): QSize {.header:headerFile, importcpp:"#.minimumSize(@)".} # Public
+proc sizeHint*(this: ptr QFormLayout): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc invalidate*(this: ptr QFormLayout) {.header:headerFile, importcpp:"#.invalidate(@)".} # Public
 proc hasHeightForWidth*(this: ptr QFormLayout): bool {.header:headerFile, importcpp:"#.hasHeightForWidth(@)".} # Public
 proc heightForWidth*(this: ptr QFormLayout, width: cint): cint {.header:headerFile, importcpp:"#.heightForWidth(@)".} # Public
@@ -93,7 +98,9 @@ proc count*(this: ptr QFormLayout): cint {.header:headerFile, importcpp:"#.count
 proc rowCount*(this: ptr QFormLayout): cint {.header:headerFile, importcpp:"#.rowCount(@)".} # Public
 
 export qstring
+export qsize
 export qnamespace
 export qlayout
 export qwidget
+export qrect
 export qlayoutitem

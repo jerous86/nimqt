@@ -9,7 +9,7 @@ type
     # Classes and enums found in the C++ code
     # Global
     QAbstractItemModel_LayoutChangeHint* {.header:headerFile,importcpp:"QAbstractItemModel::LayoutChangeHint".} = enum NoLayoutChangeHint = 0, VerticalSortHint = 0x1, HorizontalSortHint = 0x2
-    QAbstractItemModel_CheckIndexOption* {.header:headerFile,importcpp:"QAbstractItemModel::CheckIndexOption".} = enum NoOption = 0, IndexIsValid = 0x1, DoNotUseParent = 0x2, ParentIsInvalid = 0x3
+    QAbstractItemModel_CheckIndexOption* {.header:headerFile,importcpp:"QAbstractItemModel::CheckIndexOption".} = enum NoOption = 0, IndexIsValid = 0x1, DoNotUseParent = 0x2, ParentIsInvalid = 0x4
     QModelRoleData* {.header:headerFile,importcpp:"QModelRoleData" ,pure.} = object {.inheritable.}
     QModelRoleDataSpan* {.header:headerFile,importcpp:"QModelRoleDataSpan" ,pure.} = object {.inheritable.}
     QModelIndex* {.header:headerFile,importcpp:"QModelIndex" ,pure.} = object {.inheritable.}

@@ -8,21 +8,21 @@ import nimqt/qtcore/qobject
 type
     # Classes and enums found in the C++ code
     # Global
-    QGraphicsItem_GraphicsItemFlag* {.header:headerFile,importcpp:"QGraphicsItem::GraphicsItemFlag".} = enum ItemIsMovable = 0, ItemIsSelectable = 0x1, ItemIsFocusable = 0x2, ItemClipsToShape = 0x3, 
-        ItemClipsChildrenToShape = 0x4, ItemIgnoresTransformations = 0x5, ItemIgnoresParentOpacity = 0x6, ItemDoesntPropagateOpacityToChildren = 0x7, ItemStacksBehindParent = 0x8, 
-        ItemUsesExtendedStyleOption = 0x9, ItemHasNoContents = 0xa, ItemSendsGeometryChanges = 0xb, ItemAcceptsInputMethod = 0xc, ItemNegativeZStacksBehindParent = 0xd, 
-        ItemIsPanel = 0xe, ItemIsFocusScope = 0xf, ItemSendsScenePositionChanges = 0x10, ItemStopsClickFocusPropagation = 0x11, ItemStopsFocusHandling = 0x12, 
-        ItemContainsChildrenInShape = 0x13
-    QGraphicsItem_GraphicsItemChange* {.header:headerFile,importcpp:"QGraphicsItem::GraphicsItemChange".} = enum ItemPositionChange = 0, ItemVisibleChange = 0x1, ItemEnabledChange = 0x2, ItemSelectedChange = 0x3, 
-        ItemParentChange = 0x4, ItemChildAddedChange = 0x5, ItemChildRemovedChange = 0x6, ItemTransformChange = 0x7, ItemPositionHasChanged = 0x8, 
-        ItemTransformHasChanged = 0x9, ItemSceneChange = 0xa, ItemVisibleHasChanged = 0xb, ItemEnabledHasChanged = 0xc, ItemSelectedHasChanged = 0xd, 
-        ItemParentHasChanged = 0xe, ItemSceneHasChanged = 0xf, ItemCursorChange = 0x10, ItemCursorHasChanged = 0x11, ItemToolTipChange = 0x12, 
-        ItemToolTipHasChanged = 0x13, ItemFlagsChange = 0x14, ItemFlagsHaveChanged = 0x15, ItemZValueChange = 0x16, ItemZValueHasChanged = 0x17, 
-        ItemOpacityChange = 0x18, ItemOpacityHasChanged = 0x19, ItemScenePositionHasChanged = 0x1a, ItemRotationChange = 0x1b, ItemRotationHasChanged = 0x1c, 
-        ItemScaleChange = 0x1d, ItemScaleHasChanged = 0x1e, ItemTransformOriginPointChange = 0x1f, ItemTransformOriginPointHasChanged = 0x20
+    QGraphicsItem_GraphicsItemFlag* {.header:headerFile,importcpp:"QGraphicsItem::GraphicsItemFlag".} = enum ItemIsMovable = 0x1, ItemIsSelectable = 0x2, ItemIsFocusable = 0x4, ItemClipsToShape = 0x8, 
+        ItemClipsChildrenToShape = 0x10, ItemIgnoresTransformations = 0x20, ItemIgnoresParentOpacity = 0x40, ItemDoesntPropagateOpacityToChildren = 0x80, ItemStacksBehindParent = 0x100, 
+        ItemUsesExtendedStyleOption = 0x200, ItemHasNoContents = 0x400, ItemSendsGeometryChanges = 0x800, ItemAcceptsInputMethod = 0x1000, ItemNegativeZStacksBehindParent = 0x2000, 
+        ItemIsPanel = 0x4000, ItemIsFocusScope = 0x8000, ItemSendsScenePositionChanges = 0x10000, ItemStopsClickFocusPropagation = 0x20000, ItemStopsFocusHandling = 0x40000, 
+        ItemContainsChildrenInShape = 0x80000
+    QGraphicsItem_GraphicsItemChange* {.header:headerFile,importcpp:"QGraphicsItem::GraphicsItemChange".} = enum ItemPositionChange = 0, ItemVisibleChange = 0x2, ItemEnabledChange = 0x3, ItemSelectedChange = 0x4, 
+        ItemParentChange = 0x5, ItemChildAddedChange = 0x6, ItemChildRemovedChange = 0x7, ItemTransformChange = 0x8, ItemPositionHasChanged = 0x9, 
+        ItemTransformHasChanged = 0xa, ItemSceneChange = 0xb, ItemVisibleHasChanged = 0xc, ItemEnabledHasChanged = 0xd, ItemSelectedHasChanged = 0xe, 
+        ItemParentHasChanged = 0xf, ItemSceneHasChanged = 0x10, ItemCursorChange = 0x11, ItemCursorHasChanged = 0x12, ItemToolTipChange = 0x13, 
+        ItemToolTipHasChanged = 0x14, ItemFlagsChange = 0x15, ItemFlagsHaveChanged = 0x16, ItemZValueChange = 0x17, ItemZValueHasChanged = 0x18, 
+        ItemOpacityChange = 0x19, ItemOpacityHasChanged = 0x1a, ItemScenePositionHasChanged = 0x1b, ItemRotationChange = 0x1c, ItemRotationHasChanged = 0x1d, 
+        ItemScaleChange = 0x1e, ItemScaleHasChanged = 0x1f, ItemTransformOriginPointChange = 0x20, ItemTransformOriginPointHasChanged = 0x21
     QGraphicsItem_CacheMode* {.header:headerFile,importcpp:"QGraphicsItem::CacheMode".} = enum NoCache = 0, ItemCoordinateCache = 0x1, DeviceCoordinateCache = 0x2
     QGraphicsItem_PanelModality* {.header:headerFile,importcpp:"QGraphicsItem::PanelModality".} = enum NonModal = 0, PanelModal = 0x1, SceneModal = 0x2
-    QGraphicsItem_Extension* {.header:headerFile,importcpp:"QGraphicsItem::Extension".} = enum UserExtension = 0
+    QGraphicsItem_Extension* {.header:headerFile,importcpp:"QGraphicsItem::Extension".} = enum UserExtension = -2147483648
     QGraphicsPixmapItem_ShapeMode* {.header:headerFile,importcpp:"QGraphicsPixmapItem::ShapeMode".} = enum MaskShape = 0, BoundingRectShape = 0x1, HeuristicMaskShape = 0x2
     QGraphicsItem* {.header:headerFile,importcpp:"QGraphicsItem" ,pure.} = object {.inheritable.}
     QGraphicsObject* {.header:headerFile,importcpp:"QGraphicsObject" ,pure.} = object of QObject
@@ -114,18 +114,18 @@ type
 # Consts
 const
     # Global
-    QGraphicsItem_Type* = 0 # from anonymous enum Type
-    QGraphicsItem_UserType* = 1 # from anonymous enum UserType
-    QGraphicsPathItem_Type* = 0 # from anonymous enum Type
-    QGraphicsRectItem_Type* = 0 # from anonymous enum Type
-    QGraphicsEllipseItem_Type* = 0 # from anonymous enum Type
-    QGraphicsPolygonItem_Type* = 0 # from anonymous enum Type
-    QGraphicsLineItem_Type* = 0 # from anonymous enum Type
-    QGraphicsPixmapItem_Type* = 0 # from anonymous enum Type
-    QGraphicsTextItem_Type* = 0 # from anonymous enum Type
-    QGraphicsSimpleTextItem_Type* = 0 # from anonymous enum Type
-    QGraphicsItemGroup_Type* = 0 # from anonymous enum Type
-    QMetaTypeId_Defined* = 0 # from anonymous enum Defined
+    QGraphicsItem_Type* = 1 # from anonymous enum Type
+    QGraphicsItem_UserType* = 65536 # from anonymous enum UserType
+    QGraphicsPathItem_Type* = 2 # from anonymous enum Type
+    QGraphicsRectItem_Type* = 3 # from anonymous enum Type
+    QGraphicsEllipseItem_Type* = 4 # from anonymous enum Type
+    QGraphicsPolygonItem_Type* = 5 # from anonymous enum Type
+    QGraphicsLineItem_Type* = 6 # from anonymous enum Type
+    QGraphicsPixmapItem_Type* = 7 # from anonymous enum Type
+    QGraphicsTextItem_Type* = 8 # from anonymous enum Type
+    QGraphicsSimpleTextItem_Type* = 9 # from anonymous enum Type
+    QGraphicsItemGroup_Type* = 10 # from anonymous enum Type
+    QMetaTypeId_Defined* = 1 # from anonymous enum Defined
 
 
 export qflags

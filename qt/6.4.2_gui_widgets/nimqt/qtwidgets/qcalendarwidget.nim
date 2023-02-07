@@ -34,6 +34,9 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QCalendarWidget_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QCalendarWidget::tr(@)".} # Public static
 proc static_QCalendarWidget_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QCalendarWidget::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QCalendarWidget): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QCalendarWidget): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc yearShown*(this: ptr QCalendarWidget): cint {.header:headerFile, importcpp:"#.yearShown(@)".} # Public
 proc monthShown*(this: ptr QCalendarWidget): cint {.header:headerFile, importcpp:"#.monthShown(@)".} # Public
 import nimqt/qtcore/qnamespace
@@ -82,6 +85,7 @@ proc updateCells*(this: ptr QCalendarWidget) {.header:headerFile, importcpp:"#.u
 export qevent
 export qtextformat
 export qstring
+export qsize
 export qnamespace
 export qwidget
 export qpaintdevice

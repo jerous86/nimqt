@@ -36,6 +36,8 @@ proc newQColor*(spec: QColor_Spec, a1: cushort, a2: cushort, a3: cushort, a4: cu
 proc isValid*(this: QColor): bool {.header:headerFile, importcpp:"#.isValid(@)".} # Public
 proc name*(this: QColor, format: QColor_NameFormat): QString {.header:headerFile, importcpp:"#.name(@)".} # Public
 proc setNamedColor*(this: QColor, name: QString) {.header:headerFile, importcpp:"#.setNamedColor(@)".} # Public
+import nimqt/qtcore/qstringlist
+proc static_QColor_colorNames*(): QStringList {.header:headerFile, importcpp:"QColor::colorNames(@)".} # Public static
 proc spec*(this: QColor): QColor_Spec {.header:headerFile, importcpp:"#.spec(@)".} # Public
 proc alpha*(this: QColor): cint {.header:headerFile, importcpp:"#.alpha(@)".} # Public
 proc setAlpha*(this: QColor, alpha: cint) {.header:headerFile, importcpp:"#.setAlpha(@)".} # Public
@@ -170,6 +172,7 @@ proc darker*(this: QColor): QColor {.header:headerFile, importcpp:"#.darker(@)".
 proc `!=`*(this: QColor, c: QColor): bool {.header:headerFile, importcpp:"#.operator!=(@)".} # Public
 proc static_QColor_isValidColor*(name: QString): bool {.header:headerFile, importcpp:"QColor::isValidColor(@)".} # Public static
 
+export qstringlist
 export qstring
 export qnamespace
 export qrgba64

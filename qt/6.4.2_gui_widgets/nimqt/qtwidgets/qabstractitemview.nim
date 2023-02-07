@@ -12,8 +12,8 @@ type
         ContiguousSelection = 0x4
     QAbstractItemView_SelectionBehavior* {.header:headerFile,importcpp:"QAbstractItemView::SelectionBehavior".} = enum SelectItems = 0, SelectRows = 0x1, SelectColumns = 0x2
     QAbstractItemView_ScrollHint* {.header:headerFile,importcpp:"QAbstractItemView::ScrollHint".} = enum EnsureVisible = 0, PositionAtTop = 0x1, PositionAtBottom = 0x2, PositionAtCenter = 0x3
-    QAbstractItemView_EditTrigger* {.header:headerFile,importcpp:"QAbstractItemView::EditTrigger".} = enum NoEditTriggers = 0, CurrentChanged = 0x1, DoubleClicked = 0x2, SelectedClicked = 0x3, 
-        EditKeyPressed = 0x4, AnyKeyPressed = 0x5, AllEditTriggers = 0x6
+    QAbstractItemView_EditTrigger* {.header:headerFile,importcpp:"QAbstractItemView::EditTrigger".} = enum NoEditTriggers = 0, CurrentChanged = 0x1, DoubleClicked = 0x2, SelectedClicked = 0x4, 
+        EditKeyPressed = 0x8, AnyKeyPressed = 0x10, AllEditTriggers = 0x1f
     QAbstractItemView_ScrollMode* {.header:headerFile,importcpp:"QAbstractItemView::ScrollMode".} = enum ScrollPerItem = 0, ScrollPerPixel = 0x1
     QAbstractItemView_DragDropMode* {.header:headerFile,importcpp:"QAbstractItemView::DragDropMode".} = enum NoDragDrop = 0, DragOnly = 0x1, DropOnly = 0x2, DragDrop = 0x3, 
         InternalMove = 0x4
@@ -93,10 +93,18 @@ proc setDefaultDropAction*(this: ptr QAbstractItemView, dropAction: Qt_DropActio
 proc defaultDropAction*(this: ptr QAbstractItemView): Qt_DropAction {.header:headerFile, importcpp:"#.defaultDropAction(@)".} # Public
 proc setAlternatingRowColors*(this: ptr QAbstractItemView, enable: bool) {.header:headerFile, importcpp:"#.setAlternatingRowColors(@)".} # Public
 proc alternatingRowColors*(this: ptr QAbstractItemView): bool {.header:headerFile, importcpp:"#.alternatingRowColors(@)".} # Public
+import nimqt/qtcore/qsize
+proc setIconSize*(this: ptr QAbstractItemView, size: QSize) {.header:headerFile, importcpp:"#.setIconSize(@)".} # Public
+proc iconSize*(this: ptr QAbstractItemView): QSize {.header:headerFile, importcpp:"#.iconSize(@)".} # Public
 proc setTextElideMode*(this: ptr QAbstractItemView, mode: Qt_TextElideMode) {.header:headerFile, importcpp:"#.setTextElideMode(@)".} # Public
 proc textElideMode*(this: ptr QAbstractItemView): Qt_TextElideMode {.header:headerFile, importcpp:"#.textElideMode(@)".} # Public
 proc keyboardSearch*(this: ptr QAbstractItemView, search: QString) {.header:headerFile, importcpp:"#.keyboardSearch(@)".} # Public
+import nimqt/qtcore/qrect
+proc visualRect*(this: ptr QAbstractItemView, index: QModelIndex): QRect {.header:headerFile, importcpp:"#.visualRect(@)".} # Public
 proc scrollTo*(this: ptr QAbstractItemView, index: QModelIndex, hint: QAbstractItemView_ScrollHint) {.header:headerFile, importcpp:"#.scrollTo(@)".} # Public
+import nimqt/qtcore/qpoint
+proc indexAt*(this: ptr QAbstractItemView, point: QPoint): QModelIndex {.header:headerFile, importcpp:"#.indexAt(@)".} # Public
+proc sizeHintForIndex*(this: ptr QAbstractItemView, index: QModelIndex): QSize {.header:headerFile, importcpp:"#.sizeHintForIndex(@)".} # Public
 proc sizeHintForRow*(this: ptr QAbstractItemView, row: cint): cint {.header:headerFile, importcpp:"#.sizeHintForRow(@)".} # Public
 proc sizeHintForColumn*(this: ptr QAbstractItemView, column: cint): cint {.header:headerFile, importcpp:"#.sizeHintForColumn(@)".} # Public
 proc openPersistentEditor*(this: ptr QAbstractItemView, index: QModelIndex) {.header:headerFile, importcpp:"#.openPersistentEditor(@)".} # Public
@@ -110,6 +118,8 @@ proc setItemDelegateForColumn*(this: ptr QAbstractItemView, column: cint, delega
 proc itemDelegateForColumn*(this: ptr QAbstractItemView, column: cint): ptr QAbstractItemDelegate {.header:headerFile, importcpp:"#.itemDelegateForColumn(@)".} # Public
 proc itemDelegate*(this: ptr QAbstractItemView, index: QModelIndex): ptr QAbstractItemDelegate {.header:headerFile, importcpp:"#.itemDelegate(@)".} # Public
 proc itemDelegateForIndex*(this: ptr QAbstractItemView, index: QModelIndex): ptr QAbstractItemDelegate {.header:headerFile, importcpp:"#.itemDelegateForIndex(@)".} # Public
+import nimqt/qtcore/qvariant
+proc inputMethodQuery*(this: ptr QAbstractItemView, query: Qt_InputMethodQuery): QVariant {.header:headerFile, importcpp:"#.inputMethodQuery(@)".} # Public
 proc reset*(this: ptr QAbstractItemView) {.header:headerFile, importcpp:"#.reset(@)".} # Public
 proc setRootIndex*(this: ptr QAbstractItemView, index: QModelIndex) {.header:headerFile, importcpp:"#.setRootIndex(@)".} # Public
 proc doItemsLayout*(this: ptr QAbstractItemView) {.header:headerFile, importcpp:"#.doItemsLayout(@)".} # Public
@@ -126,8 +136,13 @@ proc doubleClicked*(this: ptr QAbstractItemView, index: QModelIndex) {.header:he
 proc activated*(this: ptr QAbstractItemView, index: QModelIndex) {.header:headerFile, importcpp:"#.activated(@)".} # Public
 proc entered*(this: ptr QAbstractItemView, index: QModelIndex) {.header:headerFile, importcpp:"#.entered(@)".} # Public
 proc viewportEntered*(this: ptr QAbstractItemView) {.header:headerFile, importcpp:"#.viewportEntered(@)".} # Public
+proc iconSizeChanged*(this: ptr QAbstractItemView, size: QSize) {.header:headerFile, importcpp:"#.iconSizeChanged(@)".} # Public
 
 # Protected methods methods for QAbstractItemView
+import nimqt/qtcore/qlist
+# 1 default parameters!
+proc dataChanged*(this: ptr QAbstractItemView, topLeft: QModelIndex, bottomRight: QModelIndex, roles: QList[cint]) {.header:headerFile, importcpp:"#.dataChanged(@)".} # Protected
+proc dataChanged*(this: ptr QAbstractItemView, topLeft: QModelIndex, bottomRight: QModelIndex) {.header:headerFile, importcpp:"#.dataChanged(@)".} # Protected
 proc rowsInserted*(this: ptr QAbstractItemView, parent: QModelIndex, start: cint, `end`: cint) {.header:headerFile, importcpp:"#.rowsInserted(@)".} # Protected
 proc rowsAboutToBeRemoved*(this: ptr QAbstractItemView, parent: QModelIndex, start: cint, `end`: cint) {.header:headerFile, importcpp:"#.rowsAboutToBeRemoved(@)".} # Protected
 proc currentChanged*(this: ptr QAbstractItemView, current: QModelIndex, previous: QModelIndex) {.header:headerFile, importcpp:"#.currentChanged(@)".} # Protected
@@ -157,6 +172,7 @@ proc executeDelayedItemsLayout*(this: ptr QAbstractItemView) {.header:headerFile
 import nimqt/qtgui/qregion
 proc setDirtyRegion*(this: ptr QAbstractItemView, region: QRegion) {.header:headerFile, importcpp:"#.setDirtyRegion(@)".} # Protected
 proc scrollDirtyRegion*(this: ptr QAbstractItemView, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollDirtyRegion(@)".} # Protected
+proc dirtyRegionOffset*(this: ptr QAbstractItemView): QPoint {.header:headerFile, importcpp:"#.dirtyRegionOffset(@)".} # Protected
 proc startAutoScroll*(this: ptr QAbstractItemView) {.header:headerFile, importcpp:"#.startAutoScroll(@)".} # Protected
 proc stopAutoScroll*(this: ptr QAbstractItemView) {.header:headerFile, importcpp:"#.stopAutoScroll(@)".} # Protected
 proc doAutoScroll*(this: ptr QAbstractItemView) {.header:headerFile, importcpp:"#.doAutoScroll(@)".} # Protected
@@ -180,15 +196,21 @@ proc timerEvent*(this: ptr QAbstractItemView, event: ptr QTimerEvent) {.header:h
 proc inputMethodEvent*(this: ptr QAbstractItemView, event: ptr QInputMethodEvent) {.header:headerFile, importcpp:"#.inputMethodEvent(@)".} # Protected
 proc eventFilter*(this: ptr QAbstractItemView, `object`: ptr QObject, event: ptr QEvent): bool {.header:headerFile, importcpp:"#.eventFilter(@)".} # Protected
 proc dropIndicatorPosition*(this: ptr QAbstractItemView): QAbstractItemView_DropIndicatorPosition {.header:headerFile, importcpp:"#.dropIndicatorPosition(@)".} # Protected
+proc viewportSizeHint*(this: ptr QAbstractItemView): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected
 
 export qevent
 export qstring
+export qsize
 export qabstractscrollarea
 export qnamespace
+export qlist
 export qabstractitemmodel
 export qabstractitemdelegate
+export qpoint
+export qvariant
 export qwidget
 export qregion
+export qrect
 export qflags
 export qpaintdevice
 export qobject

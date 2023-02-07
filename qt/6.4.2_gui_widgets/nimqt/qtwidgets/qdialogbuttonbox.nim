@@ -8,14 +8,13 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QDialogButtonBox_ButtonRole* {.header:headerFile,importcpp:"QDialogButtonBox::ButtonRole".} = enum InvalidRole = 0, AcceptRole = 0x1, RejectRole = 0x2, DestructiveRole = 0x3, 
-        ActionRole = 0x4, HelpRole = 0x5, YesRole = 0x6, NoRole = 0x7, ResetRole = 0x8, 
-        ApplyRole = 0x9, NRoles = 0xa
-    QDialogButtonBox_StandardButton* {.header:headerFile,importcpp:"QDialogButtonBox::StandardButton".} = enum NoButton = 0, Ok = 0x1, Save = 0x2, SaveAll = 0x3, 
-        Open = 0x4, Yes = 0x5, YesToAll = 0x6, No = 0x7, NoToAll = 0x8, 
-        Abort = 0x9, Retry = 0xa, Ignore = 0xb, Close = 0xc, Cancel = 0xd, 
-        Discard = 0xe, Help = 0xf, Apply = 0x10, Reset = 0x11, RestoreDefaults = 0x12, 
-        FirstButton = 0x13, LastButton = 0x14
+    QDialogButtonBox_ButtonRole* {.header:headerFile,importcpp:"QDialogButtonBox::ButtonRole".} = enum InvalidRole = -1, AcceptRole = 0, RejectRole = 0x1, DestructiveRole = 0x2, 
+        ActionRole = 0x3, HelpRole = 0x4, YesRole = 0x5, NoRole = 0x6, ResetRole = 0x7, 
+        ApplyRole = 0x8, NRoles = 0x9
+    QDialogButtonBox_StandardButton* {.header:headerFile,importcpp:"QDialogButtonBox::StandardButton".} = enum NoButton = 0, Ok = 0x400, Save = 0x800, SaveAll = 0x1000, 
+        Open = 0x2000, Yes = 0x4000, YesToAll = 0x8000, No = 0x10000, NoToAll = 0x20000, 
+        Abort = 0x40000, Retry = 0x80000, Ignore = 0x100000, Close = 0x200000, Cancel = 0x400000, 
+        Discard = 0x800000, Help = 0x1000000, Apply = 0x2000000, Reset = 0x4000000, RestoreDefaults = 0x8000000
     QDialogButtonBox_ButtonLayout* {.header:headerFile,importcpp:"QDialogButtonBox::ButtonLayout".} = enum WinLayout = 0, MacLayout = 0x1, KdeLayout = 0x2, GnomeLayout = 0x3, 
         AndroidLayout = 0x4
     QDialogButtonBox* {.header:headerFile,importcpp:"QDialogButtonBox" ,pure.} = object of QWidget
@@ -30,6 +29,12 @@ type
     QDialogButtonBox_RenderFlags * = QWidget_RenderFlags
     QDialogButtonBox_PaintDeviceMetric * = QPaintDevice_PaintDeviceMetric
     QDialogButtonBox_StandardButtons * = QFlags[QDialogButtonBox_StandardButton]
+
+# Consts
+const
+    # Global
+    QDialogButtonBox_StandardButtonFirstButton* = 1024 # from anonymous enum Ok
+    QDialogButtonBox_StandardButtonLastButton* = 134217728 # from anonymous enum RestoreDefaults
 
 # Stuff for class QDialogButtonBox
 
@@ -62,6 +67,8 @@ proc addButton*(this: ptr QDialogButtonBox, text: QString, role: QDialogButtonBo
 proc addButton*(this: ptr QDialogButtonBox, button: QDialogButtonBox_StandardButton): ptr QPushButton {.header:headerFile, importcpp:"#.addButton(@)".} # Public
 proc removeButton*(this: ptr QDialogButtonBox, button: ptr QAbstractButton) {.header:headerFile, importcpp:"#.removeButton(@)".} # Public
 proc clear*(this: ptr QDialogButtonBox) {.header:headerFile, importcpp:"#.clear(@)".} # Public
+import nimqt/qtcore/qlist
+proc buttons*(this: ptr QDialogButtonBox): QList[ptr QAbstractButton] {.header:headerFile, importcpp:"#.buttons(@)".} # Public
 proc buttonRole*(this: ptr QDialogButtonBox, button: ptr QAbstractButton): QDialogButtonBox_ButtonRole {.header:headerFile, importcpp:"#.buttonRole(@)".} # Public
 proc setStandardButtons*(this: ptr QDialogButtonBox, buttons: QFlags[QDialogButtonBox_StandardButton]) {.header:headerFile, importcpp:"#.setStandardButtons(@)".} # Public
 proc standardButtons*(this: ptr QDialogButtonBox): QFlags[QDialogButtonBox_StandardButton] {.header:headerFile, importcpp:"#.standardButtons(@)".} # Public
@@ -82,6 +89,7 @@ proc event*(this: ptr QDialogButtonBox, event: ptr QEvent): bool {.header:header
 export qpushbutton
 export qstring
 export qnamespace
+export qlist
 export qabstractbutton
 export qwidget
 export qflags

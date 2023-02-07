@@ -13,7 +13,7 @@ type
 # Consts
 const
     # Global
-    QCoreApplication_ApplicationFlags* = 0 # from anonymous enum ApplicationFlags
+    QCoreApplication_ApplicationFlags* = 394242 # from anonymous enum ApplicationFlags
 
 # Stuff for class QCoreApplication
 
@@ -25,6 +25,8 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QCoreApplication_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QCoreApplication::tr(@)".} # Public static
 proc static_QCoreApplication_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QCoreApplication::tr(@)".} # Public static
+import nimqt/qtcore/qstringlist
+proc static_QCoreApplication_arguments*(): QStringList {.header:headerFile, importcpp:"QCoreApplication::arguments(@)".} # Public static
 import nimqt/qtcore/qnamespace
 # 1 default parameters!
 proc static_QCoreApplication_setAttribute*(attribute: Qt_ApplicationAttribute, on: bool) {.header:headerFile, importcpp:"QCoreApplication::setAttribute(@)".} # Public static
@@ -60,6 +62,8 @@ proc static_QCoreApplication_closingDown*(): bool {.header:headerFile, importcpp
 proc static_QCoreApplication_applicationDirPath*(): QString {.header:headerFile, importcpp:"QCoreApplication::applicationDirPath(@)".} # Public static
 proc static_QCoreApplication_applicationFilePath*(): QString {.header:headerFile, importcpp:"QCoreApplication::applicationFilePath(@)".} # Public static
 proc static_QCoreApplication_applicationPid*(): clonglong {.header:headerFile, importcpp:"QCoreApplication::applicationPid(@)".} # Public static
+proc static_QCoreApplication_setLibraryPaths*(arg_0: QStringList) {.header:headerFile, importcpp:"QCoreApplication::setLibraryPaths(@)".} # Public static
+proc static_QCoreApplication_libraryPaths*(): QStringList {.header:headerFile, importcpp:"QCoreApplication::libraryPaths(@)".} # Public static
 proc static_QCoreApplication_addLibraryPath*(arg_0: QString) {.header:headerFile, importcpp:"QCoreApplication::addLibraryPath(@)".} # Public static
 proc static_QCoreApplication_removeLibraryPath*(arg_0: QString) {.header:headerFile, importcpp:"QCoreApplication::removeLibraryPath(@)".} # Public static
 # 1 default parameters!
@@ -79,6 +83,7 @@ proc applicationVersionChanged*(this: ptr QCoreApplication) {.header:headerFile,
 # Protected methods methods for QCoreApplication
 proc event*(this: ptr QCoreApplication, arg_0: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 
+export qstringlist
 export qstring
 export qnamespace
 export qobject

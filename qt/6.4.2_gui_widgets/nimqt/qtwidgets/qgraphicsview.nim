@@ -13,7 +13,7 @@ type
     QGraphicsView_DragMode* {.header:headerFile,importcpp:"QGraphicsView::DragMode".} = enum NoDrag = 0, ScrollHandDrag = 0x1, RubberBandDrag = 0x2
     QGraphicsView_ViewportUpdateMode* {.header:headerFile,importcpp:"QGraphicsView::ViewportUpdateMode".} = enum FullViewportUpdate = 0, MinimalViewportUpdate = 0x1, SmartViewportUpdate = 0x2, NoViewportUpdate = 0x3, 
         BoundingRectViewportUpdate = 0x4
-    QGraphicsView_OptimizationFlag* {.header:headerFile,importcpp:"QGraphicsView::OptimizationFlag".} = enum DontSavePainterState = 0, DontAdjustForAntialiasing = 0x1, IndirectPainting = 0x2
+    QGraphicsView_OptimizationFlag* {.header:headerFile,importcpp:"QGraphicsView::OptimizationFlag".} = enum DontSavePainterState = 0x1, DontAdjustForAntialiasing = 0x2, IndirectPainting = 0x4
     QGraphicsView* {.header:headerFile,importcpp:"QGraphicsView" ,pure.} = object of QAbstractScrollArea
 {.push warning[Deprecated]: on.}
 import nimqt/qtwidgets/qframe

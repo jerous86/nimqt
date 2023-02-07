@@ -7,10 +7,10 @@ const headerFile* = "QtGui/qsurfaceformat.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QSurfaceFormat_FormatOption* {.header:headerFile,importcpp:"QSurfaceFormat::FormatOption".} = enum StereoBuffers = 0, DebugContext = 0x1, DeprecatedFunctions = 0x2, ResetNotification = 0x3, 
-        ProtectedContent = 0x4
+    QSurfaceFormat_FormatOption* {.header:headerFile,importcpp:"QSurfaceFormat::FormatOption".} = enum StereoBuffers = 0x1, DebugContext = 0x2, DeprecatedFunctions = 0x4, ResetNotification = 0x8, 
+        ProtectedContent = 0x10
     QSurfaceFormat_SwapBehavior* {.header:headerFile,importcpp:"QSurfaceFormat::SwapBehavior".} = enum DefaultSwapBehavior = 0, SingleBuffer = 0x1, DoubleBuffer = 0x2, TripleBuffer = 0x3
-    QSurfaceFormat_RenderableType* {.header:headerFile,importcpp:"QSurfaceFormat::RenderableType".} = enum DefaultRenderableType = 0, OpenGL = 0x1, OpenGLES = 0x2, OpenVG = 0x3
+    QSurfaceFormat_RenderableType* {.header:headerFile,importcpp:"QSurfaceFormat::RenderableType".} = enum DefaultRenderableType = 0, OpenGL = 0x1, OpenGLES = 0x2, OpenVG = 0x4
     QSurfaceFormat_OpenGLContextProfile* {.header:headerFile,importcpp:"QSurfaceFormat::OpenGLContextProfile".} = enum NoProfile = 0, CoreProfile = 0x1, CompatibilityProfile = 0x2
     QSurfaceFormat_ColorSpace* {.header:headerFile,importcpp:"QSurfaceFormat::ColorSpace".} = enum DefaultColorSpace = 0, sRGBColorSpace = 0x1
     QSurfaceFormat* {.header:headerFile,importcpp:"QSurfaceFormat" ,pure.} = object {.inheritable.}

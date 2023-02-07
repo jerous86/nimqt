@@ -37,6 +37,8 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QScrollBar_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QScrollBar::tr(@)".} # Public static
 proc static_QScrollBar_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QScrollBar::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QScrollBar): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 import nimqt/qtcore/qcoreevent
 proc event*(this: ptr QScrollBar, event: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Public
 
@@ -54,6 +56,7 @@ proc contextMenuEvent*(this: ptr QScrollBar, arg_0: ptr QContextMenuEvent) {.hea
 export qevent
 export qabstractslider
 export qstring
+export qsize
 export qnamespace
 export qwidget
 export qpaintdevice

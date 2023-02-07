@@ -8,7 +8,7 @@ type
     # Classes and enums found in the C++ code
     # Global
     QPalette_ColorGroup* {.header:headerFile,importcpp:"QPalette::ColorGroup".} = enum Active = 0, Disabled = 0x1, Inactive = 0x2, NColorGroups = 0x3, 
-        Current = 0x4, All = 0x5, Normal = 0x6
+        Current = 0x4, All = 0x5
     QPalette_ColorRole* {.header:headerFile,importcpp:"QPalette::ColorRole".} = enum WindowText = 0, Button = 0x1, Light = 0x2, Midlight = 0x3, 
         Dark = 0x4, Mid = 0x5, Text = 0x6, BrightText = 0x7, ButtonText = 0x8, 
         Base = 0x9, Window = 0xa, Shadow = 0xb, Highlight = 0xc, HighlightedText = 0xd, 
@@ -21,6 +21,11 @@ type
 type
     # typedefs found in the C++ code
     QPalette_ResolveMask * = culonglong
+
+# Consts
+const
+    # Global
+    QPalette_ColorGroupNormal* = 0 # from anonymous enum Active
 
 # Stuff for class QPalette
 

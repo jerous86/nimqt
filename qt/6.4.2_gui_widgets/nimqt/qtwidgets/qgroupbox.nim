@@ -38,6 +38,8 @@ proc setTitle*(this: ptr QGroupBox, title: QString) {.header:headerFile, importc
 import nimqt/qtcore/qnamespace
 proc alignment*(this: ptr QGroupBox): Qt_Alignment {.header:headerFile, importcpp:"#.alignment(@)".} # Public
 proc setAlignment*(this: ptr QGroupBox, alignment: cint) {.header:headerFile, importcpp:"#.setAlignment(@)".} # Public
+import nimqt/qtcore/qsize
+proc minimumSizeHint*(this: ptr QGroupBox): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc isFlat*(this: ptr QGroupBox): bool {.header:headerFile, importcpp:"#.isFlat(@)".} # Public
 proc setFlat*(this: ptr QGroupBox, flat: bool) {.header:headerFile, importcpp:"#.setFlat(@)".} # Public
 proc isCheckable*(this: ptr QGroupBox): bool {.header:headerFile, importcpp:"#.isCheckable(@)".} # Public
@@ -64,6 +66,7 @@ proc mouseReleaseEvent*(this: ptr QGroupBox, event: ptr QMouseEvent) {.header:he
 
 export qevent
 export qstring
+export qsize
 export qnamespace
 export qwidget
 export qpaintdevice

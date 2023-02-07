@@ -28,6 +28,8 @@ proc addAction*(this: ptr QActionGroup, text: QString): ptr QAction {.header:hea
 import nimqt/qtgui/qicon
 proc addAction*(this: ptr QActionGroup, icon: QIcon, text: QString): ptr QAction {.header:headerFile, importcpp:"#.addAction(@)".} # Public
 proc removeAction*(this: ptr QActionGroup, a: ptr QAction) {.header:headerFile, importcpp:"#.removeAction(@)".} # Public
+import nimqt/qtcore/qlist
+proc actions*(this: ptr QActionGroup): QList[ptr QAction] {.header:headerFile, importcpp:"#.actions(@)".} # Public
 proc checkedAction*(this: ptr QActionGroup): ptr QAction {.header:headerFile, importcpp:"#.checkedAction(@)".} # Public
 proc isExclusive*(this: ptr QActionGroup): bool {.header:headerFile, importcpp:"#.isExclusive(@)".} # Public
 proc isEnabled*(this: ptr QActionGroup): bool {.header:headerFile, importcpp:"#.isEnabled(@)".} # Public
@@ -43,5 +45,6 @@ proc hovered*(this: ptr QActionGroup, arg_0: ptr QAction) {.header:headerFile, i
 
 export qstring
 export qaction
+export qlist
 export qobject
 export qicon

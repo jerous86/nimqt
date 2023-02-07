@@ -44,12 +44,19 @@ proc eventFilter*(this: ptr QItemDelegate, `object`: ptr QObject, event: ptr QEv
 import nimqt/qtgui/qpixmap
 import nimqt/qtgui/qpalette
 proc static_QItemDelegate_selectedPixmap*(pixmap: QPixmap, palette: QPalette, enabled: bool): QPixmap {.header:headerFile, importcpp:"QItemDelegate::selectedPixmap(@)".} # Protected static
+import nimqt/qtgui/qfont
+import nimqt/qtgui/qpainter
+import nimqt/qtcore/qrect
+proc textRectangle*(this: ptr QItemDelegate, painter: ptr QPainter, rect: QRect, font: QFont, text: QString): QRect {.header:headerFile, importcpp:"#.textRectangle(@)".} # Protected
 
 export qpixmap
+export qfont
 export qstring
 export qabstractitemmodel
 export qabstractitemdelegate
+export qpainter
 export qwidget
+export qrect
 export qobject
 export qcoreevent
 export qpalette

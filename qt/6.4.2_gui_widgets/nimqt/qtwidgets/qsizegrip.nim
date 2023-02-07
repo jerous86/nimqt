@@ -28,6 +28,8 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QSizeGrip_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QSizeGrip::tr(@)".} # Public static
 proc static_QSizeGrip_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QSizeGrip::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QSizeGrip): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc setVisible*(this: ptr QSizeGrip, arg_0: bool) {.header:headerFile, importcpp:"#.setVisible(@)".} # Public
 
 # Protected methods methods for QSizeGrip
@@ -46,6 +48,7 @@ proc event*(this: ptr QSizeGrip, arg_0: ptr QEvent): bool {.header:headerFile, i
 
 export qevent
 export qstring
+export qsize
 export qwidget
 export qpaintdevice
 export qobject

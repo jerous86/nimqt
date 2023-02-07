@@ -118,6 +118,7 @@ const skipRules* = @[
     "qtcore/qlist .*QListData",
     "QStringView",
     "QString.*Null",
+    "qtcore/qstring.*split",
     "qtcore/qstringbuilder",
     
     "qtcore/qhash.*QHashData",

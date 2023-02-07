@@ -48,6 +48,8 @@ proc wasCanceled*(this: ptr QProgressDialog): bool {.header:headerFile, importcp
 proc minimum*(this: ptr QProgressDialog): cint {.header:headerFile, importcpp:"#.minimum(@)".} # Public
 proc maximum*(this: ptr QProgressDialog): cint {.header:headerFile, importcpp:"#.maximum(@)".} # Public
 proc value*(this: ptr QProgressDialog): cint {.header:headerFile, importcpp:"#.value(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QProgressDialog): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc labelText*(this: ptr QProgressDialog): QString {.header:headerFile, importcpp:"#.labelText(@)".} # Public
 proc minimumDuration*(this: ptr QProgressDialog): cint {.header:headerFile, importcpp:"#.minimumDuration(@)".} # Public
 proc setAutoReset*(this: ptr QProgressDialog, reset: bool) {.header:headerFile, importcpp:"#.setAutoReset(@)".} # Public
@@ -80,6 +82,7 @@ export qevent
 export qpushbutton
 export qprogressbar
 export qstring
+export qsize
 export qnamespace
 export qdialog
 export qwidget

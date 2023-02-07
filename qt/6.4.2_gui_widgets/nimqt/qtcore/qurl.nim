@@ -8,13 +8,13 @@ type
     # Classes and enums found in the C++ code
     # Global
     QUrl_ParsingMode* {.header:headerFile,importcpp:"QUrl::ParsingMode".} = enum TolerantMode = 0, StrictMode = 0x1, DecodedMode = 0x2
-    QUrl_UrlFormattingOption* {.header:headerFile,importcpp:"QUrl::UrlFormattingOption".} = enum None = 0, RemoveScheme = 0x1, RemovePassword = 0x2, RemoveUserInfo = 0x3, 
-        RemovePort = 0x4, RemoveAuthority = 0x5, RemovePath = 0x6, RemoveQuery = 0x7, RemoveFragment = 0x8, 
-        PreferLocalFile = 0x9, StripTrailingSlash = 0xa, RemoveFilename = 0xb, NormalizePathSegments = 0xc
-    QUrl_ComponentFormattingOption* {.header:headerFile,importcpp:"QUrl::ComponentFormattingOption".} = enum PrettyDecoded = 0, EncodeSpaces = 0x1, EncodeUnicode = 0x2, EncodeDelimiters = 0x3, 
-        EncodeReserved = 0x4, DecodeReserved = 0x5, FullyEncoded = 0x6, FullyDecoded = 0x7
+    QUrl_UrlFormattingOption* {.header:headerFile,importcpp:"QUrl::UrlFormattingOption".} = enum None = 0, RemoveScheme = 0x1, RemovePassword = 0x2, RemoveUserInfo = 0x6, 
+        RemovePort = 0x8, RemoveAuthority = 0x1e, RemovePath = 0x20, RemoveQuery = 0x40, RemoveFragment = 0x80, 
+        PreferLocalFile = 0x200, StripTrailingSlash = 0x400, RemoveFilename = 0x800, NormalizePathSegments = 0x1000
+    QUrl_ComponentFormattingOption* {.header:headerFile,importcpp:"QUrl::ComponentFormattingOption".} = enum PrettyDecoded = 0, EncodeSpaces = 0x100000, EncodeUnicode = 0x200000, EncodeDelimiters = 0xc00000, 
+        EncodeReserved = 0x1000000, FullyEncoded = 0x1f00000, DecodeReserved = 0x2000000, FullyDecoded = 0x7f00000
     QUrl_UserInputResolutionOption* {.header:headerFile,importcpp:"QUrl::UserInputResolutionOption".} = enum DefaultResolution = 0, AssumeLocalFile = 0x1
-    QUrl_AceProcessingOption* {.header:headerFile,importcpp:"QUrl::AceProcessingOption".} = enum IgnoreIDNWhitelist = 0, AceTransitionalProcessing = 0x1
+    QUrl_AceProcessingOption* {.header:headerFile,importcpp:"QUrl::AceProcessingOption".} = enum IgnoreIDNWhitelist = 0x1, AceTransitionalProcessing = 0x2
     QUrlTwoFlags*[E1, E2] {.header:headerFile,importcpp:"QUrlTwoFlags" ,pure.} = object {.inheritable.}
     QUrl* {.header:headerFile,importcpp:"QUrl" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}

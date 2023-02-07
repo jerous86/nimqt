@@ -39,12 +39,15 @@ import nimqt/qtgui/qsurfaceformat
 proc setFormat*(this: ptr QOffscreenSurface, format: QSurfaceFormat) {.header:headerFile, importcpp:"#.setFormat(@)".} # Public
 proc format*(this: ptr QOffscreenSurface): QSurfaceFormat {.header:headerFile, importcpp:"#.format(@)".} # Public
 proc requestedFormat*(this: ptr QOffscreenSurface): QSurfaceFormat {.header:headerFile, importcpp:"#.requestedFormat(@)".} # Public
+import nimqt/qtcore/qsize
+proc size*(this: ptr QOffscreenSurface): QSize {.header:headerFile, importcpp:"#.size(@)".} # Public
 proc screen*(this: ptr QOffscreenSurface): ptr QScreen {.header:headerFile, importcpp:"#.screen(@)".} # Public
 proc setScreen*(this: ptr QOffscreenSurface, screen: ptr QScreen) {.header:headerFile, importcpp:"#.setScreen(@)".} # Public
 proc screenChanged*(this: ptr QOffscreenSurface, screen: ptr QScreen) {.header:headerFile, importcpp:"#.screenChanged(@)".} # Public
 
 export qscreen
 export qstring
+export qsize
 export qsurface
 export qobject
 export qsurfaceformat

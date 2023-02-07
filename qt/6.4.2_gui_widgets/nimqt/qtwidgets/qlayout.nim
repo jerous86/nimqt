@@ -31,6 +31,8 @@ proc setSpacing*(this: ptr QLayout, arg_0: cint) {.header:headerFile, importcpp:
 proc setContentsMargins*(this: ptr QLayout, left: cint, top: cint, right: cint, bottom: cint) {.header:headerFile, importcpp:"#.setContentsMargins(@)".} # Public
 proc unsetContentsMargins*(this: ptr QLayout) {.header:headerFile, importcpp:"#.unsetContentsMargins(@)".} # Public
 proc getContentsMargins*(this: ptr QLayout, left: ptr cint, top: ptr cint, right: ptr cint, bottom: ptr cint) {.header:headerFile, importcpp:"#.getContentsMargins(@)".} # Public
+import nimqt/qtcore/qrect
+proc contentsRect*(this: ptr QLayout): QRect {.header:headerFile, importcpp:"#.contentsRect(@)".} # Public
 import nimqt/qtcore/qnamespace
 proc setAlignment*(this: ptr QLayout, w: ptr QWidget, alignment: Qt_Alignment): bool {.header:headerFile, importcpp:"#.setAlignment(@)".} # Public
 proc setAlignment*(this: ptr QLayout, l: ptr QLayout, alignment: Qt_Alignment): bool {.header:headerFile, importcpp:"#.setAlignment(@)".} # Public
@@ -40,6 +42,7 @@ proc setMenuBar*(this: ptr QLayout, w: ptr QWidget) {.header:headerFile, importc
 proc menuBar*(this: ptr QLayout): ptr QWidget {.header:headerFile, importcpp:"#.menuBar(@)".} # Public
 proc parentWidget*(this: ptr QLayout): ptr QWidget {.header:headerFile, importcpp:"#.parentWidget(@)".} # Public
 proc invalidate*(this: ptr QLayout) {.header:headerFile, importcpp:"#.invalidate(@)".} # Public
+proc geometry*(this: ptr QLayout): QRect {.header:headerFile, importcpp:"#.geometry(@)".} # Public
 proc activate*(this: ptr QLayout): bool {.header:headerFile, importcpp:"#.activate(@)".} # Public
 proc update*(this: ptr QLayout) {.header:headerFile, importcpp:"#.update(@)".} # Public
 proc addWidget*(this: ptr QLayout, w: ptr QWidget) {.header:headerFile, importcpp:"#.addWidget(@)".} # Public
@@ -47,6 +50,10 @@ proc addItem*(this: ptr QLayout, arg_0: ptr QLayoutItem) {.header:headerFile, im
 proc removeWidget*(this: ptr QLayout, w: ptr QWidget) {.header:headerFile, importcpp:"#.removeWidget(@)".} # Public
 proc removeItem*(this: ptr QLayout, arg_0: ptr QLayoutItem) {.header:headerFile, importcpp:"#.removeItem(@)".} # Public
 proc expandingDirections*(this: ptr QLayout): Qt_Orientations {.header:headerFile, importcpp:"#.expandingDirections(@)".} # Public
+import nimqt/qtcore/qsize
+proc minimumSize*(this: ptr QLayout): QSize {.header:headerFile, importcpp:"#.minimumSize(@)".} # Public
+proc maximumSize*(this: ptr QLayout): QSize {.header:headerFile, importcpp:"#.maximumSize(@)".} # Public
+proc setGeometry*(this: ptr QLayout, arg_0: QRect) {.header:headerFile, importcpp:"#.setGeometry(@)".} # Public
 proc itemAt*(this: ptr QLayout, index: cint): ptr QLayoutItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
 proc takeAt*(this: ptr QLayout, index: cint): ptr QLayoutItem {.header:headerFile, importcpp:"#.takeAt(@)".} # Public
 proc indexOf*(this: ptr QLayout, arg_0: ptr QWidget): cint {.header:headerFile, importcpp:"#.indexOf(@)".} # Public
@@ -60,9 +67,13 @@ proc replaceWidget*(this: ptr QLayout, `from`: ptr QWidget, to: ptr QWidget, opt
 proc replaceWidget*(this: ptr QLayout, `from`: ptr QWidget, to: ptr QWidget): ptr QLayoutItem {.header:headerFile, importcpp:"#.replaceWidget(@)".} # Public
 proc totalMinimumHeightForWidth*(this: ptr QLayout, w: cint): cint {.header:headerFile, importcpp:"#.totalMinimumHeightForWidth(@)".} # Public
 proc totalHeightForWidth*(this: ptr QLayout, w: cint): cint {.header:headerFile, importcpp:"#.totalHeightForWidth(@)".} # Public
+proc totalMinimumSize*(this: ptr QLayout): QSize {.header:headerFile, importcpp:"#.totalMinimumSize(@)".} # Public
+proc totalMaximumSize*(this: ptr QLayout): QSize {.header:headerFile, importcpp:"#.totalMaximumSize(@)".} # Public
+proc totalSizeHint*(this: ptr QLayout): QSize {.header:headerFile, importcpp:"#.totalSizeHint(@)".} # Public
 proc layout*(this: ptr QLayout): ptr QLayout {.header:headerFile, importcpp:"#.layout(@)".} # Public
 proc setEnabled*(this: ptr QLayout, arg_0: bool) {.header:headerFile, importcpp:"#.setEnabled(@)".} # Public
 proc isEnabled*(this: ptr QLayout): bool {.header:headerFile, importcpp:"#.isEnabled(@)".} # Public
+proc static_QLayout_closestAcceptableSize*(w: ptr QWidget, s: QSize): QSize {.header:headerFile, importcpp:"QLayout::closestAcceptableSize(@)".} # Public static
 
 # Protected methods methods for QLayout
 import nimqt/qtcore/qcoreevent
@@ -71,10 +82,13 @@ proc childEvent*(this: ptr QLayout, e: ptr QChildEvent) {.header:headerFile, imp
 proc addChildLayout*(this: ptr QLayout, l: ptr QLayout) {.header:headerFile, importcpp:"#.addChildLayout(@)".} # Protected
 proc addChildWidget*(this: ptr QLayout, w: ptr QWidget) {.header:headerFile, importcpp:"#.addChildWidget(@)".} # Protected
 proc adoptLayout*(this: ptr QLayout, layout: ptr QLayout): bool {.header:headerFile, importcpp:"#.adoptLayout(@)".} # Protected
+proc alignmentRect*(this: ptr QLayout, arg_1: QRect): QRect {.header:headerFile, importcpp:"#.alignmentRect(@)".} # Protected
 
 export qstring
+export qsize
 export qsizepolicy
 export qnamespace
 export qwidget
+export qrect
 export qcoreevent
 export qlayoutitem

@@ -37,6 +37,24 @@ import nimqt/qtcore/qstring
 proc horizontalAdvance*(this: QFontMetrics, arg_0: QString, len: cint): cint {.header:headerFile, importcpp:"#.horizontalAdvance(@)".} # Public
 import nimqt/qtgui/qtextoption
 proc horizontalAdvance*(this: QFontMetrics, arg_0: QString, textOption: QTextOption): cint {.header:headerFile, importcpp:"#.horizontalAdvance(@)".} # Public
+import nimqt/qtcore/qrect
+proc boundingRect*(this: QFontMetrics, text: QString): QRect {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+proc boundingRect*(this: QFontMetrics, text: QString, textOption: QTextOption): QRect {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+# 2 default parameters!
+proc boundingRect*(this: QFontMetrics, r: QRect, flags: cint, text: QString, tabstops: cint, tabarray: ptr cint): QRect {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+proc boundingRect*(this: QFontMetrics, r: QRect, flags: cint, text: QString, tabstops: cint): QRect {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+proc boundingRect*(this: QFontMetrics, r: QRect, flags: cint, text: QString): QRect {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+# 2 default parameters!
+proc boundingRect*(this: QFontMetrics, x: cint, y: cint, w: cint, h: cint, flags: cint, text: QString, tabstops: cint, tabarray: ptr cint): QRect {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+proc boundingRect*(this: QFontMetrics, x: cint, y: cint, w: cint, h: cint, flags: cint, text: QString, tabstops: cint): QRect {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+proc boundingRect*(this: QFontMetrics, x: cint, y: cint, w: cint, h: cint, flags: cint, text: QString): QRect {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+import nimqt/qtcore/qsize
+# 2 default parameters!
+proc size*(this: QFontMetrics, flags: cint, str: QString, tabstops: cint, tabarray: ptr cint): QSize {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc size*(this: QFontMetrics, flags: cint, str: QString, tabstops: cint): QSize {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc size*(this: QFontMetrics, flags: cint, str: QString): QSize {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc tightBoundingRect*(this: QFontMetrics, text: QString): QRect {.header:headerFile, importcpp:"#.tightBoundingRect(@)".} # Public
+proc tightBoundingRect*(this: QFontMetrics, text: QString, textOption: QTextOption): QRect {.header:headerFile, importcpp:"#.tightBoundingRect(@)".} # Public
 import nimqt/qtcore/qnamespace
 # 1 default parameters!
 proc elidedText*(this: QFontMetrics, text: QString, mode: Qt_TextElideMode, width: cint, flags: cint): QString {.header:headerFile, importcpp:"#.elidedText(@)".} # Public
@@ -71,6 +89,18 @@ proc averageCharWidth*(this: QFontMetricsF): cfloat {.header:headerFile, importc
 proc inFontUcs4*(this: QFontMetricsF, ucs4: cuint): bool {.header:headerFile, importcpp:"#.inFontUcs4(@)".} # Public
 proc horizontalAdvance*(this: QFontMetricsF, string: QString, length: cint): cfloat {.header:headerFile, importcpp:"#.horizontalAdvance(@)".} # Public
 proc horizontalAdvance*(this: QFontMetricsF, string: QString, textOption: QTextOption): cfloat {.header:headerFile, importcpp:"#.horizontalAdvance(@)".} # Public
+proc boundingRect*(this: QFontMetricsF, string: QString): QRectF {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+proc boundingRect*(this: QFontMetricsF, text: QString, textOption: QTextOption): QRectF {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+# 2 default parameters!
+proc boundingRect*(this: QFontMetricsF, r: QRectF, flags: cint, string: QString, tabstops: cint, tabarray: ptr cint): QRectF {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+proc boundingRect*(this: QFontMetricsF, r: QRectF, flags: cint, string: QString, tabstops: cint): QRectF {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+proc boundingRect*(this: QFontMetricsF, r: QRectF, flags: cint, string: QString): QRectF {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
+# 2 default parameters!
+proc size*(this: QFontMetricsF, flags: cint, str: QString, tabstops: cint, tabarray: ptr cint): QSizeF {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc size*(this: QFontMetricsF, flags: cint, str: QString, tabstops: cint): QSizeF {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc size*(this: QFontMetricsF, flags: cint, str: QString): QSizeF {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc tightBoundingRect*(this: QFontMetricsF, text: QString): QRectF {.header:headerFile, importcpp:"#.tightBoundingRect(@)".} # Public
+proc tightBoundingRect*(this: QFontMetricsF, text: QString, textOption: QTextOption): QRectF {.header:headerFile, importcpp:"#.tightBoundingRect(@)".} # Public
 # 1 default parameters!
 proc elidedText*(this: QFontMetricsF, text: QString, mode: Qt_TextElideMode, width: cfloat, flags: cint): QString {.header:headerFile, importcpp:"#.elidedText(@)".} # Public
 proc elidedText*(this: QFontMetricsF, text: QString, mode: Qt_TextElideMode, width: cfloat): QString {.header:headerFile, importcpp:"#.elidedText(@)".} # Public
@@ -83,6 +113,8 @@ proc `!=`*(this: QFontMetricsF, other: QFontMetricsF): bool {.header:headerFile,
 
 export qfont
 export qstring
+export qsize
 export qtextoption
 export qnamespace
+export qrect
 export qpaintdevice

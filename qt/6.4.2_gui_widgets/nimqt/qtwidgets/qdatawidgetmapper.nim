@@ -39,8 +39,11 @@ proc setSubmitPolicy*(this: ptr QDataWidgetMapper, policy: QDataWidgetMapper_Sub
 proc submitPolicy*(this: ptr QDataWidgetMapper): QDataWidgetMapper_SubmitPolicy {.header:headerFile, importcpp:"#.submitPolicy(@)".} # Public
 import nimqt/qtwidgets/qwidget
 proc addMapping*(this: ptr QDataWidgetMapper, widget: ptr QWidget, section: cint) {.header:headerFile, importcpp:"#.addMapping(@)".} # Public
+import nimqt/qtcore/qbytearray
+proc addMapping*(this: ptr QDataWidgetMapper, widget: ptr QWidget, section: cint, propertyName: QByteArray) {.header:headerFile, importcpp:"#.addMapping(@)".} # Public
 proc removeMapping*(this: ptr QDataWidgetMapper, widget: ptr QWidget) {.header:headerFile, importcpp:"#.removeMapping(@)".} # Public
 proc mappedSection*(this: ptr QDataWidgetMapper, widget: ptr QWidget): cint {.header:headerFile, importcpp:"#.mappedSection(@)".} # Public
+proc mappedPropertyName*(this: ptr QDataWidgetMapper, widget: ptr QWidget): QByteArray {.header:headerFile, importcpp:"#.mappedPropertyName(@)".} # Public
 proc mappedWidgetAt*(this: ptr QDataWidgetMapper, section: cint): ptr QWidget {.header:headerFile, importcpp:"#.mappedWidgetAt(@)".} # Public
 proc clearMapping*(this: ptr QDataWidgetMapper) {.header:headerFile, importcpp:"#.clearMapping(@)".} # Public
 proc currentIndex*(this: ptr QDataWidgetMapper): cint {.header:headerFile, importcpp:"#.currentIndex(@)".} # Public
@@ -56,6 +59,7 @@ proc currentIndexChanged*(this: ptr QDataWidgetMapper, index: cint) {.header:hea
 
 export qstring
 export qnamespace
+export qbytearray
 export qabstractitemmodel
 export qabstractitemdelegate
 export qwidget

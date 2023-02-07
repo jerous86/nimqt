@@ -43,6 +43,8 @@ proc static_QTextBlockGroup_tr*(s: ptr char, c: ptr char): QString {.header:head
 proc blockInserted*(this: ptr QTextBlockGroup, `block`: QTextBlock) {.header:headerFile, importcpp:"#.blockInserted(@)".} # Protected
 proc blockRemoved*(this: ptr QTextBlockGroup, `block`: QTextBlock) {.header:headerFile, importcpp:"#.blockRemoved(@)".} # Protected
 proc blockFormatChanged*(this: ptr QTextBlockGroup, `block`: QTextBlock) {.header:headerFile, importcpp:"#.blockFormatChanged(@)".} # Protected
+import nimqt/qtcore/qlist
+proc blockList*(this: ptr QTextBlockGroup): QList[QTextBlock] {.header:headerFile, importcpp:"#.blockList(@)".} # Protected
 # Stuff for class QTextFrame
 
 # Public constructors for QTextFrame
@@ -61,6 +63,7 @@ proc firstPosition*(this: ptr QTextFrame): cint {.header:headerFile, importcpp:"
 proc lastPosition*(this: ptr QTextFrame): cint {.header:headerFile, importcpp:"#.lastPosition(@)".} # Public
 proc layoutData*(this: ptr QTextFrame): ptr QTextFrameLayoutData {.header:headerFile, importcpp:"#.layoutData(@)".} # Public
 proc setLayoutData*(this: ptr QTextFrame, data: ptr QTextFrameLayoutData) {.header:headerFile, importcpp:"#.setLayoutData(@)".} # Public
+proc childFrames*(this: ptr QTextFrame): QList[ptr QTextFrame] {.header:headerFile, importcpp:"#.childFrames(@)".} # Public
 proc parentFrame*(this: ptr QTextFrame): ptr QTextFrame {.header:headerFile, importcpp:"#.parentFrame(@)".} # Public
 # Stuff for class QTextBlock
 
@@ -85,6 +88,7 @@ proc charFormatIndex*(this: QTextBlock): cint {.header:headerFile, importcpp:"#.
 import nimqt/qtcore/qnamespace
 proc textDirection*(this: QTextBlock): Qt_LayoutDirection {.header:headerFile, importcpp:"#.textDirection(@)".} # Public
 proc text*(this: QTextBlock): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
+proc textFormats*(this: QTextBlock): QList[QTextLayout_FormatRange] {.header:headerFile, importcpp:"#.textFormats(@)".} # Public
 proc document*(this: QTextBlock): ptr QTextDocument {.header:headerFile, importcpp:"#.document(@)".} # Public
 proc userData*(this: QTextBlock): ptr QTextBlockUserData {.header:headerFile, importcpp:"#.userData(@)".} # Public
 proc setUserData*(this: QTextBlock, data: ptr QTextBlockUserData) {.header:headerFile, importcpp:"#.setUserData(@)".} # Public
@@ -117,11 +121,15 @@ proc contains*(this: QTextFragment, position: cint): bool {.header:headerFile, i
 proc charFormat*(this: QTextFragment): QTextCharFormat {.header:headerFile, importcpp:"#.charFormat(@)".} # Public
 proc charFormatIndex*(this: QTextFragment): cint {.header:headerFile, importcpp:"#.charFormatIndex(@)".} # Public
 proc text*(this: QTextFragment): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
+import nimqt/qtgui/qglyphrun
+proc glyphRuns*(this: QTextFragment, `from`: cint, length: cint): QList[QGlyphRun] {.header:headerFile, importcpp:"#.glyphRuns(@)".} # Public
 
 export qtextlayout
 export qtextformat
 export qstring
 export qtextcursor
 export qnamespace
+export qlist
+export qglyphrun
 export qobject
 export qtextdocument

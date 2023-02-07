@@ -8,10 +8,10 @@ import nimqt/qtgui/qinputdevice
 type
     # Classes and enums found in the C++ code
     # Global
-    QPointingDevice_PointerType* {.header:headerFile,importcpp:"QPointingDevice::PointerType".} = enum Unknown = 0, Generic = 0x1, Finger = 0x2, Pen = 0x3, 
-        Eraser = 0x4, Cursor = 0x5, AllPointerTypes = 0x6
-    QPointingDevice_GrabTransition* {.header:headerFile,importcpp:"QPointingDevice::GrabTransition".} = enum GrabPassive = 0, UngrabPassive = 0x1, CancelGrabPassive = 0x2, OverrideGrabPassive = 0x3, 
-        GrabExclusive = 0x4, UngrabExclusive = 0x5, CancelGrabExclusive = 0x6
+    QPointingDevice_PointerType* {.header:headerFile,importcpp:"QPointingDevice::PointerType".} = enum Unknown = 0, Generic = 0x1, Finger = 0x2, Pen = 0x4, 
+        Eraser = 0x8, Cursor = 0x10, AllPointerTypes = 0x7fff
+    QPointingDevice_GrabTransition* {.header:headerFile,importcpp:"QPointingDevice::GrabTransition".} = enum GrabPassive = 0x1, UngrabPassive = 0x2, CancelGrabPassive = 0x3, OverrideGrabPassive = 0x4, 
+        GrabExclusive = 0x10, UngrabExclusive = 0x20, CancelGrabExclusive = 0x30
     QPointingDeviceUniqueId* {.header:headerFile,importcpp:"QPointingDeviceUniqueId" ,pure.} = object {.inheritable.}
     QPointingDevice* {.header:headerFile,importcpp:"QPointingDevice" ,pure.} = object of QInputDevice
 {.push warning[Deprecated]: on.}

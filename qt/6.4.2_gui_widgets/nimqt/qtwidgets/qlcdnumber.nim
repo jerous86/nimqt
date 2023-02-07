@@ -51,6 +51,8 @@ proc segmentStyle*(this: ptr QLCDNumber): QLCDNumber_SegmentStyle {.header:heade
 proc setSegmentStyle*(this: ptr QLCDNumber, arg_0: QLCDNumber_SegmentStyle) {.header:headerFile, importcpp:"#.setSegmentStyle(@)".} # Public
 proc value*(this: ptr QLCDNumber): cdouble {.header:headerFile, importcpp:"#.value(@)".} # Public
 proc intValue*(this: ptr QLCDNumber): cint {.header:headerFile, importcpp:"#.intValue(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QLCDNumber): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc display*(this: ptr QLCDNumber, str: QString) {.header:headerFile, importcpp:"#.display(@)".} # Public
 proc display*(this: ptr QLCDNumber, num: cint) {.header:headerFile, importcpp:"#.display(@)".} # Public
 proc display*(this: ptr QLCDNumber, num: cdouble) {.header:headerFile, importcpp:"#.display(@)".} # Public
@@ -69,6 +71,7 @@ proc paintEvent*(this: ptr QLCDNumber, arg_0: ptr QPaintEvent) {.header:headerFi
 
 export qevent
 export qstring
+export qsize
 export qwidget
 export qpaintdevice
 export qcoreevent

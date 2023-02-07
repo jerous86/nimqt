@@ -23,6 +23,8 @@ proc newQTextInlineObject*(): QTextInlineObject {. header:headerFile, importcpp:
 
 # Public methods for QTextInlineObject
 proc isValid*(this: QTextInlineObject): bool {.header:headerFile, importcpp:"#.isValid(@)".} # Public
+import nimqt/qtcore/qrect
+proc rect*(this: QTextInlineObject): QRectF {.header:headerFile, importcpp:"#.rect(@)".} # Public
 proc width*(this: QTextInlineObject): cfloat {.header:headerFile, importcpp:"#.width(@)".} # Public
 proc ascent*(this: QTextInlineObject): cfloat {.header:headerFile, importcpp:"#.ascent(@)".} # Public
 proc descent*(this: QTextInlineObject): cfloat {.header:headerFile, importcpp:"#.descent(@)".} # Public
@@ -63,6 +65,9 @@ proc textOption*(this: QTextLayout): QTextOption {.header:headerFile, importcpp:
 proc setPreeditArea*(this: QTextLayout, position: cint, text: QString) {.header:headerFile, importcpp:"#.setPreeditArea(@)".} # Public
 proc preeditAreaPosition*(this: QTextLayout): cint {.header:headerFile, importcpp:"#.preeditAreaPosition(@)".} # Public
 proc preeditAreaText*(this: QTextLayout): QString {.header:headerFile, importcpp:"#.preeditAreaText(@)".} # Public
+import nimqt/qtcore/qlist
+proc setFormats*(this: QTextLayout, overrides: QList[QTextLayout_FormatRange]) {.header:headerFile, importcpp:"#.setFormats(@)".} # Public
+proc formats*(this: QTextLayout): QList[QTextLayout_FormatRange] {.header:headerFile, importcpp:"#.formats(@)".} # Public
 proc clearFormats*(this: QTextLayout) {.header:headerFile, importcpp:"#.clearFormats(@)".} # Public
 proc setCacheEnabled*(this: QTextLayout, enable: bool) {.header:headerFile, importcpp:"#.setCacheEnabled(@)".} # Public
 proc cacheEnabled*(this: QTextLayout): bool {.header:headerFile, importcpp:"#.cacheEnabled(@)".} # Public
@@ -80,8 +85,21 @@ proc nextCursorPosition*(this: QTextLayout, oldPos: cint, mode: QTextLayout_Curs
 proc previousCursorPosition*(this: QTextLayout, oldPos: cint, mode: QTextLayout_CursorMode): cint {.header:headerFile, importcpp:"#.previousCursorPosition(@)".} # Public
 proc leftCursorPosition*(this: QTextLayout, oldPos: cint): cint {.header:headerFile, importcpp:"#.leftCursorPosition(@)".} # Public
 proc rightCursorPosition*(this: QTextLayout, oldPos: cint): cint {.header:headerFile, importcpp:"#.rightCursorPosition(@)".} # Public
+import nimqt/qtgui/qpainter
+import nimqt/qtcore/qpoint
+# 2 default parameters!
+proc draw*(this: QTextLayout, p: ptr QPainter, pos: QPointF, selections: QList[QTextLayout_FormatRange], clip: QRectF) {.header:headerFile, importcpp:"#.draw(@)".} # Public
+proc draw*(this: QTextLayout, p: ptr QPainter, pos: QPointF, selections: QList[QTextLayout_FormatRange]) {.header:headerFile, importcpp:"#.draw(@)".} # Public
+proc draw*(this: QTextLayout, p: ptr QPainter, pos: QPointF) {.header:headerFile, importcpp:"#.draw(@)".} # Public
+proc drawCursor*(this: QTextLayout, p: ptr QPainter, pos: QPointF, cursorPosition: cint) {.header:headerFile, importcpp:"#.drawCursor(@)".} # Public
+proc drawCursor*(this: QTextLayout, p: ptr QPainter, pos: QPointF, cursorPosition: cint, width: cint) {.header:headerFile, importcpp:"#.drawCursor(@)".} # Public
+proc position*(this: QTextLayout): QPointF {.header:headerFile, importcpp:"#.position(@)".} # Public
+proc setPosition*(this: QTextLayout, p: QPointF) {.header:headerFile, importcpp:"#.setPosition(@)".} # Public
+proc boundingRect*(this: QTextLayout): QRectF {.header:headerFile, importcpp:"#.boundingRect(@)".} # Public
 proc minimumWidth*(this: QTextLayout): cfloat {.header:headerFile, importcpp:"#.minimumWidth(@)".} # Public
 proc maximumWidth*(this: QTextLayout): cfloat {.header:headerFile, importcpp:"#.maximumWidth(@)".} # Public
+import nimqt/qtgui/qglyphrun
+proc glyphRuns*(this: QTextLayout, `from`: cint, length: cint): QList[QGlyphRun] {.header:headerFile, importcpp:"#.glyphRuns(@)".} # Public
 proc setFlags*(this: QTextLayout, flags: cint) {.header:headerFile, importcpp:"#.setFlags(@)".} # Public
 # Stuff for class QTextLine
 
@@ -90,6 +108,7 @@ proc newQTextLine*(): QTextLine {. header:headerFile, importcpp:"QTextLine(@)", 
 
 # Public methods for QTextLine
 proc isValid*(this: QTextLine): bool {.header:headerFile, importcpp:"#.isValid(@)".} # Public
+proc rect*(this: QTextLine): QRectF {.header:headerFile, importcpp:"#.rect(@)".} # Public
 proc x*(this: QTextLine): cfloat {.header:headerFile, importcpp:"#.x(@)".} # Public
 proc y*(this: QTextLine): cfloat {.header:headerFile, importcpp:"#.y(@)".} # Public
 proc width*(this: QTextLine): cfloat {.header:headerFile, importcpp:"#.width(@)".} # Public
@@ -101,15 +120,20 @@ proc setLeadingIncluded*(this: QTextLine, included: bool) {.header:headerFile, i
 proc leadingIncluded*(this: QTextLine): bool {.header:headerFile, importcpp:"#.leadingIncluded(@)".} # Public
 proc naturalTextWidth*(this: QTextLine): cfloat {.header:headerFile, importcpp:"#.naturalTextWidth(@)".} # Public
 proc horizontalAdvance*(this: QTextLine): cfloat {.header:headerFile, importcpp:"#.horizontalAdvance(@)".} # Public
+proc naturalTextRect*(this: QTextLine): QRectF {.header:headerFile, importcpp:"#.naturalTextRect(@)".} # Public
 proc cursorToX*(this: QTextLine, cursorPos: ptr cint, edge: QTextLine_Edge): cfloat {.header:headerFile, importcpp:"#.cursorToX(@)".} # Public
 proc cursorToX*(this: QTextLine, cursorPos: cint, edge: QTextLine_Edge): cfloat {.header:headerFile, importcpp:"#.cursorToX(@)".} # Public
 proc xToCursor*(this: QTextLine, x: cfloat, arg_1: QTextLine_CursorPosition): cint {.header:headerFile, importcpp:"#.xToCursor(@)".} # Public
 proc setLineWidth*(this: QTextLine, width: cfloat) {.header:headerFile, importcpp:"#.setLineWidth(@)".} # Public
 proc setNumColumns*(this: QTextLine, columns: cint) {.header:headerFile, importcpp:"#.setNumColumns(@)".} # Public
 proc setNumColumns*(this: QTextLine, columns: cint, alignmentWidth: cfloat) {.header:headerFile, importcpp:"#.setNumColumns(@)".} # Public
+proc setPosition*(this: QTextLine, pos: QPointF) {.header:headerFile, importcpp:"#.setPosition(@)".} # Public
+proc position*(this: QTextLine): QPointF {.header:headerFile, importcpp:"#.position(@)".} # Public
 proc textStart*(this: QTextLine): cint {.header:headerFile, importcpp:"#.textStart(@)".} # Public
 proc textLength*(this: QTextLine): cint {.header:headerFile, importcpp:"#.textLength(@)".} # Public
 proc lineNumber*(this: QTextLine): cint {.header:headerFile, importcpp:"#.lineNumber(@)".} # Public
+proc draw*(this: QTextLine, painter: ptr QPainter, position: QPointF) {.header:headerFile, importcpp:"#.draw(@)".} # Public
+proc glyphRuns*(this: QTextLine, `from`: cint, length: cint): QList[QGlyphRun] {.header:headerFile, importcpp:"#.glyphRuns(@)".} # Public
 
 export qrawfont
 export qfont
@@ -118,4 +142,9 @@ export qstring
 export qtextoption
 export qnamespace
 export qtextobject
+export qlist
+export qglyphrun
+export qpainter
+export qpoint
+export qrect
 export qpaintdevice

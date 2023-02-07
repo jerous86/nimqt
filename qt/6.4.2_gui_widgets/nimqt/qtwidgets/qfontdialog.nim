@@ -8,8 +8,8 @@ import nimqt/qtwidgets/qdialog
 type
     # Classes and enums found in the C++ code
     # Global
-    QFontDialog_FontDialogOption* {.header:headerFile,importcpp:"QFontDialog::FontDialogOption".} = enum NoButtons = 0, DontUseNativeDialog = 0x1, ScalableFonts = 0x2, NonScalableFonts = 0x3, 
-        MonospacedFonts = 0x4, ProportionalFonts = 0x5
+    QFontDialog_FontDialogOption* {.header:headerFile,importcpp:"QFontDialog::FontDialogOption".} = enum NoButtons = 0x1, DontUseNativeDialog = 0x2, ScalableFonts = 0x4, NonScalableFonts = 0x8, 
+        MonospacedFonts = 0x10, ProportionalFonts = 0x20
     QFontDialog* {.header:headerFile,importcpp:"QFontDialog" ,pure.} = object of QDialog
 {.push warning[Deprecated]: on.}
 import nimqt/qtwidgets/qwidget

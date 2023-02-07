@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qlistview
 type
     # Classes and enums found in the C++ code
     # Global
-    QListWidgetItem_ItemType* {.header:headerFile,importcpp:"QListWidgetItem::ItemType".} = enum Type = 0, UserType = 0x1
+    QListWidgetItem_ItemType* {.header:headerFile,importcpp:"QListWidgetItem::ItemType".} = enum Type = 0, UserType = 0x3e8
     QListWidgetItem* {.header:headerFile,importcpp:"QListWidgetItem" ,pure.} = object {.inheritable.}
     QListWidget* {.header:headerFile,importcpp:"QListWidget" ,pure.} = object of QListView
 {.push warning[Deprecated]: on.}
@@ -97,6 +97,12 @@ proc foreground*(this: ptr QListWidgetItem): QBrush {.header:headerFile, importc
 proc setForeground*(this: ptr QListWidgetItem, brush: QBrush) {.header:headerFile, importcpp:"#.setForeground(@)".} # Public
 proc checkState*(this: ptr QListWidgetItem): Qt_CheckState {.header:headerFile, importcpp:"#.checkState(@)".} # Public
 proc setCheckState*(this: ptr QListWidgetItem, state: Qt_CheckState) {.header:headerFile, importcpp:"#.setCheckState(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QListWidgetItem): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc setSizeHint*(this: ptr QListWidgetItem, size: QSize) {.header:headerFile, importcpp:"#.setSizeHint(@)".} # Public
+import nimqt/qtcore/qvariant
+proc data*(this: ptr QListWidgetItem, role: cint): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
+proc setData*(this: ptr QListWidgetItem, role: cint, value: QVariant) {.header:headerFile, importcpp:"#.setData(@)".} # Public
 proc `<`*(this: ptr QListWidgetItem, other: QListWidgetItem): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
 proc `type`*(this: ptr QListWidgetItem): cint {.header:headerFile, importcpp:"#.type(@)".} # Public
 # Stuff for class QListWidget
@@ -114,15 +120,22 @@ proc item*(this: ptr QListWidget, row: cint): ptr QListWidgetItem {.header:heade
 proc row*(this: ptr QListWidget, item: ptr QListWidgetItem): cint {.header:headerFile, importcpp:"#.row(@)".} # Public
 proc insertItem*(this: ptr QListWidget, row: cint, item: ptr QListWidgetItem) {.header:headerFile, importcpp:"#.insertItem(@)".} # Public
 proc insertItem*(this: ptr QListWidget, row: cint, label: QString) {.header:headerFile, importcpp:"#.insertItem(@)".} # Public
+import nimqt/qtcore/qstringlist
+proc insertItems*(this: ptr QListWidget, row: cint, labels: QStringList) {.header:headerFile, importcpp:"#.insertItems(@)".} # Public
 proc addItem*(this: ptr QListWidget, label: QString) {.header:headerFile, importcpp:"#.addItem(@)".} # Public
 proc addItem*(this: ptr QListWidget, item: ptr QListWidgetItem) {.header:headerFile, importcpp:"#.addItem(@)".} # Public
+proc addItems*(this: ptr QListWidget, labels: QStringList) {.header:headerFile, importcpp:"#.addItems(@)".} # Public
 proc takeItem*(this: ptr QListWidget, row: cint): ptr QListWidgetItem {.header:headerFile, importcpp:"#.takeItem(@)".} # Public
 proc count*(this: ptr QListWidget): cint {.header:headerFile, importcpp:"#.count(@)".} # Public
 proc currentItem*(this: ptr QListWidget): ptr QListWidgetItem {.header:headerFile, importcpp:"#.currentItem(@)".} # Public
 proc setCurrentItem*(this: ptr QListWidget, item: ptr QListWidgetItem) {.header:headerFile, importcpp:"#.setCurrentItem(@)".} # Public
 proc currentRow*(this: ptr QListWidget): cint {.header:headerFile, importcpp:"#.currentRow(@)".} # Public
 proc setCurrentRow*(this: ptr QListWidget, row: cint) {.header:headerFile, importcpp:"#.setCurrentRow(@)".} # Public
+import nimqt/qtcore/qpoint
+proc itemAt*(this: ptr QListWidget, p: QPoint): ptr QListWidgetItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
 proc itemAt*(this: ptr QListWidget, x: cint, y: cint): ptr QListWidgetItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
+import nimqt/qtcore/qrect
+proc visualItemRect*(this: ptr QListWidget, item: ptr QListWidgetItem): QRect {.header:headerFile, importcpp:"#.visualItemRect(@)".} # Public
 proc sortItems*(this: ptr QListWidget, order: Qt_SortOrder) {.header:headerFile, importcpp:"#.sortItems(@)".} # Public
 proc setSortingEnabled*(this: ptr QListWidget, enable: bool) {.header:headerFile, importcpp:"#.setSortingEnabled(@)".} # Public
 proc isSortingEnabled*(this: ptr QListWidget): bool {.header:headerFile, importcpp:"#.isSortingEnabled(@)".} # Public
@@ -133,6 +146,9 @@ proc isPersistentEditorOpen*(this: ptr QListWidget, item: ptr QListWidgetItem): 
 proc itemWidget*(this: ptr QListWidget, item: ptr QListWidgetItem): ptr QWidget {.header:headerFile, importcpp:"#.itemWidget(@)".} # Public
 proc setItemWidget*(this: ptr QListWidget, item: ptr QListWidgetItem, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setItemWidget(@)".} # Public
 proc removeItemWidget*(this: ptr QListWidget, item: ptr QListWidgetItem) {.header:headerFile, importcpp:"#.removeItemWidget(@)".} # Public
+import nimqt/qtcore/qlist
+proc selectedItems*(this: ptr QListWidget): QList[ptr QListWidgetItem] {.header:headerFile, importcpp:"#.selectedItems(@)".} # Public
+proc findItems*(this: ptr QListWidget, text: QString, flags: Qt_MatchFlags): QList[ptr QListWidgetItem] {.header:headerFile, importcpp:"#.findItems(@)".} # Public
 import nimqt/qtcore/qabstractitemmodel
 proc indexFromItem*(this: ptr QListWidget, item: ptr QListWidgetItem): QModelIndex {.header:headerFile, importcpp:"#.indexFromItem(@)".} # Public
 proc itemFromIndex*(this: ptr QListWidget, index: QModelIndex): ptr QListWidgetItem {.header:headerFile, importcpp:"#.itemFromIndex(@)".} # Public
@@ -154,18 +170,25 @@ import nimqt/qtgui/qevent
 proc dropEvent*(this: ptr QListWidget, event: ptr QDropEvent) {.header:headerFile, importcpp:"#.dropEvent(@)".} # Protected
 import nimqt/qtcore/qcoreevent
 proc event*(this: ptr QListWidget, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
+proc mimeTypes*(this: ptr QListWidget): QStringList {.header:headerFile, importcpp:"#.mimeTypes(@)".} # Protected
 proc supportedDropActions*(this: ptr QListWidget): Qt_DropActions {.header:headerFile, importcpp:"#.supportedDropActions(@)".} # Protected
 
 export qevent
 export qfont
+export qstringlist
 export qstring
+export qsize
 export qabstractitemview
 export qabstractscrollarea
 export qnamespace
+export qlist
 export qlistview
 export qabstractitemmodel
 export qbrush
+export qvariant
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qframe

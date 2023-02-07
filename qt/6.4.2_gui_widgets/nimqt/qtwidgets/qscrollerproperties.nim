@@ -27,3 +27,8 @@ proc newQScrollerProperties*(sp: QScrollerProperties): QScrollerProperties {. he
 proc `!=`*(this: QScrollerProperties, sp: QScrollerProperties): bool {.header:headerFile, importcpp:"#.operator!=(@)".} # Public
 proc static_QScrollerProperties_setDefaultScrollerProperties*(sp: QScrollerProperties) {.header:headerFile, importcpp:"QScrollerProperties::setDefaultScrollerProperties(@)".} # Public static
 proc static_QScrollerProperties_unsetDefaultScrollerProperties*() {.header:headerFile, importcpp:"QScrollerProperties::unsetDefaultScrollerProperties(@)".} # Public static
+import nimqt/qtcore/qvariant
+proc scrollMetric*(this: QScrollerProperties, metric: QScrollerProperties_ScrollMetric): QVariant {.header:headerFile, importcpp:"#.scrollMetric(@)".} # Public
+proc setScrollMetric*(this: QScrollerProperties, metric: QScrollerProperties_ScrollMetric, value: QVariant) {.header:headerFile, importcpp:"#.setScrollMetric(@)".} # Public
+
+export qvariant

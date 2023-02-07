@@ -62,10 +62,22 @@ proc setTabToolTip*(this: ptr QTabBar, index: cint, tip: QString) {.header:heade
 proc tabToolTip*(this: ptr QTabBar, index: cint): QString {.header:headerFile, importcpp:"#.tabToolTip(@)".} # Public
 proc setTabWhatsThis*(this: ptr QTabBar, index: cint, text: QString) {.header:headerFile, importcpp:"#.setTabWhatsThis(@)".} # Public
 proc tabWhatsThis*(this: ptr QTabBar, index: cint): QString {.header:headerFile, importcpp:"#.tabWhatsThis(@)".} # Public
+import nimqt/qtcore/qvariant
+proc setTabData*(this: ptr QTabBar, index: cint, data: QVariant) {.header:headerFile, importcpp:"#.setTabData(@)".} # Public
+proc tabData*(this: ptr QTabBar, index: cint): QVariant {.header:headerFile, importcpp:"#.tabData(@)".} # Public
+import nimqt/qtcore/qrect
+proc tabRect*(this: ptr QTabBar, index: cint): QRect {.header:headerFile, importcpp:"#.tabRect(@)".} # Public
+import nimqt/qtcore/qpoint
+proc tabAt*(this: ptr QTabBar, pos: QPoint): cint {.header:headerFile, importcpp:"#.tabAt(@)".} # Public
 proc currentIndex*(this: ptr QTabBar): cint {.header:headerFile, importcpp:"#.currentIndex(@)".} # Public
 proc count*(this: ptr QTabBar): cint {.header:headerFile, importcpp:"#.count(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QTabBar): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QTabBar): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc setDrawBase*(this: ptr QTabBar, drawTheBase: bool) {.header:headerFile, importcpp:"#.setDrawBase(@)".} # Public
 proc drawBase*(this: ptr QTabBar): bool {.header:headerFile, importcpp:"#.drawBase(@)".} # Public
+proc iconSize*(this: ptr QTabBar): QSize {.header:headerFile, importcpp:"#.iconSize(@)".} # Public
+proc setIconSize*(this: ptr QTabBar, size: QSize) {.header:headerFile, importcpp:"#.setIconSize(@)".} # Public
 proc usesScrollButtons*(this: ptr QTabBar): bool {.header:headerFile, importcpp:"#.usesScrollButtons(@)".} # Public
 proc setUsesScrollButtons*(this: ptr QTabBar, useButtons: bool) {.header:headerFile, importcpp:"#.setUsesScrollButtons(@)".} # Public
 proc tabsClosable*(this: ptr QTabBar): bool {.header:headerFile, importcpp:"#.tabsClosable(@)".} # Public
@@ -94,6 +106,8 @@ proc tabBarClicked*(this: ptr QTabBar, index: cint) {.header:headerFile, importc
 proc tabBarDoubleClicked*(this: ptr QTabBar, index: cint) {.header:headerFile, importcpp:"#.tabBarDoubleClicked(@)".} # Public
 
 # Protected methods methods for QTabBar
+proc tabSizeHint*(this: ptr QTabBar, index: cint): QSize {.header:headerFile, importcpp:"#.tabSizeHint(@)".} # Protected
+proc minimumTabSizeHint*(this: ptr QTabBar, index: cint): QSize {.header:headerFile, importcpp:"#.minimumTabSizeHint(@)".} # Protected
 proc tabInserted*(this: ptr QTabBar, index: cint) {.header:headerFile, importcpp:"#.tabInserted(@)".} # Protected
 proc tabRemoved*(this: ptr QTabBar, index: cint) {.header:headerFile, importcpp:"#.tabRemoved(@)".} # Protected
 proc tabLayoutChange*(this: ptr QTabBar) {.header:headerFile, importcpp:"#.tabLayoutChange(@)".} # Protected
@@ -115,8 +129,12 @@ proc timerEvent*(this: ptr QTabBar, event: ptr QTimerEvent) {.header:headerFile,
 
 export qevent
 export qstring
+export qsize
 export qnamespace
+export qvariant
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qicon

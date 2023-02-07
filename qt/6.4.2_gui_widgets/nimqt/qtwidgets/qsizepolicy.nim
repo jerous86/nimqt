@@ -7,13 +7,13 @@ const headerFile* = "QtWidgets/qsizepolicy.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QSizePolicy_PolicyFlag* {.header:headerFile,importcpp:"QSizePolicy::PolicyFlag".} = enum GrowFlag = 0, ExpandFlag = 0x1, ShrinkFlag = 0x2, IgnoreFlag = 0x3
-    QSizePolicy_Policy* {.header:headerFile,importcpp:"QSizePolicy::Policy".} = enum Fixed = 0, Minimum = 0x1, Maximum = 0x2, Preferred = 0x3, 
-        MinimumExpanding = 0x4, Expanding = 0x5, Ignored = 0x6
-    QSizePolicy_ControlType* {.header:headerFile,importcpp:"QSizePolicy::ControlType".} = enum DefaultType = 0, ButtonBox = 0x1, CheckBox = 0x2, ComboBox = 0x3, 
-        Frame = 0x4, GroupBox = 0x5, Label = 0x6, Line = 0x7, LineEdit = 0x8, 
-        PushButton = 0x9, RadioButton = 0xa, Slider = 0xb, SpinBox = 0xc, TabWidget = 0xd, 
-        ToolButton = 0xe
+    QSizePolicy_PolicyFlag* {.header:headerFile,importcpp:"QSizePolicy::PolicyFlag".} = enum GrowFlag = 0x1, ExpandFlag = 0x2, ShrinkFlag = 0x4, IgnoreFlag = 0x8
+    QSizePolicy_Policy* {.header:headerFile,importcpp:"QSizePolicy::Policy".} = enum Fixed = 0, Minimum = 0x1, MinimumExpanding = 0x3, Maximum = 0x4, 
+        Preferred = 0x5, Expanding = 0x7, Ignored = 0xd
+    QSizePolicy_ControlType* {.header:headerFile,importcpp:"QSizePolicy::ControlType".} = enum DefaultType = 0x1, ButtonBox = 0x2, CheckBox = 0x4, ComboBox = 0x8, 
+        Frame = 0x10, GroupBox = 0x20, Label = 0x40, Line = 0x80, LineEdit = 0x100, 
+        PushButton = 0x200, RadioButton = 0x400, Slider = 0x800, SpinBox = 0x1000, TabWidget = 0x2000, 
+        ToolButton = 0x4000
     QSizePolicy* {.header:headerFile,importcpp:"QSizePolicy" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags

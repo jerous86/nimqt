@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qtableview
 type
     # Classes and enums found in the C++ code
     # Global
-    QTableWidgetItem_ItemType* {.header:headerFile,importcpp:"QTableWidgetItem::ItemType".} = enum Type = 0, UserType = 0x1
+    QTableWidgetItem_ItemType* {.header:headerFile,importcpp:"QTableWidgetItem::ItemType".} = enum Type = 0, UserType = 0x3e8
     QTableWidgetSelectionRange* {.header:headerFile,importcpp:"QTableWidgetSelectionRange" ,pure.} = object {.inheritable.}
     QTableWidgetItem* {.header:headerFile,importcpp:"QTableWidgetItem" ,pure.} = object {.inheritable.}
     QTableWidget* {.header:headerFile,importcpp:"QTableWidget" ,pure.} = object of QTableView
@@ -103,6 +103,12 @@ proc foreground*(this: QTableWidgetItem): QBrush {.header:headerFile, importcpp:
 proc setForeground*(this: QTableWidgetItem, brush: QBrush) {.header:headerFile, importcpp:"#.setForeground(@)".} # Public
 proc checkState*(this: QTableWidgetItem): Qt_CheckState {.header:headerFile, importcpp:"#.checkState(@)".} # Public
 proc setCheckState*(this: QTableWidgetItem, state: Qt_CheckState) {.header:headerFile, importcpp:"#.setCheckState(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: QTableWidgetItem): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc setSizeHint*(this: QTableWidgetItem, size: QSize) {.header:headerFile, importcpp:"#.setSizeHint(@)".} # Public
+import nimqt/qtcore/qvariant
+proc data*(this: QTableWidgetItem, role: cint): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
+proc setData*(this: QTableWidgetItem, role: cint, value: QVariant) {.header:headerFile, importcpp:"#.setData(@)".} # Public
 proc `<`*(this: QTableWidgetItem, other: QTableWidgetItem): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
 proc `type`*(this: QTableWidgetItem): cint {.header:headerFile, importcpp:"#.type(@)".} # Public
 # Stuff for class QTableWidget
@@ -137,6 +143,9 @@ proc takeVerticalHeaderItem*(this: ptr QTableWidget, row: cint): ptr QTableWidge
 proc horizontalHeaderItem*(this: ptr QTableWidget, column: cint): ptr QTableWidgetItem {.header:headerFile, importcpp:"#.horizontalHeaderItem(@)".} # Public
 proc setHorizontalHeaderItem*(this: ptr QTableWidget, column: cint, item: ptr QTableWidgetItem) {.header:headerFile, importcpp:"#.setHorizontalHeaderItem(@)".} # Public
 proc takeHorizontalHeaderItem*(this: ptr QTableWidget, column: cint): ptr QTableWidgetItem {.header:headerFile, importcpp:"#.takeHorizontalHeaderItem(@)".} # Public
+import nimqt/qtcore/qstringlist
+proc setVerticalHeaderLabels*(this: ptr QTableWidget, labels: QStringList) {.header:headerFile, importcpp:"#.setVerticalHeaderLabels(@)".} # Public
+proc setHorizontalHeaderLabels*(this: ptr QTableWidget, labels: QStringList) {.header:headerFile, importcpp:"#.setHorizontalHeaderLabels(@)".} # Public
 proc currentRow*(this: ptr QTableWidget): cint {.header:headerFile, importcpp:"#.currentRow(@)".} # Public
 proc currentColumn*(this: ptr QTableWidget): cint {.header:headerFile, importcpp:"#.currentColumn(@)".} # Public
 proc currentItem*(this: ptr QTableWidget): ptr QTableWidgetItem {.header:headerFile, importcpp:"#.currentItem(@)".} # Public
@@ -153,9 +162,17 @@ proc cellWidget*(this: ptr QTableWidget, row: cint, column: cint): ptr QWidget {
 proc setCellWidget*(this: ptr QTableWidget, row: cint, column: cint, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setCellWidget(@)".} # Public
 proc removeCellWidget*(this: ptr QTableWidget, row: cint, column: cint) {.header:headerFile, importcpp:"#.removeCellWidget(@)".} # Public
 proc setRangeSelected*(this: ptr QTableWidget, range: QTableWidgetSelectionRange, select: bool) {.header:headerFile, importcpp:"#.setRangeSelected(@)".} # Public
+import nimqt/qtcore/qlist
+proc selectedRanges*(this: ptr QTableWidget): QList[QTableWidgetSelectionRange] {.header:headerFile, importcpp:"#.selectedRanges(@)".} # Public
+proc selectedItems*(this: ptr QTableWidget): QList[ptr QTableWidgetItem] {.header:headerFile, importcpp:"#.selectedItems(@)".} # Public
+proc findItems*(this: ptr QTableWidget, text: QString, flags: Qt_MatchFlags): QList[ptr QTableWidgetItem] {.header:headerFile, importcpp:"#.findItems(@)".} # Public
 proc visualRow*(this: ptr QTableWidget, logicalRow: cint): cint {.header:headerFile, importcpp:"#.visualRow(@)".} # Public
 proc visualColumn*(this: ptr QTableWidget, logicalColumn: cint): cint {.header:headerFile, importcpp:"#.visualColumn(@)".} # Public
+import nimqt/qtcore/qpoint
+proc itemAt*(this: ptr QTableWidget, p: QPoint): ptr QTableWidgetItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
 proc itemAt*(this: ptr QTableWidget, x: cint, y: cint): ptr QTableWidgetItem {.header:headerFile, importcpp:"#.itemAt(@)".} # Public
+import nimqt/qtcore/qrect
+proc visualItemRect*(this: ptr QTableWidget, item: ptr QTableWidgetItem): QRect {.header:headerFile, importcpp:"#.visualItemRect(@)".} # Public
 proc itemPrototype*(this: ptr QTableWidget): ptr QTableWidgetItem {.header:headerFile, importcpp:"#.itemPrototype(@)".} # Public
 proc setItemPrototype*(this: ptr QTableWidget, item: ptr QTableWidgetItem) {.header:headerFile, importcpp:"#.setItemPrototype(@)".} # Public
 proc scrollToItem*(this: ptr QTableWidget, item: ptr QTableWidgetItem, hint: QAbstractItemView_ScrollHint) {.header:headerFile, importcpp:"#.scrollToItem(@)".} # Public
@@ -184,20 +201,27 @@ proc currentCellChanged*(this: ptr QTableWidget, currentRow: cint, currentColumn
 # Protected methods methods for QTableWidget
 import nimqt/qtcore/qcoreevent
 proc event*(this: ptr QTableWidget, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
+proc mimeTypes*(this: ptr QTableWidget): QStringList {.header:headerFile, importcpp:"#.mimeTypes(@)".} # Protected
 proc supportedDropActions*(this: ptr QTableWidget): Qt_DropActions {.header:headerFile, importcpp:"#.supportedDropActions(@)".} # Protected
 import nimqt/qtgui/qevent
 proc dropEvent*(this: ptr QTableWidget, event: ptr QDropEvent) {.header:headerFile, importcpp:"#.dropEvent(@)".} # Protected
 
 export qevent
 export qfont
+export qstringlist
 export qstring
+export qsize
 export qabstractitemview
 export qabstractscrollarea
 export qnamespace
+export qlist
 export qtableview
 export qabstractitemmodel
 export qbrush
+export qvariant
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qframe

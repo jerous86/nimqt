@@ -22,5 +22,8 @@ import nimqt/qtgui/qsurfaceformat
 proc format*(this: ptr QSurface): QSurfaceFormat {.header:headerFile, importcpp:"#.format(@)".} # Public
 proc surfaceType*(this: ptr QSurface): QSurface_SurfaceType {.header:headerFile, importcpp:"#.surfaceType(@)".} # Public
 proc supportsOpenGL*(this: ptr QSurface): bool {.header:headerFile, importcpp:"#.supportsOpenGL(@)".} # Public
+import nimqt/qtcore/qsize
+proc size*(this: ptr QSurface): QSize {.header:headerFile, importcpp:"#.size(@)".} # Public
 
+export qsize
 export qsurfaceformat

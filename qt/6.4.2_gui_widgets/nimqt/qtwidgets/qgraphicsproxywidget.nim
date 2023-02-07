@@ -24,7 +24,7 @@ type
 # Consts
 const
     # Global
-    QGraphicsProxyWidget_Type* = 0 # from anonymous enum Type
+    QGraphicsProxyWidget_Type* = 12 # from anonymous enum Type
 
 
 export qgraphicswidget

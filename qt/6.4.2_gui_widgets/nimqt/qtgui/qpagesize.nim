@@ -30,39 +30,65 @@ type
         Envelope14 = 0x63, EnvelopeMonarch = 0x64, EnvelopePersonal = 0x65, EnvelopeChou3 = 0x66, EnvelopeChou4 = 0x67, 
         EnvelopeInvite = 0x68, EnvelopeItalian = 0x69, EnvelopeKaku2 = 0x6a, EnvelopeKaku3 = 0x6b, EnvelopePrc1 = 0x6c, 
         EnvelopePrc2 = 0x6d, EnvelopePrc3 = 0x6e, EnvelopePrc4 = 0x6f, EnvelopePrc5 = 0x70, EnvelopePrc6 = 0x71, 
-        EnvelopePrc7 = 0x72, EnvelopePrc8 = 0x73, EnvelopePrc9 = 0x74, EnvelopePrc10 = 0x75, EnvelopeYou4 = 0x76, 
-        LastPageSize = 0x77, AnsiA = 0x78, AnsiB = 0x79, EnvelopeC5 = 0x7a, EnvelopeDL = 0x7b, 
-        Envelope10 = 0x7c
+        EnvelopePrc7 = 0x72, EnvelopePrc8 = 0x73, EnvelopePrc9 = 0x74, EnvelopePrc10 = 0x75, EnvelopeYou4 = 0x76
     QPageSize_Unit* {.header:headerFile,importcpp:"QPageSize::Unit".} = enum Millimeter = 0, Point = 0x1, Inch = 0x2, Pica = 0x3, 
         Didot = 0x4, Cicero = 0x5
     QPageSize_SizeMatchPolicy* {.header:headerFile,importcpp:"QPageSize::SizeMatchPolicy".} = enum FuzzyMatch = 0, FuzzyOrientationMatch = 0x1, ExactMatch = 0x2
     QPageSize* {.header:headerFile,importcpp:"QPageSize" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 
+# Consts
+const
+    # Global
+    QPageSize_PageSizeIdAnsiA* = 0 # from anonymous enum Letter
+    QPageSize_PageSizeIdEnvelopeC5* = 25 # from anonymous enum C5E
+    QPageSize_PageSizeIdEnvelope10* = 26 # from anonymous enum Comm10E
+    QPageSize_PageSizeIdEnvelopeDL* = 27 # from anonymous enum DLE
+    QPageSize_PageSizeIdAnsiB* = 29 # from anonymous enum Ledger
+    QPageSize_PageSizeIdLastPageSize* = 118 # from anonymous enum EnvelopeYou4
+
 # Stuff for class QPageSize
 
 # Public constructors for QPageSize
 proc newQPageSize*(): QPageSize {. header:headerFile, importcpp:"QPageSize(@)", constructor .} #
 proc newQPageSize*(pageSizeId: QPageSize_PageSizeId): QPageSize {. header:headerFile, importcpp:"QPageSize(@)", constructor .} #
+import nimqt/qtcore/qstring
+import nimqt/qtcore/qsize
+# 1 default parameters!
+proc newQPageSize*(pointSize: QSize, name: QString, matchPolicy: QPageSize_SizeMatchPolicy): QPageSize {. header:headerFile, importcpp:"QPageSize(@)", constructor .} #
+proc newQPageSize*(pointSize: QSize, name: QString): QPageSize {. header:headerFile, importcpp:"QPageSize(@)", constructor .} #
+# 1 default parameters!
+proc newQPageSize*(size: QSizeF, units: QPageSize_Unit, name: QString, matchPolicy: QPageSize_SizeMatchPolicy): QPageSize {. header:headerFile, importcpp:"QPageSize(@)", constructor .} #
+proc newQPageSize*(size: QSizeF, units: QPageSize_Unit, name: QString): QPageSize {. header:headerFile, importcpp:"QPageSize(@)", constructor .} #
 proc newQPageSize*(other: QPageSize): QPageSize {. header:headerFile, importcpp:"QPageSize(@)", constructor .} #
 
 # Public methods for QPageSize
 proc swap*(this: QPageSize, other: QPageSize) {.header:headerFile, importcpp:"#.swap(@)".} # Public
 proc isEquivalentTo*(this: QPageSize, other: QPageSize): bool {.header:headerFile, importcpp:"#.isEquivalentTo(@)".} # Public
 proc isValid*(this: QPageSize): bool {.header:headerFile, importcpp:"#.isValid(@)".} # Public
-import nimqt/qtcore/qstring
 proc key*(this: QPageSize): QString {.header:headerFile, importcpp:"#.key(@)".} # Public
 proc name*(this: QPageSize): QString {.header:headerFile, importcpp:"#.name(@)".} # Public
 proc id*(this: QPageSize): QPageSize_PageSizeId {.header:headerFile, importcpp:"#.id(@)".} # Public
 proc windowsId*(this: QPageSize): cint {.header:headerFile, importcpp:"#.windowsId(@)".} # Public
+proc definitionSize*(this: QPageSize): QSizeF {.header:headerFile, importcpp:"#.definitionSize(@)".} # Public
 proc definitionUnits*(this: QPageSize): QPageSize_Unit {.header:headerFile, importcpp:"#.definitionUnits(@)".} # Public
+proc size*(this: QPageSize, units: QPageSize_Unit): QSizeF {.header:headerFile, importcpp:"#.size(@)".} # Public
+proc sizePoints*(this: QPageSize): QSize {.header:headerFile, importcpp:"#.sizePoints(@)".} # Public
+proc sizePixels*(this: QPageSize, resolution: cint): QSize {.header:headerFile, importcpp:"#.sizePixels(@)".} # Public
 proc rect*(this: QPageSize): cint {.header:headerFile, importcpp:"#.rect(@)".} # Public
 proc rectPoints*(this: QPageSize): cint {.header:headerFile, importcpp:"#.rectPoints(@)".} # Public
 proc rectPixels*(this: QPageSize): cint {.header:headerFile, importcpp:"#.rectPixels(@)".} # Public
 proc static_QPageSize_key*(pageSizeId: QPageSize_PageSizeId): QString {.header:headerFile, importcpp:"QPageSize::key(@)".} # Public static
 proc static_QPageSize_name*(pageSizeId: QPageSize_PageSizeId): QString {.header:headerFile, importcpp:"QPageSize::name(@)".} # Public static
+proc static_QPageSize_id*(pointSize: QSize, matchPolicy: QPageSize_SizeMatchPolicy): QPageSize_PageSizeId {.header:headerFile, importcpp:"QPageSize::id(@)".} # Public static
+proc static_QPageSize_id*(size: QSizeF, units: QPageSize_Unit, matchPolicy: QPageSize_SizeMatchPolicy): QPageSize_PageSizeId {.header:headerFile, importcpp:"QPageSize::id(@)".} # Public static
 proc static_QPageSize_id*(windowsId: cint): QPageSize_PageSizeId {.header:headerFile, importcpp:"QPageSize::id(@)".} # Public static
 proc static_QPageSize_windowsId*(pageSizeId: QPageSize_PageSizeId): cint {.header:headerFile, importcpp:"QPageSize::windowsId(@)".} # Public static
+proc static_QPageSize_definitionSize*(pageSizeId: QPageSize_PageSizeId): QSizeF {.header:headerFile, importcpp:"QPageSize::definitionSize(@)".} # Public static
 proc static_QPageSize_definitionUnits*(pageSizeId: QPageSize_PageSizeId): QPageSize_Unit {.header:headerFile, importcpp:"QPageSize::definitionUnits(@)".} # Public static
+proc static_QPageSize_size*(pageSizeId: QPageSize_PageSizeId, units: QPageSize_Unit): QSizeF {.header:headerFile, importcpp:"QPageSize::size(@)".} # Public static
+proc static_QPageSize_sizePoints*(pageSizeId: QPageSize_PageSizeId): QSize {.header:headerFile, importcpp:"QPageSize::sizePoints(@)".} # Public static
+proc static_QPageSize_sizePixels*(pageSizeId: QPageSize_PageSizeId, resolution: cint): QSize {.header:headerFile, importcpp:"QPageSize::sizePixels(@)".} # Public static
 
 export qstring
+export qsize

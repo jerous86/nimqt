@@ -61,6 +61,9 @@ proc margin*(this: ptr QLabel): cint {.header:headerFile, importcpp:"#.margin(@)
 proc setMargin*(this: ptr QLabel, arg_0: cint) {.header:headerFile, importcpp:"#.setMargin(@)".} # Public
 proc hasScaledContents*(this: ptr QLabel): bool {.header:headerFile, importcpp:"#.hasScaledContents(@)".} # Public
 proc setScaledContents*(this: ptr QLabel, arg_0: bool) {.header:headerFile, importcpp:"#.setScaledContents(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QLabel): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc minimumSizeHint*(this: ptr QLabel): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
 proc setBuddy*(this: ptr QLabel, arg_0: ptr QWidget) {.header:headerFile, importcpp:"#.setBuddy(@)".} # Public
 proc buddy*(this: ptr QLabel): ptr QWidget {.header:headerFile, importcpp:"#.buddy(@)".} # Public
 proc heightForWidth*(this: ptr QLabel, arg_0: cint): cint {.header:headerFile, importcpp:"#.heightForWidth(@)".} # Public
@@ -101,6 +104,7 @@ export qevent
 export qpixmap
 export qmovie
 export qstring
+export qsize
 export qpicture
 export qnamespace
 export qwidget

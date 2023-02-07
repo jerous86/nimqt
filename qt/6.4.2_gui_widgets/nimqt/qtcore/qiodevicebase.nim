@@ -8,8 +8,8 @@ type
     # Classes and enums found in the C++ code
     # Global
     QIODeviceBase_OpenModeFlag* {.header:headerFile,importcpp:"QIODeviceBase::OpenModeFlag".} = enum NotOpen = 0, ReadOnly = 0x1, WriteOnly = 0x2, ReadWrite = 0x3, 
-        Append = 0x4, Truncate = 0x5, Text = 0x6, Unbuffered = 0x7, NewOnly = 0x8, 
-        ExistingOnly = 0x9
+        Append = 0x4, Truncate = 0x8, Text = 0x10, Unbuffered = 0x20, NewOnly = 0x40, 
+        ExistingOnly = 0x80
     QIODeviceBase* {.header:headerFile,importcpp:"QIODeviceBase" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags

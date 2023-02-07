@@ -25,6 +25,8 @@ proc static_QUndoGroup_tr*(s: ptr char, c: ptr char): QString {.header:headerFil
 import nimqt/qtgui/qundostack
 proc addStack*(this: ptr QUndoGroup, stack: ptr QUndoStack) {.header:headerFile, importcpp:"#.addStack(@)".} # Public
 proc removeStack*(this: ptr QUndoGroup, stack: ptr QUndoStack) {.header:headerFile, importcpp:"#.removeStack(@)".} # Public
+import nimqt/qtcore/qlist
+proc stacks*(this: ptr QUndoGroup): QList[ptr QUndoStack] {.header:headerFile, importcpp:"#.stacks(@)".} # Public
 proc activeStack*(this: ptr QUndoGroup): ptr QUndoStack {.header:headerFile, importcpp:"#.activeStack(@)".} # Public
 import nimqt/qtgui/qaction
 # 1 default parameters!
@@ -52,4 +54,5 @@ proc redoTextChanged*(this: ptr QUndoGroup, redoText: QString) {.header:headerFi
 export qstring
 export qaction
 export qundostack
+export qlist
 export qobject

@@ -13,10 +13,10 @@ type
         RemoveError = 0x9, RenameError = 0xa, PositionError = 0xb, ResizeError = 0xc, PermissionsError = 0xd, 
         CopyError = 0xe
     QFileDevice_FileTime* {.header:headerFile,importcpp:"QFileDevice::FileTime".} = enum FileAccessTime = 0, FileBirthTime = 0x1, FileMetadataChangeTime = 0x2, FileModificationTime = 0x3
-    QFileDevice_Permission* {.header:headerFile,importcpp:"QFileDevice::Permission".} = enum ReadOwner = 0, WriteOwner = 0x1, ExeOwner = 0x2, ReadUser = 0x3, 
-        WriteUser = 0x4, ExeUser = 0x5, ReadGroup = 0x6, WriteGroup = 0x7, ExeGroup = 0x8, 
-        ReadOther = 0x9, WriteOther = 0xa, ExeOther = 0xb
-    QFileDevice_FileHandleFlag* {.header:headerFile,importcpp:"QFileDevice::FileHandleFlag".} = enum AutoCloseHandle = 0, DontCloseHandle = 0x1
+    QFileDevice_Permission* {.header:headerFile,importcpp:"QFileDevice::Permission".} = enum ExeOther = 0x1, WriteOther = 0x2, ReadOther = 0x4, ExeGroup = 0x10, 
+        WriteGroup = 0x20, ReadGroup = 0x40, ExeUser = 0x100, WriteUser = 0x200, ReadUser = 0x400, 
+        ExeOwner = 0x1000, WriteOwner = 0x2000, ReadOwner = 0x4000
+    QFileDevice_FileHandleFlag* {.header:headerFile,importcpp:"QFileDevice::FileHandleFlag".} = enum DontCloseHandle = 0, AutoCloseHandle = 0x1
     QFileDevice_MemoryMapFlag* {.header:headerFile,importcpp:"QFileDevice::MemoryMapFlag".} = enum NoOptions = 0, MapPrivateOption = 0x1
     QFileDevice* {.header:headerFile,importcpp:"QFileDevice" ,pure.} = object of QIODevice
 {.push warning[Deprecated]: on.}

@@ -1,2 +1,0 @@
-import nimqt/qtgui/qaccessibleplugin
-export qaccessibleplugin

@@ -8,9 +8,9 @@ import nimqt/qtwidgets/qabstractspinbox
 type
     # Classes and enums found in the C++ code
     # Global
-    QDateTimeEdit_Section* {.header:headerFile,importcpp:"QDateTimeEdit::Section".} = enum NoSection = 0, AmPmSection = 0x1, MSecSection = 0x2, SecondSection = 0x3, 
-        MinuteSection = 0x4, HourSection = 0x5, DaySection = 0x6, MonthSection = 0x7, YearSection = 0x8, 
-        TimeSections_Mask = 0x9, DateSections_Mask = 0xa
+    QDateTimeEdit_Section* {.header:headerFile,importcpp:"QDateTimeEdit::Section".} = enum NoSection = 0, AmPmSection = 0x1, MSecSection = 0x2, SecondSection = 0x4, 
+        MinuteSection = 0x8, HourSection = 0x10, TimeSections_Mask = 0x1f, DaySection = 0x100, MonthSection = 0x200, 
+        YearSection = 0x400, DateSections_Mask = 0x700
     QDateTimeEdit* {.header:headerFile,importcpp:"QDateTimeEdit" ,pure.} = object of QAbstractSpinBox
     QTimeEdit* {.header:headerFile,importcpp:"QTimeEdit" ,pure.} = object of QDateTimeEdit
     QDateEdit* {.header:headerFile,importcpp:"QDateEdit" ,pure.} = object of QDateTimeEdit
@@ -89,6 +89,8 @@ proc setCalendarPopup*(this: ptr QDateTimeEdit, enable: bool) {.header:headerFil
 import nimqt/qtcore/qnamespace
 proc timeSpec*(this: ptr QDateTimeEdit): Qt_TimeSpec {.header:headerFile, importcpp:"#.timeSpec(@)".} # Public
 proc setTimeSpec*(this: ptr QDateTimeEdit, spec: Qt_TimeSpec) {.header:headerFile, importcpp:"#.setTimeSpec(@)".} # Public
+import nimqt/qtcore/qsize
+proc sizeHint*(this: ptr QDateTimeEdit): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc clear*(this: ptr QDateTimeEdit) {.header:headerFile, importcpp:"#.clear(@)".} # Public
 proc stepBy*(this: ptr QDateTimeEdit, steps: cint) {.header:headerFile, importcpp:"#.stepBy(@)".} # Public
 import nimqt/qtcore/qcoreevent
@@ -132,6 +134,7 @@ proc static_QDateEdit_tr*(s: ptr char, c: ptr char): QString {.header:headerFile
 export qevent
 export qstring
 export qabstractspinbox
+export qsize
 export qnamespace
 export qvalidator
 export qwidget

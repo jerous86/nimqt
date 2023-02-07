@@ -7,8 +7,8 @@ const headerFile* = "QtWidgets/qgesturerecognizer.h"
 type
     # Classes and enums found in the C++ code
     # Global
-    QGestureRecognizer_ResultFlag* {.header:headerFile,importcpp:"QGestureRecognizer::ResultFlag".} = enum Ignore = 0, MayBeGesture = 0x1, TriggerGesture = 0x2, FinishGesture = 0x3, 
-        CancelGesture = 0x4, ResultState_Mask = 0x5, ConsumeEventHint = 0x6, ResultHint_Mask = 0x7
+    QGestureRecognizer_ResultFlag* {.header:headerFile,importcpp:"QGestureRecognizer::ResultFlag".} = enum Ignore = 0x1, MayBeGesture = 0x2, TriggerGesture = 0x4, FinishGesture = 0x8, 
+        CancelGesture = 0x10, ResultState_Mask = 0xff, ConsumeEventHint = 0x100, ResultHint_Mask = 0xff00
     QGestureRecognizer* {.header:headerFile,importcpp:"QGestureRecognizer" ,pure.} = object {.inheritable.}
 {.push warning[Deprecated]: on.}
 import nimqt/qtcore/qflags

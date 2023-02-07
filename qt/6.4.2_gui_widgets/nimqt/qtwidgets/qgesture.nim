@@ -10,7 +10,7 @@ type
     # Classes and enums found in the C++ code
     # Global
     QGesture_GestureCancelPolicy* {.header:headerFile,importcpp:"QGesture::GestureCancelPolicy".} = enum CancelNone = 0, CancelAllInContext = 0x1
-    QPinchGesture_ChangeFlag* {.header:headerFile,importcpp:"QPinchGesture::ChangeFlag".} = enum ScaleFactorChanged = 0, RotationAngleChanged = 0x1, CenterPointChanged = 0x2
+    QPinchGesture_ChangeFlag* {.header:headerFile,importcpp:"QPinchGesture::ChangeFlag".} = enum ScaleFactorChanged = 0x1, RotationAngleChanged = 0x2, CenterPointChanged = 0x4
     QSwipeGesture_SwipeDirection* {.header:headerFile,importcpp:"QSwipeGesture::SwipeDirection".} = enum NoDirection = 0, Left = 0x1, Right = 0x2, Up = 0x3, 
         Down = 0x4
     QGesture* {.header:headerFile,importcpp:"QGesture" ,pure.} = object of QObject
@@ -49,6 +49,9 @@ proc static_QGesture_tr*(s: ptr char, c: ptr char): QString {.header:headerFile,
 import nimqt/qtcore/qnamespace
 proc gestureType*(this: ptr QGesture): Qt_GestureType {.header:headerFile, importcpp:"#.gestureType(@)".} # Public
 proc state*(this: ptr QGesture): Qt_GestureState {.header:headerFile, importcpp:"#.state(@)".} # Public
+import nimqt/qtcore/qpoint
+proc hotSpot*(this: ptr QGesture): QPointF {.header:headerFile, importcpp:"#.hotSpot(@)".} # Public
+proc setHotSpot*(this: ptr QGesture, value: QPointF) {.header:headerFile, importcpp:"#.setHotSpot(@)".} # Public
 proc hasHotSpot*(this: ptr QGesture): bool {.header:headerFile, importcpp:"#.hasHotSpot(@)".} # Public
 proc unsetHotSpot*(this: ptr QGesture) {.header:headerFile, importcpp:"#.unsetHotSpot(@)".} # Public
 proc setGestureCancelPolicy*(this: ptr QGesture, policy: QGesture_GestureCancelPolicy) {.header:headerFile, importcpp:"#.setGestureCancelPolicy(@)".} # Public
@@ -64,7 +67,12 @@ proc newQPanGesture*(): ptr QPanGesture {. header:headerFile, importcpp:"new QPa
 # 1 default parameters!
 proc static_QPanGesture_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QPanGesture::tr(@)".} # Public static
 proc static_QPanGesture_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QPanGesture::tr(@)".} # Public static
+proc lastOffset*(this: ptr QPanGesture): QPointF {.header:headerFile, importcpp:"#.lastOffset(@)".} # Public
+proc offset*(this: ptr QPanGesture): QPointF {.header:headerFile, importcpp:"#.offset(@)".} # Public
+proc delta*(this: ptr QPanGesture): QPointF {.header:headerFile, importcpp:"#.delta(@)".} # Public
 proc acceleration*(this: ptr QPanGesture): cfloat {.header:headerFile, importcpp:"#.acceleration(@)".} # Public
+proc setLastOffset*(this: ptr QPanGesture, value: QPointF) {.header:headerFile, importcpp:"#.setLastOffset(@)".} # Public
+proc setOffset*(this: ptr QPanGesture, value: QPointF) {.header:headerFile, importcpp:"#.setOffset(@)".} # Public
 proc setAcceleration*(this: ptr QPanGesture, value: cfloat) {.header:headerFile, importcpp:"#.setAcceleration(@)".} # Public
 # Stuff for class QPinchGesture
 
@@ -81,6 +89,12 @@ proc totalChangeFlags*(this: ptr QPinchGesture): QFlags[QPinchGesture_ChangeFlag
 proc setTotalChangeFlags*(this: ptr QPinchGesture, value: QFlags[QPinchGesture_ChangeFlag]) {.header:headerFile, importcpp:"#.setTotalChangeFlags(@)".} # Public
 proc changeFlags*(this: ptr QPinchGesture): QFlags[QPinchGesture_ChangeFlag] {.header:headerFile, importcpp:"#.changeFlags(@)".} # Public
 proc setChangeFlags*(this: ptr QPinchGesture, value: QFlags[QPinchGesture_ChangeFlag]) {.header:headerFile, importcpp:"#.setChangeFlags(@)".} # Public
+proc startCenterPoint*(this: ptr QPinchGesture): QPointF {.header:headerFile, importcpp:"#.startCenterPoint(@)".} # Public
+proc lastCenterPoint*(this: ptr QPinchGesture): QPointF {.header:headerFile, importcpp:"#.lastCenterPoint(@)".} # Public
+proc centerPoint*(this: ptr QPinchGesture): QPointF {.header:headerFile, importcpp:"#.centerPoint(@)".} # Public
+proc setStartCenterPoint*(this: ptr QPinchGesture, value: QPointF) {.header:headerFile, importcpp:"#.setStartCenterPoint(@)".} # Public
+proc setLastCenterPoint*(this: ptr QPinchGesture, value: QPointF) {.header:headerFile, importcpp:"#.setLastCenterPoint(@)".} # Public
+proc setCenterPoint*(this: ptr QPinchGesture, value: QPointF) {.header:headerFile, importcpp:"#.setCenterPoint(@)".} # Public
 proc totalScaleFactor*(this: ptr QPinchGesture): cfloat {.header:headerFile, importcpp:"#.totalScaleFactor(@)".} # Public
 proc lastScaleFactor*(this: ptr QPinchGesture): cfloat {.header:headerFile, importcpp:"#.lastScaleFactor(@)".} # Public
 proc scaleFactor*(this: ptr QPinchGesture): cfloat {.header:headerFile, importcpp:"#.scaleFactor(@)".} # Public
@@ -119,6 +133,8 @@ proc newQTapGesture*(): ptr QTapGesture {. header:headerFile, importcpp:"new QTa
 # 1 default parameters!
 proc static_QTapGesture_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QTapGesture::tr(@)".} # Public static
 proc static_QTapGesture_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QTapGesture::tr(@)".} # Public static
+proc position*(this: ptr QTapGesture): QPointF {.header:headerFile, importcpp:"#.position(@)".} # Public
+proc setPosition*(this: ptr QTapGesture, pos: QPointF) {.header:headerFile, importcpp:"#.setPosition(@)".} # Public
 # Stuff for class QTapAndHoldGesture
 
 # Public constructors for QTapAndHoldGesture
@@ -130,12 +146,21 @@ proc newQTapAndHoldGesture*(): ptr QTapAndHoldGesture {. header:headerFile, impo
 # 1 default parameters!
 proc static_QTapAndHoldGesture_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QTapAndHoldGesture::tr(@)".} # Public static
 proc static_QTapAndHoldGesture_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QTapAndHoldGesture::tr(@)".} # Public static
+proc position*(this: ptr QTapAndHoldGesture): QPointF {.header:headerFile, importcpp:"#.position(@)".} # Public
+proc setPosition*(this: ptr QTapAndHoldGesture, pos: QPointF) {.header:headerFile, importcpp:"#.setPosition(@)".} # Public
 proc static_QTapAndHoldGesture_setTimeout*(msecs: cint) {.header:headerFile, importcpp:"QTapAndHoldGesture::setTimeout(@)".} # Public static
 proc static_QTapAndHoldGesture_timeout*(): cint {.header:headerFile, importcpp:"QTapAndHoldGesture::timeout(@)".} # Public static
 # Stuff for class QGestureEvent
 
+# Public constructors for QGestureEvent
+import nimqt/qtcore/qlist
+proc newQGestureEvent*(gestures: QList[ptr QGesture]): ptr QGestureEvent {. header:headerFile, importcpp:"new QGestureEvent(@)" .} #
+
 # Public methods for QGestureEvent
+proc gestures*(this: ptr QGestureEvent): QList[ptr QGesture] {.header:headerFile, importcpp:"#.gestures(@)".} # Public
 proc gesture*(this: ptr QGestureEvent, `type`: Qt_GestureType): ptr QGesture {.header:headerFile, importcpp:"#.gesture(@)".} # Public
+proc activeGestures*(this: ptr QGestureEvent): QList[ptr QGesture] {.header:headerFile, importcpp:"#.activeGestures(@)".} # Public
+proc canceledGestures*(this: ptr QGestureEvent): QList[ptr QGesture] {.header:headerFile, importcpp:"#.canceledGestures(@)".} # Public
 proc setAccepted*(this: ptr QGestureEvent, arg_0: ptr QGesture, arg_1: bool) {.header:headerFile, importcpp:"#.setAccepted(@)".} # Public
 proc accept*(this: ptr QGestureEvent, arg_0: ptr QGesture) {.header:headerFile, importcpp:"#.accept(@)".} # Public
 proc ignore*(this: ptr QGestureEvent, arg_0: ptr QGesture) {.header:headerFile, importcpp:"#.ignore(@)".} # Public
@@ -147,9 +172,12 @@ proc isAccepted*(this: ptr QGestureEvent, arg_0: Qt_GestureType): bool {.header:
 import nimqt/qtwidgets/qwidget
 proc setWidget*(this: ptr QGestureEvent, widget: ptr QWidget) {.header:headerFile, importcpp:"#.setWidget(@)".} # Public
 proc widget*(this: ptr QGestureEvent): ptr QWidget {.header:headerFile, importcpp:"#.widget(@)".} # Public
+proc mapToGraphicsScene*(this: ptr QGestureEvent, gesturePoint: QPointF): QPointF {.header:headerFile, importcpp:"#.mapToGraphicsScene(@)".} # Public
 
 export qstring
 export qnamespace
+export qlist
+export qpoint
 export qwidget
 export qflags
 export qobject

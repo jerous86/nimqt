@@ -8,7 +8,7 @@ import nimqt/qtwidgets/qdialog
 type
     # Classes and enums found in the C++ code
     # Global
-    QInputDialog_InputDialogOption* {.header:headerFile,importcpp:"QInputDialog::InputDialogOption".} = enum NoButtons = 0, UseListViewForComboBoxItems = 0x1, UsePlainTextEditForTextInput = 0x2
+    QInputDialog_InputDialogOption* {.header:headerFile,importcpp:"QInputDialog::InputDialogOption".} = enum NoButtons = 0x1, UseListViewForComboBoxItems = 0x2, UsePlainTextEditForTextInput = 0x4
     QInputDialog_InputMode* {.header:headerFile,importcpp:"QInputDialog::InputMode".} = enum TextInput = 0, IntInput = 0x1, DoubleInput = 0x2
     QInputDialog* {.header:headerFile,importcpp:"QInputDialog" ,pure.} = object of QDialog
 {.push warning[Deprecated]: on.}
@@ -56,6 +56,9 @@ proc setTextEchoMode*(this: ptr QInputDialog, mode: QLineEdit_EchoMode) {.header
 proc textEchoMode*(this: ptr QInputDialog): QLineEdit_EchoMode {.header:headerFile, importcpp:"#.textEchoMode(@)".} # Public
 proc setComboBoxEditable*(this: ptr QInputDialog, editable: bool) {.header:headerFile, importcpp:"#.setComboBoxEditable(@)".} # Public
 proc isComboBoxEditable*(this: ptr QInputDialog): bool {.header:headerFile, importcpp:"#.isComboBoxEditable(@)".} # Public
+import nimqt/qtcore/qstringlist
+proc setComboBoxItems*(this: ptr QInputDialog, items: QStringList) {.header:headerFile, importcpp:"#.setComboBoxItems(@)".} # Public
+proc comboBoxItems*(this: ptr QInputDialog): QStringList {.header:headerFile, importcpp:"#.comboBoxItems(@)".} # Public
 proc setIntValue*(this: ptr QInputDialog, value: cint) {.header:headerFile, importcpp:"#.setIntValue(@)".} # Public
 proc intValue*(this: ptr QInputDialog): cint {.header:headerFile, importcpp:"#.intValue(@)".} # Public
 proc setIntMinimum*(this: ptr QInputDialog, min: cint) {.header:headerFile, importcpp:"#.setIntMinimum(@)".} # Public
@@ -80,6 +83,9 @@ proc setCancelButtonText*(this: ptr QInputDialog, text: QString) {.header:header
 proc cancelButtonText*(this: ptr QInputDialog): QString {.header:headerFile, importcpp:"#.cancelButtonText(@)".} # Public
 import nimqt/qtcore/qobject
 proc open*(this: ptr QInputDialog, receiver: ptr QObject, member: ptr char) {.header:headerFile, importcpp:"#.open(@)".} # Public
+import nimqt/qtcore/qsize
+proc minimumSizeHint*(this: ptr QInputDialog): QSize {.header:headerFile, importcpp:"#.minimumSizeHint(@)".} # Public
+proc sizeHint*(this: ptr QInputDialog): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
 proc setVisible*(this: ptr QInputDialog, visible: bool) {.header:headerFile, importcpp:"#.setVisible(@)".} # Public
 # 4 default parameters!
 proc static_QInputDialog_getText*(parent: ptr QWidget, title: QString, label: QString, echo: QLineEdit_EchoMode, text: QString, ok: ptr bool, flags: Qt_WindowFlags, inputMethodHints: Qt_InputMethodHints): QString {.header:headerFile, importcpp:"QInputDialog::getText(@)".} # Public static
@@ -93,6 +99,13 @@ proc static_QInputDialog_getMultiLineText*(parent: ptr QWidget, title: QString, 
 proc static_QInputDialog_getMultiLineText*(parent: ptr QWidget, title: QString, label: QString, text: QString, ok: ptr bool): QString {.header:headerFile, importcpp:"QInputDialog::getMultiLineText(@)".} # Public static
 proc static_QInputDialog_getMultiLineText*(parent: ptr QWidget, title: QString, label: QString, text: QString): QString {.header:headerFile, importcpp:"QInputDialog::getMultiLineText(@)".} # Public static
 proc static_QInputDialog_getMultiLineText*(parent: ptr QWidget, title: QString, label: QString): QString {.header:headerFile, importcpp:"QInputDialog::getMultiLineText(@)".} # Public static
+# 5 default parameters!
+proc static_QInputDialog_getItem*(parent: ptr QWidget, title: QString, label: QString, items: QStringList, current: cint, editable: bool, ok: ptr bool, flags: Qt_WindowFlags, inputMethodHints: Qt_InputMethodHints): QString {.header:headerFile, importcpp:"QInputDialog::getItem(@)".} # Public static
+proc static_QInputDialog_getItem*(parent: ptr QWidget, title: QString, label: QString, items: QStringList, current: cint, editable: bool, ok: ptr bool, flags: Qt_WindowFlags): QString {.header:headerFile, importcpp:"QInputDialog::getItem(@)".} # Public static
+proc static_QInputDialog_getItem*(parent: ptr QWidget, title: QString, label: QString, items: QStringList, current: cint, editable: bool, ok: ptr bool): QString {.header:headerFile, importcpp:"QInputDialog::getItem(@)".} # Public static
+proc static_QInputDialog_getItem*(parent: ptr QWidget, title: QString, label: QString, items: QStringList, current: cint, editable: bool): QString {.header:headerFile, importcpp:"QInputDialog::getItem(@)".} # Public static
+proc static_QInputDialog_getItem*(parent: ptr QWidget, title: QString, label: QString, items: QStringList, current: cint): QString {.header:headerFile, importcpp:"QInputDialog::getItem(@)".} # Public static
+proc static_QInputDialog_getItem*(parent: ptr QWidget, title: QString, label: QString, items: QStringList): QString {.header:headerFile, importcpp:"QInputDialog::getItem(@)".} # Public static
 # 5 default parameters!
 proc static_QInputDialog_getInt*(parent: ptr QWidget, title: QString, label: QString, value: cint, minValue: cint, maxValue: cint, step: cint, ok: ptr bool, flags: Qt_WindowFlags): cint {.header:headerFile, importcpp:"QInputDialog::getInt(@)".} # Public static
 proc static_QInputDialog_getInt*(parent: ptr QWidget, title: QString, label: QString, value: cint, minValue: cint, maxValue: cint, step: cint, ok: ptr bool): cint {.header:headerFile, importcpp:"QInputDialog::getInt(@)".} # Public static
@@ -119,7 +132,9 @@ proc doubleValueChanged*(this: ptr QInputDialog, value: cdouble) {.header:header
 proc doubleValueSelected*(this: ptr QInputDialog, value: cdouble) {.header:headerFile, importcpp:"#.doubleValueSelected(@)".} # Public
 proc done*(this: ptr QInputDialog, result: cint) {.header:headerFile, importcpp:"#.done(@)".} # Public
 
+export qstringlist
 export qstring
+export qsize
 export qnamespace
 export qdialog
 export qwidget

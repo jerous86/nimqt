@@ -8,8 +8,8 @@ import nimqt/qtwidgets/qwidget
 type
     # Classes and enums found in the C++ code
     # Global
-    QMainWindow_DockOption* {.header:headerFile,importcpp:"QMainWindow::DockOption".} = enum AnimatedDocks = 0, AllowNestedDocks = 0x1, AllowTabbedDocks = 0x2, ForceTabbedDocks = 0x3, 
-        VerticalTabs = 0x4, GroupedDragging = 0x5
+    QMainWindow_DockOption* {.header:headerFile,importcpp:"QMainWindow::DockOption".} = enum AnimatedDocks = 0x1, AllowNestedDocks = 0x2, AllowTabbedDocks = 0x4, ForceTabbedDocks = 0x8, 
+        VerticalTabs = 0x10, GroupedDragging = 0x20
     QMainWindow* {.header:headerFile,importcpp:"QMainWindow" ,pure.} = object of QWidget
 {.push warning[Deprecated]: on.}
 import nimqt/qtgui/qpaintdevice
@@ -37,6 +37,9 @@ import nimqt/qtcore/qstring
 # 1 default parameters!
 proc static_QMainWindow_tr*(s: ptr char, c: ptr char, n: cint): QString {.header:headerFile, importcpp:"QMainWindow::tr(@)".} # Public static
 proc static_QMainWindow_tr*(s: ptr char, c: ptr char): QString {.header:headerFile, importcpp:"QMainWindow::tr(@)".} # Public static
+import nimqt/qtcore/qsize
+proc iconSize*(this: ptr QMainWindow): QSize {.header:headerFile, importcpp:"#.iconSize(@)".} # Public
+proc setIconSize*(this: ptr QMainWindow, iconSize: QSize) {.header:headerFile, importcpp:"#.setIconSize(@)".} # Public
 proc toolButtonStyle*(this: ptr QMainWindow): Qt_ToolButtonStyle {.header:headerFile, importcpp:"#.toolButtonStyle(@)".} # Public
 proc setToolButtonStyle*(this: ptr QMainWindow, toolButtonStyle: Qt_ToolButtonStyle) {.header:headerFile, importcpp:"#.setToolButtonStyle(@)".} # Public
 proc isAnimated*(this: ptr QMainWindow): bool {.header:headerFile, importcpp:"#.isAnimated(@)".} # Public
@@ -50,6 +53,8 @@ proc tabPosition*(this: ptr QMainWindow, area: Qt_DockWidgetArea): QTabWidget_Ta
 proc setTabPosition*(this: ptr QMainWindow, areas: Qt_DockWidgetAreas, tabPosition: QTabWidget_TabPosition) {.header:headerFile, importcpp:"#.setTabPosition(@)".} # Public
 proc setDockOptions*(this: ptr QMainWindow, options: QFlags[QMainWindow_DockOption]) {.header:headerFile, importcpp:"#.setDockOptions(@)".} # Public
 proc dockOptions*(this: ptr QMainWindow): QFlags[QMainWindow_DockOption] {.header:headerFile, importcpp:"#.dockOptions(@)".} # Public
+import nimqt/qtcore/qpoint
+proc isSeparator*(this: ptr QMainWindow, pos: QPoint): bool {.header:headerFile, importcpp:"#.isSeparator(@)".} # Public
 import nimqt/qtwidgets/qmenubar
 proc menuBar*(this: ptr QMainWindow): ptr QMenuBar {.header:headerFile, importcpp:"#.menuBar(@)".} # Public
 proc setMenuBar*(this: ptr QMainWindow, menubar: ptr QMenuBar) {.header:headerFile, importcpp:"#.setMenuBar(@)".} # Public
@@ -80,14 +85,25 @@ proc addDockWidget*(this: ptr QMainWindow, area: Qt_DockWidgetArea, dockwidget: 
 proc addDockWidget*(this: ptr QMainWindow, area: Qt_DockWidgetArea, dockwidget: ptr QDockWidget, orientation: Qt_Orientation) {.header:headerFile, importcpp:"#.addDockWidget(@)".} # Public
 proc splitDockWidget*(this: ptr QMainWindow, after: ptr QDockWidget, dockwidget: ptr QDockWidget, orientation: Qt_Orientation) {.header:headerFile, importcpp:"#.splitDockWidget(@)".} # Public
 proc tabifyDockWidget*(this: ptr QMainWindow, first: ptr QDockWidget, second: ptr QDockWidget) {.header:headerFile, importcpp:"#.tabifyDockWidget(@)".} # Public
+import nimqt/qtcore/qlist
+proc tabifiedDockWidgets*(this: ptr QMainWindow, dockwidget: ptr QDockWidget): QList[ptr QDockWidget] {.header:headerFile, importcpp:"#.tabifiedDockWidgets(@)".} # Public
 proc removeDockWidget*(this: ptr QMainWindow, dockwidget: ptr QDockWidget) {.header:headerFile, importcpp:"#.removeDockWidget(@)".} # Public
 proc restoreDockWidget*(this: ptr QMainWindow, dockwidget: ptr QDockWidget): bool {.header:headerFile, importcpp:"#.restoreDockWidget(@)".} # Public
 proc dockWidgetArea*(this: ptr QMainWindow, dockwidget: ptr QDockWidget): Qt_DockWidgetArea {.header:headerFile, importcpp:"#.dockWidgetArea(@)".} # Public
+proc resizeDocks*(this: ptr QMainWindow, docks: QList[ptr QDockWidget], sizes: QList[cint], orientation: Qt_Orientation) {.header:headerFile, importcpp:"#.resizeDocks(@)".} # Public
+import nimqt/qtcore/qbytearray
+# 1 default parameters!
+proc saveState*(this: ptr QMainWindow, version: cint): QByteArray {.header:headerFile, importcpp:"#.saveState(@)".} # Public
+proc saveState*(this: ptr QMainWindow): QByteArray {.header:headerFile, importcpp:"#.saveState(@)".} # Public
+# 1 default parameters!
+proc restoreState*(this: ptr QMainWindow, state: QByteArray, version: cint): bool {.header:headerFile, importcpp:"#.restoreState(@)".} # Public
+proc restoreState*(this: ptr QMainWindow, state: QByteArray): bool {.header:headerFile, importcpp:"#.restoreState(@)".} # Public
 import nimqt/qtwidgets/qmenu
 proc createPopupMenu*(this: ptr QMainWindow): ptr QMenu {.header:headerFile, importcpp:"#.createPopupMenu(@)".} # Public
 proc setAnimated*(this: ptr QMainWindow, enabled: bool) {.header:headerFile, importcpp:"#.setAnimated(@)".} # Public
 proc setDockNestingEnabled*(this: ptr QMainWindow, enabled: bool) {.header:headerFile, importcpp:"#.setDockNestingEnabled(@)".} # Public
 proc setUnifiedTitleAndToolBarOnMac*(this: ptr QMainWindow, set: bool) {.header:headerFile, importcpp:"#.setUnifiedTitleAndToolBarOnMac(@)".} # Public
+proc iconSizeChanged*(this: ptr QMainWindow, iconSize: QSize) {.header:headerFile, importcpp:"#.iconSizeChanged(@)".} # Public
 proc toolButtonStyleChanged*(this: ptr QMainWindow, toolButtonStyle: Qt_ToolButtonStyle) {.header:headerFile, importcpp:"#.toolButtonStyleChanged(@)".} # Public
 proc tabifiedDockWidgetActivated*(this: ptr QMainWindow, dockWidget: ptr QDockWidget) {.header:headerFile, importcpp:"#.tabifiedDockWidgetActivated(@)".} # Public
 
@@ -101,10 +117,14 @@ export qevent
 export qmenubar
 export qmenu
 export qstring
+export qsize
 export qnamespace
+export qbytearray
+export qlist
 export qstatusbar
 export qtabwidget
 export qdockwidget
+export qpoint
 export qwidget
 export qflags
 export qpaintdevice

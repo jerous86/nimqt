@@ -20,6 +20,8 @@ proc newQPageRanges*(other: QPageRanges): QPageRanges {. header:headerFile, impo
 proc swap*(this: QPageRanges, other: QPageRanges) {.header:headerFile, importcpp:"#.swap(@)".} # Public
 proc addPage*(this: QPageRanges, pageNumber: cint) {.header:headerFile, importcpp:"#.addPage(@)".} # Public
 proc addRange*(this: QPageRanges, `from`: cint, to: cint) {.header:headerFile, importcpp:"#.addRange(@)".} # Public
+import nimqt/qtcore/qlist
+proc toRangeList*(this: QPageRanges): QList[QPageRanges_Range] {.header:headerFile, importcpp:"#.toRangeList(@)".} # Public
 proc clear*(this: QPageRanges) {.header:headerFile, importcpp:"#.clear(@)".} # Public
 import nimqt/qtcore/qstring
 proc toString*(this: QPageRanges): QString {.header:headerFile, importcpp:"#.toString(@)".} # Public
@@ -35,3 +37,4 @@ proc detach*(this: QPageRanges) {.header:headerFile, importcpp:"#.detach(@)".} #
 proc contains*(this: QPageRanges_Range, pageNumber: cint): bool {.header:headerFile, importcpp:"#.contains(@)".} # Public
 
 export qstring
+export qlist

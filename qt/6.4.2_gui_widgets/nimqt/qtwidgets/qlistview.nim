@@ -67,6 +67,9 @@ proc setSpacing*(this: ptr QListView, space: cint) {.header:headerFile, importcp
 proc spacing*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.spacing(@)".} # Public
 proc setBatchSize*(this: ptr QListView, batchSize: cint) {.header:headerFile, importcpp:"#.setBatchSize(@)".} # Public
 proc batchSize*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.batchSize(@)".} # Public
+import nimqt/qtcore/qsize
+proc setGridSize*(this: ptr QListView, size: QSize) {.header:headerFile, importcpp:"#.setGridSize(@)".} # Public
+proc gridSize*(this: ptr QListView): QSize {.header:headerFile, importcpp:"#.gridSize(@)".} # Public
 proc setViewMode*(this: ptr QListView, mode: QListView_ViewMode) {.header:headerFile, importcpp:"#.setViewMode(@)".} # Public
 proc viewMode*(this: ptr QListView): QListView_ViewMode {.header:headerFile, importcpp:"#.viewMode(@)".} # Public
 proc clearPropertyFlags*(this: ptr QListView) {.header:headerFile, importcpp:"#.clearPropertyFlags(@)".} # Public
@@ -84,7 +87,11 @@ import nimqt/qtcore/qnamespace
 proc setItemAlignment*(this: ptr QListView, alignment: Qt_Alignment) {.header:headerFile, importcpp:"#.setItemAlignment(@)".} # Public
 proc itemAlignment*(this: ptr QListView): Qt_Alignment {.header:headerFile, importcpp:"#.itemAlignment(@)".} # Public
 import nimqt/qtcore/qabstractitemmodel
+import nimqt/qtcore/qrect
+proc visualRect*(this: ptr QListView, index: QModelIndex): QRect {.header:headerFile, importcpp:"#.visualRect(@)".} # Public
 proc scrollTo*(this: ptr QListView, index: QModelIndex, hint: QAbstractItemView_ScrollHint) {.header:headerFile, importcpp:"#.scrollTo(@)".} # Public
+import nimqt/qtcore/qpoint
+proc indexAt*(this: ptr QListView, p: QPoint): QModelIndex {.header:headerFile, importcpp:"#.indexAt(@)".} # Public
 proc doItemsLayout*(this: ptr QListView) {.header:headerFile, importcpp:"#.doItemsLayout(@)".} # Public
 proc reset*(this: ptr QListView) {.header:headerFile, importcpp:"#.reset(@)".} # Public
 proc setRootIndex*(this: ptr QListView, index: QModelIndex) {.header:headerFile, importcpp:"#.setRootIndex(@)".} # Public
@@ -95,6 +102,11 @@ import nimqt/qtcore/qcoreevent
 proc event*(this: ptr QListView, e: ptr QEvent): bool {.header:headerFile, importcpp:"#.event(@)".} # Protected
 proc scrollContentsBy*(this: ptr QListView, dx: cint, dy: cint) {.header:headerFile, importcpp:"#.scrollContentsBy(@)".} # Protected
 proc resizeContents*(this: ptr QListView, width: cint, height: cint) {.header:headerFile, importcpp:"#.resizeContents(@)".} # Protected
+proc contentsSize*(this: ptr QListView): QSize {.header:headerFile, importcpp:"#.contentsSize(@)".} # Protected
+import nimqt/qtcore/qlist
+# 1 default parameters!
+proc dataChanged*(this: ptr QListView, topLeft: QModelIndex, bottomRight: QModelIndex, roles: QList[cint]) {.header:headerFile, importcpp:"#.dataChanged(@)".} # Protected
+proc dataChanged*(this: ptr QListView, topLeft: QModelIndex, bottomRight: QModelIndex) {.header:headerFile, importcpp:"#.dataChanged(@)".} # Protected
 proc rowsInserted*(this: ptr QListView, parent: QModelIndex, start: cint, `end`: cint) {.header:headerFile, importcpp:"#.rowsInserted(@)".} # Protected
 proc rowsAboutToBeRemoved*(this: ptr QListView, parent: QModelIndex, start: cint, `end`: cint) {.header:headerFile, importcpp:"#.rowsAboutToBeRemoved(@)".} # Protected
 import nimqt/qtgui/qevent
@@ -111,18 +123,25 @@ proc paintEvent*(this: ptr QListView, e: ptr QPaintEvent) {.header:headerFile, i
 proc horizontalOffset*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.horizontalOffset(@)".} # Protected
 proc verticalOffset*(this: ptr QListView): cint {.header:headerFile, importcpp:"#.verticalOffset(@)".} # Protected
 proc moveCursor*(this: ptr QListView, cursorAction: QAbstractItemView_CursorAction, modifiers: Qt_KeyboardModifiers): QModelIndex {.header:headerFile, importcpp:"#.moveCursor(@)".} # Protected
+proc rectForIndex*(this: ptr QListView, index: QModelIndex): QRect {.header:headerFile, importcpp:"#.rectForIndex(@)".} # Protected
+proc setPositionForIndex*(this: ptr QListView, position: QPoint, index: QModelIndex) {.header:headerFile, importcpp:"#.setPositionForIndex(@)".} # Protected
 proc selectedIndexes*(this: ptr QListView): QModelIndexList {.header:headerFile, importcpp:"#.selectedIndexes(@)".} # Protected
 proc updateGeometries*(this: ptr QListView) {.header:headerFile, importcpp:"#.updateGeometries(@)".} # Protected
 proc isIndexHidden*(this: ptr QListView, index: QModelIndex): bool {.header:headerFile, importcpp:"#.isIndexHidden(@)".} # Protected
 proc currentChanged*(this: ptr QListView, current: QModelIndex, previous: QModelIndex) {.header:headerFile, importcpp:"#.currentChanged(@)".} # Protected
+proc viewportSizeHint*(this: ptr QListView): QSize {.header:headerFile, importcpp:"#.viewportSizeHint(@)".} # Protected
 
 export qevent
 export qstring
+export qsize
 export qabstractitemview
 export qabstractscrollarea
 export qnamespace
+export qlist
 export qabstractitemmodel
+export qpoint
 export qwidget
+export qrect
 export qpaintdevice
 export qcoreevent
 export qframe
