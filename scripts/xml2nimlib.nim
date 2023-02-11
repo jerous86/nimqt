@@ -38,6 +38,26 @@ const customization_footer = {
     "qtcore/qobject": """
         proc connect*(src:ptr QObject, signal:cstring, dst:ptr QObject, mth:cstring, `type`=AutoConnection) {.header:headerFile ,importcpp:"QObject::connect(@)".}
         proc connect*(src:ptr QObject, signal:string, dst:ptr QObject, mth:string, `type`=AutoConnection) = connect(src, signal.cstring, dst, mth.cstring, `type`)
+
+        import typetraits
+        # This function calls the `connect` method for a functor.
+        # signalStr must be the signal used to connect regular object, e.g.
+        #    `SIGNAL "toggled(bool)"` (this is unlike in C++ Qt lingo!).
+        # The functor must be a function that has the {.exportcpp.} pragma.
+        # E.g.
+        # ```
+        # proc on_functor_clicked() {.exportcpp.} = echo "Functor clicked"
+        # connect(newQPushButton(Q "Button"), SIGNAL "clicked()", on_functor_clicked)
+        # ```
+        func connect*[OBJ,FUN](src:ptr OBJ,signalStr:static string,functor:FUN) = 
+            assert signalStr[0]=='2', "Expected SIGNAL for signal '" & signalStr & "'"
+            assert '(' in signalStr, "Expected (possibly empty) arg list for signal '" & signalStr & "'"
+            const 
+                signalName:string=signalStr[1..<signalStr.find('(')]
+                objType:string=($(type(src).name))["ptr ".len..^1]
+
+            {.emit: ["QObject::connect(", src, (", &" & `objType` & "::" & `signalName` & ", "), functor, ");"] .}
+
         proc event*(nimQObject:ptr QObject, e:ptr QEvent): bool {.header:headerFile , importcpp:"#.event(@)".}
         """,
     "qtcore/qlist": """

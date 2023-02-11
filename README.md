@@ -184,7 +184,8 @@ We now explain the differences:
 	txt.connect(SIGNAL "highlighted(const QUrl &)", txt, SLOT "on_viewer_highlighted(const QUrl &)")
 	```
 - `inheritQObject(Foo, QObject)` creates a new function `newFoo()` that can be used to create a `ptr Foo` instance.
-
+- `connect` can also connect to a functor. The syntax is very similar: `connect(object, SIGNAL "signalName", functor)`.
+    An example of that can be found in `examples/hello.nim`.
 	
 
 ### Layout DSL
