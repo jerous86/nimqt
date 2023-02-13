@@ -566,6 +566,10 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
                 when `obj`.typeof is ptr QObject: `obj`.setObjectName(newQString(`objName`))
             
             if body.len==4:
+                # NOTE:IMPLICIT_OBJECT
+                # If we have a list of statements (i.e. a colon followed by an indented body)
+                # then we sneakily insert the current object as an implicit first parameter 
+                # in all function calls
                 body[3].expectKind nnkStmtList
                 for n in body[3]:
                     helper(obj, n)
@@ -581,6 +585,12 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
                     let obj=body[1][1]
                     addWidgets.add quote do:
                         `curObj`.addObjToLayout(`obj`)
+
+                    if body.len==3:
+                        # See NOTE:IMPLICIT_OBJECT above
+                        body[2].expectKind nnkStmtList
+                        for n in body[2]:
+                            helper(obj, n)
                 else:
                     assert false
             of nnkCall: # EXPR
