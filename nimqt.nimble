@@ -5,7 +5,7 @@ license="GPLv2 or GPLv3"
 
 backend = "cpp"
 requires "nim >= 1.6.10"
-requires "https://github.com/krux02/ast-pattern-matching"
+requires "astpatternmatching"
 
 srcDir="qt/6.4.2_gui_widgets"
 
