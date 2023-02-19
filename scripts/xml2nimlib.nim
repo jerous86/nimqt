@@ -837,7 +837,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
     var xs:seq[string]
     block:
         var imports:HashSet[string]
-        var definedProcs,definedProcs_lnx,definedProcs_osx,definedProcs_win:HashSet[string]
+        var definedProcs,definedProcs_lnx,definedProcs_bsd,definedProcs_osx,definedProcs_win:HashSet[string]
     
         xs.add &"const headerFile* = \"{file.cppHeaderFile}\"\n"
 
@@ -923,6 +923,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
             elif mm.nim_signature notin definedProcs:
                 var conditions:seq[string]
                 if mm.lnx_signature in definedProcs_lnx: conditions.add "(not defined(linux))"
+                if mm.bsd_signature in definedProcs_bsd: conditions.add "(not defined(bsd))"
                 if mm.osx_signature in definedProcs_osx: conditions.add "(not defined(macosx))"
                 if mm.win_signature in definedProcs_win: conditions.add "(not defined(windows))"
                 if conditions.len>0: 
@@ -933,6 +934,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
 
                 definedProcs.incl mm.nim_signature
                 definedProcs_lnx.incl mm.lnx_signature
+                definedProcs_bsd.incl mm.bsd_signature
                 definedProcs_osx.incl mm.osx_signature
                 definedProcs_win.incl mm.win_signature
 

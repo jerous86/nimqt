@@ -60,27 +60,27 @@ proc replace_vars*(s:string, allow_run_time:static bool, enable_path_check:bool)
             # The following directories are in which the header file for a module resides
             of "qtcoreheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtCore.framework/Headers/",allow_run_time,enable_path_check))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtCore/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(bsd) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtCore/",allow_run_time,enable_path_check))
                 else: todo_os "QtCore_header_dir"
             of "qtguiheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtGui.framework/Headers/",allow_run_time,enable_path_check))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtGui/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(bsd) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtGui/",allow_run_time,enable_path_check))
                 else: todo_os "QtGui_header_dir"
             of "qtwidgetsheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtWidgets.framework/Headers/",allow_run_time,enable_path_check))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtWidgets/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(bsd) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtWidgets/",allow_run_time,enable_path_check))
                 else: todo_os "QtWidgets_header_dir"
             of "qtqmlcoreheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtQmlCore.framework/Headers/",allow_run_time,enable_path_check))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQmlCore/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(bsd) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQmlCore/",allow_run_time,enable_path_check))
                 else: todo_os "QtQmlCore_header_dir"
             of "qtqmlheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtQml.framework/Headers/",allow_run_time,enable_path_check))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQml/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(bsd) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtQml/",allow_run_time,enable_path_check))
                 else: todo_os "QtQml_header_dir"
             of "qtuitoolsheaderdir": 
                 when defined(macosx): checkPath(replace_vars("${Qt_root}/QtUiTools.framework/Headers/",allow_run_time,enable_path_check))
-                elif defined(linux) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtUiTools/",allow_run_time,enable_path_check))
+                elif defined(linux) or defined(bsd) or defined(windows): checkPath(replace_vars("${Qt_install_headers}/QtUiTools/",allow_run_time,enable_path_check))
                 else: todo_os "QtUiTools_header_dir"
 
 
@@ -96,7 +96,7 @@ proc replace_vars*(s:string, allow_run_time:static bool, enable_path_check:bool)
 
             of "llvmlibdir":
                 when defined(macosx): checkPath(replace_vars("${LLVM_root}/lib",allow_run_time,enable_path_check))
-                elif defined(linux): checkPath(myExec("""llvm-config --libdir"""))
+                elif defined(linux) or defined(bsd): checkPath(myExec("""llvm-config --libdir"""))
                 else: todo_os "LLVM_root"
 
 

@@ -12,7 +12,7 @@ import nimqt/[qobject,quiloader,qbuffer,typeDb]
 
 when defined(macosx):
     {.passL: &"-framework QtUiTools".}
-elif defined(linux) or defined(windows):
+elif defined(linux) or defined(bsd) or defined(windows):
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}UiTools").}
 else: 
     assert false, "Don't know how to compile on this operating system"
