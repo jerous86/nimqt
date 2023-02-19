@@ -5,6 +5,8 @@ import strutils
 import os
 import macros
 
+import ast_pattern_matching
+
 import nimqt/nimqt_paths
 
 
@@ -499,136 +501,174 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
                          # so far, so we can generate unique names.
 
     proc helper(curObj:NimNode, body:NimNode) =
-        # This proc will extract VARNAME name given something like either
-        # (a) ```- newQWidget() as VARNAME``` or
-        # (b) ```- newQWidget() as VARNAME at (1,1)```
-        # It will store VARNAME in result.variableName.
-        # result.nimDecl will be set to the nim declaration (e.g. ```let VARNAME=newQWidget()``` for (a))
-        # result.pos will contain the position and optional width/height (version (b))
-        #   The position must be a tuple of IntLit.
-        proc getDeclData(decl:NimNode):tuple[variableName,nimDecl:NimNode,pos:seq[int]] =
-            # (a) and (b) differ in the AST in that 
-            # decl[2] will be a nnkCommand, rather than an nnkIdent
-            decl.expectKind nnkInfix
-            
-            decl[0].expectKind nnkIdent
-            decl[1].expectKind nnkPrefix
-            case decl[2].kind
-            of nnkIdent: 
-                # Version (a)
-                let varName:NimNode=decl[2]
-                let expr=decl[1][1]
-                result=(
-                    variableName: varName,
-                    nimDecl:(quote do: 
-                        let `varName` = `expr`),
-                    pos: @[]
+        proc addWidgetByName(objName:NimNode, children:NimNode, pos:seq[int] = @[]) =
+            if pos.len>0:
+                addWidgets.add quote do: (addObjToLayout(`curObj`, `objName`, `pos`))
+            else:
+                addWidgets.add quote do: (addObjToLayout(`curObj`, `objName`))
+
+            if children!=NimNode():
+                for child in children: helper(objName, child)
+
+        proc addWidgetByNameExpr(objName:NimNode, expr:NimNode, children:NimNode, pos:seq[int] = @[]) =
+            decls.add quote do: (let `objName` = `expr`)
+            addWidgetByName(objName, children, pos)
+
+        proc addWidgetByExpr(expr:NimNode, children:NimNode, pos:seq[int] = @[]) =
+            let objName=ident(&"{unnamed_vars_prefix}_{unnamed_vars}")
+            unnamed_vars.inc
+            addWidgetByNameExpr(objName, expr, children, pos)
+
+        # echo &"BODY\n>> {body.repr} <<-->\n>>\n{body.treeRepr.indent(4)}\n<<\n"
+        
+        # In this matcher, we first have the version without children, then we repeat them
+        # but we handle their
+        body.matchAst(errors):
+        # -newQLabel()
+        of nnkPrefix(
+            ident"-",
+            `expr` @ nnkCall,
+            ):
+                addWidgetByExpr(expr, NimNode())
+        
+        # -newQLabel() as lblB
+        of nnkInfix(
+            ident"as",
+            nnkPrefix(ident"-", `expr` @ nnkCall),
+            `objName` @ nnkIdent,
+            ):
+                addWidgetByNameExpr(objName, expr, NimNode())
+                # decls.add quote do: TODO
+                #     assert `objName` != nil
+                #     when `objName`.typeof is ptr QObject: `objName`.setObjectName(newQString(`objName`))
+
+        # -newQLabel() as lblB at (0,1)
+        of nnkInfix(
+            ident"as",
+            nnkPrefix(ident"-", `expr` @ nnkCall),
+            nnkCommand(
+                `objName` @ nnkIdent,
+                nnkCommand(ident"at", `pos` @ nnkTupleConstr)
+                ),
+            ):
+                addWidgetByNameExpr(objName, expr, NimNode(), pos.mapIt(it.intVal.int))
+
+        # -newQLabel() at (0,1)
+        of nnkPrefix(
+            ident"-",
+            nnkCommand(
+                `expr` @ nnkCall,
+                 nnkCommand(ident"at", `pos` @ nnkTupleConstr )
+                ),
+            ):
+                addWidgetByExpr(expr, NimNode(), pos.mapIt(it.intVal.int))
+
+        # -useObject label
+        of nnkPrefix(
+            ident"-",
+            nnkCommand(ident"useObject", `objName` @ nnkIdent),
+            ):
+                addWidgetByName(objName, NimNode())
+
+        # -useObject label at (0,1)
+        of nnkPrefix(
+            ident"-",
+            nnkCommand(
+                ident"useObject",
+                nnkCommand(
+                    `objName` @ nnkIdent,
+                    nnkCommand(ident"at", `pos` @ nnkTupleConstr)
                     )
-            of nnkCommand:
-                # Version (b)
-                decl[2][0].expectKind nnkIdent
-                decl[2][1].expectKind nnkCommand
-                assert decl[2][1][0]==ident("at")
-                decl[2][1][1].expectKind nnkTupleConstr
+                ),
+            ):
+                addWidgetByName(objName, NimNode(), pos.mapIt(it.intVal.int))
 
-                let varName:NimNode=decl[2][0]
-                let expr=decl[1][1]
-                result=(
-                    variableName: varName,
-                    nimDecl:(quote do: 
-                        let `varName` = `expr`),
-                    pos: @[])
-                for x in decl[2][1][1]:
-                    x.expectKind nnkIntLit
-                    result.pos.add x.intVal.int
-            else: 
-                assert false
 
-        # echo body.treeRepr
-        case body.kind
-        of nnkInfix: # ```- EXPR as VARNAME```
-            # E.g. ```- newQLabel() as VARNAME```
-            let declData=body.getDeclData
-            let obj:NimNode=declData.variableName
-            let objName:string = $obj
+        # -newQLabel(): CHILDREN
+        of nnkPrefix(
+            ident"-",
+            `expr` @ nnkCall,
+            `children` @ nnkStmtList
+            ):
+                addWidgetByExpr(expr, children)
+        
+        # -newQLabel() as lblB: CHILDREN
+        of nnkInfix(
+            ident"as",
+            nnkPrefix(ident"-", `expr` @ nnkCall),
+            `objName` @ nnkIdent,
+            `children` @ nnkStmtList
+            ):
+                addWidgetByNameExpr(objName, expr, children)
+                # decls.add quote do: TODO
+                #     assert `objName` != nil
+                #     when `objName`.typeof is ptr QObject: `objName`.setObjectName(newQString(`objName`))
 
-            # If we have specified a position (for QGridLayout), then we need to call a 
-            # different function.
-            if declData.pos.len>0:
-                let pos:seq[int]=declData.pos
-                addWidgets.add(quote do: `curObj`.addObjToLayout(`obj`, `pos`))
-            else:
-                addWidgets.add(quote do: `curObj`.addObjToLayout(`obj`))
-            
-            decls.add declData.nimDecl
-            decls.add quote do:
-                assert `obj` != nil
-                when `obj`.typeof is ptr QObject: `obj`.setObjectName(newQString(`objName`))
-            
-            if body.len==4:
-                # NOTE:IMPLICIT_OBJECT
-                # If we have a list of statements (i.e. a colon followed by an indented body)
-                # then we sneakily insert the current object as an implicit first parameter 
-                # in all function calls
-                body[3].expectKind nnkStmtList
-                for n in body[3]:
-                    helper(obj, n)
-        of nnkPrefix: # E.g. 
-                # ```- useObject label``` or 
-                # ```- newQLabel()```
-            case body[1].kind
-            of nnkCommand: # useObject VARNAME
-                body[1][0].expectKind nnkIdent
-                body[1][1].expectKind nnkIdent
-                case body[1][0].strVal.toLowerAscii.replace("_","")
-                of "useobject":
-                    let obj=body[1][1]
-                    addWidgets.add quote do:
-                        `curObj`.addObjToLayout(`obj`)
+        # -newQLabel() as lblB at (0,1): CHILDREN
+        of nnkInfix(
+            ident"as",
+            nnkPrefix(ident"-", `expr` @ nnkCall),
+            nnkCommand(
+                `objName` @ nnkIdent,
+                nnkCommand(ident"at", `pos` @ nnkTupleConstr)
+                ),
+            `children` @ nnkStmtList
+            ):
+                addWidgetByNameExpr(objName, expr, children, pos.mapIt(it.intVal.int))
 
-                    if body.len==3:
-                        # See NOTE:IMPLICIT_OBJECT above
-                        body[2].expectKind nnkStmtList
-                        for n in body[2]:
-                            helper(obj, n)
-                else:
-                    assert false
-            of nnkCall: # EXPR
-                let obj=ident(&"{unnamed_vars_prefix}_{unnamed_vars}")
-                unnamed_vars.inc
-                let expr=body[1]
-                addWidgets.add quote do: 
-                    addObjToLayout(`curObj`, `obj`)
-                decls.add quote do:
-                    let `obj` = `expr`
-                if body.len==3:
-                    body[2].expectKind nnkStmtList
-                    for n in body[2]:
-                        helper(obj, n)
-            of nnkIdent: # This is probably a mistake in the code. Show a nice message.
-                echo "body[1] is ",body[1].repr
-                echo "body[1].kind is a ",body[1].kind
-                echo "but expected either "
-                echo "  nnkCommand (e.g. ```useObject VARIABLE```)"
-                echo "  nnkCall (e.g. ```newQWidget()```)"
-                echo &"Maybe you forgot to add parenthesis? (i.e. ```{body[1].repr}()```"
-                assert false
-            else:
-                echo "curObj.treeRepr ",curObj.treeRepr
-                # echo "body.treeRepr ",body.treeRepr
-                echo "body[1].kind ",body[1].kind
-                echo "body[1] ",body[1].repr
-                assert false
-        # TODO add support for handling slots directly in the DSL.
-        of nnkCall: # e.g. ```connect(...)```
+        # -newQLabel() at (0,1): CHILDREN
+        of nnkPrefix(
+            ident"-",
+            nnkCommand(
+                `expr` @ nnkCall,
+                 nnkCommand(ident"at", `pos` @ nnkTupleConstr )
+                ),
+            `children` @ nnkStmtList
+            ):
+                addWidgetByExpr(expr, children, pos.mapIt(it.intVal.int))
+
+        # -useObject label: CHILDREN
+        of nnkPrefix(
+            ident"-",
+            nnkCommand(ident"useObject", `objName` @ nnkIdent),
+            `children` @ nnkStmtList
+            ):
+                addWidgetByName(objName, children)
+
+        # -useObject label at (0,1): CHILDREN
+        of nnkPrefix(
+            ident"-",
+            nnkCommand(
+                ident"useObject",
+                nnkCommand(
+                    `objName` @ nnkIdent,
+                    nnkCommand(ident"at", `pos` @ nnkTupleConstr)
+                    )
+                ),
+            `children` @ nnkStmtList
+            ):
+                addWidgetByName(objName, children, pos.mapIt(it.intVal.int))
+
+        of `stmt` @ nnkCall: # e.g. ```connect(...)```
             # When we do a simple call, we insert the current object into the parameter list!
             # This allows a quicker call to e.g. connect.
-            var stmt=body
             stmt.insert 1, curObj # Sneakily insert ```this``` into the call parameters!
             stmts.add stmt
-        else:
-            # E.g. if we do ```discard connect(...)``` we have to supply our own object ...
-            stmts.add body
+        
+        of nnkPrefix(ident"-", `name` @ nnkIdent, _): # This is probably a mistake in the code. Show a nice message.
+            echo &"body is '{body.repr}'"
+            echo &"body.kind is a '{body.kind}'"
+            echo &"Maybe you forgot to add parenthesis? (i.e. ```{body.repr}()```)"
+            assert(false)
+
+        of nnkPrefix(ident"-", `name` @ nnkIdent): # This is probably a mistake in the code. Show a nice message.
+            echo &"body is '{body.repr}'"
+            echo &"body.kind is a '{body.kind}'"
+            echo &"Maybe you forgot to add parenthesis? (i.e. ```{body.repr}()```)"
+            assert(false)
+
+        of `anything` @ _:
+            stmts.add anything
         
     # echo body.treeRepr
     for n in body:
