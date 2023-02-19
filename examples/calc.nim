@@ -84,7 +84,7 @@ proc configureInputButton(btn: ptr QPushButton, caption: string) =
     connect(btn, SIGNAL "clicked()", guiHandler, SLOT &"on_clicked()")
 
 win.makeLayout:
-    - newQSplitter(Qt_Orientation.Horizontal):
+    - newQSplitter(Qt_Orientation.Vertical):
         - newQTextEdit() as txtResults:
             setPlaceholderText(Q"Results come here")
             setReadOnly(true)

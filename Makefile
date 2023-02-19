@@ -6,6 +6,7 @@ VERSION_DISTR=${VERSION}_${DISTR}
 MY_PATH=qt/6.4.2_${DISTR}/
 
 all: calc
+all2: hello poc text_view calc load_ui custom_signal
 
 distr: FORCE
 	nim r scripts/distr.nim tmp/xml/${VERSION}/ qt/${VERSION_DISTR}/ ${DISTR}
