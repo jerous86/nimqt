@@ -67,6 +67,7 @@ A temporary fix is to write the bindings manually after having imported all nece
 Here we show the minimal code necessary to show a Qt widget.
 
 ```nim
+import os
 # First, we import the nimqt.nim module that will allow us to use the Qt system
 import nimqt
 
@@ -74,7 +75,7 @@ import nimqt
 # It will initialize verdigris, and import some common modules.
 nimqt.init()
 
-let app = newQApplication() # Create your application.
+let app = newQApplication(commandLineParams()) # Create your application.
 
 import nimqt/qlabel
 
