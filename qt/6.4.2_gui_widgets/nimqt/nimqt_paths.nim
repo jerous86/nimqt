@@ -3,8 +3,43 @@ import os
 import osproc
 import strformat
 
-const static_QMAKE=os.getEnv("QMAKE_PATH", "qmake")
-let runtime_QMAKE=os.getEnv("QMAKE_PATH", "qmake")
+const static_QMAKE=block:
+    # os.findExe cannot be executed at compiletime, due to it using readLink.
+    proc static_findExe(exe:string; extensions: openArray[string]=os.ExeExts): string =
+        if exe.len == 0: return
+
+        template checkCurrentDir() =
+            for ext in extensions:
+                result = addFileExt(exe, ext)
+                if fileExists(result): return
+
+        when defined(posix):
+            if '/' in exe: checkCurrentDir()
+        else:
+            checkCurrentDir()
+
+        for candidate in split(getEnv("PATH"), PathSep):
+            if candidate.len == 0: continue
+
+            when defined(windows):
+                var x = (if candidate[0] == '"' and candidate[^1] == '"': substr(candidate, 1, candidate.len-2) else: candidate) / exe
+            else:
+                var x = expandTilde(candidate) / exe
+
+            for ext in extensions:
+                var x = addFileExt(x, ext)
+                if fileExists(x): return x
+        result = ""
+
+    const path=os.getEnv("QMAKE_PATH", "qmake")
+    const exe=static_findExe(path)
+    assert exe.fileExists, &"compile-time: cannot find the `qmake` binary (path:'{path}', exe:'{exe}'). Point the environment variable QMAKE_PATH to it or make sure `qmake` is in PATH."
+    exe
+let runtime_QMAKE=block:
+    let path=os.getEnv("QMAKE_PATH", "qmake")
+    let exe=os.findExe(path)
+    assert exe.fileExists, &"run-time: cannot find the `qmake` binary (path:'{path}', exe:'{exe}'). Point the environment variable QMAKE_PATH to it or make sure `qmake` is in PATH."
+    exe
 
 proc replace_vars*(s:string, allow_run_time:static bool, enable_path_check:bool): string =
     proc todo_os(key:string): string {.used.} =
