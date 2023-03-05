@@ -503,26 +503,32 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
                          # so far, so we can generate unique names.
 
     proc helper(curObj:NimNode, body:NimNode) =
-        proc addWidgetByName(objName:NimNode, children:NimNode, pos:seq[int] = @[]) =
+        proc addWidgetByName(obj:NimNode, children:NimNode, pos:seq[int] = @[]) =
             if pos.len>0:
-                addWidgets.add quote do: (addObjToLayout(`curObj`, `objName`, `pos`))
+                addWidgets.add quote do: (addObjToLayout(`curObj`, `obj`, `pos`))
             else:
-                addWidgets.add quote do: (addObjToLayout(`curObj`, `objName`))
+                addWidgets.add quote do: (addObjToLayout(`curObj`, `obj`))
 
             if children!=NimNode():
-                for child in children: helper(objName, child)
+                for child in children: helper(obj, child)
 
-        proc addWidgetByNameExpr(objName:NimNode, expr:NimNode, children:NimNode, pos:seq[int] = @[]) =
-            decls.add quote do: (let `objName` = `expr`)
-            addWidgetByName(objName, children, pos)
+        proc addWidgetByNameExpr(obj:NimNode, expr:NimNode, children:NimNode, pos:seq[int] = @[], setObjectName=false) =
+            decls.add quote do: (let `obj` = `expr`)
+            if setObjectName:
+                let objName:string=obj.strVal
+                decls.add quote do:
+                    assert `obj` != nil
+                    when `obj`.typeof is ptr QObject:
+                        (`obj`).setObjectName(newQString(`objName`))
+            addWidgetByName(obj, children, pos)
 
         proc addWidgetByExpr(expr:NimNode, children:NimNode, pos:seq[int] = @[]) =
-            let objName=ident(&"{unnamed_vars_prefix}_{unnamed_vars}")
+            let obj=ident(&"{unnamed_vars_prefix}_{unnamed_vars}")
             unnamed_vars.inc
-            addWidgetByNameExpr(objName, expr, children, pos)
+            addWidgetByNameExpr(obj, expr, children, pos)
 
         # echo &"BODY\n>> {body.repr} <<-->\n>>\n{body.treeRepr.indent(4)}\n<<\n"
-        
+        #
         # In this matcher, we first have the version without children, then we repeat them
         # but we handle their
         body.matchAst(errors):
@@ -539,10 +545,7 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
             nnkPrefix(ident"-", `expr` @ nnkCall),
             `objName` @ nnkIdent,
             ):
-                addWidgetByNameExpr(objName, expr, NimNode())
-                # decls.add quote do: TODO
-                #     assert `objName` != nil
-                #     when `objName`.typeof is ptr QObject: `objName`.setObjectName(newQString(`objName`))
+                addWidgetByNameExpr(objName, expr, NimNode(), setObjectName=true)
 
         # -newQLabel() as lblB at (0,1)
         of nnkInfix(
@@ -553,7 +556,7 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
                 nnkCommand(ident"at", `pos` @ nnkTupleConstr)
                 ),
             ):
-                addWidgetByNameExpr(objName, expr, NimNode(), pos.mapIt(it.intVal.int))
+                addWidgetByNameExpr(objName, expr, NimNode(), pos.mapIt(it.intVal.int), setObjectName=true)
 
         # -newQLabel() at (0,1)
         of nnkPrefix(
@@ -601,10 +604,7 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
             `objName` @ nnkIdent,
             `children` @ nnkStmtList
             ):
-                addWidgetByNameExpr(objName, expr, children)
-                # decls.add quote do: TODO
-                #     assert `objName` != nil
-                #     when `objName`.typeof is ptr QObject: `objName`.setObjectName(newQString(`objName`))
+                addWidgetByNameExpr(objName, expr, children, setObjectName=true)
 
         # -newQLabel() as lblB at (0,1): CHILDREN
         of nnkInfix(
@@ -616,7 +616,7 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
                 ),
             `children` @ nnkStmtList
             ):
-                addWidgetByNameExpr(objName, expr, children, pos.mapIt(it.intVal.int))
+                addWidgetByNameExpr(objName, expr, children, pos.mapIt(it.intVal.int), setObjectName=true)
 
         # -newQLabel() at (0,1): CHILDREN
         of nnkPrefix(
