@@ -187,6 +187,7 @@ We now explain the differences:
 - `inheritQObject(Foo, QObject)` creates a new function `newFoo()` that can be used to create a `ptr Foo` instance.
 - `connect` can also connect to a functor. The syntax is very similar: `connect(object, SIGNAL "signalName", functor)`.
     An example of that can be found in `examples/hello.nim`.
+	Additionally, `handleSignal<i>i</i>` can be used inside the `makeLayout` macro (see next section).
 	
 
 ### Layout DSL
@@ -253,6 +254,19 @@ Doing something like
 2. `rootWidget` > `QVboxLayout` > `QWidget` > `QWidget` 
 
 will result in compilation errors, as a `QLayout` follows a `QLayout` (in 1.) and a `QWidget` follows a `QWidget` (in 2.).
+
+A shorthand to handle simple connections is made available through the `handleSignal<i>i</i>` templates, where <i>i</i> indicates the number of parameters in the signal.
+This will create a functor, and connect the signal to it.
+E.g.
+```nim
+rootWidget.makeLayout:
+	- newQLineEdit() as txtLine:
+		handleSignal1(SIGNAL "textChanged(QString)", s:QString):
+			# The variable `this` refers to txtLine
+			echo this.text
+		handleSignal0(SIGNAL "returnPressed()"):
+			echo "Return pressed!"
+```
 
 ### Loading .ui files
 Simple support for loading `.ui` files is available.

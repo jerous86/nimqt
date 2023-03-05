@@ -704,3 +704,38 @@ template blockSignalsTmp*(o:ptr typed, body:untyped) =
 template SIGNAL*(signal:string): string = "2" & signal
 template SLOT*(slot:string): string = "1" & slot
 template emit*(x:untyped) = x
+
+# The following function allow easy handling of a single (e.g. inside a makeLayout).
+# 
+# NOTE we force the cdecl pragma, to ensure that we do not capture any local variables, as that
+# would result in weird c++ errors.
+var handleSignalId{.compileTime.}=0
+macro handleSignal0*(o:typed, signal:string, body:untyped) =
+    let functionName=ident(&"on_functor_clicked_{handleSignalId}")
+    let thisName=ident(&"this_{handleSignalId}")
+    handleSignalId.inc
+    quote do:
+        let `thisName` = `o`
+        proc `functionName`() {.exportcpp,cdecl.} = (let this{.inject,used.}=`thisName`; `body`)
+        connect(`o`, `signal`, `functionName`)
+
+macro handleSignal1*(o:typed, signal:string, param1:untyped, body:untyped) =
+    let functionName=ident(&"on_functor_clicked_{handleSignalId}")
+    handleSignalId.inc
+    param1.matchAst(errors):
+    of nnkExprColonExpr(`p0` @ nnkIdent, `t0` @ _):
+        return quote do:
+            proc `functionName`(`p0`:`t0`) {.exportcpp,cdecl.} = (let this{.inject,used.}=`o`; `body`)
+            connect(`o`, `signal`, `functionName`)
+
+
+macro handleSignal2*(o:typed, signal:string, param1,param2:untyped, body:untyped) =
+    let functionName=ident(&"on_functor_clicked_{handleSignalId}")
+    handleSignalId.inc
+    param1.matchAst(errors):
+    of nnkExprColonExpr(`p0` @ nnkIdent, `t0` @ _):
+        param2.matchAst(errors):
+        of nnkExprColonExpr(`p1` @ nnkIdent, `t1` @ _):
+            return quote do:
+                proc `functionName`(`p0`:`t0`, `p1`:`t1`) {.exportcpp,cdecl.} = (let this{.inject,used.}=`o`; `body`)
+                connect(`o`, `signal`, `functionName`)
