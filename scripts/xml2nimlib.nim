@@ -726,6 +726,7 @@ when true:
     func nim_signature(c:CallableData):string = c.signature(initTable[string,string]())
     func win_signature(c:CallableData):string = c.signature({"clong":"cint", "culong":"cuint"}.toTable)
     func lnx_signature(c:CallableData):string = c.signature({"clong":"csize", "culong":"csize_t"}.toTable)
+    func bsd_signature(c:CallableData):string = c.lnx_signature
     func osx_signature(c:CallableData):string = c.lnx_signature
     
     func toNim*(x:ConstructorData, c:ClassData, state:State): seq[CallableData] =
