@@ -6,7 +6,7 @@ VERSION_DISTR=${VERSION}_${DISTR}
 MY_PATH=qt/6.4.2_${DISTR}/
 
 all: calc
-all2: hello poc text_view calc load_ui custom_signal
+all2: hello poc text_view calc load_ui custom_signal autosaver
 
 distr: FORCE
 	nim r scripts/distr.nim tmp/xml/${VERSION}/ qt/${VERSION_DISTR}/ ${DISTR}
@@ -71,7 +71,17 @@ run_custom_signal:
 	./examples/custom_signal
 
 
+autosaver: FORCE
+	rm -f autosaver
+	make build_autosaver run_autosaver
+build_autosaver:
+	nim cpp --path:$(MY_PATH) examples/autosaver.nim
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_INSTALL_LIBS) examples/autosaver; fi
+run_autosaver:
+	./examples/autosaver
+
+
 clean:
-	rm -f ./examples/{poc,load_ui,hello,text_view,calc,custom_signal}
+	rm -f ./examples/{poc,load_ui,hello,text_view,calc,custom_signal,autosaver}
 
 FORCE:

@@ -9,6 +9,7 @@ examples/text_view
 examples/hello
 examples/load_ui
 examples/custom_signal
+examples/autosaver
 
 scripts/cpp2xml
 scripts/distr

@@ -303,6 +303,9 @@ This macro will generate `let` statements for all the objects in the `.ui` file,
 To disable these connections, set `createConnections=false`.
 To see the code that is generated, set `printLetStatements=true` in the `loadUi` call.
 
+### Tools
+* See in `examples/autosaver.nim` and `scripts/tools/autosaver.nim`. This tool will save a widget's value (e.g. the text for a QLineEdit, or the toggled state for a QRadioButton) to a file, and restore it on startup.
+  To make use of it, import `nimqt/tools/autosaver` and call `autoSave(object)` on all the objects you want it enabled for.
 
 ### Other notes
 

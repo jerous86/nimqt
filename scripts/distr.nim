@@ -159,6 +159,7 @@ else:
     myCopyFile("scripts/nimqt_paths.nim", "nimqt/nimqt_paths.nim")
     myCopyFile("scripts/typeDb.nim", "nimqt/typeDb.nim")
     myCopyFile("scripts/skips.nim", "nimqt/skips.nim")
+    myCopyDir("scripts/tools", "nimqt/tools")
     myCopyDir("verdigris/src", "verdigris")
 
 for t in allRequiredTypes:
