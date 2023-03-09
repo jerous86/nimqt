@@ -16,7 +16,9 @@ type
 
 export qlist
 # Additional code for qtcore/qstringlist
-import sequtils
 proc newQStringList*(): QStringList = QStringList()
 # Making it a template for recursive module dependency reasons ...
-template newQStringList*(xs:seq[string]): QStringList = newQList[QString](xs.mapIt(newQString(it)))
+template newQStringList*(xs:seq[string]): QStringList = 
+    var ret:QStringList = newQStringList()
+    for x in xs: ret.add x.newQString
+    ret
