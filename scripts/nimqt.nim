@@ -15,6 +15,7 @@ template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 when defined(macosx):
     const QtRoot = nimqt_paths.replace_vars("${Qt_root}", allow_run_time=false, enable_path_check=false)
     {.passL: &"-F{QtRoot} -framework QtCore -framework QtGui -framework QtWidgets -framework QtQmlCore -framework QtQml".}
+    {.passc: &"-F{QtRoot}".}
 elif defined(linux) or defined(bsd):
     proc addLibraryIfExists*(lib:string):string {.compiletime.} =
         return &"-l{lib}"
