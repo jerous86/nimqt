@@ -185,6 +185,7 @@ const customization_noninheritable:HashSet[string] = [
 # These types are always pointer types
 const customization_pointer_type:HashSet[string] = [
         "qtwidgets/qlistwidget class QListWidgetItem",
+        "qtwidgets/qtablewidget class QTableWidgetItem",
     ].toHashSet
 
 # skips.component = component

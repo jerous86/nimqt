@@ -57,60 +57,60 @@ proc columnCount*(this: QTableWidgetSelectionRange): cint {.header:headerFile, i
 
 # Public constructors for QTableWidgetItem
 # 1 default parameters!
-proc newQTableWidgetItem*(`type`: cint): QTableWidgetItem {. header:headerFile, importcpp:"QTableWidgetItem(@)", constructor .} #
-proc newQTableWidgetItem*(): QTableWidgetItem {. header:headerFile, importcpp:"QTableWidgetItem(@)", constructor .} #
+proc newQTableWidgetItem*(`type`: cint): ptr QTableWidgetItem {. header:headerFile, importcpp:"new QTableWidgetItem(@)" .} #
+proc newQTableWidgetItem*(): ptr QTableWidgetItem {. header:headerFile, importcpp:"new QTableWidgetItem(@)" .} #
 import nimqt/qtcore/qstring
 # 1 default parameters!
-proc newQTableWidgetItem*(text: QString, `type`: cint): QTableWidgetItem {. header:headerFile, importcpp:"QTableWidgetItem(@)", constructor .} #
-proc newQTableWidgetItem*(text: QString): QTableWidgetItem {. header:headerFile, importcpp:"QTableWidgetItem(@)", constructor .} #
+proc newQTableWidgetItem*(text: QString, `type`: cint): ptr QTableWidgetItem {. header:headerFile, importcpp:"new QTableWidgetItem(@)" .} #
+proc newQTableWidgetItem*(text: QString): ptr QTableWidgetItem {. header:headerFile, importcpp:"new QTableWidgetItem(@)" .} #
 import nimqt/qtgui/qicon
 # 1 default parameters!
-proc newQTableWidgetItem*(icon: QIcon, text: QString, `type`: cint): QTableWidgetItem {. header:headerFile, importcpp:"QTableWidgetItem(@)", constructor .} #
-proc newQTableWidgetItem*(icon: QIcon, text: QString): QTableWidgetItem {. header:headerFile, importcpp:"QTableWidgetItem(@)", constructor .} #
-proc newQTableWidgetItem*(other: QTableWidgetItem): QTableWidgetItem {. header:headerFile, importcpp:"QTableWidgetItem(@)", constructor .} #
+proc newQTableWidgetItem*(icon: QIcon, text: QString, `type`: cint): ptr QTableWidgetItem {. header:headerFile, importcpp:"new QTableWidgetItem(@)" .} #
+proc newQTableWidgetItem*(icon: QIcon, text: QString): ptr QTableWidgetItem {. header:headerFile, importcpp:"new QTableWidgetItem(@)" .} #
+proc newQTableWidgetItem*(other: QTableWidgetItem): ptr QTableWidgetItem {. header:headerFile, importcpp:"new QTableWidgetItem(@)" .} #
 
 # Public methods for QTableWidgetItem
-proc clone*(this: QTableWidgetItem): ptr QTableWidgetItem {.header:headerFile, importcpp:"#.clone(@)".} # Public
-proc tableWidget*(this: QTableWidgetItem): ptr QTableWidget {.header:headerFile, importcpp:"#.tableWidget(@)".} # Public
-proc row*(this: QTableWidgetItem): cint {.header:headerFile, importcpp:"#.row(@)".} # Public
-proc column*(this: QTableWidgetItem): cint {.header:headerFile, importcpp:"#.column(@)".} # Public
-proc setSelected*(this: QTableWidgetItem, select: bool) {.header:headerFile, importcpp:"#.setSelected(@)".} # Public
-proc isSelected*(this: QTableWidgetItem): bool {.header:headerFile, importcpp:"#.isSelected(@)".} # Public
+proc clone*(this: ptr QTableWidgetItem): ptr QTableWidgetItem {.header:headerFile, importcpp:"#.clone(@)".} # Public
+proc tableWidget*(this: ptr QTableWidgetItem): ptr QTableWidget {.header:headerFile, importcpp:"#.tableWidget(@)".} # Public
+proc row*(this: ptr QTableWidgetItem): cint {.header:headerFile, importcpp:"#.row(@)".} # Public
+proc column*(this: ptr QTableWidgetItem): cint {.header:headerFile, importcpp:"#.column(@)".} # Public
+proc setSelected*(this: ptr QTableWidgetItem, select: bool) {.header:headerFile, importcpp:"#.setSelected(@)".} # Public
+proc isSelected*(this: ptr QTableWidgetItem): bool {.header:headerFile, importcpp:"#.isSelected(@)".} # Public
 import nimqt/qtcore/qnamespace
-proc flags*(this: QTableWidgetItem): Qt_ItemFlags {.header:headerFile, importcpp:"#.flags(@)".} # Public
-proc setFlags*(this: QTableWidgetItem, flags: Qt_ItemFlags) {.header:headerFile, importcpp:"#.setFlags(@)".} # Public
-proc text*(this: QTableWidgetItem): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
-proc setText*(this: QTableWidgetItem, text: QString) {.header:headerFile, importcpp:"#.setText(@)".} # Public
-proc icon*(this: QTableWidgetItem): QIcon {.header:headerFile, importcpp:"#.icon(@)".} # Public
-proc setIcon*(this: QTableWidgetItem, icon: QIcon) {.header:headerFile, importcpp:"#.setIcon(@)".} # Public
-proc statusTip*(this: QTableWidgetItem): QString {.header:headerFile, importcpp:"#.statusTip(@)".} # Public
-proc setStatusTip*(this: QTableWidgetItem, statusTip: QString) {.header:headerFile, importcpp:"#.setStatusTip(@)".} # Public
-proc toolTip*(this: QTableWidgetItem): QString {.header:headerFile, importcpp:"#.toolTip(@)".} # Public
-proc setToolTip*(this: QTableWidgetItem, toolTip: QString) {.header:headerFile, importcpp:"#.setToolTip(@)".} # Public
-proc whatsThis*(this: QTableWidgetItem): QString {.header:headerFile, importcpp:"#.whatsThis(@)".} # Public
-proc setWhatsThis*(this: QTableWidgetItem, whatsThis: QString) {.header:headerFile, importcpp:"#.setWhatsThis(@)".} # Public
+proc flags*(this: ptr QTableWidgetItem): Qt_ItemFlags {.header:headerFile, importcpp:"#.flags(@)".} # Public
+proc setFlags*(this: ptr QTableWidgetItem, flags: Qt_ItemFlags) {.header:headerFile, importcpp:"#.setFlags(@)".} # Public
+proc text*(this: ptr QTableWidgetItem): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
+proc setText*(this: ptr QTableWidgetItem, text: QString) {.header:headerFile, importcpp:"#.setText(@)".} # Public
+proc icon*(this: ptr QTableWidgetItem): QIcon {.header:headerFile, importcpp:"#.icon(@)".} # Public
+proc setIcon*(this: ptr QTableWidgetItem, icon: QIcon) {.header:headerFile, importcpp:"#.setIcon(@)".} # Public
+proc statusTip*(this: ptr QTableWidgetItem): QString {.header:headerFile, importcpp:"#.statusTip(@)".} # Public
+proc setStatusTip*(this: ptr QTableWidgetItem, statusTip: QString) {.header:headerFile, importcpp:"#.setStatusTip(@)".} # Public
+proc toolTip*(this: ptr QTableWidgetItem): QString {.header:headerFile, importcpp:"#.toolTip(@)".} # Public
+proc setToolTip*(this: ptr QTableWidgetItem, toolTip: QString) {.header:headerFile, importcpp:"#.setToolTip(@)".} # Public
+proc whatsThis*(this: ptr QTableWidgetItem): QString {.header:headerFile, importcpp:"#.whatsThis(@)".} # Public
+proc setWhatsThis*(this: ptr QTableWidgetItem, whatsThis: QString) {.header:headerFile, importcpp:"#.setWhatsThis(@)".} # Public
 import nimqt/qtgui/qfont
-proc font*(this: QTableWidgetItem): QFont {.header:headerFile, importcpp:"#.font(@)".} # Public
-proc setFont*(this: QTableWidgetItem, font: QFont) {.header:headerFile, importcpp:"#.setFont(@)".} # Public
-proc textAlignment*(this: QTableWidgetItem): cint {.header:headerFile, importcpp:"#.textAlignment(@)".} # Public
-proc setTextAlignment*(this: QTableWidgetItem, alignment: cint) {.header:headerFile, importcpp:"#.setTextAlignment(@)".} # Public
-proc setTextAlignment*(this: QTableWidgetItem, alignment: Qt_AlignmentFlag) {.header:headerFile, importcpp:"#.setTextAlignment(@)".} # Public
-proc setTextAlignment*(this: QTableWidgetItem, alignment: Qt_Alignment) {.header:headerFile, importcpp:"#.setTextAlignment(@)".} # Public
+proc font*(this: ptr QTableWidgetItem): QFont {.header:headerFile, importcpp:"#.font(@)".} # Public
+proc setFont*(this: ptr QTableWidgetItem, font: QFont) {.header:headerFile, importcpp:"#.setFont(@)".} # Public
+proc textAlignment*(this: ptr QTableWidgetItem): cint {.header:headerFile, importcpp:"#.textAlignment(@)".} # Public
+proc setTextAlignment*(this: ptr QTableWidgetItem, alignment: cint) {.header:headerFile, importcpp:"#.setTextAlignment(@)".} # Public
+proc setTextAlignment*(this: ptr QTableWidgetItem, alignment: Qt_AlignmentFlag) {.header:headerFile, importcpp:"#.setTextAlignment(@)".} # Public
+proc setTextAlignment*(this: ptr QTableWidgetItem, alignment: Qt_Alignment) {.header:headerFile, importcpp:"#.setTextAlignment(@)".} # Public
 import nimqt/qtgui/qbrush
-proc background*(this: QTableWidgetItem): QBrush {.header:headerFile, importcpp:"#.background(@)".} # Public
-proc setBackground*(this: QTableWidgetItem, brush: QBrush) {.header:headerFile, importcpp:"#.setBackground(@)".} # Public
-proc foreground*(this: QTableWidgetItem): QBrush {.header:headerFile, importcpp:"#.foreground(@)".} # Public
-proc setForeground*(this: QTableWidgetItem, brush: QBrush) {.header:headerFile, importcpp:"#.setForeground(@)".} # Public
-proc checkState*(this: QTableWidgetItem): Qt_CheckState {.header:headerFile, importcpp:"#.checkState(@)".} # Public
-proc setCheckState*(this: QTableWidgetItem, state: Qt_CheckState) {.header:headerFile, importcpp:"#.setCheckState(@)".} # Public
+proc background*(this: ptr QTableWidgetItem): QBrush {.header:headerFile, importcpp:"#.background(@)".} # Public
+proc setBackground*(this: ptr QTableWidgetItem, brush: QBrush) {.header:headerFile, importcpp:"#.setBackground(@)".} # Public
+proc foreground*(this: ptr QTableWidgetItem): QBrush {.header:headerFile, importcpp:"#.foreground(@)".} # Public
+proc setForeground*(this: ptr QTableWidgetItem, brush: QBrush) {.header:headerFile, importcpp:"#.setForeground(@)".} # Public
+proc checkState*(this: ptr QTableWidgetItem): Qt_CheckState {.header:headerFile, importcpp:"#.checkState(@)".} # Public
+proc setCheckState*(this: ptr QTableWidgetItem, state: Qt_CheckState) {.header:headerFile, importcpp:"#.setCheckState(@)".} # Public
 import nimqt/qtcore/qsize
-proc sizeHint*(this: QTableWidgetItem): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
-proc setSizeHint*(this: QTableWidgetItem, size: QSize) {.header:headerFile, importcpp:"#.setSizeHint(@)".} # Public
+proc sizeHint*(this: ptr QTableWidgetItem): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc setSizeHint*(this: ptr QTableWidgetItem, size: QSize) {.header:headerFile, importcpp:"#.setSizeHint(@)".} # Public
 import nimqt/qtcore/qvariant
-proc data*(this: QTableWidgetItem, role: cint): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
-proc setData*(this: QTableWidgetItem, role: cint, value: QVariant) {.header:headerFile, importcpp:"#.setData(@)".} # Public
-proc `<`*(this: QTableWidgetItem, other: QTableWidgetItem): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
-proc `type`*(this: QTableWidgetItem): cint {.header:headerFile, importcpp:"#.type(@)".} # Public
+proc data*(this: ptr QTableWidgetItem, role: cint): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
+proc setData*(this: ptr QTableWidgetItem, role: cint, value: QVariant) {.header:headerFile, importcpp:"#.setData(@)".} # Public
+proc `<`*(this: ptr QTableWidgetItem, other: QTableWidgetItem): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
+proc `type`*(this: ptr QTableWidgetItem): cint {.header:headerFile, importcpp:"#.type(@)".} # Public
 # Stuff for class QTableWidget
 
 # Public constructors for QTableWidget
