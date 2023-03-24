@@ -473,7 +473,7 @@ func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts
         # matheval.addVar(name, counter.float)
         kvs.add((name, counter))
         try: values[counter].add name
-        except: values[counter] = @[name]
+        except CatchableError: values[counter] = @[name]
         counter.inc
     
     kvs.sort(cmp=proc(l,r:(string,int)):int=cmp(l[1],r[1]))
@@ -684,7 +684,7 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
                         nimType:ti.alias_for, 
                         refKind: Regular, 
                         tpls: @[]))
-    except:
+    except CatchableError:
         discard
 
 proc processFile*(xmlInputFile:string, state:State): tuple[cppHeaderFile:string, module:Module, allTypes:AllTypes] = 
