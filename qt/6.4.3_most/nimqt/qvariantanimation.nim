@@ -1,0 +1,2 @@
+import nimqt/qtcore/qvariantanimation
+export qvariantanimation

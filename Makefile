@@ -1,9 +1,9 @@
 UNAME:=$(shell uname)
 QT_INSTALL_LIBS=$(shell nim r scripts/nimqt_paths.nim qtinstalllibs)/
-DISTR=gui_widgets
+DISTR=most
 VERSION=$(shell nim r scripts/nimqt_paths.nim QT_VERSION)
 VERSION_DISTR=${VERSION}_${DISTR}
-MY_PATH=qt/6.4.2_${DISTR}/
+MY_PATH=qt/6_${DISTR}/
 
 all: calc
 all2: hello poc text_view calc load_ui custom_signal autosaver

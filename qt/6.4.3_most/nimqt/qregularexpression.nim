@@ -1,0 +1,2 @@
+import nimqt/qtcore/qregularexpression
+export qregularexpression

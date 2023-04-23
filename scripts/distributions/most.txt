@@ -1,0 +1,4 @@
+# This distribution is used for my projects, and will always include more and more components
+include gui_widgets.txt
+
+QJSEngine   QJSValue  

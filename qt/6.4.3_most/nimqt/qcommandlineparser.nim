@@ -1,0 +1,2 @@
+import nimqt/qtcore/qcommandlineparser
+export qcommandlineparser

@@ -1,0 +1,2 @@
+import nimqt/qtcore/qsystemsemaphore
+export qsystemsemaphore

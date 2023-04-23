@@ -1,0 +1,2 @@
+import nimqt/qtcore/qpauseanimation
+export qpauseanimation

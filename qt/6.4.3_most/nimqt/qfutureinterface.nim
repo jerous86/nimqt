@@ -1,0 +1,2 @@
+import nimqt/qtcore/qfutureinterface
+export qfutureinterface

@@ -1,0 +1,2 @@
+import nimqt/qtcore/qitemselectionmodel
+export qitemselectionmodel

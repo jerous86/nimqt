@@ -32,7 +32,7 @@ const customization_footer = {
         proc `==`*(this,r: QString): bool {.header:headerFile, importcpp:"operator==(@)".}
         """,
     "qtcore/qanystringview": """
-        converter toQAnyStringView*(x:QString): QAnyStringView = newQAnyStringView(s)
+        converter toQAnyStringView*(x:QString): QAnyStringView = newQAnyStringView(x)
         converter toQAnyStringView*(x:QByteArray): QAnyStringView = newQAnyStringView(x)
         """,
     "qtcore/qobject": """
@@ -120,6 +120,14 @@ const customization_footer = {
                 if this.testFlag(e): 
                     try: result.incl e
                     except: discard
+
+        import sets
+        func toHashSet*[Enum](this: QFlags[Enum]): HashSet[Enum] =
+            for e in Enum:
+                if this.testFlag(e): 
+                    try: result.incl e
+                    except: discard
+
 
     """,
     "qtcore/qstringlist": """
@@ -425,8 +433,12 @@ func cppTypeToNimType(allTypes:AllTypes, state:State, cppType:string, context:st
         result.nimType=cppType
     
     result.nimType=result.nimType.fixNameSpace.replaceSpecialTypes
-    
-func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
+
+# version==0: nimVersion<(1.9.0)
+# version==1: nimVersion>=1.9.0
+# In Nim 1 (<1.9), we had to attach the inheritable pragma to the object, due to some bug.
+# In later versions, this syntax was not supported anymore.
+func typeDecl*(c:ClassData, state:State, imports:var HashSet[string], version:int):string =
     let id = &"{state.component}/{state.module} class {c.nimName}"
     let (parentObj,tpls)=(
             if customization_inheritance.hasKey(id):
@@ -442,21 +454,25 @@ func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
         )
     
     assert c.fqName.len>0, $c
-    result = &"{c.nimName.escapeNimReservedWords.replaceSpecialTypes}*{tpls} "
-    var pragmas = @["header:headerFile", &"""importcpp:"{c.cppName}" """, ]
-    var objInheritance = ""
+    let startOfDecl = &"{c.nimName.escapeNimReservedWords.replaceSpecialTypes}*{tpls} "
+    var 
+        pragmas = @["header:headerFile", &"""importcpp:"{c.cppName}" """, ]
+        objInheritance = ""
 
     if id in customization_noninheritable:
         objInheritance = "object"
     elif #[c.pureObject or ]# parentObj.len==0:
         pragmas.add "pure"
-        objInheritance = "object {.inheritable.}"
+        if version==0:
+            objInheritance = "object {.inheritable.}"
+        elif version==1:
+            pragmas.add "inheritable"
+            objInheritance = "object"
     else:
         discard c.allTypes.cppTypeToNimType(state, parentObj, "typeDecl", imports)
         pragmas.add "pure"
         objInheritance = &"object of {parentObj}"
-
-    return result & "{." & pragmas.join(",") & ".} = " & objInheritance
+    startOfDecl & "{." & pragmas.join(",") & ".} = " & objInheritance
 
 func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts:seq[string]] =
     var xs:seq[string]
@@ -852,29 +868,63 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
                 xs.add customization_header[id].dedent
 
 
-        if true: # Output enums and classes
+        if true: # Output enums
             var tmp:seq[string]
             tmp.outputEnums(file.module.enums, ClassData(), 0, "Global", addEnums=true, addConsts=false)
             for n,class in file.module.classes:
                 tmp.outputEnums(class.enums, class, 0, class.nimName, addEnums=true, addConsts=false)
-            
-            var newImports:HashSet[string]
-            var definedClasses:HashSet[string]
-            for n,c in file.module.classes:
-                if c.nimName notin definedClasses:
-                    definedClasses.incl c.nimName
-                    tmp.add c.typeDecl(state, newImports).indent(IND)
-                
+
             if tmp.len>0:
-                for i in newImports:
-                    if i notin imports: xs.add &"import nimqt/{i}"
+                xs.add "type"
+                xs.add "# Enums found in the C++ code".indent(IND)
+                xs.add tmp
+                xs.add ""
+            
+        if true: # Output classes
+            var 
+                versions:seq[seq[string]] = @[newSeq[string](), newSeq[string]()]
+                newImports:seq[HashSet[string]] = @[initHashSet[string](), initHashSet[string]()]
+            for version in [0,1]:
+                # var tmp:seq[string]
+                # var newImports:HashSet[string]
+                var definedClasses:HashSet[string]
+                for n,c in file.module.classes:
+                    if c.nimName notin definedClasses:
+                        definedClasses.incl c.nimName
+                        versions[version].add c.typeDecl(state, newImports[version], version).indent(IND)
+
+            if versions[0] == versions[1]:
+                # No need to generate types for different nim versions
+                for i in newImports[0]:
+                    if i notin imports: xs.add (&"import nimqt/{i}")
                     imports.incl i
-                    
+                
+                xs.add "type"
+                xs.add "# Classes found in the C++ code".indent(IND)
+                xs.add versions[0]
+            else:
+                # In this case, we have (probably) object definitions that inherit from something
+                # but using a different syntax depending on the nim compiler.
+                
+                # The push warning Deprecated ideally is inside the 'when' statement, but it
+                # does not seems to work there ...
                 xs.add "# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'"
                 xs.add "{.push warning[Deprecated]: off.}"
-                xs.add "\n\ntype"
-                xs.add "# Classes and enums found in the C++ code".indent(IND)
-                xs.add tmp
+                for version in [0,1]:
+                    if versions[version].len>0:
+                        case version
+                        of 0: xs.add "when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):"
+                        of 1: xs.add "elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):"
+                        else: assert(false)
+
+                        for i in newImports[version]:
+                            if i notin imports: xs.add &"    import nimqt/{i}"
+                            imports.incl i
+                        
+                        xs.add "    type"
+                        xs.add "    # Classes found in the C++ code".indent(IND)
+                        xs.add versions[version].mapIt(it.indent(IND))
+
                 xs.add "{.push warning[Deprecated]: on.}"
         
         if true:

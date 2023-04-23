@@ -1,0 +1,2 @@
+import nimqt/qtcore/qmessageauthenticationcode
+export qmessageauthenticationcode

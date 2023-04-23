@@ -1,7 +1,7 @@
 # This is the distribution currently provided by default by nimqt.
 # The maximal set of QtGui and QtWidgets is provided.
 
-include core.txt
+include core_all.txt
 
 QEvent QList QFlag QFlags QByteArray QStringList 
 QPoint QPointF QRect QRectF QSize QSizeF 

@@ -1,0 +1,2 @@
+import nimqt/qtcore/qoperatingsystemversion
+export qoperatingsystemversion
