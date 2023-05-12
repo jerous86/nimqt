@@ -63,6 +63,7 @@ template init*() =
 
     {.push warning[UnusedImport]: off.}
     import nimqt/qtcore/qnamespace
+    discard qnamespace.Qt_Key.Key_Space # avoid unused import warning
     import nimqt/qtcore/qstring
     import nimqt/qtcore/qobject
     import nimqt/qtgui/qevent
