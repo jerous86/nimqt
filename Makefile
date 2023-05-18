@@ -81,7 +81,17 @@ run_autosaver:
 	./examples/autosaver
 
 
+custom_widget_main: FORCE
+	rm -f custom_widget_main
+	make build_custom_widget_main run_custom_widget_main
+build_custom_widget_main:
+	nim cpp --path:$(MY_PATH) examples/custom_widget_main.nim
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_INSTALL_LIBS) examples/custom_widget_main; fi
+run_custom_widget_main:
+	./examples/custom_widget_main
+
+
 clean:
-	rm -f ./examples/{poc,load_ui,hello,text_view,calc,custom_signal,autosaver}
+	rm -f ./examples/{poc,load_ui,hello,text_view,calc,custom_signal,autosaver,custom_widget}
 
 FORCE:

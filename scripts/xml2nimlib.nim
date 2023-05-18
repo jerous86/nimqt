@@ -39,8 +39,10 @@ const customization_footer = {
         proc connect*(src:ptr QObject, signal:cstring, dst:ptr QObject, mth:cstring, `type`=AutoConnection) {.header:headerFile ,importcpp:"QObject::connect(@)".}
         proc connect*(src:ptr QObject, signal:string, dst:ptr QObject, mth:string, `type`=AutoConnection) = connect(src, signal.cstring, dst, mth.cstring, `type`)
 
-        import typetraits
-        # This function calls the `connect` method for a functor.
+        # connect used to be a function, however, to support importing custom
+        # widgets, it was necessary to change it to a macro.
+        # 
+        # This macro (eventually) calls the `connect` method for a functor.
         # signalStr must be the signal used to connect regular object, e.g.
         #    `SIGNAL "toggled(bool)"` (this is unlike in C++ Qt lingo!).
         # The functor must be a function that has the {.exportcpp.} pragma.
@@ -49,14 +51,29 @@ const customization_footer = {
         # proc on_functor_clicked() {.exportcpp.} = echo "Functor clicked"
         # connect(newQPushButton(Q "Button"), SIGNAL "clicked()", on_functor_clicked)
         # ```
-        func connect*[OBJ,FUN](src:ptr OBJ,signalStr:static string,functor:FUN) = 
+        import macros
+        var connectHelperId{.compileTime.} = 0
+        macro connect*[OBJ,FUN](src:ptr OBJ, signal: string, functor:FUN) = 
+            let signalStr = $`signal`
             assert signalStr[0]=='2', "Expected SIGNAL for signal '" & signalStr & "'"
             assert '(' in signalStr, "Expected (possibly empty) arg list for signal '" & signalStr & "'"
-            const 
+            let
                 signalName:string=signalStr[1..<signalStr.find('(')]
-                objType:string=($(type(src).name))["ptr ".len..^1]
+                objType:string = ($src.getType().repr)["ptr[".len..^2]
+                helperName = ident("connectHelper_" & $connectHelperId)
+            connectHelperId.inc
 
-            {.emit: ["QObject::connect(", src, (", &" & `objType` & "::" & `signalName` & ", "), functor, ");"] .}
+            # when an emit is at the top-level, it will be emitted somewhere at the top.
+            # However, we do not want that! Therefore, we put the emit inside a procedure.
+            # The procedure cannot be put in this module, as the types are not known to QObject,
+            # therefore, we put the connectHelper function where it is defined. To avoid duplicate
+            # identifiers, we generate unique names for every connect ... There might be better
+            # solutions, but for now it suffices ...
+            result = quote do:
+                proc helperName[OBJ2,FUN2](xsrc:ptr OBJ2, xobjType:static string, xsignalName:static string, xfunctor:FUN2) =
+                    {.emit: ["QObject::connect(", xsrc, (", &" & xobjType & "::" & xsignalName & ", "), xfunctor ,  ");"] .}
+                `helperName`(`src`, `objType`, `signalName`, `functor`)
+            result[0][0]=helperName # Change the 'proc helperName' to 'proc ' with the dynamic helperName
 
         proc event*(nimQObject:ptr QObject, e:ptr QEvent): bool {.header:headerFile , importcpp:"#.event(@)".}
         """,

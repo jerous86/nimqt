@@ -189,6 +189,13 @@ We now explain the differences:
     An example of that can be found in `examples/hello.nim`.
 	Additionally, `handleSignal<i>i</i>` can be used inside the `makeLayout` macro (see next section).
 	
+- custom widgets can be placed in separate modules, but need an additional call to also be able to use them.
+    E.g. to import a custom widget `CustomWidget` from a module `foo`, you need to do
+    ```nim
+    import foo # this is nothing special
+    foo.import_CustomWidget # So here additional C++ code is generated, required to be able to use the custom widget.
+    ```
+    There is a restriction that the custom widget must inherit  directly from one of the Qt widgets (so importing a custom widget that inherits from a custom widget is not supported).
 
 ### Layout DSL
 The nimqt module provides a macro `makeLayout` (and `makeLayoutH` to start with a `QHBoxLayout`) to easily generate layouts.

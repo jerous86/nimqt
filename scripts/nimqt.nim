@@ -368,22 +368,33 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         of nnkDiscardStmt: discard
         else: assert(false, &"inheritQobject: Expected nnkCommand, nnkVarSection, nnkPragma or nnkDiscardStmt, but got {decl.kind}")
 
-    result.add quote do:
-        type `class` {.importcpp.} = object of `parentClass`
-        {.emit:"\n\n\n// Start of forward declarations".}
-        `fwdDeclarations`
-        {.emit:"\n\n\n// End of forward declarations\n\n".}
-        proc `newClassPtr`(): ptr `class` {.importcpp: "new " & $`class` & "(@)" .}
+    # TODO we should be able to extract protected methods form qt/{class}.nim, and then
+    # generated next two lines. But for now, let's just do it simple.
+    var structDeclaration=newNimNode(nnkStmtList)
+    var structMethodDefs=newNimNode(nnkStmtList)
+
+    structDeclaration.add quote do:
+        # This include statement is not necessary when we use inheritQObject inside the module from which
+        # we want to use the object.
+        # However, if we want to have custom widgets in their own module, then in the importer module it needs
+        # to know about this class.
+        {.emit: "#include <" & ($`parentClass`) & ">".}
         {.emit: "struct " & $`class` & ": public " & $`parentClass` & " {".}
         {.emit: "\tW_OBJECT(" & $`class` & ")".}
         `structStuff`
         {.emit: "\tpublic:".}
-        
-        # TODO we should be able to extract protected methods form qt/{class}.nim, and then
-        # generated next two lines. But for now, let's just do it simple.
-        {.emit: "\tQObject *get_sender() const { return sender(); }".}
-        proc get_sender*(this:ptr `class`): ptr QObject {.importcpp:"#.get_sender(@)".}
+        {.emit: "\tQObject *get_sender() const;".}
 
+    structMethodDefs.add quote do:
+        {.emit: "QObject *" & $`class` & "::get_sender() const { return sender(); }\n".}
+
+    result.add quote do:
+        type `class`* {.importcpp.} = object of `parentClass`
+        {.emit:"\n\n\n// Start of forward declarations".}
+        `fwdDeclarations`
+        {.emit:"\n\n\n// End of forward declarations\n\n".}
+        proc `newClassPtr`*(): ptr `class` {.importcpp: "new " & $`class` & "(@)" .}
+        proc get_sender*(this:ptr `class`): ptr QObject {.importcpp:"#.get_sender(@)".}
         `memberVariables`
     
 
@@ -394,28 +405,39 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         let cpp_param_names0=signal.cpp_param_names.join(", ")
         if signal.pType==Signal:
             let signalNameAndParams = concat(@[signalName], signal.cpp_param_names).join(", ")
-            result.add quote do: 
+            structDeclaration.add quote do: 
                 {.emit:"\tvoid " & `signalName` & "(" & `cpp_param_decls` & ") W_SIGNAL(" & `signalNameAndParams` & ")".}
+
         else:
             let retType=signal.retType.replaceExportCppType
             let cpp_param_names=concat(@[unconst(classNameStr,"this")], signal.cpp_param_names).join(", ")
+            let constness = (case signal.pType
+                of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const "
+                else: "")
             let override = (case signal.pType
                 of Override,OverrideDefer,OverrideDecl: "override"
                 of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const override"
                 else: "")
-            result.add quote do: {.emit:"\t" & $`retType` & " " & `signalName` & "(" & `cpp_param_decls` & ") " & `override` & 
-                "{ return ::" & `signalName` & "(" & `cpp_param_names` & "); }".}
-            
+            structDeclaration.add quote do: {.emit:"\t" & $`retType` & " " & `signalName` & "(" & `cpp_param_decls` & ") " & `override` & ";".}
+            structMethodDefs.add quote do: {.emit:"\t" & $`retType` & " " & $`class` & "::" & `signalName` & "(" & `cpp_param_decls` & ") " & `constness` & 
+                 "{ return ::" & `signalName` & "(" & `cpp_param_names` & "); }".}
+
             if signal.pType.isOverride:
-                result.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
+                structDeclaration.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ");".}
+                structMethodDefs.add quote do: {.emit:"\t" & $`retType` & " " & $`class` & "::parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
                     "{ return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
             
-            if signal.pType.isSlot: result.add quote do: {.emit:"\tW_SLOT(" & `signalName` & ")".}
+            if signal.pType.isSlot: 
+                structDeclaration.add quote do: {.emit:"\tW_SLOT(" & `signalName` & ")".}
     
-    result.add quote do:
-        {.emit: "};\n".}
-        {.emit: "W_OBJECT_IMPL(" & $`class` & ")\n".}
+    structDeclaration.add quote do: {.emit: "};\n".}
+    structMethodDefs.add quote do: {.emit: "W_OBJECT_IMPL(" & $`class` & ")\n".}
     result.add cppDefinitions
+    result.add structDeclaration
+    result.add structMethodDefs
+    let id=ident(&"import_{class}")
+    result.add quote do:
+        template `id`*() = `structDeclaration`
     
     # echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
 
