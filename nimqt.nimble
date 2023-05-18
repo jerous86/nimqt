@@ -7,6 +7,6 @@ backend = "cpp"
 requires "nim >= 1.6.10"
 requires "astpatternmatching"
 
-srcDir="qt/6"
+srcDir="qt/6.4.3_most"
 
 doAssert defined(linux) or defined(bsd) or defined(macosx) or defined(windows), "nimqt is not tested on this system"
