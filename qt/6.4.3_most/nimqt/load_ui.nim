@@ -103,9 +103,10 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string,
         `rootWg`=block:
             var loader=newQUiLoader()
             const body:string=`body`
-            let data:QByteArray=(Q body).toUtf8
-            let file=newQBuffer(data.unsafeAddr)
-            let rootWg:ptr QWidget = loader.load(file)
+            let 
+                data:QByteArray=(Q body).toUtf8
+                file=newQBuffer(data.unsafeAddr)
+                rootWg:ptr QWidget = loader.load(file)
             cast[`rootWgType`](rootWg)
 
     # (4) generate a list of `let` statements, and assign them to objects.
@@ -117,10 +118,11 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string,
             strName=o.name
             class=ident(o.class)
         assert strName.len>0
-        let let_stmt = quote do:
-            let `name` = cast[ptr `class`](findChildWidget(rootWg, Q `strName`))
-        let check=quote do: 
-            if `name`==nil: echo "Warning: ",`strName`," is nil!"
+        let 
+            let_stmt = quote do:
+                let `name` = cast[ptr `class`](findChildWidget(`rootWg`, Q `strName`))
+            check=quote do: 
+                if `name`==nil: echo "Warning: ",`strName`," is nil!"
         result.add let_stmt
         result.add check
 
