@@ -83,20 +83,25 @@ type
         cpp_param_types:seq[string]
         cpp_param_names:seq[string]
         nim_param_list:seq[NimNode]
-    ProcType = enum Slot, SlotDefer, SlotDecl, Override, OverrideDefer, OverrideDecl, ConstOverride, ConstOverrideDefer, ConstOverrideDecl, Signal
+    ProcType = enum Slot, SlotDefer, SlotDecl,
+        Override, OverrideDefer, OverrideDecl, ConstOverride, ConstOverrideDefer, ConstOverrideDecl,
+        Signal,
+        Member
 
 func isDeclaration(pType:ProcType): bool =
     case pType
     of SlotDecl,OverrideDecl,ConstOverrideDecl,Signal: true
-    else: false
+    of Slot,SlotDefer,Override,OverrideDefer,ConstOverride,ConstOverrideDefer,Member: false
 func isSlot(pType:ProcType): bool =
     case pType
     of Slot,SlotDefer,SlotDecl: true
-    else: false
+    of Override, OverrideDefer, OverrideDecl, ConstOverride, ConstOverrideDefer, ConstOverrideDecl,
+        Signal, Member: false
 func isOverride(pType:ProcType): bool =
     case pType
     of Override, OverrideDefer, OverrideDecl, ConstOverride, ConstOverrideDefer, ConstOverrideDecl: true
-    else: false
+    of Slot, SlotDefer, SlotDecl, Signal, Member: false
+        
 
 
 var methodImplementations{.compileTime.}:Table[string,seq[NimNode]]
@@ -124,6 +129,7 @@ proc processProc(n:NimNode,
         fwdDeclarations:var NimNode,
         cppDefinitions:var NimNode,
         structStuff:var NimNode,
+        friends:var NimNode,
     ): NimNode =
     #echo &"\nprocessProc >>\n{n.repr.indent(4)}\n\n{n.treeRepr.indent(4)}\n<<\n"
     result = newNimNode(nnkStmtList)
@@ -152,6 +158,7 @@ proc processProc(n:NimNode,
         of "constoverridedefer": ProcType.ConstOverrideDefer
         of "constoverridedecl": ProcType.ConstOverrideDecl
         of "signal": ProcType.Signal
+        of "member": ProcType.Member
         else: assert(false, &"Unknown proc type {s}"); Slot
 
     # Replaces something like ```x:ref int``` with ```x:ptr int```
@@ -190,6 +197,7 @@ proc processProc(n:NimNode,
                     param[1].replaceExportCppType, newNimNode(nnkEmpty))
     
     if n.kind==nnkCommand:
+        # This is what we would expect usually, something like a "slot foo()" or a "member faaa()" ...
         let signal=n[1][0]
         let signalName:string=signal.strVal
         let callParent=ident("parent_"&signalName)
@@ -199,16 +207,17 @@ proc processProc(n:NimNode,
         # ret is the return type (as a nim type)
         # params
         # decl_only: true if it's without a definition
-        let (body, ret, params, decl_only)=if n[1].kind == nnkCall: # No params
+        let (body, ret, params, decl_only)=
+            if n[1].kind == nnkCall: # No params
                 let params=getParams(@[])
-                let (body,ret,decl_only) = if pType.isDeclaration: # Declaration for sure
+                let (body,ret,decl_only) =
+                    if pType.isDeclaration: # Declaration for sure
                         (NimNode(), (if n.len==3 and n[2].kind==nnkStmtList: n[2][0] else: ident("void")), true)
                     else:
                         # if kind==nnkStmtList: No params, with return type e.g. "slot foo(): bool = BODY"
                         # if kind!=nnkStmtList: No params, no return type
                         (if n[2][0].len>1 and n[2][0][1].kind == nnkStmtList: (n[2][0][1], n[2][0][0], false) else: (n[2], ident("void"), false))
                     
-                
                 signals.add SignalTuple(pType:pType, 
                     retType:ret, 
                     node:signal, 
@@ -221,7 +230,13 @@ proc processProc(n:NimNode,
                     #   then nim generates the forward declarations a bit too late.
                     let retType=ret.replaceExportCppType
                     fwdDeclarations.add quote do: {.emit: $`retType` & " " & `signalName` & "(" & `classNameStr` & " *o); // fwd without params".}
+                    case pType
+                    of Member:
+                        # Just the same as above, but with friend prepended
+                        friends.add quote do: {.emit: "\tfriend " & $`retType` & " " & `signalName` & "(" & `classNameStr` & " *o); // fwd without params".}
+                    else: discard
                 (body, ret, params, decl_only)
+            
             elif n[1].kind == nnkObjConstr: # With params, e.g. "slot foo(b:int):bool = BODY"
                 let params=getParams(n[1][1..^1])
                 let (body,ret,decl_only) = if pType.isDeclaration: # Declaration for sure
@@ -245,6 +260,13 @@ proc processProc(n:NimNode,
                     let cpp_list=zip(params.cpp_param_types, params.cpp_param_names).mapIt(&"{it[0]} {it[1]}").join(", ")
                     fwdDeclarations.add quote do:
                         {.emit: $`retType` & " " & `signalName` & "(" & `classNameStr` & " *o, " & `cpp_list` & "); // fwd with params".}
+                
+                    case pType
+                    of Member:
+                        # Just the same as fwdDeclarations, but with "friend" prepended
+                        friends.add quote do:
+                            {.emit: "\tfriend " & $`retType` & " " & `signalName` & "(" & `classNameStr` & " *o, " & `cpp_list` & "); // friend with params".}
+                    else: discard
                 (body, ret, params, decl_only)
             else:
                 assert false
@@ -259,14 +281,16 @@ proc processProc(n:NimNode,
   
 
         block:
-            if pType==Signal: 
+            case pType
+            of Signal:
                 let importcpp = &"#.{signal}(@)"
                 var decl0=quote do:
                     proc `signal`() {.importcpp: `importcpp`.}
                 decl0[3].expectKind nnkFormalParams
                 for p in params.nim_param_list: decl0[3].add p
                 cppDefinitions.add decl0
-            else:
+            of Slot, SlotDefer, SlotDecl, Override, OverrideDefer, OverrideDecl, 
+                ConstOverride, ConstOverrideDefer, ConstOverrideDecl, Member:
                  # Create the declaration
                 let xs=zip(
                         concat(@[&"{classNameStr}*"], params.cpp_param_types), 
@@ -353,62 +377,74 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
     let newClassPtr = ident("new" & classNameStr)
     
     result.add quote do: {.emit: "\n\n\nstruct " & `classNameStr` & ";".}
-    var signals:seq[SignalTuple]
-    var cppDefinitions=newNimNode(nnkStmtList) # These must come at the end
-    var fwdDeclarations=newNimNode(nnkStmtList)
-    var structStuff=newNimNode(nnkStmtList)
-    var memberVariables=newNimNode(nnkStmtList)
+    var
+        signals:seq[SignalTuple]
+        cppDefinitions=newNimNode(nnkStmtList) # These must come at the end
+        fwdDeclarations=newNimNode(nnkStmtList)
+        structStuff=newNimNode(nnkStmtList)
+        friends=newNimNode(nnkStmtList)
+        memberVariables=newNimNode(nnkStmtList)
 
     body.expectKind(nnkStmtList)
     for decl in body:
         case decl.kind
-        of nnkCommand: result.add decl.processProc(class, parentClass, signals, fwdDeclarations, cppDefinitions, structStuff)
+        of nnkCommand: result.add decl.processProc(class, parentClass, signals, fwdDeclarations, cppDefinitions, structStuff, friends)
         of nnkVarSection: decl.processVar(class, memberVariables)
         of nnkPragma: structStuff.add decl
         of nnkDiscardStmt: discard
         else: assert(false, &"inheritQobject: Expected nnkCommand, nnkVarSection, nnkPragma or nnkDiscardStmt, but got {decl.kind}")
 
-    # TODO we should be able to extract protected methods form qt/{class}.nim, and then
-    # generated next two lines. But for now, let's just do it simple.
-    var structDeclaration=newNimNode(nnkStmtList)
-    var structMethodDefs=newNimNode(nnkStmtList)
+    var
+        structDeclaration=newNimNode(nnkStmtList)
+        structMethodDefs=newNimNode(nnkStmtList)
 
     structDeclaration.add quote do:
         # This include statement is not necessary when we use inheritQObject inside the module from which
         # we want to use the object.
         # However, if we want to have custom widgets in their own module, then in the importer module it needs
         # to know about this class.
-        {.emit: "#include <" & ($`parentClass`) & ">".}
+        # TODO use typeDb here
+        {.emit: "#include <QtWidgets/" & ($`parentClass`) & ">".}
         {.emit: "struct " & $`class` & ": public " & $`parentClass` & " {".}
         {.emit: "\tW_OBJECT(" & $`class` & ")".}
         `structStuff`
-        {.emit: "\tpublic:".}
-        {.emit: "\tQObject *get_sender() const;".}
-
-    structMethodDefs.add quote do:
-        {.emit: "QObject *" & $`class` & "::get_sender() const { return sender(); }\n".}
-
+        `friends`
+    
     result.add quote do:
         type `class`* {.importcpp.} = object of `parentClass`
         {.emit:"\n\n\n// Start of forward declarations".}
         `fwdDeclarations`
         {.emit:"\n\n\n// End of forward declarations\n\n".}
         proc `newClassPtr`*(): ptr `class` {.importcpp: "new " & $`class` & "(@)" .}
-        proc get_sender*(this:ptr `class`): ptr QObject {.importcpp:"#.get_sender(@)".}
         `memberVariables`
     
+    when true:
+        # TODO we should be able to extract protected methods form qt/{class}.nim, and then
+        # generated lines. But for now, let's just do it simple.
+        result.add quote do:
+            proc get_sender*(this:ptr `class`): ptr QObject {.importcpp:"#.get_sender(@)".}
+        structDeclaration.add quote do:
+            {.emit: "\tpublic: QObject *get_sender() const;".}
+        structMethodDefs.add quote do:
+            {.emit: "QObject *" & $`class` & "::get_sender() const { return sender(); }\n".}
+
 
     for signal in signals:
         let signalName:string=signal.node.strVal
         let cpp_param_decls=zip(signal.cpp_param_types, signal.cpp_param_names).mapIt(&"{it[0]} {it[1]}").join(", ")
         # param names without this
         let cpp_param_names0=signal.cpp_param_names.join(", ")
-        if signal.pType==Signal:
+        
+        case signal.pType
+        of Signal:
             let signalNameAndParams = concat(@[signalName], signal.cpp_param_names).join(", ")
             structDeclaration.add quote do: 
                 {.emit:"\tvoid " & `signalName` & "(" & `cpp_param_decls` & ") W_SIGNAL(" & `signalNameAndParams` & ")".}
-
-        else:
+        of Member:
+            discard
+            
+        of Slot, SlotDefer, SlotDecl, Override, OverrideDefer, OverrideDecl,
+            ConstOverride, ConstOverrideDefer, ConstOverrideDecl:
             let retType=signal.retType.replaceExportCppType
             let cpp_param_names=concat(@[unconst(classNameStr,"this")], signal.cpp_param_names).join(", ")
             let constness = (case signal.pType
@@ -435,11 +471,13 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
     result.add cppDefinitions
     result.add structDeclaration
     result.add structMethodDefs
-    let id=ident(&"import_{class}")
-    result.add quote do:
-        template `id`*() = `structDeclaration`
     
-    # echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
+    block:
+        let id=ident(&"import_{class}")
+        result.add quote do:
+            template `id`*() = `structDeclaration`
+    
+    #echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
 
 
 macro insertSlotImplementations*(className:string) =
