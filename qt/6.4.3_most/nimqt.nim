@@ -8,6 +8,7 @@ import macros
 import ast_pattern_matching
 
 import nimqt/nimqt_paths
+import nimqt/typeDb
 
 template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 {.passc: &"""-std=c++17 -I{curFilePath.parentDir}""".}
@@ -415,7 +416,7 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         # However, if we want to have custom widgets in their own module, then in the importer module it needs
         # to know about this class.
         # TODO use typeDb here
-        {.emit: "#include <QtWidgets/" & ($`parentClass`) & ">".}
+        {.emit: "#include <" & ($`parentClass`) & ">".}
         {.emit: "struct " & $`class` & ": public " & $`parentClass` & " {".}
         {.emit: "\tW_OBJECT(" & $`class` & ")".}
         `structStuff`
