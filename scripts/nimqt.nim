@@ -350,23 +350,34 @@ proc processVar(n:NimNode, class:NimNode, memberVariables:NimNode) =
     let this=ident("this")
     let value=ident("value")
 
-    let x:NimNode = quote do:
-        # We do not have a Table[ptr className, typ] as the nim compiler does not generate
-        # code that compiles. There is no fwd declaration. By just using a pointer, we
-        # circumvent this problem.
-        var `tableName`:Table[pointer, ref `typ`]
-        template `varName`*(`this`:ptr `className`): `typ` = 
-            if not `tableName`.hasKey(`this`): 
-                var default:ref `typ`= new `typ`
-                `tableName`[`this`] = default
-            `tableName`[`this`][]
-        template `varNameAssign`*(`this`:ptr `className`, `value`:`typ`) = 
-            if not `tableName`.hasKey(`this`): 
-                var default:ref `typ`= new `typ`
-                `tableName`[`this`] = default
-            `tableName`[`this`][]=`value`
+    if typ.kind==nnkPtrTy:
+        let x:NimNode = quote do:
+            # We do not have a Table[ptr className, typ] as the nim compiler does not generate
+            # code that compiles. There is no fwd declaration. By just using a pointer, we
+            # circumvent this problem.
+            var `tableName`:Table[pointer, `typ`]
+            template `varName`*(`this`:ptr `className`): `typ` = `tableName`.getOrDefault(`this`,nil)
+            template `varNameAssign`*(`this`:ptr `className`, `value`:`typ`) = `tableName`[`this`]=`value`
 
-    memberVariables.add x
+        memberVariables.add x
+    else:
+        let x:NimNode = quote do:
+            # We do not have a Table[ptr className, typ] as the nim compiler does not generate
+            # code that compiles. There is no fwd declaration. By just using a pointer, we
+            # circumvent this problem.
+            var `tableName`:Table[pointer, ref `typ`]
+            template `varName`*(`this`:ptr `className`): `typ` = 
+                if not `tableName`.hasKey(`this`): 
+                    var default:ref `typ`= new `typ`
+                    `tableName`[`this`] = default
+                `tableName`[`this`][]
+            template `varNameAssign`*(`this`:ptr `className`, `value`:`typ`) = 
+                if not `tableName`.hasKey(`this`): 
+                    var default:ref `typ`= new `typ`
+                    `tableName`[`this`] = default
+                `tableName`[`this`][]=`value`
+
+        memberVariables.add x
 
 
 macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped =
