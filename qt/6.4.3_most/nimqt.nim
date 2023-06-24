@@ -30,6 +30,9 @@ elif defined(linux) or defined(bsd):
     const QtInstallLibs = nimqt_paths.replace_vars("${Qt_install_libs}", allow_run_time=false, enable_path_check=false)
     const QtMajorVersion* = nimqt_paths.replace_vars("${Qt_version}", allow_run_time=false, enable_path_check=false).substr(0,0)
     {.passC: &"-I{QtInstallHeaders} -fPIC"}
+    {.passC: &"-I{QtInstallHeaders}/QtCore"}
+    {.passC: &"-I{QtInstallHeaders}/QtGui"}
+    {.passC: &"-I{QtInstallHeaders}/QtWidgets"}
     {.passL: &"-L{QtInstallLibs}".}
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Core").}
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Gui").}
@@ -415,7 +418,7 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         # However, if we want to have custom widgets in their own module, then in the importer module it needs
         # to know about this class.
         # TODO use typeDb here
-        {.emit: "#include <QtWidgets/" & ($`parentClass`) & ">".}
+        {.emit: "#include <" & ($`parentClass`) & ">".}
         {.emit: "struct " & $`class` & ": public " & $`parentClass` & " {".}
         {.emit: "\tW_OBJECT(" & $`class` & ")".}
         `structStuff`
@@ -434,10 +437,9 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         # generated lines. But for now, let's just do it simple.
         result.add quote do:
             proc get_sender*(this:ptr `class`): ptr QObject {.importcpp:"#.get_sender(@)".}
-        structDeclaration.add quote do:
-            {.emit: "\tpublic: QObject *get_sender() const;".}
-        structMethodDefs.add quote do:
-            {.emit: "QObject *" & $`class` & "::get_sender() const { return sender(); }\n".}
+        #structDeclaration.add quote do: {.emit: "\tpublic: QObject *get_sender() const;".}
+        #structMethodDefs.add quote do: {.emit: "QObject *" & $`class` & "::get_sender() const { return sender(); }\n".}
+        structDeclaration.add quote do: {.emit: "\tpublic: QObject *get_sender() const { return sender(); }\n".}
 
 
     for signal in signals:
@@ -470,9 +472,10 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
                  "{ return ::" & `signalName` & "(" & `cpp_param_names` & "); }".}
 
             if signal.pType.isOverride:
-                structDeclaration.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ");".}
-                structMethodDefs.add quote do: {.emit:"\t" & $`retType` & " " & $`class` & "::parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
-                    "{ return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
+                structDeclaration.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ") { return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
+                #structDeclaration.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ");".}
+                #structMethodDefs.add quote do: {.emit:"\t" & $`retType` & " " & $`class` & "::parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
+                    #"{ return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
             
             if signal.pType.isSlot: 
                 structDeclaration.add quote do: {.emit:"\tW_SLOT(" & `signalName` & ")".}

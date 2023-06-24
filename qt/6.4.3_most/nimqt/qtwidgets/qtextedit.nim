@@ -10,10 +10,14 @@ type
 {.push warning[Deprecated]: off.}
 when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
     import nimqt/qtwidgets/qabstractscrollarea
+    import nimqt/qtextcursor
+    import nimqt/qtextformat
     type
         # Classes found in the C++ code
         QTextEdit* {.header:headerFile,importcpp:"QTextEdit" ,pure.} = object of QAbstractScrollArea
         QTextEdit_ExtraSelection* {.header:headerFile,importcpp:"QTextEdit::ExtraSelection" ,pure.} = object {.inheritable.}
+            cursor*: QTextCursor
+            format*: QTextCharFormat
 elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
     type
         # Classes found in the C++ code
