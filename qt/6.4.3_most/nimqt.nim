@@ -31,6 +31,9 @@ elif defined(linux) or defined(bsd):
     const QtInstallLibs = nimqt_paths.replace_vars("${Qt_install_libs}", allow_run_time=false, enable_path_check=false)
     const QtMajorVersion* = nimqt_paths.replace_vars("${Qt_version}", allow_run_time=false, enable_path_check=false).substr(0,0)
     {.passC: &"-I{QtInstallHeaders} -fPIC"}
+    {.passC: &"-I{QtInstallHeaders}/QtCore"}
+    {.passC: &"-I{QtInstallHeaders}/QtGui"}
+    {.passC: &"-I{QtInstallHeaders}/QtWidgets"}
     {.passL: &"-L{QtInstallLibs}".}
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Core").}
     {.passL: addLibraryIfExists(&"Qt{QtMajorVersion}Gui").}
