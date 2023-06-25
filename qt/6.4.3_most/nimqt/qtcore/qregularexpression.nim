@@ -30,6 +30,7 @@ type
     QRegularExpression_PatternOptions * = QFlags[QRegularExpression_PatternOption]
     QRegularExpression_MatchOptions * = QFlags[QRegularExpression_MatchOption]
     QRegularExpression_WildcardConversionOptions * = QFlags[QRegularExpression_WildcardConversionOption]
+    QRegularExpressionMatchIterator* {.header:headerFile,importcpp:"QRegularExpressionMatchIterator" ,pure.} = object
 
 # Consts
 const
@@ -74,6 +75,10 @@ proc `!=`*(this: QRegularExpression, re: QRegularExpression): bool {.header:head
 # Public constructors for QRegularExpressionMatch
 proc newQRegularExpressionMatch*(): QRegularExpressionMatch {. header:headerFile, importcpp:"QRegularExpressionMatch(@)", constructor .} #
 proc newQRegularExpressionMatch*(match: QRegularExpressionMatch): QRegularExpressionMatch {. header:headerFile, importcpp:"QRegularExpressionMatch(@)", constructor .} #
+
+proc globalMatch*(this: QRegularExpression, subject:QString):QRegularExpressionMatchIterator {.header:headerFile, importcpp:"#.globalMatch(@)".}
+proc hasNext*(this:QRegularExpressionMatchIterator):bool {.header:headerFile, importcpp:"#.hasNext(@)".}
+proc next*(this:QRegularExpressionMatchIterator):QRegularExpressionMatch {.header:headerFile, importcpp:"#.next(@)".}
 
 # Public methods for QRegularExpressionMatch
 proc swap*(this: QRegularExpressionMatch, other: QRegularExpressionMatch) {.header:headerFile, importcpp:"#.swap(@)".} # Public
