@@ -6,7 +6,7 @@ VERSION_DISTR=${VERSION}_${DISTR}
 MY_PATH=qt/6_${DISTR}/
 
 all: calc
-all2: hello poc text_view calc load_ui custom_signal autosaver
+all2: hello poc text_view calc load_ui custom_signal autosaver seven_tasks
 
 distr: FORCE
 	nim r scripts/distr.nim tmp/xml/${VERSION}/ qt/${VERSION_DISTR}/ ${DISTR}
@@ -91,7 +91,17 @@ run_custom_widget_main:
 	./examples/custom_widget_main
 
 
+seven_tasks: FORCE
+	rm -f seven_tasks
+	make build_seven_tasks run_seven_tasks
+build_seven_tasks:
+	nim cpp --path:$(MY_PATH) examples/seven_tasks.nim
+	if [ $(UNAME) = Darwin ]; then install_name_tool -add_rpath $(QT_INSTALL_LIBS) examples/seven_tasks; fi
+run_seven_tasks:
+	./examples/seven_tasks
+
+
 clean:
-	rm -f ./examples/{poc,load_ui,hello,text_view,calc,custom_signal,autosaver,custom_widget}
+	rm -f ./examples/{poc,load_ui,hello,text_view,calc,custom_signal,autosaver,custom_widget,seven_tasks}
 
 FORCE:
