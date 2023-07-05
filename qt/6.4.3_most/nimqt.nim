@@ -794,32 +794,18 @@ template emit*(x:untyped) = x
 # NOTE we force the cdecl pragma, to ensure that we do not capture any local variables, as that
 # would result in weird c++ errors.
 var handleSignalId{.compileTime.}=0
-macro handleSignal0*(o:typed, signal:string, body:untyped) =
-    let functionName=ident(&"on_functor_clicked_{handleSignalId}")
-    let thisName=ident(&"this_{handleSignalId}")
+proc handleSignalHelper(o:NimNode, signal:NimNode, params0:seq[NimNode], body:NimNode):NimNode =
+    let
+        functionName = &"on_functor_clicked_{handleSignalId}"
+        functionNameIdent=ident(functionName)
+        params:seq[ParamInfo]=params0.mapIt(it.nodeToParamInfo)
     handleSignalId.inc
-    quote do:
-        let `thisName` = `o`
-        proc `functionName`() {.exportcpp,cdecl.} = (let this{.inject,used.}=`thisName`; `body`)
-        connect(`o`, `signal`, `functionName`)
+    result = quote do:
+        proc `functionNameIdent`() {.exportcpp,cdecl.} = (let this{.inject,used.}=`o`; `body`)
+        connect(`o`, `signal`, `functionNameIdent`)
+    for param in params:
+        result[0][3].add param.nim_param
 
-macro handleSignal1*(o:typed, signal:string, param1:untyped, body:untyped) =
-    let functionName=ident(&"on_functor_clicked_{handleSignalId}")
-    handleSignalId.inc
-    param1.matchAst(errors):
-    of nnkExprColonExpr(`p0` @ nnkIdent, `t0` @ _):
-        return quote do:
-            proc `functionName`(`p0`:`t0`) {.exportcpp,cdecl.} = (let this{.inject,used.}=`o`; `body`)
-            connect(`o`, `signal`, `functionName`)
-
-
-macro handleSignal2*(o:typed, signal:string, param1,param2:untyped, body:untyped) =
-    let functionName=ident(&"on_functor_clicked_{handleSignalId}")
-    handleSignalId.inc
-    param1.matchAst(errors):
-    of nnkExprColonExpr(`p0` @ nnkIdent, `t0` @ _):
-        param2.matchAst(errors):
-        of nnkExprColonExpr(`p1` @ nnkIdent, `t1` @ _):
-            return quote do:
-                proc `functionName`(`p0`:`t0`, `p1`:`t1`) {.exportcpp,cdecl.} = (let this{.inject,used.}=`o`; `body`)
-                connect(`o`, `signal`, `functionName`)
+macro handleSignal0*(o:typed, signal:string, body:untyped) = handleSignalHelper(o, signal, @[], body)
+macro handleSignal1*(o:typed, signal:string, param1:untyped, body:untyped) = handleSignalHelper(o, signal, @[param1], body)
+macro handleSignal2*(o:typed, signal:string, param1,param2:untyped, body:untyped) = handleSignalHelper(o, signal, @[param1,param2], body)
