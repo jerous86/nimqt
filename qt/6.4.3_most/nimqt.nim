@@ -8,6 +8,7 @@ import macros
 import ast_pattern_matching
 
 import nimqt/nimqt_paths
+import nimqt/typeDb
 
 template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 {.passc: &"""-std=c++17 -I{curFilePath.parentDir}""".}

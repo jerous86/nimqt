@@ -124,6 +124,11 @@ The following declaration and definitions are possible inside `inheritQObject`:
         Declares a custom signal. It can be connected to using the regular `connect` call.
         The signal can be emitted using the `emit` template.
         An example for creating and using custom signals can be found in `examples/custom_signal.nim`.
+- Define a member function
+    - `member FUNCTION_NAME(ARGUMENTS)`
+        Protected functions can not be called from within regular nim code. 
+	To solve this problem, a proc can be declared as a `member` (which results in making it a c++ `friend` function, allowing
+	access to the protected functions). An example can be found in `custom_widgets/code_viewer.nim`.
 - Define a member variable
     - `var VAR_NAME: VAR_TYPE`
         this will create a variable. 
