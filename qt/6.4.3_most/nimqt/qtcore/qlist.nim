@@ -89,6 +89,6 @@ proc toVector*[T](this: QList[T]): QList[T] {.header:headerFile, importcpp:"#.to
 
 # Additional code for qtcore/qlist
 func len*[T](list: QList[T]): int = list.size
-func add*[T](list: var QList[T], x:T) = list.push_back x
+func add*[T](list: QList[T], x:T) = list.push_back x
 iterator items*[T](list: QList[T]): T =
     for i in 0..<list.len: yield list.at(i.cint)

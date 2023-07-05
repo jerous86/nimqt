@@ -14,7 +14,7 @@ when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
         # Classes found in the C++ code
         QModelRoleData* {.header:headerFile,importcpp:"QModelRoleData" ,pure.} = object {.inheritable.}
         QModelRoleDataSpan* {.header:headerFile,importcpp:"QModelRoleDataSpan" ,pure.} = object {.inheritable.}
-        QModelIndex* {.header:headerFile,importcpp:"QModelIndex" ,pure.} = object {.inheritable.}
+        QModelIndex* {.header:headerFile,importcpp:"QModelIndex" ,pure.} = object
         QPersistentModelIndex* {.header:headerFile,importcpp:"QPersistentModelIndex" ,pure.} = object {.inheritable.}
         QAbstractItemModel* {.header:headerFile,importcpp:"QAbstractItemModel" ,pure.} = object of QObject
         QAbstractTableModel* {.header:headerFile,importcpp:"QAbstractTableModel" ,pure.} = object of QAbstractItemModel
