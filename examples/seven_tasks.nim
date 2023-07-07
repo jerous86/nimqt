@@ -2,6 +2,10 @@
 
 import os
 import strutils
+import nre
+import sequtils
+import options
+import sugar
 
 import nimqt
 nimqt.init
@@ -199,6 +203,8 @@ win.makeLayout:
         discard addTab(tabWidget, tabFlightBooker, Q "Flight booker")
         discard addTab(tabWidget, tabTimer, Q "Timer")
         discard addTab(tabWidget, tabCRUD, Q "CRUD")
+
+    
 
 nimqt.insertAllSlotImplementations
 
