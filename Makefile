@@ -6,7 +6,7 @@ VERSION_DISTR=${VERSION}_${DISTR}
 MY_PATH=qt/6_${DISTR}/
 
 all: calc
-all2: hello poc text_view calc load_ui custom_signal autosaver seven_tasks
+all2: seven_tasks hello poc text_view calc load_ui custom_signal autosaver
 
 distr: FORCE
 	nim r scripts/distr.nim tmp/xml/${VERSION}/ qt/${VERSION_DISTR}/ ${DISTR}

@@ -1,29 +1,28 @@
 # https://eugenkiss.github.io/7guis/tasks
 
 import os
+import strformat
 import strutils
-import nre
 import sequtils
 import options
-import sugar
 
 import nimqt
 nimqt.init
 
 let app = newQApplication(commandLineParams())
 
-import nimqt/[qlabel, qtextedit, qpushbutton, qcheckbox, qlineedit, qtabwidget, qsplitter, qcombobox, qslider, qprogressbar, qtimer, qlistwidget, qlistview, qstringlistmodel, qstringlist, qlist]
+import nimqt/[qlabel, qtextedit, qpushbutton, qcheckbox, qlineedit, qtabwidget, qcombobox, qslider, qprogressbar, qtimer, qlistwidget, qlistview, qstringlistmodel, qstringlist, qlist]
+import nimqt/[qtablewidget,qstyleditemdelegate]
 import nimqt/qsortfilterproxymodel
 import nimqt/qabstractitemview
 import nimqt/qdatetime
 import nimqt/qtwidgets/[qgridlayout,qlayoutitem]
+import nimqt/qmenu
 
-func parseFloat(s:QString):float = 
-    try: ($s).parseFloat
-    except CatchableError: 0.0
-func parseInt(s:QString):int = 
-    try: ($s).parseInt
-    except CatchableError: 0
+import sheet
+
+func parseFloat(s:QString):float = (try: ($s).parseFloat except CatchableError: 0.0)
+func parseInt(s:QString):int = (try: ($s).parseInt except CatchableError: 0)
 func degCToF(c:float):float = c*(9/5)+32
 func degFToC(f:float):float = int((f-32)*(5/9)*100).float/100.0
 
@@ -36,12 +35,15 @@ win.makeLayout:
             tabFlightBooker = newQWidget()
             tabTimer = newQWidget()
             tabCRUD = newQWidget()
+            tabCircles = newQWidget()
+            tabSheet = newQWidget()
         
         discardThis:
             tabCounter.makeLayoutH:
                 - newQLabel(Q"0") as lblCounter
                 - newQPushButton(Q"Count"):
                     handleSignal0(SIGNAL "clicked()"): lblCounter.setText(Q($(lblCounter.text.parseInt+1)))
+        
         discardThis:
             tabTempConverter.makeLayoutH:
                 - newQLineEdit(Q"") as txtDegC:
@@ -198,13 +200,111 @@ win.makeLayout:
                 btnCRUDDelete.setEnabled(ok)
             onRowSelected(-1)
         
+        discardThis:
+            type
+                Circle = tuple[x,y:int,r:int]
+                Pos = tuple[x,y:int]
+            var
+                circles:seq[Circle]
+                selectedCircle = -1
+                adjustedCircle = -1
+                curR=20
+            let
+                circleWgSlider=newQWidget()
+                circleMenu=newQMenu(Q"Circle")
+                circleMenuAdjustDiameter=newQAction(Q"Adjust diameter ...")
+            circleMenu.addAction(circleMenuAdjustDiameter)
+            
+            func insideCircle(circles:seq[Circle], p:Pos): int =
+                for i,c in circles:
+                    if (p.x-c.x)*(p.x-c.x)+(p.y-c.y)*(p.y-c.y) <= c.r*c.r: return i
+                -1
+            inheritQObject(CirclesWidget, QWidget):
+                override mousePressEvent(event: ptr QMouseEvent):
+                    let pos=(x:event.position.x.int, y:event.position.y.int)
+                    let i=circles.insideCircle(pos)
+                    if event.button()==LeftButton:
+                        if i < 0:
+                            circles.add (x:pos.x, y:pos.y, r:curR)
+                            this.update
+                    elif event.button()==RightButton:
+                        if i>=0:
+                            adjustedCircle=i
+                            circleMenu.popup(this.mapToGlobal(newQPoint(pos.x.cint, pos.y.cint)))
+                override mouseMoveEvent(event: ptr QMouseEvent):
+                    let pos=(x:event.position.x.int, y:event.position.y.int)
+                    let i=circles.insideCircle(pos)
+                    if selectedCircle != i:
+                        selectedCircle=i
+                        this.update
+                override paintEvent(event: ptr QPaintEvent):
+                    let painter=newQPainter(cast[ptr QPaintDevice](this))
+                    for i,c in circles:
+                        if i==selectedCircle:
+                            painter.setBrush(newQBrush(newQColor(gray), SolidPattern))
+                        else:
+                            painter.setBrush(newQBrush(newQColor(black), NoBrush))
+                            
+                        painter.drawEllipse(newQPointF(c.x.cfloat, c.y.cfloat), c.r.cfloat, c.r.cfloat)
+            
+            tabCircles.makeLayout:
+                - newQWidget():
+                    - newQGridLayout():
+                        - newQPushButton(Q"Undo") as btnCirclesUndo at (0,1)
+                        - newQPushButton(Q"Redo") as btnCirclesRedo at (0,2)
+                        - newCirclesWidget() as wgCircles at (1,0,1,4):
+                            setMouseTracking(true)
+        
+            circleWgSlider.makeLayout:
+                #setParent(wgCircles)
+                setWindowModality(ApplicationModal)
+                - newQLabel(Q"Adjust diameter") as circleSliderLabel
+                - newQSlider(Horizontal) as circleSlider:
+                    setMinimum(5.cint)
+                    setMaximum(50.cint)
+                    handleSignal1(SIGNAL "valueChanged(int)", value:int):
+                        circles[adjustedCircle].r=value
+                        let c=circles[adjustedCircle]
+                        circleSliderLabel.setText(Q(&"Adjust diameter of circle at ({c.x}, {c.y})"))
+                        wgCircles.update
+            circleMenuAdjustDiameter.handleSignal0(SIGNAL "triggered()"):
+                circleWgSlider.show
+                let c=circles[adjustedCircle]
+                circleSlider.setValue(c.r.cint)
+                
+            
+        discardThis:
+            proc updateSheet()
+            inheritQObject(SheetItem, QStyledItemDelegate):
+                const_override setEditorData(editor: ptr QWidget, index: const_var QModelIndex):
+                    cast[ptr QLineEdit](editor).setText(Q defaultSheet.get(CellPos(r:index.row.int, c:index.column.int)).fm)
+                const_override setModelData(editor: ptr QWidget, model:ptr QAbstractItemModel, index: const_var QModelIndex): 
+                    defaultSheet.setFormula(CellPos(r:index.row.int, c:index.column.int), $cast[ptr QLineEdit](editor).text)
+                    updateSheet()
+
+            tabSheet.makeLayoutH:
+                - newQTableWidget() as tblSheet:
+                    setRowCount(numRows)
+                    setColumnCount(numCols)
+                    setHorizontalHeaderLabels(('A'..'Z').mapIt($it).newQStringList)
+                    setVerticalHeaderLabels((0..<numRows).mapIt($it).newQStringList)
+                    setItemDelegate(newSheetItem())
+        
+            proc updateSheet() =
+                tblSheet.blockSignalsTmp:
+                    for r in 0..<numRows:
+                        for c in 0..<numCols:
+                            let cell:Cell=defaultSheet.get(CellPos(r:r, c:c))
+                            tblSheet.setItem(r.cint, c.cint, newQTableWidgetItem(Q cell.dispValue.toUserString))
+            updateSheet()
+        
+        discard addTab(tabWidget, tabCircles, Q "Circles")
         discard addTab(tabWidget, tabCounter, Q "Counter")
         discard addTab(tabWidget, tabTempConverter, Q "Temp Converter")
         discard addTab(tabWidget, tabFlightBooker, Q "Flight booker")
         discard addTab(tabWidget, tabTimer, Q "Timer")
         discard addTab(tabWidget, tabCRUD, Q "CRUD")
-
-    
+        discard addTab(tabWidget, tabSheet, Q "Sheet")
 
 nimqt.insertAllSlotImplementations
 

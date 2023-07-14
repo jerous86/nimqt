@@ -6,24 +6,35 @@ import sequtils
 import tables
 import sets
 
+import mathexpr
+
 const
     # B3 --> column B, fourth row
-    numRows=99+1
-    numCols=int('Z')-int('A')+1
+    numRows* = 99+1
+    numCols* = int('Z')-int('A')+1
     
 type
-    Sheet = array[numRows, array[numCols, Cell]]
-    Cell = object
-        fm:string
-        dispValue:tuple[ok:string, error:string]
+    Sheet* = array[numRows, array[numCols, Cell]]
+    Cell* = object
+        fm*:string
+        dispValue*:tuple[ok:string, error:string]
         revDeps: Table[CellPos,int] # number of references to this cell
-    CellPos = object
-        r,c:int
+            # It means that if this cell is updated, we must also update revDeps.keys
+            # In the code, we make sure that revDeps[*]>0.
+    CellPos* = object
+        r*,c*:int
 
-func `$`(p:CellPos):string = &"{char(p.c+int('A'))}{p.r}"
+func `$`*(p:CellPos):string = &"{char(p.c+int('A'))}{p.r}"
 
-template get(sheet:Sheet, pos:CellPos):Cell = sheet[pos.r][pos.c]
-func `$`(sheet:Sheet):string =
+func toCellPos(pos:string):CellPos = CellPos(c:int(pos[0].toUpperAscii)-int('A'), r:pos[1..^1].parseInt)
+func isValid(p:CellPos):bool = p.r>=0 and p.r<numRows and p.c>=0 and p.c<numCols
+template get*(sheet:Sheet, pos:CellPos):Cell = sheet[pos.r][pos.c]
+
+func toUserString*(v: tuple[ok:string, error:string]):string =
+    if v.error.len>0: "ERROR "&v.error
+    else: v.ok
+
+func `$`*(sheet:Sheet):string =
     var res:seq[string]
     res.add "[SHEET]"
     for r in 0..<numRows:
@@ -37,38 +48,36 @@ func `$`(sheet:Sheet):string =
     res.join("\n")
 
 
-func toCellPos(pos:string):CellPos = CellPos(c:int(pos[0].toUpperAscii)-int('A'), r:pos[1..^1].parseInt)
-func isValid(p:CellPos):bool = p.r>=0 and p.r<numRows and p.c>=0 and p.c<numCols
-
-func mathEval(str:string): string =
-    let tokens=str.findAll(re"[0-9.]+|[+-]")
-    #debugecho str,"->",tokens
-    var
-        res=(try: tokens[0].parseFloat except: 0.0)
-        i=0
-    while i<tokens.len:
-        case tokens[i]
-        of "+": res+=tokens[i+1].parseFloat; i.inc 2
-        of "-": res+=tokens[i+1].parseFloat; i.inc 2
-        else: i.inc
-    $res
+let e = newEvaluator()
+proc setFormula*(sheet:var Sheet, cellPos:CellPos, newFm:string) =
+    func listCellReferences(fm:string): seq[string] = fm.findAll(re("[a-zA-Z][0-9]{1,2}"))
     
-func setFormula(sheet:var Sheet, cellPos:CellPos, newFm:string) =
-    # Calculates a new value. Assumes all values are up-to-date (except the cell from which fm originates)
-    func calc(sheet:Sheet, fm:string, origCell:CellPos): tuple[ok:string, error:string] =
-        let rgxCell=re"[A-Z][0-9]+"
+    # Calculates a new value. It assumes that all dependent values have been calculated already
+    proc calc(sheet:var Sheet, fm:string, origCell:CellPos): tuple[ok:string, error:string] =
         result.ok=fm
-        for cellPosStr in fm.findAll(rgxCell):
+        for cellPosStr in fm.listCellReferences:
             let cellPos=cellPosStr.toCellPos
             if not cellPos.isValid:
                 return (ok:"", error: &"{origCell}: Invalid ref '{cellPosStr}' in fm '{fm}'")
+            
             let res=sheet.get(cellPos).dispValue
             if res.error.len>0:
                 return res
             result.ok=result.ok.replace(cellPosStr, res.ok)
-        result.ok=result.ok.mathEval
-
-    func listCellReferences(fm:string): seq[string] = fm.findAll(re("[a-zA-Z][0-9]{1,2}"))
+        result.ok = $e.eval(result.ok)
+    
+    # This function updates a cell's reverse dependencies. At the same time, it will check
+    # that there are no cycles.
+    var updatedDeps:HashSet[CellPos]
+    proc recalcDependencies(sheet:var Sheet, pos:CellPos) =
+        if pos in updatedDeps:
+            sheet.get(pos).dispValue=(ok:"", error: &"Cycle detected in {pos}")
+            return
+        updatedDeps.incl pos
+        
+        for revDep in sheet.get(pos).revDeps.keys:
+            sheet.get(revDep).dispValue=sheet.calc(sheet.get(revDep).fm, pos)
+            sheet.recalcDependencies(revDep)
     
     func updateRevDeps(sheet:var Sheet, fm:string, add:int) =
         for refPosStr in fm.listCellReferences:
@@ -83,44 +92,33 @@ func setFormula(sheet:var Sheet, cellPos:CellPos, newFm:string) =
             if sheet.get(refPos).revDeps[cellPos]==0:
                 sheet.get(refPos).revDeps.del cellPos
     
-    let oldRevDeps=sheet.get(cellPos).revDeps
     sheet.updateRevDeps sheet.get(cellPos).fm, -1
-    
     sheet.get(cellPos).fm=newFm
-    
     sheet.updateRevDeps sheet.get(cellPos).fm, +1
-    let newRevDeps=sheet.get(cellPos).revDeps
-    # TODO detect cycles
-        
-    if cellPos in sheet.get(cellPos).fm.listCellReferences.mapIt(it.toCellPos):
-        sheet.get(cellPos).dispValue=(ok:"", error: &"{cellPos}: Formula contains reference to self!")
-    else:
-        sheet.get(cellPos).dispValue=sheet.calc(newFm, cellPos)
-        
-        for revDep in concat(oldRevDeps.keys.toSeq, newRevDeps.keys.toSeq).toHashSet:
-            sheet.get(revDep).dispValue=sheet.calc(sheet.get(revDep).fm, revDep)
+    sheet.get(cellPos).dispValue=sheet.calc(newFm, cellPos)
+    sheet.recalcDependencies(cellPos)
     
-    
-func setFormula(sheet:var Sheet, pos:string, newFm:string) = sheet.setFormula(pos.toCellPos, newFm)
+proc setFormula*(sheet:var Sheet, pos:string, newFm:string) = sheet.setFormula(pos.toCellPos, newFm)
 
 assert $("A0".toCellPos)=="A0", $("A0".toCellPos)
 assert $("A1".toCellPos)=="A1", $("A1".toCellPos)
 assert $("B2".toCellPos)=="B2", $("B2".toCellPos)
 
-var sheet:Sheet
-sheet.setFormula("A1", "1")
-sheet.setFormula("A2", "2")
-sheet.setFormula("A3", "3")
-sheet.setFormula("A4", "4")
-sheet.setFormula("A5", "5")
+var defaultSheet*:Sheet
+defaultSheet.setFormula("A1", "1")
+defaultSheet.setFormula("A2", "2")
+defaultSheet.setFormula("A3", "3")
+defaultSheet.setFormula("A4", "4")
+defaultSheet.setFormula("A5", "5")
 
-sheet.setFormula("B1", "A1")
-sheet.setFormula("B2", "A2+B1")
-sheet.setFormula("B3", "A3+B1")
-sheet.setFormula("B4", "A4+B1")
-sheet.setFormula("B5", "A5+B1")
+defaultSheet.setFormula("B1", "A1")
+defaultSheet.setFormula("B2", "A2+B1")
+defaultSheet.setFormula("B3", "A3+B1")
+defaultSheet.setFormula("B4", "A4+B1")
+defaultSheet.setFormula("B5", "A5+B1")
 
-echo sheet
-
-sheet.setFormula("B2", "200"); echo sheet
-sheet.setFormula("B2", "B2000"); echo sheet
+when isMainModule:
+    echo defaultSheet
+    defaultSheet.setFormula("A1", "2000"); echo defaultSheet
+    #defaultSheet.setFormula("B2", "200"); echo defaultSheet
+    #defaultSheet.setFormula("B2", "B2000"); echo defaultSheet

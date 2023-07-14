@@ -93,6 +93,8 @@ type
         Signal,
         Member
 
+func `$`(pi:ParamInfo):string = &"ParamInfo{{ isConst:{pi.isConst} cpp_param_name:{pi.cpp_param_name} cpp_param_type:{pi.cpp_param_type} nim:{pi.repr} }}"
+
 func isDeclaration(pType:ProcType): bool =
     case pType
     of SlotDecl,OverrideDecl,ConstOverrideDecl,Signal: true
@@ -111,7 +113,8 @@ func isOverride(pType:ProcType): bool =
 
 var methodImplementations{.compileTime.}:Table[string,seq[NimNode]]
 
-func unconst(class:string, varName:string): string = &"(({class} *) {varName})"
+func unconst_ptr(class:string, varName:string): string = &"(({class} *) {varName})"
+func unconst(class:string, varName:string): string = &"(({class}) {varName})"
 
 func replaceExportCppType(n:NimNode): NimNode =
     if n.kind == nnkPtrTy: return n
@@ -158,10 +161,12 @@ func nodeToParamInfo(param:NimNode): ParamInfo =
 # cpp_param_types: the C++ type
 # nim_param_ilst: the NimNode representation for the signature
 func getParams(class:NimNode, params:seq[NimNode]): ParamsInfo =
-    result.add ParamInfo(nim_param: nnkIdentDefs.newTree(
+    result.add ParamInfo(
+        nim_param: nnkIdentDefs.newTree(
             newIdentNode("this"), 
             nnkPtrTy.newTree(class), 
-            newNimNode(nnkEmpty)))
+            newNimNode(nnkEmpty))
+        )
     for param in params:
         result.add param.nodeToParamInfo
 
@@ -303,8 +308,8 @@ proc processProc(n:NimNode,
                 ConstOverride, ConstOverrideDefer, ConstOverrideDecl, Member:
                  # Create the declaration
                 let xs=zip(
-                        concat(@[&"{classNameStr}*"], params.mapIt(it.cpp_param_type)), 
-                        concat(@["this_0"], params.mapIt(it.cpp_param_name))
+                        concat(@[&"{classNameStr}*"], params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_type)), 
+                        concat(@["this_0"], params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_name))
                     ).mapIt(&"{it[0]} {it[1]}")
                 let codegenDecl:string = &"""$1 $2({xs.join(", ")}) /*codegenDecl*/"""
                 var decl0=quote do:
@@ -424,7 +429,7 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         # we want to use the object.
         # However, if we want to have custom widgets in their own module, then in the importer module it needs
         # to know about this class.
-        # TODO use typeDb here
+        # TODO some systems don't have the modules flattened, and require something like QtCore/QtObject -- use typeDb for this.
         {.emit: "#include <" & ($`parentClass`) & ">".}
         {.emit: "struct " & $`class` & ": public " & $`parentClass` & " {".}
         {.emit: "\tW_OBJECT(" & $`class` & ")".}
@@ -444,10 +449,9 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
         # generated lines. But for now, let's just do it simple.
         result.add quote do:
             proc get_sender*(this:ptr `class`): ptr QObject {.importcpp:"#.get_sender(@)".}
-        structDeclaration.add quote do:
-            {.emit: "\tpublic: QObject *get_sender() const;".}
-        structMethodDefs.add quote do:
-            {.emit: "QObject *" & $`class` & "::get_sender() const { return sender(); }\n".}
+        #structDeclaration.add quote do: {.emit: "\tpublic: QObject *get_sender() const;".}
+        #structMethodDefs.add quote do: {.emit: "QObject *" & $`class` & "::get_sender() const { return sender(); }\n".}
+        structDeclaration.add quote do: {.emit: "\tpublic: QObject *get_sender() const { return sender(); }\n".}
 
 
     for signal in signals:
@@ -466,23 +470,29 @@ macro inheritQobject*(class:untyped, parentClass:untyped, body:untyped): untyped
             
         of Slot, SlotDefer, SlotDecl, Override, OverrideDefer, OverrideDecl,
             ConstOverride, ConstOverrideDefer, ConstOverrideDecl:
-            let retType=signal.retType.replaceExportCppType
-            let cpp_param_names=concat(@[unconst(classNameStr,"this")], signal.cpp_param_names).join(", ")
-            let constness = (case signal.pType
-                of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const "
-                else: "")
-            let override = (case signal.pType
-                of Override,OverrideDefer,OverrideDecl: "override"
-                of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const override"
-                else: "")
+            let
+                retType=signal.retType.replaceExportCppType
+                #cpp_param_names=concat(@[unconst(classNameStr,"this")], signal.cpp_param_names).join(", ")
+                cpp_unconst_param_names=concat(
+                    @[unconst_ptr(classNameStr,"this")],
+                    zip(signal.cpp_param_names, signal.cpp_param_types).mapIt(unconst(it[1].replace("const ",""), it[0]))
+                    ).join(", ")
+                constness = (case signal.pType
+                    of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const "
+                    else: "")
+                override = (case signal.pType
+                    of Override,OverrideDefer,OverrideDecl: "override"
+                    of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const override"
+                    else: "")
             structDeclaration.add quote do: {.emit:"\t" & $`retType` & " " & `signalName` & "(" & `cpp_param_decls` & ") " & `override` & ";".}
             structMethodDefs.add quote do: {.emit:"\t" & $`retType` & " " & $`class` & "::" & `signalName` & "(" & `cpp_param_decls` & ") " & `constness` & 
-                 "{ return ::" & `signalName` & "(" & `cpp_param_names` & "); }".}
+                 "{ return ::" & `signalName` & "(" & `cpp_unconst_param_names` & "); }".}
 
             if signal.pType.isOverride:
-                structDeclaration.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ");".}
-                structMethodDefs.add quote do: {.emit:"\t" & $`retType` & " " & $`class` & "::parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
-                    "{ return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
+                structDeclaration.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ") { return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
+                #structDeclaration.add quote do: {.emit:"\t" & $`retType` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ");".}
+                #structMethodDefs.add quote do: {.emit:"\t" & $`retType` & " " & $`class` & "::parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
+                    #"{ return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
             
             if signal.pType.isSlot: 
                 structDeclaration.add quote do: {.emit:"\tW_SLOT(" & `signalName` & ")".}
