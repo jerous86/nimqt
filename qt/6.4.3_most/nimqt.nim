@@ -124,6 +124,7 @@ func replaceExportCppType(n:NimNode): NimNode =
         # ```link:const_var QUrl```
         # We then just return QUrl
         n[0][1]
+    elif n.kind == nnkCommand and n[0]==ident("const_ptr"): nnkPtrTy.newTree(n[0][1])
     elif n.strVal=="int": return ident("cint")
     else: return n
 
@@ -132,27 +133,21 @@ func toCppType(n:NimNode): string =
 
     if n.kind == nnkPtrTy: &"{n[0].toCppType} *"
     elif n.kind == nnkVarTy: &"{n[0].toCppType} &"
-    elif n.kind == nnkCommand and n[0]==ident("const_var"): 
-        # NOTE:const_var We come here in case we have something like
-        # ```link:const_var QUrl```
-        &"const {n[0][1].toCppType} &"
+    elif n.kind == nnkCommand and n[0]==ident("const_var"): &"const {n[1].toCppType} &"
+    elif n.kind == nnkCommand and n[0]==ident("const_ptr"): &"const {n[1].toCppType} *"
+    elif n.strVal=="cint": &"int"
     else: n.strVal
-
-# Replaces something like ```x:const_var int``` with ```x:var int```
-func replaceConstVarByVar(n:NimNode): NimNode =
-    result=n.copyNimTree
-    if n[1].kind == nnkCommand and n[1][0]==ident("const_var"):
-        result[1]=nnkVarTy.newTree(n[1][1])
 
 func nodeToParamInfo(param:NimNode): ParamInfo =
     param.expectKind(nnkExprColonExpr)
     result.cpp_param_name = &"{param[0]}"
+    result.cpp_param_type = param[1].toCppType
     if param[1].kind == nnkCommand and param[1][0]==ident("const_var"):
         # See NOTE:const_var
-        result.cpp_param_type = &"const {param[1][1].toCppType}&"
-        result.nim_param = nnkIdentDefs.newTree(param[0], param.replaceConstVarByVar[1], newNimNode(nnkEmpty))
+        result.nim_param = nnkIdentDefs.newTree(param[0], nnkVarTy.newTree(param[1][1]), newNimNode(nnkEmpty))
+    elif param[1].kind == nnkCommand and param[1][0]==ident("const_ptr"):
+        result.nim_param = nnkIdentDefs.newTree(param[0], nnkPtrTy.newTree(param[1][1]), newNimNode(nnkEmpty))
     else:
-        result.cpp_param_type = &"{param[1].toCppType}"
         result.nim_param = nnkIdentDefs.newTree(param[0], param[1].replaceExportCppType, newNimNode(nnkEmpty))
 
 # For a list of NimNodes, obtained from a function's
@@ -239,12 +234,14 @@ proc processProc(n:NimNode,
                 block:
                     # NOTE:fwdDeclaration we need this if we have the regular {slot,override,const_override}, because
                     #   then nim generates the forward declarations a bit too late.
-                    let retType=ret.replaceExportCppType
-                    fwdDeclarations.add quote do: {.emit: $`retType` & " " & `signalName` & "(" & `classNameStr` & " *o); // fwd without params".}
+                    let
+                        retType=ret.replaceExportCppType
+                        retTypeCpp=retType.toCppType
+                    fwdDeclarations.add quote do: {.emit: $`retTypeCpp` & " " & `signalName` & "(" & `classNameStr` & " *o); // fwd without params".}
                     case pType
                     of Member:
                         # Just the same as above, but with friend prepended
-                        friends.add quote do: {.emit: "\tfriend " & $`retType` & " " & `signalName` & "(" & `classNameStr` & " *o); // fwd without params".}
+                        friends.add quote do: {.emit: "\tfriend " & $`retTypeCpp` & " " & `signalName` & "(" & `classNameStr` & " *o); // fwd without params".}
                     else: discard
                 (body, ret, params, decl_only)
             
@@ -258,7 +255,9 @@ proc processProc(n:NimNode,
                         if n[2][0].len>1 and n[2][0][1].kind==nnkStmtList: (n[2][0][1], n[2][0][0], false)
                         else: (n[2], ident("void"), false)
                     
-                let retType=ret.replaceExportCppType
+                let
+                    retType=ret.replaceExportCppType
+                    retTypeCpp=retType.toCppType
                 
                 signals.add SignalTuple(pType:pType, 
                     retType:retType, 
@@ -274,13 +273,13 @@ proc processProc(n:NimNode,
                         params.mapIt(it.cpp_param_name).filterIt(it.len>0)
                         ).mapIt(&"{it[0]} {it[1]}").join(", ")
                     fwdDeclarations.add quote do:
-                        {.emit: $`retType` & " " & `signalName` & "(" & `classNameStr` & " *o, " & `cpp_list` & "); // fwd with params".}
+                        {.emit: $`retTypeCpp` & " " & `signalName` & "(" & `classNameStr` & " *o, " & `cpp_list` & "); // fwd with params".}
                 
                     case pType
                     of Member:
                         # Just the same as fwdDeclarations, but with "friend" prepended
                         friends.add quote do:
-                            {.emit: "\tfriend " & $`retType` & " " & `signalName` & "(" & `classNameStr` & " *o, " & `cpp_list` & "); // friend with params".}
+                            {.emit: "\tfriend " & $`retTypeCpp` & " " & `signalName` & "(" & `classNameStr` & " *o, " & `cpp_list` & "); // friend with params".}
                     else: discard
                 (body, ret, params, decl_only)
             else:

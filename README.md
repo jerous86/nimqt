@@ -179,6 +179,7 @@ We now explain the differences:
   ```
 - The body definition does not follow the '=' like in regular nim code, but follows the ':' character.
 - If a parameter must be passed by c++ reference, use a `var` type.
+  If a parameter must be passed by const c++ pointer, use `const_ptr`.
   If a parameter must be passed by const c++ reference, use `const_var`.
 	E.g.
 	
@@ -189,6 +190,7 @@ We now explain the differences:
 	let txt = newMyTextEdit()
 	txt.connect(SIGNAL "highlighted(const QUrl &)", txt, SLOT "on_viewer_highlighted(const QUrl &)")
 	```
+    or see the example in `examples/seven_tasks.nim`.
 - `inheritQObject(Foo, QObject)` creates a new function `newFoo()` that can be used to create a `ptr Foo` instance.
 - `connect` can also connect to a functor. The syntax is very similar: `connect(object, SIGNAL "signalName", functor)`.
     An example of that can be found in `examples/hello.nim`.
