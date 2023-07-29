@@ -56,6 +56,10 @@ A screenshot of `examples/calc.nim`:
 
 <img width=200 alt="Screenshot of examples/calc.nim" src="https://github.com/jerous86/nimqt/blob/main/examples/calc.png?raw=true" />
 
+A screenshot of the circle draw example from [7GUIs: A GUI Programming Benchmark](https://eugenkiss.github.io/7guis/tasks), found in `examples/seven_tasks.nim`, :
+
+<img width=200 alt="Screenshot of examples/seven_tasks.nim / circle draw" src="https://github.com/jerous86/nimqt/blob/main/examples/seven_tasks.png?raw=true" />
+
 ## Documentation
 A more elaborate usage of nimqt can be found in `examples/text_view.nim` which has a lot of comments on the usage.
 

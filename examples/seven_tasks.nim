@@ -15,6 +15,7 @@ import nimqt/[qlabel, qtextedit, qpushbutton, qcheckbox, qlineedit, qtabwidget, 
 import nimqt/[qtablewidget,qstyleditemdelegate]
 import nimqt/qsortfilterproxymodel
 import nimqt/qabstractitemview
+import nimqt/qundostack
 import nimqt/qdatetime
 import nimqt/qtwidgets/[qgridlayout,qlayoutitem]
 import nimqt/qmenu
@@ -159,7 +160,7 @@ win.makeLayout:
                         - newQListView() as crudView at (1,0,4,2):
                             setEditTriggers(newQFlags(NoEditTriggers))
                             setModel(proxyModel)
-                            # TODO this requires QModelIndex to be not inheritable. Without it it will create a poitner instead of a reference
+                            # TODO this requires QModelIndex to be not inheritable. Without it it will create a pointer instead of a reference
                             handleSignal1(SIGNAL "clicked(const QModelIndex &)", idx:QModelIndex): onRowSelected(idx.row)
                             handleSignal1(SIGNAL "activated(const QModelIndex &)", idx:QModelIndex): onRowSelected(idx.row)
                         - newQLabel(Q"Name") at (1,2)
@@ -210,6 +211,7 @@ win.makeLayout:
                 adjustedCircle = -1
                 curR=20
             let
+                circleUndoStack=newQUndoStack()
                 circleWgSlider=newQWidget()
                 circleMenu=newQMenu(Q"Circle")
                 circleMenuAdjustDiameter=newQAction(Q"Adjust diameter ...")
@@ -219,13 +221,41 @@ win.makeLayout:
                 for i,c in circles:
                     if (p.x-c.x)*(p.x-c.x)+(p.y-c.y)*(p.y-c.y) <= c.r*c.r: return i
                 -1
+            
+            inheritObject(AddCircle, QUndoCommand, plainObject=true):
+                var circle:Circle
+                override undo(): circles.delete circles.len-1
+                override redo(): circles.add this.circle
+            inheritObject(ChangeDiameter, QUndoCommand, plainObject=true):
+                var i:int
+                var oldR:int
+                var newR:int
+                override undo(): circles[this.i].r=this.oldR
+                override redo(): circles[this.i].r=this.newR
+                const_override id():cint: cint(1000+this.i)
+                # Disable this method to avoid grouping, and have each change of diameter be an entry
+                override mergeWith(command: const_ptr QUndoCommand):bool:
+                    if command.id()!=this.id(): return false
+                    let next:ptr ChangeDiameter=cast[ptr ChangeDiameter](command)
+                    this.newR=next.newR
+                    true
+            
+            proc newAddCircleCommand(circle:Circle): ptr AddCircle =
+                result=newAddCircle()
+                result.circle=circle
+            proc newChangeDiameterCommand(i,oldR,newR:int): ptr ChangeDiameter =
+                result=newChangeDiameter()
+                result.i=i
+                result.oldR=oldR
+                result.newR=newR
+                
             inheritQObject(CirclesWidget, QWidget):
                 override mousePressEvent(event: ptr QMouseEvent):
                     let pos=(x:event.position.x.int, y:event.position.y.int)
                     let i=circles.insideCircle(pos)
                     if event.button()==LeftButton:
                         if i < 0:
-                            circles.add (x:pos.x, y:pos.y, r:curR)
+                            circleUndoStack.push(newAddCircleCommand((x:pos.x, y:pos.y, r:curR)))
                             this.update
                     elif event.button()==RightButton:
                         if i>=0:
@@ -243,17 +273,23 @@ win.makeLayout:
                         if i==selectedCircle:
                             painter.setBrush(newQBrush(newQColor(gray), SolidPattern))
                         else:
-                            painter.setBrush(newQBrush(newQColor(black), NoBrush))
+                            painter.setBrush(newQBrush(newQColor(gray), NoBrush))
                             
                         painter.drawEllipse(newQPointF(c.x.cfloat, c.y.cfloat), c.r.cfloat, c.r.cfloat)
             
             tabCircles.makeLayout:
                 - newQWidget():
                     - newQGridLayout():
-                        - newQPushButton(Q"Undo") as btnCirclesUndo at (0,1)
-                        - newQPushButton(Q"Redo") as btnCirclesRedo at (0,2)
                         - newCirclesWidget() as wgCircles at (1,0,1,4):
                             setMouseTracking(true)
+                        - newQPushButton(Q"Undo") as btnCirclesUndo at (0,1):
+                            handleSignal0(SIGNAL "clicked()"):
+                                circleUndoStack.undo()
+                                wgCircles.update
+                        - newQPushButton(Q"Redo") as btnCirclesRedo at (0,2):
+                            handleSignal0(SIGNAL "clicked()"):
+                                circleUndoStack.redo()
+                                wgCircles.update
         
             circleWgSlider.makeLayout:
                 #setParent(wgCircles)
@@ -263,14 +299,18 @@ win.makeLayout:
                     setMinimum(5.cint)
                     setMaximum(50.cint)
                     handleSignal1(SIGNAL "valueChanged(int)", value:int):
-                        circles[adjustedCircle].r=value
+                        let 
+                            oldR=circles[adjustedCircle].r
+                            newR=int(value/2)
+                        circles[adjustedCircle].r=newR
                         let c=circles[adjustedCircle]
                         circleSliderLabel.setText(Q(&"Adjust diameter of circle at ({c.x}, {c.y})"))
+                        circleUndoStack.push(newChangeDiameterCommand(adjustedCircle,oldR,newR))
                         wgCircles.update
             circleMenuAdjustDiameter.handleSignal0(SIGNAL "triggered()"):
                 circleWgSlider.show
                 let c=circles[adjustedCircle]
-                circleSlider.setValue(c.r.cint)
+                circleSlider.setValue(c.r.cint*2)
                 
             
         discardThis:
@@ -298,13 +338,13 @@ win.makeLayout:
                             tblSheet.setItem(r.cint, c.cint, newQTableWidgetItem(Q cell.dispValue.toUserString))
             updateSheet()
         
-        discard addTab(tabWidget, tabCircles, Q "Circles")
         discard addTab(tabWidget, tabCounter, Q "Counter")
         discard addTab(tabWidget, tabTempConverter, Q "Temp Converter")
         discard addTab(tabWidget, tabFlightBooker, Q "Flight booker")
         discard addTab(tabWidget, tabTimer, Q "Timer")
         discard addTab(tabWidget, tabCRUD, Q "CRUD")
         discard addTab(tabWidget, tabSheet, Q "Sheet")
+        discard addTab(tabWidget, tabCircles, Q "Circles")
 
 nimqt.insertAllSlotImplementations
 
