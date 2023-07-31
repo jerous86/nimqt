@@ -518,7 +518,7 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
     #echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
 
 template inheritQobject*(class:untyped, parentClass:untyped, body:untyped) =
-    inheritobject(class, parentClass, true, body)
+    inheritobject(class, parentClass, false, body)
 
 macro insertSlotImplementations*(className:string) =
     result=newNimNode(nnkStmtList)
