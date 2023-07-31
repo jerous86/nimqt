@@ -59,13 +59,17 @@ func requiredClassesRec(distr:string, distributions:Table[string,Distribution]):
         result.add p.requiredClassesRec(distributions)
     result = result.deduplicate
 
-var args:seq[string]
-var p = initOptParser(commandLineParams().join(" "))
+var 
+    args:seq[string]
+    p = initOptParser(commandLineParams().join(" "))
+    force = false
 for kind, key, val in p.getopt():
     case kind
     of cmdArgument: args.add key
     of cmdLongOption, cmdShortOption:
         case key.toLowerAscii.replace("_","").replace("-","")
+        of "f","force":
+            force=true
         of "distrs","distributions","printdistributions":
             # echo "# Available distributions"
             echo toSeq(distributions.keys).mapIt(it.splitFile.name).deduplicate.join("\n")
@@ -78,13 +82,14 @@ for kind, key, val in p.getopt():
             doAssert false, &"Invalid option {key}"
     of cmdEnd: assert(false) # cannot happen
 
-doAssert args.len==3, &"distr.nim expects 3 arguments: xmlInputDir, outputDir, distr"
+doAssert args.len>=3, &"distr.nim expects 3 arguments: xmlInputDir, outputDir, distr"
 let 
     # xmlInputDir/{qtcore,qtgui,...}/*.xml should exist
     # xmlInputDir/typeDb.txt should exist
     xmlInputDir = args[0]
     outputDir = args[1] # where to write the xml files to; e.g. qt/6.4.0/qt
     distr = args[2] # One of the available distributions above.
+    regenerates = args[3..^1] # We can specify the modules that must be regenerated, e.g. qtwidgets/qwidget
 
     # Location where all the files will be stored, except for nimqt.nim
     outputDir2 = &"{outputDir}/nimqt/"
@@ -167,7 +172,7 @@ for t in allRequiredTypes:
     let nimOutputFile = &"{outputDir2}/{t.component}/{t.module}.nim"
     let nimOutputFile2 = &"{outputDir2}/{t.module}.nim"
 
-    if nimOutputFile.fileExists and nimOutputFile2.fileExists:
+    if force==false and nimOutputFile.fileExists and nimOutputFile2.fileExists and &"{t.component}/{t.module}" notin regenerates:
         # echo "Skipping ",nimOutputFile,"\t\t",nimOutputFile2
         continue
     else:
