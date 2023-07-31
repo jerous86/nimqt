@@ -8,7 +8,7 @@ import macros
 import ast_pattern_matching
 
 import nimqt/nimqt_paths
-import nimqt/typeDb
+# import nimqt/typeDb
 
 template curFilePath(): string = instantiationInfo(0, fullPaths=true).filename
 {.passc: &"""-std=c++17 -I{curFilePath.parentDir}""".}
@@ -394,7 +394,7 @@ proc processVar(n:NimNode, class:NimNode, memberVariables:NimNode) =
         memberVariables.add x
 
 
-macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:untyped): typed =
+macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:untyped) =
     #echo &"\n\n\ninheritQobject {class.repr} {parentClass.repr} {plainObject} {body.repr.indent(4)}"
     result = newNimNode(nnkStmtList)
     let
@@ -517,7 +517,7 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
     
     #echo "\n\nResult of QObject macro: >>\n", result.repr.indent(4),"\n<<\n\n\n\n"
 
-template inheritQobject*(class:untyped, parentClass:untyped, body:untyped): typed =
+template inheritQobject*(class:untyped, parentClass:untyped, body:untyped) =
     inheritobject(class, parentClass, true, body)
 
 macro insertSlotImplementations*(className:string) =

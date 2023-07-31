@@ -2,7 +2,6 @@ import options
 import strutils
 import nre
 import strformat
-import sequtils
 import tables
 import sets
 
