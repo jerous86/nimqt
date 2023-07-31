@@ -26,3 +26,4 @@ proc constIterable*[Container](this: QIterable[Container]): ptr  {.header:header
 proc mutableIterable*[Container](this: QIterable[Container]): ptr  {.header:headerFile, importcpp:"#.mutableIterable(@)".} # Public
 proc size*[Container](this: QIterable[Container]): cint {.header:headerFile, importcpp:"#.size(@)".} # Public
 proc metaContainer*[Container](this: QIterable[Container]): Container {.header:headerFile, importcpp:"#.metaContainer(@)".} # Public
+

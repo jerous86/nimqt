@@ -25,3 +25,4 @@ proc exists*[Holder](this: QGlobalStatic[Holder]): bool {.header:headerFile, imp
 
 # Protected methods methods for QGlobalStatic
 proc static_QGlobalStatic_guardValue*[Holder](): QtGlobalStatic_GuardValues {.header:headerFile, importcpp:"QGlobalStatic::guardValue(@)".} # Protected static
+

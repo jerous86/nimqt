@@ -12,3 +12,4 @@ elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
         QGraphicsLayoutItem* {.header:headerFile,importcpp:"QGraphicsLayoutItem" ,pure,inheritable.} = object
 {.push warning[Deprecated]: on.}
 
+

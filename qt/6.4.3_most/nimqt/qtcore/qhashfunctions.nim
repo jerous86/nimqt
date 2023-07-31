@@ -23,3 +23,4 @@ proc newQHashSeed*(): QHashSeed {. header:headerFile, importcpp:"QHashSeed(@)", 
 proc static_QHashSeed_globalSeed*(): QHashSeed {.header:headerFile, importcpp:"QHashSeed::globalSeed(@)".} # Public static
 proc static_QHashSeed_setDeterministicGlobalSeed*() {.header:headerFile, importcpp:"QHashSeed::setDeterministicGlobalSeed(@)".} # Public static
 proc static_QHashSeed_resetRandomGlobalSeed*() {.header:headerFile, importcpp:"QHashSeed::resetRandomGlobalSeed(@)".} # Public static
+

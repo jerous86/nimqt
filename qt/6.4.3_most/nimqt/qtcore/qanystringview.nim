@@ -42,6 +42,7 @@ export qstring
 export qnamespace
 export qbytearray
 export qchar
+
 # Additional code for qtcore/qanystringview
 converter toQAnyStringView*(x:QString): QAnyStringView = newQAnyStringView(x)
 converter toQAnyStringView*(x:QByteArray): QAnyStringView = newQAnyStringView(x)

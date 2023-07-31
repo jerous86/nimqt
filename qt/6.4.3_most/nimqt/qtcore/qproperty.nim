@@ -45,3 +45,4 @@ proc newQBindable*[T](b: QUntypedBindable): ptr QBindable[T] {. header:headerFil
 # Public methods for QBindable
 proc value*[T](this: ptr QBindable[T]): T {.header:headerFile, importcpp:"#.value(@)".} # Public
 proc setValue*[T](this: ptr QBindable[T], value: T) {.header:headerFile, importcpp:"#.setValue(@)".} # Public
+

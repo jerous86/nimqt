@@ -21,3 +21,4 @@ proc newQRunnable*(): QRunnable {. header:headerFile, importcpp:"QRunnable(@)", 
 proc run*(this: QRunnable) {.header:headerFile, importcpp:"#.run(@)".} # Public
 proc autoDelete*(this: QRunnable): bool {.header:headerFile, importcpp:"#.autoDelete(@)".} # Public
 proc setAutoDelete*(this: QRunnable, autoDelete: bool) {.header:headerFile, importcpp:"#.setAutoDelete(@)".} # Public
+

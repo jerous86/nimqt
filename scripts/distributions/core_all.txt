@@ -1,0 +1,254 @@
+# This file is generated using
+# awk -F' -> ' '/(qtcore)\/.*class/ { print $3, "#", $0 }' qt/6/typeDb.txt
+# The class QScopedArrayPointer is commented out, for now, as it generated some error
+
+QReadWriteLock # qtcore/qreadwritelock -> class -> QReadWriteLock -> 
+QReadLocker # qtcore/qreadwritelock -> class -> QReadLocker -> 
+QWriteLocker # qtcore/qreadwritelock -> class -> QWriteLocker -> 
+QSequentialAnimationGroup # qtcore/qsequentialanimationgroup -> class -> QSequentialAnimationGroup -> QAnimationGroup
+QAbstractProxyModel # qtcore/qabstractproxymodel -> class -> QAbstractProxyModel -> QAbstractItemModel
+QAnyStringView # qtcore/qanystringview -> class -> QAnyStringView -> 
+QIODevice # qtcore/qiodevice -> class -> QIODevice -> QObject < QIODeviceBase
+QLocale # qtcore/qlocale -> class -> QLocale -> 
+QUuid # qtcore/quuid -> class -> QUuid -> 
+QEvent # qtcore/qcoreevent -> class -> QEvent -> 
+QEvent_InputEventTag # qtcore/qcoreevent -> class -> QEvent_InputEventTag -> 
+QEvent_PointerEventTag # qtcore/qcoreevent -> class -> QEvent_PointerEventTag -> 
+QEvent_SinglePointEventTag # qtcore/qcoreevent -> class -> QEvent_SinglePointEventTag -> 
+QTimerEvent # qtcore/qcoreevent -> class -> QTimerEvent -> QEvent
+QChildEvent # qtcore/qcoreevent -> class -> QChildEvent -> QEvent
+QDynamicPropertyChangeEvent # qtcore/qcoreevent -> class -> QDynamicPropertyChangeEvent -> QEvent
+QDeferredDeleteEvent # qtcore/qcoreevent -> class -> QDeferredDeleteEvent -> QEvent
+QSequentialIterable # qtcore/qsequentialiterable -> class -> QSequentialIterable -> 
+QFileDevice # qtcore/qfiledevice -> class -> QFileDevice -> QIODevice
+QSysInfo # qtcore/qsysinfo -> class -> QSysInfo -> 
+QInternal # qtcore/qnamespace -> class -> QInternal -> 
+QKeyCombination # qtcore/qnamespace -> class -> QKeyCombination -> 
+Qt_Disambiguated_t # qtcore/qnamespace -> class -> Qt_Disambiguated_t -> 
+QLibraryInfo # qtcore/qlibraryinfo -> class -> QLibraryInfo -> 
+QMetaContainer # qtcore/qmetacontainer -> class -> QMetaContainer -> 
+QMetaSequence # qtcore/qmetacontainer -> class -> QMetaSequence -> QMetaContainer
+QMetaAssociation # qtcore/qmetacontainer -> class -> QMetaAssociation -> QMetaContainer
+QListSpecialMethods # qtcore/qbytearraylist -> class -> QListSpecialMethods -> 
+QPluginLoader # qtcore/qpluginloader -> class -> QPluginLoader -> QObject
+QLibrary # qtcore/qlibrary -> class -> QLibrary -> QObject
+QRegularExpression # qtcore/qregularexpression -> class -> QRegularExpression -> 
+QRegularExpressionMatch # qtcore/qregularexpression -> class -> QRegularExpressionMatch -> 
+QCalendar # qtcore/qcalendar -> class -> QCalendar -> 
+QCalendar_YearMonthDay # qtcore/qcalendar -> class -> QCalendar_YearMonthDay -> 
+QCalendar_SystemId # qtcore/qcalendar -> class -> QCalendar_SystemId -> 
+QTemporaryFile # qtcore/qtemporaryfile -> class -> QTemporaryFile -> QFile
+QBitArray # qtcore/qbitarray -> class -> QBitArray -> 
+QBasicMutex # qtcore/qmutex -> class -> QBasicMutex -> 
+QMutex # qtcore/qmutex -> class -> QMutex -> QBasicMutex
+QRecursiveMutex # qtcore/qmutex -> class -> QRecursiveMutex -> 
+QMutexLocker # qtcore/qmutex -> class -> QMutexLocker -> 
+QProcessEnvironment # qtcore/qprocess -> class -> QProcessEnvironment -> 
+QProcess # qtcore/qprocess -> class -> QProcess -> QIODevice
+QTemporaryDir # qtcore/qtemporarydir -> class -> QTemporaryDir -> 
+QBasicTimer # qtcore/qbasictimer -> class -> QBasicTimer -> 
+QFutureInterfaceBase # qtcore/qfutureinterface -> class -> QFutureInterfaceBase -> 
+QFutureInterface # qtcore/qfutureinterface -> class -> QFutureInterface -> QFutureInterfaceBase
+QFutureInterface # qtcore/qfutureinterface -> class -> QFutureInterface -> QFutureInterfaceBase
+QLockFile # qtcore/qlockfile -> class -> QLockFile -> 
+QElapsedTimer # qtcore/qelapsedtimer -> class -> QElapsedTimer -> 
+QSharedData # qtcore/qshareddata -> class -> QSharedData -> 
+QAdoptSharedDataTag # qtcore/qshareddata -> class -> QAdoptSharedDataTag -> 
+QSharedDataPointer # qtcore/qshareddata -> class -> QSharedDataPointer -> 
+QExplicitlySharedDataPointer # qtcore/qshareddata -> class -> QExplicitlySharedDataPointer -> 
+QStringListModel # qtcore/qstringlistmodel -> class -> QStringListModel -> QAbstractListModel
+QTimeLine # qtcore/qtimeline -> class -> QTimeLine -> QObject
+QCryptographicHash # qtcore/qcryptographichash -> class -> QCryptographicHash -> 
+QFutureSynchronizer # qtcore/qfuturesynchronizer -> class -> QFutureSynchronizer -> 
+QFile # qtcore/qfile -> class -> QFile -> QFileDevice
+QGlobalStatic # qtcore/qglobalstatic -> class -> QGlobalStatic -> 
+QFileInfo # qtcore/qfileinfo -> class -> QFileInfo -> 
+QMacAutoReleasePool # qtcore/qglobal -> class -> QMacAutoReleasePool -> 
+QEventLoop # qtcore/qeventloop -> class -> QEventLoop -> QObject
+QEventLoopLocker # qtcore/qeventloop -> class -> QEventLoopLocker -> 
+QMargins # qtcore/qmargins -> class -> QMargins -> 
+QMarginsF # qtcore/qmargins -> class -> QMarginsF -> 
+QOperatingSystemVersionBase # qtcore/qoperatingsystemversion -> class -> QOperatingSystemVersionBase -> 
+QOperatingSystemVersion # qtcore/qoperatingsystemversion -> class -> QOperatingSystemVersion -> QOperatingSystemVersionBase
+QContiguousCacheData # qtcore/qcontiguouscache -> class -> QContiguousCacheData -> 
+QContiguousCacheTypedData # qtcore/qcontiguouscache -> class -> QContiguousCacheTypedData -> QContiguousCacheData
+QContiguousCache # qtcore/qcontiguouscache -> class -> QContiguousCache -> 
+QStringMatcher # qtcore/qstringmatcher -> class -> QStringMatcher -> 
+QTranslator # qtcore/qtranslator -> class -> QTranslator -> QObject
+QVariant # qtcore/qvariant -> class -> QVariant -> 
+QVariantRef # qtcore/qvariant -> class -> QVariantRef -> 
+QVariantConstPointer # qtcore/qvariant -> class -> QVariantConstPointer -> 
+QVariantPointer # qtcore/qvariant -> class -> QVariantPointer -> 
+QSharedMemory # qtcore/qsharedmemory -> class -> QSharedMemory -> QObject
+QAbstractNativeEventFilter # qtcore/qabstractnativeeventfilter -> class -> QAbstractNativeEventFilter -> 
+QScopeGuard # qtcore/qscopeguard -> class -> QScopeGuard -> 
+QSortFilterProxyModel # qtcore/qsortfilterproxymodel -> class -> QSortFilterProxyModel -> QAbstractProxyModel
+QSaveFile # qtcore/qsavefile -> class -> QSaveFile -> QFileDevice
+QByteArrayView # qtcore/qbytearrayview -> class -> QByteArrayView -> 
+QObjectCleanupHandler # qtcore/qobjectcleanuphandler -> class -> QObjectCleanupHandler -> QObject
+QUrlTwoFlags # qtcore/qurl -> class -> QUrlTwoFlags -> 
+QUrl # qtcore/qurl -> class -> QUrl -> 
+QVariantAnimation # qtcore/qvariantanimation -> class -> QVariantAnimation -> QAbstractAnimation
+QHashSeed # qtcore/qhashfunctions -> class -> QHashSeed -> 
+QResource # qtcore/qresource -> class -> QResource -> 
+QObjectData # qtcore/qobject -> class -> QObjectData -> 
+QObject # qtcore/qobject -> class -> QObject -> 
+QSignalBlocker # qtcore/qobject -> class -> QSignalBlocker -> 
+QSystemSemaphore # qtcore/qsystemsemaphore -> class -> QSystemSemaphore -> 
+QIODeviceBase # qtcore/qiodevicebase -> class -> QIODeviceBase -> 
+QLine # qtcore/qline -> class -> QLine -> 
+QLineF # qtcore/qline -> class -> QLineF -> 
+QPointer # qtcore/qpointer -> class -> QPointer -> 
+QCollatorSortKey # qtcore/qcollator -> class -> QCollatorSortKey -> 
+QCollator # qtcore/qcollator -> class -> QCollator -> 
+QHashDummyValue # qtcore/qhash -> class -> QHashDummyValue -> 
+QHash # qtcore/qhash -> class -> QHash -> 
+QMultiHash # qtcore/qhash -> class -> QMultiHash -> 
+QAbstractAnimation # qtcore/qabstractanimation -> class -> QAbstractAnimation -> QObject
+QAnimationDriver # qtcore/qabstractanimation -> class -> QAnimationDriver -> QObject
+QTaggedPointer # qtcore/qtaggedpointer -> class -> QTaggedPointer -> 
+QDebug # qtcore/qdebug -> class -> QDebug -> QIODeviceBase
+QDebugStateSaver # qtcore/qdebug -> class -> QDebugStateSaver -> 
+QNoDebug # qtcore/qdebug -> class -> QNoDebug -> 
+QMethodRawArguments # qtcore/qobjectdefs -> class -> QMethodRawArguments -> 
+QGenericArgument # qtcore/qobjectdefs -> class -> QGenericArgument -> 
+QGenericReturnArgument # qtcore/qobjectdefs -> class -> QGenericReturnArgument -> QGenericArgument
+QArgument # qtcore/qobjectdefs -> class -> QArgument -> QGenericArgument
+QReturnArgument # qtcore/qobjectdefs -> class -> QReturnArgument -> QGenericReturnArgument
+Connection # qtcore/qobjectdefs -> class -> Connection -> 
+QAnimationGroup # qtcore/qanimationgroup -> class -> QAnimationGroup -> QAbstractAnimation
+QMessageLogContext # qtcore/qlogging -> class -> QMessageLogContext -> 
+QMessageLogger # qtcore/qlogging -> class -> QMessageLogger -> 
+QStandardPaths # qtcore/qstandardpaths -> class -> QStandardPaths -> 
+QTextBoundaryFinder # qtcore/qtextboundaryfinder -> class -> QTextBoundaryFinder -> 
+QIterable # qtcore/qiterable -> class -> QIterable -> 
+QThread # qtcore/qthread -> class -> QThread -> QObject
+QXmlStreamAttribute # qtcore/qxmlstream -> class -> QXmlStreamAttribute -> 
+QXmlStreamAttributes # qtcore/qxmlstream -> class -> QXmlStreamAttributes -> 
+QXmlStreamNamespaceDeclaration # qtcore/qxmlstream -> class -> QXmlStreamNamespaceDeclaration -> 
+QXmlStreamNotationDeclaration # qtcore/qxmlstream -> class -> QXmlStreamNotationDeclaration -> 
+QXmlStreamEntityDeclaration # qtcore/qxmlstream -> class -> QXmlStreamEntityDeclaration -> 
+QXmlStreamEntityResolver # qtcore/qxmlstream -> class -> QXmlStreamEntityResolver -> 
+QXmlStreamReader # qtcore/qxmlstream -> class -> QXmlStreamReader -> 
+QXmlStreamWriter # qtcore/qxmlstream -> class -> QXmlStreamWriter -> 
+QThreadStorageData # qtcore/qthreadstorage -> class -> QThreadStorageData -> 
+QThreadStorage # qtcore/qthreadstorage -> class -> QThreadStorage -> 
+QFileSelector # qtcore/qfileselector -> class -> QFileSelector -> QObject
+QModelRoleData # qtcore/qabstractitemmodel -> class -> QModelRoleData -> 
+QModelRoleDataSpan # qtcore/qabstractitemmodel -> class -> QModelRoleDataSpan -> 
+QModelIndex # qtcore/qabstractitemmodel -> class -> QModelIndex -> 
+QPersistentModelIndex # qtcore/qabstractitemmodel -> class -> QPersistentModelIndex -> 
+QAbstractItemModel # qtcore/qabstractitemmodel -> class -> QAbstractItemModel -> QObject
+QAbstractTableModel # qtcore/qabstractitemmodel -> class -> QAbstractTableModel -> QAbstractItemModel
+QAbstractListModel # qtcore/qabstractitemmodel -> class -> QAbstractListModel -> QAbstractItemModel
+QRect # qtcore/qrect -> class -> QRect -> 
+QRectF # qtcore/qrect -> class -> QRectF -> 
+QStorageInfo # qtcore/qstorageinfo -> class -> QStorageInfo -> 
+QLatin1String # qtcore/qstring -> class -> QLatin1String -> 
+QString # qtcore/qstring -> class -> QString -> 
+QIdentityProxyModel # qtcore/qidentityproxymodel -> class -> QIdentityProxyModel -> QAbstractProxyModel
+QByteArray # qtcore/qbytearray -> class -> QByteArray -> 
+QCommandLineOption # qtcore/qcommandlineoption -> class -> QCommandLineOption -> 
+QPromise # qtcore/qpromise -> class -> QPromise -> 
+QFactoryInterface # qtcore/qfactoryinterface -> class -> QFactoryInterface -> 
+QRandomGenerator # qtcore/qrandom -> class -> QRandomGenerator -> 
+QRandomGenerator64 # qtcore/qrandom -> class -> QRandomGenerator64 -> QRandomGenerator
+QSize # qtcore/qsize -> class -> QSize -> 
+QSizeF # qtcore/qsize -> class -> QSizeF -> 
+QFutureWatcherBase # qtcore/qfuturewatcher -> class -> QFutureWatcherBase -> QObject
+QFutureWatcher # qtcore/qfuturewatcher -> class -> QFutureWatcher -> QFutureWatcherBase
+QJsonObject # qtcore/qjsonobject -> class -> QJsonObject -> 
+QItemSelectionRange # qtcore/qitemselectionmodel -> class -> QItemSelectionRange -> 
+QItemSelectionModel # qtcore/qitemselectionmodel -> class -> QItemSelectionModel -> QObject
+QItemSelection # qtcore/qitemselectionmodel -> class -> QItemSelection -> 
+QJsonArray # qtcore/qjsonarray -> class -> QJsonArray -> 
+QPauseAnimation # qtcore/qpauseanimation -> class -> QPauseAnimation -> QAbstractAnimation
+QLatin1Char # qtcore/qchar -> class -> QLatin1Char -> 
+QChar # qtcore/qchar -> class -> QChar -> 
+QUntypedPropertyBinding # qtcore/qproperty -> class -> QUntypedPropertyBinding -> 
+QUntypedBindable # qtcore/qproperty -> class -> QUntypedBindable -> 
+QBindable # qtcore/qproperty -> class -> QBindable -> QUntypedBindable
+QArrayData # qtcore/qarraydata -> class -> QArrayData -> 
+QSettings # qtcore/qsettings -> class -> QSettings -> QObject
+QEasingCurve # qtcore/qeasingcurve -> class -> QEasingCurve -> 
+QScopedValueRollback # qtcore/qscopedvaluerollback -> class -> QScopedValueRollback -> 
+QSharedPointer # qtcore/qsharedpointer -> class -> QSharedPointer -> 
+QWeakPointer # qtcore/qsharedpointer -> class -> QWeakPointer -> 
+QEnableSharedFromThis # qtcore/qsharedpointer -> class -> QEnableSharedFromThis -> 
+QMap # qtcore/qmap -> class -> QMap -> 
+QMultiMap # qtcore/qmap -> class -> QMultiMap -> 
+QFlag # qtcore/qflags -> class -> QFlag -> 
+QIncompatibleFlag # qtcore/qflags -> class -> QIncompatibleFlag -> 
+QFlags # qtcore/qflags -> class -> QFlags -> 
+QStack # qtcore/qstack -> class -> QStack -> QList<T>
+QThreadPool # qtcore/qthreadpool -> class -> QThreadPool -> QObject
+QWaitCondition # qtcore/qwaitcondition -> class -> QWaitCondition -> 
+QDate # qtcore/qdatetime -> class -> QDate -> 
+QTime # qtcore/qdatetime -> class -> QTime -> 
+QDateTime # qtcore/qdatetime -> class -> QDateTime -> 
+QJsonParseError # qtcore/qjsondocument -> class -> QJsonParseError -> 
+QJsonDocument # qtcore/qjsondocument -> class -> QJsonDocument -> 
+QPluginMetaData # qtcore/qplugin -> class -> QPluginMetaData -> 
+QPluginMetaData_Header # qtcore/qplugin -> class -> QPluginMetaData_Header -> 
+QPluginMetaData_MagicHeader # qtcore/qplugin -> class -> QPluginMetaData_MagicHeader -> 
+QPluginMetaData_ElfNoteHeader # qtcore/qplugin -> class -> QPluginMetaData_ElfNoteHeader -> 
+QStaticPlugin # qtcore/qplugin -> class -> QStaticPlugin -> 
+QPluginMetaDataV2 # qtcore/qplugin -> class -> QPluginMetaDataV2 -> 
+QPluginMetaDataV2_ElfNotePayload # qtcore/qplugin -> class -> QPluginMetaDataV2_ElfNotePayload -> QPluginMetaData_ElfNoteHeader
+QPluginMetaDataV2_RegularPayload # qtcore/qplugin -> class -> QPluginMetaDataV2_RegularPayload -> QPluginMetaData_MagicHeader
+QPluginMetaDataV2_StaticPayload # qtcore/qplugin -> class -> QPluginMetaDataV2_StaticPayload -> 
+QList # qtcore/qlist -> class -> QList -> 
+QList_DisableRValueRefs # qtcore/qlist -> class -> QList_DisableRValueRefs -> 
+QMimeDatabase # qtcore/qmimedatabase -> class -> QMimeDatabase -> 
+QSocketNotifier # qtcore/qsocketnotifier -> class -> QSocketNotifier -> QObject
+QSocketDescriptor # qtcore/qsocketnotifier -> class -> QSocketDescriptor -> 
+QDir # qtcore/qdir -> class -> QDir -> 
+QFileSystemWatcher # qtcore/qfilesystemwatcher -> class -> QFileSystemWatcher -> QObject
+QSemaphore # qtcore/qsemaphore -> class -> QSemaphore -> 
+QSemaphoreReleaser # qtcore/qsemaphore -> class -> QSemaphoreReleaser -> 
+QStringList # qtcore/qstringlist -> class -> QStringList -> 
+QUrlQuery # qtcore/qurlquery -> class -> QUrlQuery -> 
+QJsonValue # qtcore/qjsonvalue -> class -> QJsonValue -> 
+QJsonValueConstRef # qtcore/qjsonvalue -> class -> QJsonValueConstRef -> 
+QDataStream # qtcore/qdatastream -> class -> QDataStream -> QIODeviceBase
+QSet # qtcore/qset -> class -> QSet -> 
+QTransposeProxyModel # qtcore/qtransposeproxymodel -> class -> QTransposeProxyModel -> QAbstractProxyModel
+QConcatenateTablesProxyModel # qtcore/qconcatenatetablesproxymodel -> class -> QConcatenateTablesProxyModel -> QAbstractItemModel
+QMessageAuthenticationCode # qtcore/qmessageauthenticationcode -> class -> QMessageAuthenticationCode -> 
+QMimeType # qtcore/qmimetype -> class -> QMimeType -> 
+QTimer # qtcore/qtimer -> class -> QTimer -> QObject
+QVersionNumber # qtcore/qversionnumber -> class -> QVersionNumber -> 
+QTypeRevision # qtcore/qversionnumber -> class -> QTypeRevision -> 
+QQueue # qtcore/qqueue -> class -> QQueue -> QList<T>
+QTimeZone # qtcore/qtimezone -> class -> QTimeZone -> 
+QTimeZone_OffsetData # qtcore/qtimezone -> class -> QTimeZone_OffsetData -> 
+QCommandLineParser # qtcore/qcommandlineparser -> class -> QCommandLineParser -> 
+QAssociativeIterable # qtcore/qassociativeiterable -> class -> QAssociativeIterable -> 
+QFuture # qtcore/qfuture -> class -> QFuture -> 
+QMimeData # qtcore/qmimedata -> class -> QMimeData -> QObject
+QPoint # qtcore/qpoint -> class -> QPoint -> 
+QPointF # qtcore/qpoint -> class -> QPointF -> 
+QDeadlineTimer # qtcore/qdeadlinetimer -> class -> QDeadlineTimer -> 
+QTextStream # qtcore/qtextstream -> class -> QTextStream -> QIODeviceBase
+QAbstractEventDispatcher # qtcore/qabstracteventdispatcher -> class -> QAbstractEventDispatcher -> QObject
+QCache # qtcore/qcache -> class -> QCache -> 
+QCache_Value # qtcore/qcache -> class -> QCache_Value -> 
+QCache_Chain # qtcore/qcache -> class -> QCache_Chain -> 
+QBindingStatus # qtcore/qbindingstorage -> class -> QBindingStatus -> 
+QBindingStorage # qtcore/qbindingstorage -> class -> QBindingStorage -> 
+QByteArrayMatcher # qtcore/qbytearraymatcher -> class -> QByteArrayMatcher -> 
+QSignalMapper # qtcore/qsignalmapper -> class -> QSignalMapper -> QObject
+QBuffer # qtcore/qbuffer -> class -> QBuffer -> QIODevice
+QScopedPointerDeleter # qtcore/qscopedpointer -> class -> QScopedPointerDeleter -> 
+QScopedPointerArrayDeleter # qtcore/qscopedpointer -> class -> QScopedPointerArrayDeleter -> 
+QScopedPointerPodDeleter # qtcore/qscopedpointer -> class -> QScopedPointerPodDeleter -> 
+QScopedPointerObjectDeleteLater # qtcore/qscopedpointer -> class -> QScopedPointerObjectDeleteLater -> 
+QScopedPointer # qtcore/qscopedpointer -> class -> QScopedPointer -> 
+# QScopedArrayPointer # qtcore/qscopedpointer -> class -> QScopedArrayPointer -> QScopedPointer<T, Cleanup>
+QParallelAnimationGroup # qtcore/qparallelanimationgroup -> class -> QParallelAnimationGroup -> QAnimationGroup
+QRunnable # qtcore/qrunnable -> class -> QRunnable -> 
+q20_identity # qtcore/q20functional -> class -> q20_identity -> 
+q20_identity_is_transparent # qtcore/q20functional -> class -> q20_identity_is_transparent -> 
+q20_remove_cvref # qtcore/q20functional -> class -> q20_remove_cvref -> 
+QCoreApplication # qtcore/qcoreapplication -> class -> QCoreApplication -> QObject
+QPartialOrdering # qtcore/qcompare -> class -> QPartialOrdering -> 

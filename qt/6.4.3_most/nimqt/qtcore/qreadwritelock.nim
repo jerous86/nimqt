@@ -52,3 +52,4 @@ proc newQWriteLocker*(readWriteLock: ptr QReadWriteLock): QWriteLocker {. header
 proc unlock*(this: QWriteLocker) {.header:headerFile, importcpp:"#.unlock(@)".} # Public
 proc relock*(this: QWriteLocker) {.header:headerFile, importcpp:"#.relock(@)".} # Public
 proc readWriteLock*(this: QWriteLocker): ptr QReadWriteLock {.header:headerFile, importcpp:"#.readWriteLock(@)".} # Public
+

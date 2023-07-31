@@ -16,3 +16,4 @@ elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
         q20_remove_cvref*[T] {.header:headerFile,importcpp:"q20::remove_cvref" ,pure,inheritable.} = object
 {.push warning[Deprecated]: on.}
 
+

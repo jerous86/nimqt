@@ -58,3 +58,4 @@ proc typeInterpretation*(this: QPixelFormat): QPixelFormat_TypeInterpretation {.
 proc byteOrder*(this: QPixelFormat): QPixelFormat_ByteOrder {.header:headerFile, importcpp:"#.byteOrder(@)".} # Public
 proc yuvLayout*(this: QPixelFormat): QPixelFormat_YUVLayout {.header:headerFile, importcpp:"#.yuvLayout(@)".} # Public
 proc subEnum*(this: QPixelFormat): char {.header:headerFile, importcpp:"#.subEnum(@)".} # Public
+

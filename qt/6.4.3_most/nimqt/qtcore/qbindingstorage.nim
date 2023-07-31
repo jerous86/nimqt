@@ -22,3 +22,4 @@ proc newQBindingStorage*(): QBindingStorage {. header:headerFile, importcpp:"QBi
 # Public methods for QBindingStorage
 proc isEmpty*(this: QBindingStorage): bool {.header:headerFile, importcpp:"#.isEmpty(@)".} # Public
 proc isValid*(this: QBindingStorage): bool {.header:headerFile, importcpp:"#.isValid(@)".} # Public
+

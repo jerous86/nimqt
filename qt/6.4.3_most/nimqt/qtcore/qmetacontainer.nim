@@ -69,3 +69,4 @@ proc canGetMappedAtKey*(this: ptr QMetaAssociation): bool {.header:headerFile, i
 proc mappedAtKey*(this: ptr QMetaAssociation, container: ptr, key: ptr, mapped: ptr) {.header:headerFile, importcpp:"#.mappedAtKey(@)".} # Public
 proc canSetMappedAtKey*(this: ptr QMetaAssociation): bool {.header:headerFile, importcpp:"#.canSetMappedAtKey(@)".} # Public
 proc setMappedAtKey*(this: ptr QMetaAssociation, container: ptr, key: ptr, mapped: ptr) {.header:headerFile, importcpp:"#.setMappedAtKey(@)".} # Public
+

@@ -20,3 +20,4 @@ proc newQScopeGuard*[F](other: QScopeGuard[F]): QScopeGuard[F] {. header:headerF
 
 # Public methods for QScopeGuard
 proc dismiss*[F](this: QScopeGuard[F]) {.header:headerFile, importcpp:"#.dismiss(@)".} # Public
+

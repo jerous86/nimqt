@@ -27,3 +27,4 @@ proc tag*[T, Tag](this: QTaggedPointer[T, Tag]): Tag {.header:headerFile, import
 proc data*[T, Tag](this: QTaggedPointer[T, Tag]): ptr T {.header:headerFile, importcpp:"#.data(@)".} # Public
 proc isNull*[T, Tag](this: QTaggedPointer[T, Tag]): bool {.header:headerFile, importcpp:"#.isNull(@)".} # Public
 proc swap*[T, Tag](this: QTaggedPointer[T, Tag], other: QTaggedPointer[T, Tag]) {.header:headerFile, importcpp:"#.swap(@)".} # Public
+

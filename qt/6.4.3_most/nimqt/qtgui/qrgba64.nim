@@ -40,3 +40,4 @@ proc toArgb32*(this: QRgba64): cuint {.header:headerFile, importcpp:"#.toArgb32(
 proc toRgb16*(this: QRgba64): cushort {.header:headerFile, importcpp:"#.toRgb16(@)".} # Public
 proc premultiplied*(this: QRgba64): QRgba64 {.header:headerFile, importcpp:"#.premultiplied(@)".} # Public
 proc unpremultiplied*(this: QRgba64): QRgba64 {.header:headerFile, importcpp:"#.unpremultiplied(@)".} # Public
+

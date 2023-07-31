@@ -92,6 +92,7 @@ export qwidget
 export qobject
 export qcoreevent
 export qpalette
+
 # Additional code for qtwidgets/qapplication
 proc exec*(nimQObject:ptr QApplication):cint {.header:headerFile, importcpp: "#.exec()".}
 

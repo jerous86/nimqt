@@ -50,3 +50,4 @@ proc newQSemaphoreReleaser*(other: QSemaphoreReleaser): QSemaphoreReleaser {. he
 proc swap*(this: QSemaphoreReleaser, other: QSemaphoreReleaser) {.header:headerFile, importcpp:"#.swap(@)".} # Public
 proc semaphore*(this: QSemaphoreReleaser): ptr QSemaphore {.header:headerFile, importcpp:"#.semaphore(@)".} # Public
 proc cancel*(this: QSemaphoreReleaser): ptr QSemaphore {.header:headerFile, importcpp:"#.cancel(@)".} # Public
+

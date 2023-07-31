@@ -79,7 +79,7 @@ const customization_footer = {
         """,
     "qtcore/qlist": """
         func len*[T](list: QList[T]): int = list.size
-        func add*[T](list: var QList[T], x:T) = list.push_back x
+        func add*[T](list: QList[T], x:T) = list.push_back x
         iterator items*[T](list: QList[T]): T =
             for i in 0..<list.len: yield list.at(i.cint)
         """,
@@ -139,8 +139,10 @@ const customization_footer = {
                     except: discard
 
         import sets
+        import macros
+        macro enumFullArray(a: typed): untyped = newNimNode(nnkBracket).add(a.getType[1][1..^1])
         func toHashSet*[Enum](this: QFlags[Enum]): HashSet[Enum] =
-            for e in Enum:
+            for e in enumFullArray(Enum):
                 if this.testFlag(e): 
                     try: result.incl e
                     except: discard
@@ -207,10 +209,21 @@ const customization_noninheritable:HashSet[string] = [
     "qtcore/qstring class QString",
     ].toHashSet
 
+# These classes must be inheritable.
+const customization_forceInheritable:HashSet[string] = [
+    "qtcore/qabstractitemmodel class QModelIndex",
+    ].toHashSet
+
 # These types are always pointer types
 const customization_pointer_type:HashSet[string] = [
         "qtwidgets/qlistwidget class QListWidgetItem",
         "qtwidgets/qtablewidget class QTableWidgetItem",
+        "qtgui/qundostack class QUndoCommand",
+    ].toHashSet
+
+# These types should never be a pointer type
+const customization_nonpointer_type:HashSet[string] = [
+        "qtgui/qpainter class QPainter",
     ].toHashSet
 
 # skips.component = component
@@ -478,7 +491,7 @@ func typeDecl*(c:ClassData, state:State, imports:var HashSet[string], version:in
 
     if id in customization_noninheritable:
         objInheritance = "object"
-    elif #[c.pureObject or ]# parentObj.len==0:
+    elif #[c.pureObject or ]# parentObj.len==0 or (id in customization_forceInheritable):
         pragmas.add "pure"
         if version==0:
             objInheritance = "object {.inheritable.}"
@@ -768,7 +781,8 @@ when true:
     func toNim*(x:ConstructorData, c:ClassData, state:State): seq[CallableData] =
         let tpls=c.allTypes.templateParams
         let id = &"{state.component}/{state.module} class {c.nimName}"
-        let shouldBePtr=state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (id in customization_pointer_type)
+        let shouldBePtr=(id notin customization_nonpointer_type) and
+            (state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (id in customization_pointer_type))
 
         if x.numDefaultParameters>0:
             result.add(CallableData(suffix: &"# {x.numDefaultParameters} default parameters!"))
@@ -797,7 +811,8 @@ when true:
     # E.g. template<class Enum> class QFlags { QFlags &operator&=(int mask); };
     func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[CallableData] =
         let id = &"{state.component}/{state.module} class {c.nimName}"
-        let shouldBePtr=state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (id in customization_pointer_type)
+        let shouldBePtr=(id notin customization_nonpointer_type) and
+            (state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (id in customization_pointer_type))
         let retType = x.retType.toNim(c)
         let tpls=c.allTypes.templateParams
         # let finalType=(if shouldBePtr: "ptr " else: "") & &"{c.nimName}{tpls}"
@@ -1052,6 +1067,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
         xs.add ""
         #for i in file.module.headerExports: xs.add &"export {i.splitFile.name}"
         for i in imports: xs.add &"export {i.splitFile.name}"
+        xs.add ""
         
     block:
         let id = &"{state.component}/{state.module}"

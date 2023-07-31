@@ -61,3 +61,4 @@ proc `*=`*(this: QPointF, c: cfloat): QPointF {.header:headerFile, importcpp:"#.
 proc `/=`*(this: QPointF, c: cfloat): QPointF {.header:headerFile, importcpp:"#.operator/=(@)".} # Public
 proc static_QPointF_dotProduct*(p1: QPointF, p2: QPointF): cfloat {.header:headerFile, importcpp:"QPointF::dotProduct(@)".} # Public static
 proc toPoint*(this: QPointF): QPoint {.header:headerFile, importcpp:"#.toPoint(@)".} # Public
+

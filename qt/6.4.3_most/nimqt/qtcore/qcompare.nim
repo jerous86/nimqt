@@ -12,3 +12,4 @@ elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
         QPartialOrdering* {.header:headerFile,importcpp:"QPartialOrdering" ,pure,inheritable.} = object
 {.push warning[Deprecated]: on.}
 
+

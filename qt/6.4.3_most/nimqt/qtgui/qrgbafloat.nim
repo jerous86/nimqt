@@ -51,3 +51,4 @@ proc alpha16*[F](this: QRgbaFloat[F]): cushort {.header:headerFile, importcpp:"#
 proc premultiplied*[F](this: QRgbaFloat[F]): QRgbaFloat[F] {.header:headerFile, importcpp:"#.premultiplied(@)".} # Public
 proc unpremultiplied*[F](this: QRgbaFloat[F]): QRgbaFloat[F] {.header:headerFile, importcpp:"#.unpremultiplied(@)".} # Public
 proc `!=`*[F](this: QRgbaFloat[F], f: QRgbaFloat[F]): bool {.header:headerFile, importcpp:"#.operator!=(@)".} # Public
+

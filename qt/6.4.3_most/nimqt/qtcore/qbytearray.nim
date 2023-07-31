@@ -258,6 +258,7 @@ export qbytearrayview
 export qnamespace
 export qlist
 export qflags
+
 # Additional code for qtcore/qbytearray
 func newQByteArray*(xs: seq[char]): QbyteArray = (if xs.len>0: newQByteArray(xs[0].unsafeAddr, xs.len.cint) else: newQByteArray())
 func len*(list: QByteArray): int = list.size

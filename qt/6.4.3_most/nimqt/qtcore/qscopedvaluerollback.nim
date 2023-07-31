@@ -20,3 +20,4 @@ proc newQScopedValueRollback*[T](`var`: T, value: T): QScopedValueRollback[T] {.
 
 # Public methods for QScopedValueRollback
 proc commit*[T](this: QScopedValueRollback[T]) {.header:headerFile, importcpp:"#.commit(@)".} # Public
+

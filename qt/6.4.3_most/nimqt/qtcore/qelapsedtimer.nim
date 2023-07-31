@@ -36,3 +36,4 @@ proc hasExpired*(this: QElapsedTimer, timeout: clonglong): bool {.header:headerF
 proc msecsSinceReference*(this: QElapsedTimer): clonglong {.header:headerFile, importcpp:"#.msecsSinceReference(@)".} # Public
 proc msecsTo*(this: QElapsedTimer, other: QElapsedTimer): clonglong {.header:headerFile, importcpp:"#.msecsTo(@)".} # Public
 proc secsTo*(this: QElapsedTimer, other: QElapsedTimer): clonglong {.header:headerFile, importcpp:"#.secsTo(@)".} # Public
+

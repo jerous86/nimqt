@@ -112,6 +112,7 @@ export qobject
 export qcoreevent
 export qpalette
 export qicon
+
 # Additional code for qtgui/qguiapplication
 # params refers to the arguments given on the command line. The binary is added in this proc!
 template newQGuiApplication*(args:seq[string]): ptr QGuiApplication =

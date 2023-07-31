@@ -75,3 +75,4 @@ proc swap*[T](this: QExplicitlySharedDataPointer[T], other: QExplicitlySharedDat
 
 # Protected methods methods for QExplicitlySharedDataPointer
 proc clone*[T](this: QExplicitlySharedDataPointer[T]): ptr T {.header:headerFile, importcpp:"#.clone(@)".} # Protected
+

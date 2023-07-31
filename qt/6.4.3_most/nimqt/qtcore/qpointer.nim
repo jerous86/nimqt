@@ -26,3 +26,4 @@ proc `->`*[T](this: QPointer[T]): ptr T {.header:headerFile, importcpp:"#.operat
 proc `*`*[T](this: QPointer[T]): T {.header:headerFile, importcpp:"#.operator*(@)".} # Public
 proc isNull*[T](this: QPointer[T]): bool {.header:headerFile, importcpp:"#.isNull(@)".} # Public
 proc clear*[T](this: QPointer[T]) {.header:headerFile, importcpp:"#.clear(@)".} # Public
+

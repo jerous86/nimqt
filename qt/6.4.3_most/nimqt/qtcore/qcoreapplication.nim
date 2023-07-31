@@ -101,6 +101,7 @@ export qnamespace
 export qabstractnativeeventfilter
 export qobject
 export qcoreevent
+
 # Additional code for qtcore/qcoreapplication
 # params refers to the arguments given on the command line. The binary is added in this proc!
 template newQCoreApplication*(args:seq[string]): ptr QCoreApplication =

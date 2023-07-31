@@ -37,3 +37,4 @@ type
 
 # Public constructors for QMacAutoReleasePool
 proc newQMacAutoReleasePool*(): QMacAutoReleasePool {. header:headerFile, importcpp:"QMacAutoReleasePool(@)", constructor .} #
+

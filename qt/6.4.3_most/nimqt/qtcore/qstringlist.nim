@@ -10,6 +10,7 @@ type
 
 
 export qlist
+
 # Additional code for qtcore/qstringlist
 proc newQStringList*(): QStringList = QStringList()
 # Making it a template for recursive module dependency reasons ...

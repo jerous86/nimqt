@@ -279,6 +279,9 @@ const skipRules* = @[
     "qstringconverter","QStringConverter",
     ".*qaccessible.*",
     ".*qvulkan.*",
+    "+.*setLocale.*",
+    "+"&newCm(".*",".*").id_method("(read|write)",".*",".*"),
+    "+QTree.*(setCurrentItem|setSelectionModel|setSelection|selectionChanged).*",
     ]
 
 # E.g. QAccessible::Event is an enum, while QAccessibleEvent is a class.
@@ -295,18 +298,18 @@ func replaceSpecialTypes*(t:string): string =
     if typeReplacements.hasKey(t): typeReplacements[t]
     else: t
 
-func skippable*(s:string, cm:CompMod, matchType:MatchType, debug:bool=false): bool =
+func skippable*(s:string, cm:CompMod, matchType:MatchType, debugLevel:int=0): bool =
     let rules:seq[(bool,nre.Regex)] = skipRules.mapIt((it[0]!='+', nre.re (if it[0]=='+': it[1..^1] else: it)))
     let finalId=cm.id(matchType, s)
     result=false
     for i,(skipIfMatch,rgx) in rules:
         if finalId.find(rgx).isSome:
             result=skipIfMatch
-            if debug: debugEcho &"{matchType} '{s}' --> {result} due to rule '{skipRules[i]}'"
+            if debugLevel>=1: debugEcho &"{matchType} '{s}' --> {result} due to rule '{skipRules[i]}'"
             break
         else:
-            if debug: debugEcho &"{matchType} '{s}' does not match '{skipRules[i]}', so ignoring it!"
-    if debug: debugEcho &"{matchType} '{s}' --> {result}"
+            if debugLevel>=2: debugEcho &"{matchType} '{s}' does not match '{skipRules[i]}', so ignoring it!"
+    if debugLevel>=1: debugEcho &"{matchType} '{s}' --> FINAL RESULT: {result}"
 
 when false:
     var component*,module*:string

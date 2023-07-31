@@ -60,3 +60,4 @@ proc unlock*[Mutex](this: QMutexLocker[Mutex]) {.header:headerFile, importcpp:"#
 proc relock*[Mutex](this: QMutexLocker[Mutex]) {.header:headerFile, importcpp:"#.relock(@)".} # Public
 proc swap*[Mutex](this: QMutexLocker[Mutex], other: QMutexLocker[Mutex]) {.header:headerFile, importcpp:"#.swap(@)".} # Public
 proc mutex*[Mutex](this: QMutexLocker[Mutex]): ptr Mutex {.header:headerFile, importcpp:"#.mutex(@)".} # Public
+

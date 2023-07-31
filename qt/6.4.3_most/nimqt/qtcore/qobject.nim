@@ -116,6 +116,7 @@ export qvariant
 export qanystringview
 export qbindingstorage
 export qcoreevent
+
 # Additional code for qtcore/qobject
 proc connect*(src:ptr QObject, signal:cstring, dst:ptr QObject, mth:cstring, `type`=AutoConnection) {.header:headerFile ,importcpp:"QObject::connect(@)".}
 proc connect*(src:ptr QObject, signal:string, dst:ptr QObject, mth:string, `type`=AutoConnection) = connect(src, signal.cstring, dst, mth.cstring, `type`)
@@ -156,6 +157,4 @@ macro connect*[OBJ,FUN](src:ptr OBJ, signal: string, functor:FUN) =
         `helperName`(`src`, `objType`, `signalName`, `functor`)
     result[0][0]=helperName # Change the 'proc helperName' to 'proc ' with the dynamic helperName
 
-
 proc event*(nimQObject:ptr QObject, e:ptr QEvent): bool {.header:headerFile , importcpp:"#.event(@)".}
-

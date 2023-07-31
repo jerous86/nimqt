@@ -60,3 +60,4 @@ proc static_QRandomGenerator_securelySeeded*(): QRandomGenerator {.header:header
 
 # Public methods for QRandomGenerator64
 proc generate*(this: ptr QRandomGenerator64): culonglong {.header:headerFile, importcpp:"#.generate(@)".} # Public
+

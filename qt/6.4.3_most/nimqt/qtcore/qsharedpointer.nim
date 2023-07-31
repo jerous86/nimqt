@@ -55,3 +55,4 @@ proc lock*[T](this: QWeakPointer[T]): QSharedPointer[T] {.header:headerFile, imp
 
 # Public methods for QEnableSharedFromThis
 proc sharedFromThis*[T](this: QEnableSharedFromThis[T]): QSharedPointer[T] {.header:headerFile, importcpp:"#.sharedFromThis(@)".} # Public
+

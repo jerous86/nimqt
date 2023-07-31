@@ -57,3 +57,4 @@ proc removeLast*[T](this: QContiguousCache[T]) {.header:headerFile, importcpp:"#
 proc takeLast*[T](this: QContiguousCache[T]): T {.header:headerFile, importcpp:"#.takeLast(@)".} # Public
 proc areIndexesValid*[T](this: QContiguousCache[T]): bool {.header:headerFile, importcpp:"#.areIndexesValid(@)".} # Public
 proc normalizeIndexes*[T](this: QContiguousCache[T]) {.header:headerFile, importcpp:"#.normalizeIndexes(@)".} # Public
+

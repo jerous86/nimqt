@@ -52,3 +52,4 @@ proc newQReturnArgument*[T](aName: ptr char, aData: T): ptr QReturnArgument[T] {
 
 # Public constructors for Connection
 proc newConnection*(): Connection {. header:headerFile, importcpp:"Connection(@)", constructor .} #
+

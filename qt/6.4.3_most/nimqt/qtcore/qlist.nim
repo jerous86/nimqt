@@ -87,6 +87,7 @@ proc toList*[T](this: QList[T]): QList[T] {.header:headerFile, importcpp:"#.toLi
 proc static_QList_fromVector*[T](vector: QList[T]): QList[T] {.header:headerFile, importcpp:"QList::fromVector(@)".} # Public static
 proc toVector*[T](this: QList[T]): QList[T] {.header:headerFile, importcpp:"#.toVector(@)".} # Public
 
+
 # Additional code for qtcore/qlist
 func len*[T](list: QList[T]): int = list.size
 func add*[T](list: QList[T], x:T) = list.push_back x

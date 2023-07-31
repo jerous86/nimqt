@@ -29,3 +29,4 @@ proc newQThreadStorage*[T](): QThreadStorage[T] {. header:headerFile, importcpp:
 proc hasLocalData*[T](this: QThreadStorage[T]): bool {.header:headerFile, importcpp:"#.hasLocalData(@)".} # Public
 proc localData*[T](this: QThreadStorage[T]): T {.header:headerFile, importcpp:"#.localData(@)".} # Public
 proc setLocalData*[T](this: QThreadStorage[T], t: T) {.header:headerFile, importcpp:"#.setLocalData(@)".} # Public
+

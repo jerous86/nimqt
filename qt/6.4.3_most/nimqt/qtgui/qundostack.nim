@@ -19,25 +19,25 @@ elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
 
 # Public constructors for QUndoCommand
 # 1 default parameters!
-proc newQUndoCommand*(parent: ptr QUndoCommand): ptr QUndoCommand {. header:headerFile, importcpp:"new QUndoCommand(@)", constructor .} #
-proc newQUndoCommand*(): ptr QUndoCommand {. header:headerFile, importcpp:"new QUndoCommand(@)", constructor .} #
+proc newQUndoCommand*(parent: ptr QUndoCommand): ptr QUndoCommand {. header:headerFile, importcpp:"new QUndoCommand(@)" .} #
+proc newQUndoCommand*(): ptr QUndoCommand {. header:headerFile, importcpp:"new QUndoCommand(@)" .} #
 import nimqt/qtcore/qstring
 # 1 default parameters!
-proc newQUndoCommand*(text: QString, parent: ptr QUndoCommand): ptr QUndoCommand {. header:headerFile, importcpp:"QUndoCommand(@)", constructor .} #
-proc newQUndoCommand*(text: QString): ptr QUndoCommand {. header:headerFile, importcpp:"QUndoCommand(@)", constructor .} #
+proc newQUndoCommand*(text: QString, parent: ptr QUndoCommand): ptr QUndoCommand {. header:headerFile, importcpp:"new QUndoCommand(@)" .} #
+proc newQUndoCommand*(text: QString): ptr QUndoCommand {. header:headerFile, importcpp:"new QUndoCommand(@)" .} #
 
 # Public methods for QUndoCommand
 proc undo*(this: ptr QUndoCommand) {.header:headerFile, importcpp:"#.undo(@)".} # Public
 proc redo*(this: ptr QUndoCommand) {.header:headerFile, importcpp:"#.redo(@)".} # Public
 proc text*(this: ptr QUndoCommand): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
 proc actionText*(this: ptr QUndoCommand): QString {.header:headerFile, importcpp:"#.actionText(@)".} # Public
-proc setText*(this: QUndoCommand, text: QString) {.header:headerFile, importcpp:"#.setText(@)".} # Public
-proc isObsolete*(this: QUndoCommand): bool {.header:headerFile, importcpp:"#.isObsolete(@)".} # Public
-proc setObsolete*(this: QUndoCommand, obsolete: bool) {.header:headerFile, importcpp:"#.setObsolete(@)".} # Public
+proc setText*(this: ptr QUndoCommand, text: QString) {.header:headerFile, importcpp:"#.setText(@)".} # Public
+proc isObsolete*(this: ptr QUndoCommand): bool {.header:headerFile, importcpp:"#.isObsolete(@)".} # Public
+proc setObsolete*(this: ptr QUndoCommand, obsolete: bool) {.header:headerFile, importcpp:"#.setObsolete(@)".} # Public
 proc id*(this: ptr QUndoCommand): cint {.header:headerFile, importcpp:"#.id(@)".} # Public
 proc mergeWith*(this: ptr QUndoCommand, other: ptr QUndoCommand): bool {.header:headerFile, importcpp:"#.mergeWith(@)".} # Public
-proc childCount*(this: QUndoCommand): cint {.header:headerFile, importcpp:"#.childCount(@)".} # Public
-proc child*(this: QUndoCommand, index: cint): ptr QUndoCommand {.header:headerFile, importcpp:"#.child(@)".} # Public
+proc childCount*(this: ptr QUndoCommand): cint {.header:headerFile, importcpp:"#.childCount(@)".} # Public
+proc child*(this: ptr QUndoCommand, index: cint): ptr QUndoCommand {.header:headerFile, importcpp:"#.child(@)".} # Public
 # Stuff for class QUndoStack
 
 # Public constructors for QUndoStack

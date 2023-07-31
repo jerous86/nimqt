@@ -451,6 +451,7 @@ export qbytearray
 export qlist
 export qchar
 export qflags
+
 # Additional code for qtcore/qstring
 proc newQString(s:cstring): QString {.header:headerFile, importcpp:"QString(@)",constructor.}
 proc newQString*(s:string): QString = newQString(s.cstring)

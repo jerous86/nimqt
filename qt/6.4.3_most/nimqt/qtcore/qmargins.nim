@@ -63,3 +63,4 @@ proc `-=`*(this: QMarginsF, subtrahend: cfloat): QMarginsF {.header:headerFile, 
 proc `*=`*(this: QMarginsF, factor: cfloat): QMarginsF {.header:headerFile, importcpp:"#.operator*=(@)".} # Public
 proc `/=`*(this: QMarginsF, divisor: cfloat): QMarginsF {.header:headerFile, importcpp:"#.operator/=(@)".} # Public
 proc toMargins*(this: QMarginsF): QMargins {.header:headerFile, importcpp:"#.toMargins(@)".} # Public
+

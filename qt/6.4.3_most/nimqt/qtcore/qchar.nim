@@ -172,3 +172,4 @@ proc static_QChar_isDigit*(ucs4: cuint): bool {.header:headerFile, importcpp:"QC
 proc static_QChar_isLower*(ucs4: cuint): bool {.header:headerFile, importcpp:"QChar::isLower(@)".} # Public static
 proc static_QChar_isUpper*(ucs4: cuint): bool {.header:headerFile, importcpp:"QChar::isUpper(@)".} # Public static
 proc static_QChar_isTitleCase*(ucs4: cuint): bool {.header:headerFile, importcpp:"QChar::isTitleCase(@)".} # Public static
+
