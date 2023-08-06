@@ -285,12 +285,6 @@ func dropSpecialTypePrefixes(cppType:string): string = (&" {cppType} ").replace(
 func tplsToNim*(t:seq[string]): string = (if t.len>0: &"[{t.join}]" else: "")
 
 
-iterator pairs(n: XmlNode): (int,XmlNode) =
-    var i=0
-    for x in n:
-        yield (i,x)
-        i.inc
-
 type
     Access* = enum Public, Protected, Private, Unknown
     Module* = object
@@ -355,27 +349,23 @@ type
         retType:string
         suffix:string
 
-
-# func toNim*(x:TplType, c:ClassData, typeReplacements=initTable[string,string]()): string
-# func toNim*(x:Param, c:ClassData): string
-# func toNim*(x:ConstructorData, c:ClassData, state:State): seq[tuple[decl,signature:string]]
-# func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[tuple[decl,signature:string]]
-
 func toNim*(x:TplType, c:ClassData, typeReplacements=initTable[string,string]()): string
 func toNim*(x:Param, c:ClassData, typeReplacements:Table[string,string]): string
 func toNim*(x:ConstructorData, c:ClassData, state:State): seq[CallableData]
 func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[CallableData]
 
-
-
+# Tries to get the import string for a class $class, using the typeDb $allTypes
+# $context is used for debugging only
 func fixImport*(allTypes:AllTypes, class:string, context:string): string = 
-    let class1=(if '[' in class: class.split("[")[0] else: class)
-    let class1_lc=class1.toLowerAscii
-    let class2_lc=class1_lc.fixNameSpace
-
     if class in allTypes.templateParams: return class
 
+    let 
+        class1=(if '[' in class: class.split("[")[0] else: class)
+        class1_lc=class1.toLowerAscii
+        class2_lc=class1_lc.fixNameSpace
+
     var class=class
+
     while allTypes.cppTypeAliases.hasKey class:
         class=allTypes.cppTypeAliases[class]
 
@@ -396,12 +386,8 @@ func fixImport*(allTypes:AllTypes, class:string, context:string): string =
     # debugEcho allTypes.db.names
     raise newException(CallbackTypeException, 
         &"func fixImport: class {class}: '{class1_lc}'.split('::').len!=2\ncontext '{context}'")
-    # assert(false, "fixImport failed! Check message above")
-    # quit(1)
 
 func merge(this:var Module, r:Module) =
-    # assert this.module==r.module
-
     this.headerImports.incl r.headerImports
     this.imported.incl r.imported
     this.headerExports.incl r.headerExports
@@ -481,11 +467,10 @@ func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
                 ("", c.allTypes.templateParams.tplsToNim)
         )
         startOfDecl = &"{c.nimName.escapeNimReservedWords.replaceSpecialTypes}*{tpls} "
+    
     var 
         pragmas = @["header:headerFile", &"""importcpp:"{c.cppName}" """, ]
         objInheritance = ""
-
-    debugecho id," ",custom
 
     if custom.inheritable==Avoid:
         objInheritance = "object"
@@ -544,6 +529,12 @@ func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts
 proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State): Module =
     let cm=newCm(state.component, state.module)
     when true:
+        iterator pairs(n: XmlNode): (int,XmlNode) =
+            var i=0
+            for x in n:
+                yield (i,x)
+                i.inc
+
         proc select_params(member:XmlNode, allTypes:AllTypes, modData:var Module): seq[Param] =
             member.pairs.toSeq
                 .filterIt(it[1].tag=="param")
@@ -803,7 +794,7 @@ when true:
             id = newCm(state.component, state.module).id_class(c.nimName)
             custom=classCustomization.getOrDefault(id)
             shouldBePtr=custom.`pointer`!=MustNotBePointer and
-                (state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or ((custom.`pointer`==MustBePointer)))
+                (custom.`pointer`==MustBePointer or state.db.hasChildClasses(c.nimName) or c.parentObj.len>0)
             retType = x.retType.toNim(c)
             tpls=c.allTypes.templateParams
             finalName=(if x.name.startsWith("operator"): x.name.replacef(re.re"operator(.*)", "`$1`") else: x.name).strip
@@ -849,7 +840,7 @@ when true:
         else:
             assert false
 
-
+import hashes
 func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllTypes], state:State): string =
     const IND=4
     
