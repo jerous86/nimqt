@@ -765,18 +765,6 @@ when true:
         if c.retType.len>0: result &= &": {c.retType}"
         result &= &" {c.suffix.strip}"
 
-    # On windows clong=int32, while on {linux,osx} clong=int.
-    # This can lead to duplicate definitions in some cases, so we should
-    # take care to take these differences into account.
-    func signature(c:CallableData, typeReplacements:Table[string,string]):string =
-        let params=c.params.mapIt(it.toNim(c.classData, typeReplacements))
-        &"{c.name}*{c.tpls.tplsToNim}({params.join})"
-    func nim_signature(c:CallableData):string = c.signature(initTable[string,string]())
-    func win_signature(c:CallableData):string = c.signature({"clong":"cint", "culong":"cuint"}.toTable)
-    func lnx_signature(c:CallableData):string = c.signature({"clong":"csize", "culong":"csize_t"}.toTable)
-    func bsd_signature(c:CallableData):string = c.lnx_signature
-    func osx_signature(c:CallableData):string = c.lnx_signature
-    
     func toNim*(x:ConstructorData, c:ClassData, state:State): seq[CallableData] =
         let 
             tpls=c.allTypes.templateParams
@@ -893,7 +881,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
     var xs:seq[string]
     block:
         var imports:HashSet[string]
-        var definedProcs,definedProcs_lnx,definedProcs_bsd,definedProcs_osx,definedProcs_win:HashSet[string]
+        var definedProcs_nim,definedProcs_lnx,definedProcs_bsd,definedProcs_osx,definedProcs_win:HashSet[string]
     
         xs.add &"const headerFile* = \"{file.cppHeaderFile}\"\n"
 
@@ -979,22 +967,42 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
                 xs.add tmp
         
         func addCallable(tmp:var seq[string], mm:CallableData) =
+            # On windows clong=int32, while on {linux,osx} clong=int.
+            # This can lead to duplicate definitions in some cases, so we should
+            # take care to take these differences into account.
+            func signature(c:CallableData, typeReplacements:Table[string,string]):string =
+                let params=c.params.mapIt(it.toNim(c.classData, typeReplacements))
+                # Note that we take the lower case: this is to solve the problem that
+                # (at least for) qstring.nim in one of the arg methods, one version has an argument fieldWidth 
+                # while in another arg method, it is called fieldwidth (all lower), causing problems
+                # with the hash. By lowercase, we solve this. I think it is safe to assume,
+                # that no identifier will have two different casings.
+                (&"{c.name}*{c.tpls.tplsToNim}({params.join}): {c.retType}").toLowerAscii
+            func nim_signature(c:CallableData):string = c.signature(initTable[string,string]())
+            func win_signature(c:CallableData):string = c.signature({"clong":"cint", "culong":"cuint"}.toTable)
+            func lnx_signature(c:CallableData):string = c.signature({"clong":"csize", "culong":"csize_t"}.toTable)
+            func bsd_signature(c:CallableData):string = c.lnx_signature
+            func osx_signature(c:CallableData):string = c.lnx_signature
+    
             if mm.name.len==0:
                 # If mm.name.len==0, then we just want to write the suffix
                 tmp.add mm.suffix
-            elif mm.nim_signature notin definedProcs:
-                var conditions:seq[string]
-                if mm.lnx_signature in definedProcs_lnx: conditions.add "(not defined(linux))"
-                if mm.bsd_signature in definedProcs_bsd: conditions.add "(not defined(bsd))"
-                if mm.osx_signature in definedProcs_osx: conditions.add "(not defined(macosx))"
-                if mm.win_signature in definedProcs_win: conditions.add "(not defined(windows))"
+            elif mm.nim_signature notin definedProcs_nim:
+                let conditions:seq[string]=block:
+                    var res:seq[string]
+                    if mm.lnx_signature in definedProcs_lnx: res.add "(not defined(linux))"
+                    if mm.bsd_signature in definedProcs_bsd: res.add "(not defined(bsd))"
+                    if mm.osx_signature in definedProcs_osx: res.add "(not defined(macosx))"
+                    if mm.win_signature in definedProcs_win: res.add "(not defined(windows))"
+                    res
+
                 if conditions.len>0: 
                     tmp.add "when "&conditions.join(" and ") & ":"
                     tmp.add "    " & mm.decl
                 else:
                     tmp.add mm.decl
 
-                definedProcs.incl mm.nim_signature
+                definedProcs_nim.incl mm.nim_signature
                 definedProcs_lnx.incl mm.lnx_signature
                 definedProcs_bsd.incl mm.bsd_signature
                 definedProcs_osx.incl mm.osx_signature
