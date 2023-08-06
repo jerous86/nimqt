@@ -6,19 +6,10 @@ type
     QTimeZone_TimeType* {.header:headerFile,importcpp:"QTimeZone::TimeType".} = enum StandardTime = 0, DaylightTime = 0x1, GenericTime = 0x2
     QTimeZone_NameType* {.header:headerFile,importcpp:"QTimeZone::NameType".} = enum DefaultName = 0, LongName = 0x1, ShortName = 0x2, OffsetName = 0x3
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTimeZone* {.header:headerFile,importcpp:"QTimeZone" ,pure.} = object {.inheritable.}
-        QTimeZone_OffsetData* {.header:headerFile,importcpp:"QTimeZone::OffsetData" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTimeZone* {.header:headerFile,importcpp:"QTimeZone" ,pure,inheritable.} = object
-        QTimeZone_OffsetData* {.header:headerFile,importcpp:"QTimeZone::OffsetData" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTimeZone* {.header:headerFile,importcpp:"QTimeZone" ,pure,inheritable.} = object
+    QTimeZone_OffsetData* {.header:headerFile,importcpp:"QTimeZone::OffsetData" ,pure,inheritable.} = object
 import nimqt/qtcore/qlist
 
 

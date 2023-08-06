@@ -12,17 +12,9 @@ type
         PreviousRow = 0x18
     QTextCursor_SelectionType* {.header:headerFile,importcpp:"QTextCursor::SelectionType".} = enum WordUnderCursor = 0, LineUnderCursor = 0x1, BlockUnderCursor = 0x2, Document = 0x3
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextCursor* {.header:headerFile,importcpp:"QTextCursor" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextCursor* {.header:headerFile,importcpp:"QTextCursor" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTextCursor* {.header:headerFile,importcpp:"QTextCursor" ,pure,inheritable.} = object
 
 # Stuff for class QTextCursor
 

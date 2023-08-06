@@ -7,17 +7,9 @@ type
     QTextBoundaryFinder_BoundaryReason* {.header:headerFile,importcpp:"QTextBoundaryFinder::BoundaryReason".} = enum NotAtBoundary = 0, BreakOpportunity = 0x1f, StartOfItem = 0x20, EndOfItem = 0x40, 
         MandatoryBreak = 0x80, SoftHyphen = 0x100
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextBoundaryFinder* {.header:headerFile,importcpp:"QTextBoundaryFinder" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextBoundaryFinder* {.header:headerFile,importcpp:"QTextBoundaryFinder" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTextBoundaryFinder* {.header:headerFile,importcpp:"QTextBoundaryFinder" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

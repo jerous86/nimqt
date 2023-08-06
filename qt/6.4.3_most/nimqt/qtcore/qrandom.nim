@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qrandom.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QRandomGenerator* {.header:headerFile,importcpp:"QRandomGenerator" ,pure.} = object {.inheritable.}
-        QRandomGenerator64* {.header:headerFile,importcpp:"QRandomGenerator64" ,pure.} = object of QRandomGenerator
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QRandomGenerator* {.header:headerFile,importcpp:"QRandomGenerator" ,pure,inheritable.} = object
-        QRandomGenerator64* {.header:headerFile,importcpp:"QRandomGenerator64" ,pure.} = object of QRandomGenerator
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QRandomGenerator* {.header:headerFile,importcpp:"QRandomGenerator" ,pure,inheritable.} = object
+    QRandomGenerator64* {.header:headerFile,importcpp:"QRandomGenerator64" ,pure.} = object of QRandomGenerator
 
 
 type

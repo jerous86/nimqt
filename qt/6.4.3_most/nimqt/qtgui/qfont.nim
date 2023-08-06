@@ -24,17 +24,9 @@ type
         LetterSpacingResolved = 0x2000, WordSpacingResolved = 0x4000, HintingPreferenceResolved = 0x8000, StyleNameResolved = 0x10000, FamiliesResolved = 0x20000, 
         AllPropertiesResolved = 0x3ffff
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFont* {.header:headerFile,importcpp:"QFont" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFont* {.header:headerFile,importcpp:"QFont" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QFont* {.header:headerFile,importcpp:"QFont" ,pure,inheritable.} = object
 
 # Consts
 const

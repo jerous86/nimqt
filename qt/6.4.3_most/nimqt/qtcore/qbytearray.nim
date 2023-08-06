@@ -6,17 +6,9 @@ type
     QByteArray_Base64Option* {.header:headerFile,importcpp:"QByteArray::Base64Option".} = enum Base64Encoding = 0, Base64UrlEncoding = 0x1, OmitTrailingEquals = 0x2, AbortOnBase64DecodingErrors = 0x4
     QByteArray_Base64DecodingStatus* {.header:headerFile,importcpp:"QByteArray::Base64DecodingStatus".} = enum Ok = 0, IllegalInputLength = 0x1, IllegalCharacter = 0x2, IllegalPadding = 0x3
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QByteArray* {.header:headerFile,importcpp:"QByteArray" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QByteArray* {.header:headerFile,importcpp:"QByteArray" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QByteArray* {.header:headerFile,importcpp:"QByteArray" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

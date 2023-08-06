@@ -8,17 +8,9 @@ type
     QPageLayout_Orientation* {.header:headerFile,importcpp:"QPageLayout::Orientation".} = enum Portrait = 0, Landscape = 0x1
     QPageLayout_Mode* {.header:headerFile,importcpp:"QPageLayout::Mode".} = enum StandardMode = 0, FullPageMode = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPageLayout* {.header:headerFile,importcpp:"QPageLayout" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPageLayout* {.header:headerFile,importcpp:"QPageLayout" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPageLayout* {.header:headerFile,importcpp:"QPageLayout" ,pure,inheritable.} = object
 
 # Stuff for class QPageLayout
 

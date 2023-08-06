@@ -19,21 +19,11 @@ type
         Raster = 0x9, Direct3D = 0xa, Pdf = 0xb, OpenVG = 0xc, OpenGL2 = 0xd, 
         PaintBuffer = 0xe, Blitter = 0xf, Direct2D = 0x10, User = 0x32, MaxUser = 0x64
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextItem* {.header:headerFile,importcpp:"QTextItem" ,pure.} = object {.inheritable.}
-        QPaintEngine* {.header:headerFile,importcpp:"QPaintEngine" ,pure.} = object {.inheritable.}
-        QPaintEngineState* {.header:headerFile,importcpp:"QPaintEngineState" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextItem* {.header:headerFile,importcpp:"QTextItem" ,pure,inheritable.} = object
-        QPaintEngine* {.header:headerFile,importcpp:"QPaintEngine" ,pure,inheritable.} = object
-        QPaintEngineState* {.header:headerFile,importcpp:"QPaintEngineState" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTextItem* {.header:headerFile,importcpp:"QTextItem" ,pure,inheritable.} = object
+    QPaintEngine* {.header:headerFile,importcpp:"QPaintEngine" ,pure,inheritable.} = object
+    QPaintEngineState* {.header:headerFile,importcpp:"QPaintEngineState" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

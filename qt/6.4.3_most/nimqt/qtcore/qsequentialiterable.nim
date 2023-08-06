@@ -5,17 +5,9 @@ type
     # Global
     QSequentialIterable_Position* {.header:headerFile,importcpp:"QSequentialIterable::Position".} = enum Unspecified = 0, AtBegin = 0x1, AtEnd = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSequentialIterable* {.header:headerFile,importcpp:"QSequentialIterable" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSequentialIterable* {.header:headerFile,importcpp:"QSequentialIterable" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSequentialIterable* {.header:headerFile,importcpp:"QSequentialIterable" ,pure,inheritable.} = object
 
 # Stuff for class QSequentialIterable
 

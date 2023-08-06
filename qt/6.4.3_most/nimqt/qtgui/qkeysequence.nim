@@ -21,17 +21,9 @@ type
     QKeySequence_SequenceFormat* {.header:headerFile,importcpp:"QKeySequence::SequenceFormat".} = enum NativeText = 0, PortableText = 0x1
     QKeySequence_SequenceMatch* {.header:headerFile,importcpp:"QKeySequence::SequenceMatch".} = enum NoMatch = 0, PartialMatch = 0x1, ExactMatch = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QKeySequence* {.header:headerFile,importcpp:"QKeySequence" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QKeySequence* {.header:headerFile,importcpp:"QKeySequence" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QKeySequence* {.header:headerFile,importcpp:"QKeySequence" ,pure,inheritable.} = object
 
 # Stuff for class QKeySequence
 

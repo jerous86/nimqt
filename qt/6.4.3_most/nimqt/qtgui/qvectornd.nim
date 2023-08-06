@@ -1,20 +1,10 @@
 const headerFile* = "QtGui/qvectornd.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QVector2D* {.header:headerFile,importcpp:"QVector2D" ,pure.} = object {.inheritable.}
-        QVector3D* {.header:headerFile,importcpp:"QVector3D" ,pure.} = object {.inheritable.}
-        QVector4D* {.header:headerFile,importcpp:"QVector4D" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QVector2D* {.header:headerFile,importcpp:"QVector2D" ,pure,inheritable.} = object
-        QVector3D* {.header:headerFile,importcpp:"QVector3D" ,pure,inheritable.} = object
-        QVector4D* {.header:headerFile,importcpp:"QVector4D" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QVector2D* {.header:headerFile,importcpp:"QVector2D" ,pure,inheritable.} = object
+    QVector3D* {.header:headerFile,importcpp:"QVector3D" ,pure,inheritable.} = object
+    QVector4D* {.header:headerFile,importcpp:"QVector4D" ,pure,inheritable.} = object
 
 # Stuff for class QVector2D
 

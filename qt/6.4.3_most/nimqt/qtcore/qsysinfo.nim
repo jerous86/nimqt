@@ -6,17 +6,9 @@ type
     QSysInfo_Sizes* {.header:headerFile,importcpp:"QSysInfo::Sizes".} = enum WordSize = 0x40
     QSysInfo_Endian* {.header:headerFile,importcpp:"QSysInfo::Endian".} = enum BigEndian = 0, LittleEndian = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSysInfo* {.header:headerFile,importcpp:"QSysInfo" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSysInfo* {.header:headerFile,importcpp:"QSysInfo" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSysInfo* {.header:headerFile,importcpp:"QSysInfo" ,pure,inheritable.} = object
 
 # Consts
 const

@@ -7,19 +7,10 @@ type
         Canceled = 0x8, Suspending = 0x10, Suspended = 0x20, Throttled = 0x40, Pending = 0x80
     QFutureInterfaceBase_CancelMode* {.header:headerFile,importcpp:"QFutureInterfaceBase::CancelMode".} = enum CancelOnly = 0, CancelAndFinish = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFutureInterfaceBase* {.header:headerFile,importcpp:"QFutureInterfaceBase" ,pure.} = object {.inheritable.}
-        QFutureInterface*[T] {.header:headerFile,importcpp:"QFutureInterface" ,pure.} = object of QFutureInterfaceBase
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFutureInterfaceBase* {.header:headerFile,importcpp:"QFutureInterfaceBase" ,pure,inheritable.} = object
-        QFutureInterface*[T] {.header:headerFile,importcpp:"QFutureInterface" ,pure.} = object of QFutureInterfaceBase
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QFutureInterfaceBase* {.header:headerFile,importcpp:"QFutureInterfaceBase" ,pure,inheritable.} = object
+    QFutureInterface*[T] {.header:headerFile,importcpp:"QFutureInterface" ,pure.} = object of QFutureInterfaceBase
 
 
 type

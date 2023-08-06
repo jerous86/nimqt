@@ -15,17 +15,9 @@ type
         Y8 = 0xe, Y16 = 0xf
     QPixelFormat_ByteOrder* {.header:headerFile,importcpp:"QPixelFormat::ByteOrder".} = enum LittleEndian = 0, BigEndian = 0x1, CurrentSystemEndian = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPixelFormat* {.header:headerFile,importcpp:"QPixelFormat" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPixelFormat* {.header:headerFile,importcpp:"QPixelFormat" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPixelFormat* {.header:headerFile,importcpp:"QPixelFormat" ,pure,inheritable.} = object
 
 # Stuff for class QPixelFormat
 

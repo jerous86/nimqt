@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qsize.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSize* {.header:headerFile,importcpp:"QSize" ,pure.} = object {.inheritable.}
-        QSizeF* {.header:headerFile,importcpp:"QSizeF" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSize* {.header:headerFile,importcpp:"QSize" ,pure,inheritable.} = object
-        QSizeF* {.header:headerFile,importcpp:"QSizeF" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSize* {.header:headerFile,importcpp:"QSize" ,pure,inheritable.} = object
+    QSizeF* {.header:headerFile,importcpp:"QSizeF" ,pure,inheritable.} = object
 
 # Stuff for class QSize
 

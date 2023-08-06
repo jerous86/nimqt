@@ -5,19 +5,10 @@ type
     # Global
     QIconEngine_IconEngineHook* {.header:headerFile,importcpp:"QIconEngine::IconEngineHook".} = enum IsNullHook = 0x3, ScaledPixmapHook = 0x4
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QIconEngine* {.header:headerFile,importcpp:"QIconEngine" ,pure.} = object {.inheritable.}
-        QIconEngine_ScaledPixmapArgument* {.header:headerFile,importcpp:"QIconEngine::ScaledPixmapArgument" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QIconEngine* {.header:headerFile,importcpp:"QIconEngine" ,pure,inheritable.} = object
-        QIconEngine_ScaledPixmapArgument* {.header:headerFile,importcpp:"QIconEngine::ScaledPixmapArgument" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QIconEngine* {.header:headerFile,importcpp:"QIconEngine" ,pure,inheritable.} = object
+    QIconEngine_ScaledPixmapArgument* {.header:headerFile,importcpp:"QIconEngine::ScaledPixmapArgument" ,pure,inheritable.} = object
 
 # Stuff for class QIconEngine
 

@@ -31,17 +31,9 @@ type
         Didot = 0x4, Cicero = 0x5
     QPageSize_SizeMatchPolicy* {.header:headerFile,importcpp:"QPageSize::SizeMatchPolicy".} = enum FuzzyMatch = 0, FuzzyOrientationMatch = 0x1, ExactMatch = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPageSize* {.header:headerFile,importcpp:"QPageSize" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPageSize* {.header:headerFile,importcpp:"QPageSize" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPageSize* {.header:headerFile,importcpp:"QPageSize" ,pure,inheritable.} = object
 
 # Consts
 const

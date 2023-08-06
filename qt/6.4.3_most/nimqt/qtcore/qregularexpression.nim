@@ -9,19 +9,10 @@ type
     QRegularExpression_MatchOption* {.header:headerFile,importcpp:"QRegularExpression::MatchOption".} = enum NoMatchOption = 0, AnchorAtOffsetMatchOption = 0x1, DontCheckSubjectStringMatchOption = 0x2
     QRegularExpression_WildcardConversionOption* {.header:headerFile,importcpp:"QRegularExpression::WildcardConversionOption".} = enum DefaultWildcardConversion = 0, UnanchoredWildcardConversion = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QRegularExpression* {.header:headerFile,importcpp:"QRegularExpression" ,pure.} = object {.inheritable.}
-        QRegularExpressionMatch* {.header:headerFile,importcpp:"QRegularExpressionMatch" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QRegularExpression* {.header:headerFile,importcpp:"QRegularExpression" ,pure,inheritable.} = object
-        QRegularExpressionMatch* {.header:headerFile,importcpp:"QRegularExpressionMatch" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QRegularExpression* {.header:headerFile,importcpp:"QRegularExpression" ,pure,inheritable.} = object
+    QRegularExpressionMatch* {.header:headerFile,importcpp:"QRegularExpressionMatch" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

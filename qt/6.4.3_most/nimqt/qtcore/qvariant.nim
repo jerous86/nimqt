@@ -17,23 +17,12 @@ type
         Vector4D = 0x1014, Quaternion = 0x1015, PolygonF = 0x1016, LastGuiType = 0x1017, SizePolicy = 0x2000, 
         UserType = 0x10000
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QVariant* {.header:headerFile,importcpp:"QVariant" ,pure.} = object {.inheritable.}
-        QVariantRef*[Pointer] {.header:headerFile,importcpp:"QVariantRef" ,pure.} = object {.inheritable.}
-        QVariantConstPointer* {.header:headerFile,importcpp:"QVariantConstPointer" ,pure.} = object {.inheritable.}
-        QVariantPointer*[Pointer] {.header:headerFile,importcpp:"QVariantPointer" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QVariant* {.header:headerFile,importcpp:"QVariant" ,pure,inheritable.} = object
-        QVariantRef*[Pointer] {.header:headerFile,importcpp:"QVariantRef" ,pure,inheritable.} = object
-        QVariantConstPointer* {.header:headerFile,importcpp:"QVariantConstPointer" ,pure,inheritable.} = object
-        QVariantPointer*[Pointer] {.header:headerFile,importcpp:"QVariantPointer" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QVariant* {.header:headerFile,importcpp:"QVariant" ,pure,inheritable.} = object
+    QVariantRef*[Pointer] {.header:headerFile,importcpp:"QVariantRef" ,pure,inheritable.} = object
+    QVariantConstPointer* {.header:headerFile,importcpp:"QVariantConstPointer" ,pure,inheritable.} = object
+    QVariantPointer*[Pointer] {.header:headerFile,importcpp:"QVariantPointer" ,pure,inheritable.} = object
 
 # Stuff for class QVariant
 

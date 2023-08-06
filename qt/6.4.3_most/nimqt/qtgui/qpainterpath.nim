@@ -5,21 +5,11 @@ type
     # Global
     QPainterPath_ElementType* {.header:headerFile,importcpp:"QPainterPath::ElementType".} = enum MoveToElement = 0, LineToElement = 0x1, CurveToElement = 0x2, CurveToDataElement = 0x3
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPainterPath* {.header:headerFile,importcpp:"QPainterPath" ,pure.} = object {.inheritable.}
-        QPainterPath_Element* {.header:headerFile,importcpp:"QPainterPath::Element" ,pure.} = object {.inheritable.}
-        QPainterPathStroker* {.header:headerFile,importcpp:"QPainterPathStroker" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPainterPath* {.header:headerFile,importcpp:"QPainterPath" ,pure,inheritable.} = object
-        QPainterPath_Element* {.header:headerFile,importcpp:"QPainterPath::Element" ,pure,inheritable.} = object
-        QPainterPathStroker* {.header:headerFile,importcpp:"QPainterPathStroker" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPainterPath* {.header:headerFile,importcpp:"QPainterPath" ,pure,inheritable.} = object
+    QPainterPath_Element* {.header:headerFile,importcpp:"QPainterPath::Element" ,pure,inheritable.} = object
+    QPainterPathStroker* {.header:headerFile,importcpp:"QPainterPathStroker" ,pure,inheritable.} = object
 
 # Stuff for class QPainterPath
 

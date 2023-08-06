@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qmap.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMap*[Key, T] {.header:headerFile,importcpp:"QMap" ,pure.} = object {.inheritable.}
-        QMultiMap*[Key, T] {.header:headerFile,importcpp:"QMultiMap" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMap*[Key, T] {.header:headerFile,importcpp:"QMap" ,pure,inheritable.} = object
-        QMultiMap*[Key, T] {.header:headerFile,importcpp:"QMultiMap" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QMap*[Key, T] {.header:headerFile,importcpp:"QMap" ,pure,inheritable.} = object
+    QMultiMap*[Key, T] {.header:headerFile,importcpp:"QMultiMap" ,pure,inheritable.} = object
 
 # Stuff for class QMap
 

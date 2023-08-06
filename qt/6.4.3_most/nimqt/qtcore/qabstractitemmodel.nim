@@ -6,30 +6,16 @@ type
     QAbstractItemModel_LayoutChangeHint* {.header:headerFile,importcpp:"QAbstractItemModel::LayoutChangeHint".} = enum NoLayoutChangeHint = 0, VerticalSortHint = 0x1, HorizontalSortHint = 0x2
     QAbstractItemModel_CheckIndexOption* {.header:headerFile,importcpp:"QAbstractItemModel::CheckIndexOption".} = enum NoOption = 0, IndexIsValid = 0x1, DoNotUseParent = 0x2, ParentIsInvalid = 0x4
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qobject
-    type
-        # Classes found in the C++ code
-        QModelRoleData* {.header:headerFile,importcpp:"QModelRoleData" ,pure.} = object {.inheritable.}
-        QModelRoleDataSpan* {.header:headerFile,importcpp:"QModelRoleDataSpan" ,pure.} = object {.inheritable.}
-        QModelIndex* {.header:headerFile,importcpp:"QModelIndex" ,pure.} = object
-        QPersistentModelIndex* {.header:headerFile,importcpp:"QPersistentModelIndex" ,pure.} = object {.inheritable.}
-        QAbstractItemModel* {.header:headerFile,importcpp:"QAbstractItemModel" ,pure.} = object of QObject
-        QAbstractTableModel* {.header:headerFile,importcpp:"QAbstractTableModel" ,pure.} = object of QAbstractItemModel
-        QAbstractListModel* {.header:headerFile,importcpp:"QAbstractListModel" ,pure.} = object of QAbstractItemModel
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QModelRoleData* {.header:headerFile,importcpp:"QModelRoleData" ,pure,inheritable.} = object
-        QModelRoleDataSpan* {.header:headerFile,importcpp:"QModelRoleDataSpan" ,pure,inheritable.} = object
-        QModelIndex* {.header:headerFile,importcpp:"QModelIndex" ,pure,inheritable.} = object
-        QPersistentModelIndex* {.header:headerFile,importcpp:"QPersistentModelIndex" ,pure,inheritable.} = object
-        QAbstractItemModel* {.header:headerFile,importcpp:"QAbstractItemModel" ,pure.} = object of QObject
-        QAbstractTableModel* {.header:headerFile,importcpp:"QAbstractTableModel" ,pure.} = object of QAbstractItemModel
-        QAbstractListModel* {.header:headerFile,importcpp:"QAbstractListModel" ,pure.} = object of QAbstractItemModel
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qobject
+type
+    # Classes found in the C++ code
+    QModelRoleData* {.header:headerFile,importcpp:"QModelRoleData" ,pure,inheritable.} = object
+    QModelRoleDataSpan* {.header:headerFile,importcpp:"QModelRoleDataSpan" ,pure,inheritable.} = object
+    QModelIndex* {.header:headerFile,importcpp:"QModelIndex" .} = object
+    QPersistentModelIndex* {.header:headerFile,importcpp:"QPersistentModelIndex" ,pure,inheritable.} = object
+    QAbstractItemModel* {.header:headerFile,importcpp:"QAbstractItemModel" ,pure.} = object of QObject
+    QAbstractTableModel* {.header:headerFile,importcpp:"QAbstractTableModel" ,pure.} = object of QAbstractItemModel
+    QAbstractListModel* {.header:headerFile,importcpp:"QAbstractListModel" ,pure.} = object of QAbstractItemModel
 import nimqt/qtcore/qlist
 import nimqt/qtcore/qflags
 

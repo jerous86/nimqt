@@ -5,21 +5,11 @@ type
     # Global
     QDateTime_YearRange* {.header:headerFile,importcpp:"QDateTime::YearRange".} = enum First = -292275056, Last = 0x116bd2d2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QDate* {.header:headerFile,importcpp:"QDate" ,pure.} = object {.inheritable.}
-        QTime* {.header:headerFile,importcpp:"QTime" ,pure.} = object {.inheritable.}
-        QDateTime* {.header:headerFile,importcpp:"QDateTime" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QDate* {.header:headerFile,importcpp:"QDate" ,pure,inheritable.} = object
-        QTime* {.header:headerFile,importcpp:"QTime" ,pure,inheritable.} = object
-        QDateTime* {.header:headerFile,importcpp:"QDateTime" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QDate* {.header:headerFile,importcpp:"QDate" ,pure,inheritable.} = object
+    QTime* {.header:headerFile,importcpp:"QTime" ,pure,inheritable.} = object
+    QDateTime* {.header:headerFile,importcpp:"QDateTime" ,pure,inheritable.} = object
 
 # Stuff for class QDate
 

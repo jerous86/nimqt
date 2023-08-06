@@ -1,26 +1,13 @@
 const headerFile* = "QtCore/qobjectdefs.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMethodRawArguments* {.header:headerFile,importcpp:"QMethodRawArguments" ,pure.} = object {.inheritable.}
-        QGenericArgument* {.header:headerFile,importcpp:"QGenericArgument" ,pure.} = object {.inheritable.}
-        QGenericReturnArgument* {.header:headerFile,importcpp:"QGenericReturnArgument" ,pure.} = object of QGenericArgument
-        QArgument*[T] {.header:headerFile,importcpp:"QArgument" ,pure.} = object of QGenericArgument
-        QReturnArgument*[T] {.header:headerFile,importcpp:"QReturnArgument" ,pure.} = object of QGenericReturnArgument
-        Connection* {.header:headerFile,importcpp:"Connection" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMethodRawArguments* {.header:headerFile,importcpp:"QMethodRawArguments" ,pure,inheritable.} = object
-        QGenericArgument* {.header:headerFile,importcpp:"QGenericArgument" ,pure,inheritable.} = object
-        QGenericReturnArgument* {.header:headerFile,importcpp:"QGenericReturnArgument" ,pure.} = object of QGenericArgument
-        QArgument*[T] {.header:headerFile,importcpp:"QArgument" ,pure.} = object of QGenericArgument
-        QReturnArgument*[T] {.header:headerFile,importcpp:"QReturnArgument" ,pure.} = object of QGenericReturnArgument
-        Connection* {.header:headerFile,importcpp:"Connection" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QMethodRawArguments* {.header:headerFile,importcpp:"QMethodRawArguments" ,pure,inheritable.} = object
+    QGenericArgument* {.header:headerFile,importcpp:"QGenericArgument" ,pure,inheritable.} = object
+    QGenericReturnArgument* {.header:headerFile,importcpp:"QGenericReturnArgument" ,pure.} = object of QGenericArgument
+    QArgument*[T] {.header:headerFile,importcpp:"QArgument" ,pure.} = object of QGenericArgument
+    QReturnArgument*[T] {.header:headerFile,importcpp:"QReturnArgument" ,pure.} = object of QGenericReturnArgument
+    Connection* {.header:headerFile,importcpp:"Connection" ,pure,inheritable.} = object
 
 # Stuff for class QGenericArgument
 

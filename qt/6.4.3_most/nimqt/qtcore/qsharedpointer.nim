@@ -1,20 +1,10 @@
 const headerFile* = "QtCore/qsharedpointer.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSharedPointer*[T] {.header:headerFile,importcpp:"QSharedPointer" ,pure.} = object {.inheritable.}
-        QWeakPointer*[T] {.header:headerFile,importcpp:"QWeakPointer" ,pure.} = object {.inheritable.}
-        QEnableSharedFromThis*[T] {.header:headerFile,importcpp:"QEnableSharedFromThis" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSharedPointer*[T] {.header:headerFile,importcpp:"QSharedPointer" ,pure,inheritable.} = object
-        QWeakPointer*[T] {.header:headerFile,importcpp:"QWeakPointer" ,pure,inheritable.} = object
-        QEnableSharedFromThis*[T] {.header:headerFile,importcpp:"QEnableSharedFromThis" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSharedPointer*[T] {.header:headerFile,importcpp:"QSharedPointer" ,pure,inheritable.} = object
+    QWeakPointer*[T] {.header:headerFile,importcpp:"QWeakPointer" ,pure,inheritable.} = object
+    QEnableSharedFromThis*[T] {.header:headerFile,importcpp:"QEnableSharedFromThis" ,pure,inheritable.} = object
 
 # Stuff for class QSharedPointer
 

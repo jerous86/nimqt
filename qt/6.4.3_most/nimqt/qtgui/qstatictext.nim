@@ -5,17 +5,9 @@ type
     # Global
     QStaticText_PerformanceHint* {.header:headerFile,importcpp:"QStaticText::PerformanceHint".} = enum ModerateCaching = 0, AggressiveCaching = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QStaticText* {.header:headerFile,importcpp:"QStaticText" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QStaticText* {.header:headerFile,importcpp:"QStaticText" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QStaticText* {.header:headerFile,importcpp:"QStaticText" ,pure,inheritable.} = object
 
 # Stuff for class QStaticText
 

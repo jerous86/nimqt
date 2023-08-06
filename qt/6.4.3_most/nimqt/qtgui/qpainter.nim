@@ -15,19 +15,10 @@ type
         RasterOp_NotSourceXorDestination = 0x1d, RasterOp_NotSource = 0x1e, RasterOp_NotSourceAndDestination = 0x1f, RasterOp_SourceAndNotDestination = 0x20, RasterOp_NotSourceOrDestination = 0x21, 
         RasterOp_SourceOrNotDestination = 0x22, RasterOp_ClearDestination = 0x23, RasterOp_SetDestination = 0x24, RasterOp_NotDestination = 0x25
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPainter* {.header:headerFile,importcpp:"QPainter" ,pure.} = object {.inheritable.}
-        QPainter_PixmapFragment* {.header:headerFile,importcpp:"QPainter::PixmapFragment" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPainter* {.header:headerFile,importcpp:"QPainter" ,pure,inheritable.} = object
-        QPainter_PixmapFragment* {.header:headerFile,importcpp:"QPainter::PixmapFragment" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPainter* {.header:headerFile,importcpp:"QPainter" ,pure,inheritable.} = object
+    QPainter_PixmapFragment* {.header:headerFile,importcpp:"QPainter::PixmapFragment" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

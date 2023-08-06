@@ -6,24 +6,11 @@ type
     QTextEdit_LineWrapMode* {.header:headerFile,importcpp:"QTextEdit::LineWrapMode".} = enum NoWrap = 0, WidgetWidth = 0x1, FixedPixelWidth = 0x2, FixedColumnWidth = 0x3
     QTextEdit_AutoFormattingFlag* {.header:headerFile,importcpp:"QTextEdit::AutoFormattingFlag".} = enum AutoAll = -1, AutoNone = 0, AutoBulletList = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtwidgets/qabstractscrollarea
-    import nimqt/qtextcursor
-    import nimqt/qtextformat
-    type
-        # Classes found in the C++ code
-        QTextEdit* {.header:headerFile,importcpp:"QTextEdit" ,pure.} = object of QAbstractScrollArea
-        QTextEdit_ExtraSelection* {.header:headerFile,importcpp:"QTextEdit::ExtraSelection" ,pure.} = object {.inheritable.}
-            cursor*: QTextCursor
-            format*: QTextCharFormat
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextEdit* {.header:headerFile,importcpp:"QTextEdit" ,pure.} = object of QAbstractScrollArea
-        QTextEdit_ExtraSelection* {.header:headerFile,importcpp:"QTextEdit::ExtraSelection" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+import nimqt/qtwidgets/qabstractscrollarea
+type
+    # Classes found in the C++ code
+    QTextEdit* {.header:headerFile,importcpp:"QTextEdit" ,pure.} = object of QAbstractScrollArea
+    QTextEdit_ExtraSelection* {.header:headerFile,importcpp:"QTextEdit::ExtraSelection" ,pure,inheritable.} = object
 import nimqt/qtwidgets/qframe
 import nimqt/qtwidgets/qwidget
 import nimqt/qtgui/qpaintdevice

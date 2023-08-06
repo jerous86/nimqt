@@ -1,20 +1,10 @@
 const headerFile* = "QtCore/qcache.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCache*[Key, T] {.header:headerFile,importcpp:"QCache" ,pure.} = object {.inheritable.}
-        QCache_Value*[Key, T] {.header:headerFile,importcpp:"QCache::Value" ,pure.} = object {.inheritable.}
-        QCache_Chain*[Key, T] {.header:headerFile,importcpp:"QCache::Chain" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCache*[Key, T] {.header:headerFile,importcpp:"QCache" ,pure,inheritable.} = object
-        QCache_Value*[Key, T] {.header:headerFile,importcpp:"QCache::Value" ,pure,inheritable.} = object
-        QCache_Chain*[Key, T] {.header:headerFile,importcpp:"QCache::Chain" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QCache*[Key, T] {.header:headerFile,importcpp:"QCache" ,pure,inheritable.} = object
+    QCache_Value*[Key, T] {.header:headerFile,importcpp:"QCache::Value" ,pure,inheritable.} = object
+    QCache_Chain*[Key, T] {.header:headerFile,importcpp:"QCache::Chain" ,pure,inheritable.} = object
 
 # Stuff for class QCache
 

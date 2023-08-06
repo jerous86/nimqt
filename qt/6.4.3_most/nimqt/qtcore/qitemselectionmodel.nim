@@ -7,22 +7,12 @@ type
         Deselect = 0x4, Toggle = 0x8, Current = 0x10, SelectCurrent = 0x12, ToggleCurrent = 0x18, 
         Rows = 0x20, Columns = 0x40
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qobject
-    type
-        # Classes found in the C++ code
-        QItemSelectionRange* {.header:headerFile,importcpp:"QItemSelectionRange" ,pure.} = object {.inheritable.}
-        QItemSelectionModel* {.header:headerFile,importcpp:"QItemSelectionModel" ,pure.} = object of QObject
-        QItemSelection* {.header:headerFile,importcpp:"QItemSelection" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QItemSelectionRange* {.header:headerFile,importcpp:"QItemSelectionRange" ,pure,inheritable.} = object
-        QItemSelectionModel* {.header:headerFile,importcpp:"QItemSelectionModel" ,pure.} = object of QObject
-        QItemSelection* {.header:headerFile,importcpp:"QItemSelection" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qobject
+type
+    # Classes found in the C++ code
+    QItemSelectionRange* {.header:headerFile,importcpp:"QItemSelectionRange" ,pure,inheritable.} = object
+    QItemSelectionModel* {.header:headerFile,importcpp:"QItemSelectionModel" ,pure.} = object of QObject
+    QItemSelection* {.header:headerFile,importcpp:"QItemSelection" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

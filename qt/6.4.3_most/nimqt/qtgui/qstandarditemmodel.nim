@@ -5,20 +5,11 @@ type
     # Global
     QStandardItem_ItemType* {.header:headerFile,importcpp:"QStandardItem::ItemType".} = enum Type = 0, UserType = 0x3e8
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qabstractitemmodel
-    type
-        # Classes found in the C++ code
-        QStandardItem* {.header:headerFile,importcpp:"QStandardItem" ,pure.} = object {.inheritable.}
-        QStandardItemModel* {.header:headerFile,importcpp:"QStandardItemModel" ,pure.} = object of QAbstractItemModel
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QStandardItem* {.header:headerFile,importcpp:"QStandardItem" ,pure,inheritable.} = object
-        QStandardItemModel* {.header:headerFile,importcpp:"QStandardItemModel" ,pure.} = object of QAbstractItemModel
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qabstractitemmodel
+type
+    # Classes found in the C++ code
+    QStandardItem* {.header:headerFile,importcpp:"QStandardItem" ,pure,inheritable.} = object
+    QStandardItemModel* {.header:headerFile,importcpp:"QStandardItemModel" ,pure.} = object of QAbstractItemModel
 
 
 type

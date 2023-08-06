@@ -5,17 +5,9 @@ type
     # Global
     QMimeDatabase_MatchMode* {.header:headerFile,importcpp:"QMimeDatabase::MatchMode".} = enum MatchDefault = 0, MatchExtension = 0x1, MatchContent = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMimeDatabase* {.header:headerFile,importcpp:"QMimeDatabase" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMimeDatabase* {.header:headerFile,importcpp:"QMimeDatabase" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QMimeDatabase* {.header:headerFile,importcpp:"QMimeDatabase" ,pure,inheritable.} = object
 
 # Stuff for class QMimeDatabase
 

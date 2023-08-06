@@ -7,17 +7,9 @@ type
         PdmNumColors = 0x5, PdmDepth = 0x6, PdmDpiX = 0x7, PdmDpiY = 0x8, PdmPhysicalDpiX = 0x9, 
         PdmPhysicalDpiY = 0xa, PdmDevicePixelRatio = 0xb, PdmDevicePixelRatioScaled = 0xc
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPaintDevice* {.header:headerFile,importcpp:"QPaintDevice" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPaintDevice* {.header:headerFile,importcpp:"QPaintDevice" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPaintDevice* {.header:headerFile,importcpp:"QPaintDevice" ,pure,inheritable.} = object
 
 # Stuff for class QPaintDevice
 

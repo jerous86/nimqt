@@ -6,17 +6,9 @@ type
     QMatrix4x4_Flag* {.header:headerFile,importcpp:"QMatrix4x4::Flag".} = enum Identity = 0, Translation = 0x1, Scale = 0x2, Rotation2D = 0x4, 
         Rotation = 0x8, Perspective = 0x10, General = 0x1f
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMatrix4x4* {.header:headerFile,importcpp:"QMatrix4x4" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMatrix4x4* {.header:headerFile,importcpp:"QMatrix4x4" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QMatrix4x4* {.header:headerFile,importcpp:"QMatrix4x4" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

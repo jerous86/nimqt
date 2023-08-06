@@ -5,22 +5,12 @@ type
     # Global
     QDebug_VerbosityLevel* {.header:headerFile,importcpp:"QDebug::VerbosityLevel".} = enum MinimumVerbosity = 0, DefaultVerbosity = 0x2, MaximumVerbosity = 0x7
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qiodevicebase
-    type
-        # Classes found in the C++ code
-        QDebug* {.header:headerFile,importcpp:"QDebug" ,pure.} = object of QIODeviceBase
-        QDebugStateSaver* {.header:headerFile,importcpp:"QDebugStateSaver" ,pure.} = object {.inheritable.}
-        QNoDebug* {.header:headerFile,importcpp:"QNoDebug" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QDebug* {.header:headerFile,importcpp:"QDebug" ,pure.} = object of QIODeviceBase
-        QDebugStateSaver* {.header:headerFile,importcpp:"QDebugStateSaver" ,pure,inheritable.} = object
-        QNoDebug* {.header:headerFile,importcpp:"QNoDebug" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qiodevicebase
+type
+    # Classes found in the C++ code
+    QDebug* {.header:headerFile,importcpp:"QDebug" ,pure.} = object of QIODeviceBase
+    QDebugStateSaver* {.header:headerFile,importcpp:"QDebugStateSaver" ,pure,inheritable.} = object
+    QNoDebug* {.header:headerFile,importcpp:"QNoDebug" ,pure,inheritable.} = object
 
 
 type

@@ -1,16 +1,8 @@
 const headerFile* = "QtCore/qbytearraymatcher.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QByteArrayMatcher* {.header:headerFile,importcpp:"QByteArrayMatcher" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QByteArrayMatcher* {.header:headerFile,importcpp:"QByteArrayMatcher" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QByteArrayMatcher* {.header:headerFile,importcpp:"QByteArrayMatcher" ,pure,inheritable.} = object
 
 # Stuff for class QByteArrayMatcher
 

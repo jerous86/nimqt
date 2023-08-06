@@ -1,16 +1,8 @@
 const headerFile* = "QtCore/qtemporarydir.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTemporaryDir* {.header:headerFile,importcpp:"QTemporaryDir" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTemporaryDir* {.header:headerFile,importcpp:"QTemporaryDir" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTemporaryDir* {.header:headerFile,importcpp:"QTemporaryDir" ,pure,inheritable.} = object
 
 # Stuff for class QTemporaryDir
 

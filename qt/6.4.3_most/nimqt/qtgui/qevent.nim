@@ -8,96 +8,49 @@ type
         Selection = 0x4
     QScrollEvent_ScrollState* {.header:headerFile,importcpp:"QScrollEvent::ScrollState".} = enum ScrollStarted = 0, ScrollUpdated = 0x1, ScrollFinished = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qcoreevent
-    type
-        # Classes found in the C++ code
-        QInputEvent* {.header:headerFile,importcpp:"QInputEvent" ,pure.} = object of QEvent
-        QPointerEvent* {.header:headerFile,importcpp:"QPointerEvent" ,pure.} = object of QInputEvent
-        QSinglePointEvent* {.header:headerFile,importcpp:"QSinglePointEvent" ,pure.} = object of QPointerEvent
-        QEnterEvent* {.header:headerFile,importcpp:"QEnterEvent" ,pure.} = object of QSinglePointEvent
-        QMouseEvent* {.header:headerFile,importcpp:"QMouseEvent" ,pure.} = object of QSinglePointEvent
-        QHoverEvent* {.header:headerFile,importcpp:"QHoverEvent" ,pure.} = object of QSinglePointEvent
-        QWheelEvent* {.header:headerFile,importcpp:"QWheelEvent" ,pure.} = object of QSinglePointEvent
-        QTabletEvent* {.header:headerFile,importcpp:"QTabletEvent" ,pure.} = object of QSinglePointEvent
-        QNativeGestureEvent* {.header:headerFile,importcpp:"QNativeGestureEvent" ,pure.} = object of QSinglePointEvent
-        QKeyEvent* {.header:headerFile,importcpp:"QKeyEvent" ,pure.} = object of QInputEvent
-        QFocusEvent* {.header:headerFile,importcpp:"QFocusEvent" ,pure.} = object of QEvent
-        QPaintEvent* {.header:headerFile,importcpp:"QPaintEvent" ,pure.} = object of QEvent
-        QMoveEvent* {.header:headerFile,importcpp:"QMoveEvent" ,pure.} = object of QEvent
-        QExposeEvent* {.header:headerFile,importcpp:"QExposeEvent" ,pure.} = object of QEvent
-        QResizeEvent* {.header:headerFile,importcpp:"QResizeEvent" ,pure.} = object of QEvent
-        QCloseEvent* {.header:headerFile,importcpp:"QCloseEvent" ,pure.} = object of QEvent
-        QIconDragEvent* {.header:headerFile,importcpp:"QIconDragEvent" ,pure.} = object of QEvent
-        QShowEvent* {.header:headerFile,importcpp:"QShowEvent" ,pure.} = object of QEvent
-        QHideEvent* {.header:headerFile,importcpp:"QHideEvent" ,pure.} = object of QEvent
-        QContextMenuEvent* {.header:headerFile,importcpp:"QContextMenuEvent" ,pure.} = object of QInputEvent
-        QInputMethodEvent* {.header:headerFile,importcpp:"QInputMethodEvent" ,pure.} = object of QEvent
-        QInputMethodEvent_Attribute* {.header:headerFile,importcpp:"QInputMethodEvent::Attribute" ,pure.} = object {.inheritable.}
-        QInputMethodQueryEvent* {.header:headerFile,importcpp:"QInputMethodQueryEvent" ,pure.} = object of QEvent
-        QDropEvent* {.header:headerFile,importcpp:"QDropEvent" ,pure.} = object of QEvent
-        QDragMoveEvent* {.header:headerFile,importcpp:"QDragMoveEvent" ,pure.} = object of QDropEvent
-        QDragEnterEvent* {.header:headerFile,importcpp:"QDragEnterEvent" ,pure.} = object of QDragMoveEvent
-        QDragLeaveEvent* {.header:headerFile,importcpp:"QDragLeaveEvent" ,pure.} = object of QEvent
-        QHelpEvent* {.header:headerFile,importcpp:"QHelpEvent" ,pure.} = object of QEvent
-        QStatusTipEvent* {.header:headerFile,importcpp:"QStatusTipEvent" ,pure.} = object of QEvent
-        QWhatsThisClickedEvent* {.header:headerFile,importcpp:"QWhatsThisClickedEvent" ,pure.} = object of QEvent
-        QActionEvent* {.header:headerFile,importcpp:"QActionEvent" ,pure.} = object of QEvent
-        QFileOpenEvent* {.header:headerFile,importcpp:"QFileOpenEvent" ,pure.} = object of QEvent
-        QToolBarChangeEvent* {.header:headerFile,importcpp:"QToolBarChangeEvent" ,pure.} = object of QEvent
-        QShortcutEvent* {.header:headerFile,importcpp:"QShortcutEvent" ,pure.} = object of QEvent
-        QWindowStateChangeEvent* {.header:headerFile,importcpp:"QWindowStateChangeEvent" ,pure.} = object of QEvent
-        QTouchEvent* {.header:headerFile,importcpp:"QTouchEvent" ,pure.} = object of QPointerEvent
-        QScrollPrepareEvent* {.header:headerFile,importcpp:"QScrollPrepareEvent" ,pure.} = object of QEvent
-        QScrollEvent* {.header:headerFile,importcpp:"QScrollEvent" ,pure.} = object of QEvent
-        QScreenOrientationChangeEvent* {.header:headerFile,importcpp:"QScreenOrientationChangeEvent" ,pure.} = object of QEvent
-        QApplicationStateChangeEvent* {.header:headerFile,importcpp:"QApplicationStateChangeEvent" ,pure.} = object of QEvent
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QInputEvent* {.header:headerFile,importcpp:"QInputEvent" ,pure.} = object of QEvent
-        QPointerEvent* {.header:headerFile,importcpp:"QPointerEvent" ,pure.} = object of QInputEvent
-        QSinglePointEvent* {.header:headerFile,importcpp:"QSinglePointEvent" ,pure.} = object of QPointerEvent
-        QEnterEvent* {.header:headerFile,importcpp:"QEnterEvent" ,pure.} = object of QSinglePointEvent
-        QMouseEvent* {.header:headerFile,importcpp:"QMouseEvent" ,pure.} = object of QSinglePointEvent
-        QHoverEvent* {.header:headerFile,importcpp:"QHoverEvent" ,pure.} = object of QSinglePointEvent
-        QWheelEvent* {.header:headerFile,importcpp:"QWheelEvent" ,pure.} = object of QSinglePointEvent
-        QTabletEvent* {.header:headerFile,importcpp:"QTabletEvent" ,pure.} = object of QSinglePointEvent
-        QNativeGestureEvent* {.header:headerFile,importcpp:"QNativeGestureEvent" ,pure.} = object of QSinglePointEvent
-        QKeyEvent* {.header:headerFile,importcpp:"QKeyEvent" ,pure.} = object of QInputEvent
-        QFocusEvent* {.header:headerFile,importcpp:"QFocusEvent" ,pure.} = object of QEvent
-        QPaintEvent* {.header:headerFile,importcpp:"QPaintEvent" ,pure.} = object of QEvent
-        QMoveEvent* {.header:headerFile,importcpp:"QMoveEvent" ,pure.} = object of QEvent
-        QExposeEvent* {.header:headerFile,importcpp:"QExposeEvent" ,pure.} = object of QEvent
-        QResizeEvent* {.header:headerFile,importcpp:"QResizeEvent" ,pure.} = object of QEvent
-        QCloseEvent* {.header:headerFile,importcpp:"QCloseEvent" ,pure.} = object of QEvent
-        QIconDragEvent* {.header:headerFile,importcpp:"QIconDragEvent" ,pure.} = object of QEvent
-        QShowEvent* {.header:headerFile,importcpp:"QShowEvent" ,pure.} = object of QEvent
-        QHideEvent* {.header:headerFile,importcpp:"QHideEvent" ,pure.} = object of QEvent
-        QContextMenuEvent* {.header:headerFile,importcpp:"QContextMenuEvent" ,pure.} = object of QInputEvent
-        QInputMethodEvent* {.header:headerFile,importcpp:"QInputMethodEvent" ,pure.} = object of QEvent
-        QInputMethodEvent_Attribute* {.header:headerFile,importcpp:"QInputMethodEvent::Attribute" ,pure,inheritable.} = object
-        QInputMethodQueryEvent* {.header:headerFile,importcpp:"QInputMethodQueryEvent" ,pure.} = object of QEvent
-        QDropEvent* {.header:headerFile,importcpp:"QDropEvent" ,pure.} = object of QEvent
-        QDragMoveEvent* {.header:headerFile,importcpp:"QDragMoveEvent" ,pure.} = object of QDropEvent
-        QDragEnterEvent* {.header:headerFile,importcpp:"QDragEnterEvent" ,pure.} = object of QDragMoveEvent
-        QDragLeaveEvent* {.header:headerFile,importcpp:"QDragLeaveEvent" ,pure.} = object of QEvent
-        QHelpEvent* {.header:headerFile,importcpp:"QHelpEvent" ,pure.} = object of QEvent
-        QStatusTipEvent* {.header:headerFile,importcpp:"QStatusTipEvent" ,pure.} = object of QEvent
-        QWhatsThisClickedEvent* {.header:headerFile,importcpp:"QWhatsThisClickedEvent" ,pure.} = object of QEvent
-        QActionEvent* {.header:headerFile,importcpp:"QActionEvent" ,pure.} = object of QEvent
-        QFileOpenEvent* {.header:headerFile,importcpp:"QFileOpenEvent" ,pure.} = object of QEvent
-        QToolBarChangeEvent* {.header:headerFile,importcpp:"QToolBarChangeEvent" ,pure.} = object of QEvent
-        QShortcutEvent* {.header:headerFile,importcpp:"QShortcutEvent" ,pure.} = object of QEvent
-        QWindowStateChangeEvent* {.header:headerFile,importcpp:"QWindowStateChangeEvent" ,pure.} = object of QEvent
-        QTouchEvent* {.header:headerFile,importcpp:"QTouchEvent" ,pure.} = object of QPointerEvent
-        QScrollPrepareEvent* {.header:headerFile,importcpp:"QScrollPrepareEvent" ,pure.} = object of QEvent
-        QScrollEvent* {.header:headerFile,importcpp:"QScrollEvent" ,pure.} = object of QEvent
-        QScreenOrientationChangeEvent* {.header:headerFile,importcpp:"QScreenOrientationChangeEvent" ,pure.} = object of QEvent
-        QApplicationStateChangeEvent* {.header:headerFile,importcpp:"QApplicationStateChangeEvent" ,pure.} = object of QEvent
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qcoreevent
+type
+    # Classes found in the C++ code
+    QInputEvent* {.header:headerFile,importcpp:"QInputEvent" ,pure.} = object of QEvent
+    QPointerEvent* {.header:headerFile,importcpp:"QPointerEvent" ,pure.} = object of QInputEvent
+    QSinglePointEvent* {.header:headerFile,importcpp:"QSinglePointEvent" ,pure.} = object of QPointerEvent
+    QEnterEvent* {.header:headerFile,importcpp:"QEnterEvent" ,pure.} = object of QSinglePointEvent
+    QMouseEvent* {.header:headerFile,importcpp:"QMouseEvent" ,pure.} = object of QSinglePointEvent
+    QHoverEvent* {.header:headerFile,importcpp:"QHoverEvent" ,pure.} = object of QSinglePointEvent
+    QWheelEvent* {.header:headerFile,importcpp:"QWheelEvent" ,pure.} = object of QSinglePointEvent
+    QTabletEvent* {.header:headerFile,importcpp:"QTabletEvent" ,pure.} = object of QSinglePointEvent
+    QNativeGestureEvent* {.header:headerFile,importcpp:"QNativeGestureEvent" ,pure.} = object of QSinglePointEvent
+    QKeyEvent* {.header:headerFile,importcpp:"QKeyEvent" ,pure.} = object of QInputEvent
+    QFocusEvent* {.header:headerFile,importcpp:"QFocusEvent" ,pure.} = object of QEvent
+    QPaintEvent* {.header:headerFile,importcpp:"QPaintEvent" ,pure.} = object of QEvent
+    QMoveEvent* {.header:headerFile,importcpp:"QMoveEvent" ,pure.} = object of QEvent
+    QExposeEvent* {.header:headerFile,importcpp:"QExposeEvent" ,pure.} = object of QEvent
+    QResizeEvent* {.header:headerFile,importcpp:"QResizeEvent" ,pure.} = object of QEvent
+    QCloseEvent* {.header:headerFile,importcpp:"QCloseEvent" ,pure.} = object of QEvent
+    QIconDragEvent* {.header:headerFile,importcpp:"QIconDragEvent" ,pure.} = object of QEvent
+    QShowEvent* {.header:headerFile,importcpp:"QShowEvent" ,pure.} = object of QEvent
+    QHideEvent* {.header:headerFile,importcpp:"QHideEvent" ,pure.} = object of QEvent
+    QContextMenuEvent* {.header:headerFile,importcpp:"QContextMenuEvent" ,pure.} = object of QInputEvent
+    QInputMethodEvent* {.header:headerFile,importcpp:"QInputMethodEvent" ,pure.} = object of QEvent
+    QInputMethodEvent_Attribute* {.header:headerFile,importcpp:"QInputMethodEvent::Attribute" ,pure,inheritable.} = object
+    QInputMethodQueryEvent* {.header:headerFile,importcpp:"QInputMethodQueryEvent" ,pure.} = object of QEvent
+    QDropEvent* {.header:headerFile,importcpp:"QDropEvent" ,pure.} = object of QEvent
+    QDragMoveEvent* {.header:headerFile,importcpp:"QDragMoveEvent" ,pure.} = object of QDropEvent
+    QDragEnterEvent* {.header:headerFile,importcpp:"QDragEnterEvent" ,pure.} = object of QDragMoveEvent
+    QDragLeaveEvent* {.header:headerFile,importcpp:"QDragLeaveEvent" ,pure.} = object of QEvent
+    QHelpEvent* {.header:headerFile,importcpp:"QHelpEvent" ,pure.} = object of QEvent
+    QStatusTipEvent* {.header:headerFile,importcpp:"QStatusTipEvent" ,pure.} = object of QEvent
+    QWhatsThisClickedEvent* {.header:headerFile,importcpp:"QWhatsThisClickedEvent" ,pure.} = object of QEvent
+    QActionEvent* {.header:headerFile,importcpp:"QActionEvent" ,pure.} = object of QEvent
+    QFileOpenEvent* {.header:headerFile,importcpp:"QFileOpenEvent" ,pure.} = object of QEvent
+    QToolBarChangeEvent* {.header:headerFile,importcpp:"QToolBarChangeEvent" ,pure.} = object of QEvent
+    QShortcutEvent* {.header:headerFile,importcpp:"QShortcutEvent" ,pure.} = object of QEvent
+    QWindowStateChangeEvent* {.header:headerFile,importcpp:"QWindowStateChangeEvent" ,pure.} = object of QEvent
+    QTouchEvent* {.header:headerFile,importcpp:"QTouchEvent" ,pure.} = object of QPointerEvent
+    QScrollPrepareEvent* {.header:headerFile,importcpp:"QScrollPrepareEvent" ,pure.} = object of QEvent
+    QScrollEvent* {.header:headerFile,importcpp:"QScrollEvent" ,pure.} = object of QEvent
+    QScreenOrientationChangeEvent* {.header:headerFile,importcpp:"QScreenOrientationChangeEvent" ,pure.} = object of QEvent
+    QApplicationStateChangeEvent* {.header:headerFile,importcpp:"QApplicationStateChangeEvent" ,pure.} = object of QEvent
 import nimqt/qtgui/qeventpoint
 
 

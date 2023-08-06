@@ -10,31 +10,16 @@ type
     QXmlStreamReader_Error* {.header:headerFile,importcpp:"QXmlStreamReader::Error".} = enum NoError = 0, UnexpectedElementError = 0x1, CustomError = 0x2, NotWellFormedError = 0x3, 
         PrematureEndOfDocumentError = 0x4
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QXmlStreamAttribute* {.header:headerFile,importcpp:"QXmlStreamAttribute" ,pure.} = object {.inheritable.}
-        QXmlStreamAttributes* {.header:headerFile,importcpp:"QXmlStreamAttributes" ,pure.} = object {.inheritable.}
-        QXmlStreamNamespaceDeclaration* {.header:headerFile,importcpp:"QXmlStreamNamespaceDeclaration" ,pure.} = object {.inheritable.}
-        QXmlStreamNotationDeclaration* {.header:headerFile,importcpp:"QXmlStreamNotationDeclaration" ,pure.} = object {.inheritable.}
-        QXmlStreamEntityDeclaration* {.header:headerFile,importcpp:"QXmlStreamEntityDeclaration" ,pure.} = object {.inheritable.}
-        QXmlStreamEntityResolver* {.header:headerFile,importcpp:"QXmlStreamEntityResolver" ,pure.} = object {.inheritable.}
-        QXmlStreamReader* {.header:headerFile,importcpp:"QXmlStreamReader" ,pure.} = object {.inheritable.}
-        QXmlStreamWriter* {.header:headerFile,importcpp:"QXmlStreamWriter" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QXmlStreamAttribute* {.header:headerFile,importcpp:"QXmlStreamAttribute" ,pure,inheritable.} = object
-        QXmlStreamAttributes* {.header:headerFile,importcpp:"QXmlStreamAttributes" ,pure,inheritable.} = object
-        QXmlStreamNamespaceDeclaration* {.header:headerFile,importcpp:"QXmlStreamNamespaceDeclaration" ,pure,inheritable.} = object
-        QXmlStreamNotationDeclaration* {.header:headerFile,importcpp:"QXmlStreamNotationDeclaration" ,pure,inheritable.} = object
-        QXmlStreamEntityDeclaration* {.header:headerFile,importcpp:"QXmlStreamEntityDeclaration" ,pure,inheritable.} = object
-        QXmlStreamEntityResolver* {.header:headerFile,importcpp:"QXmlStreamEntityResolver" ,pure,inheritable.} = object
-        QXmlStreamReader* {.header:headerFile,importcpp:"QXmlStreamReader" ,pure,inheritable.} = object
-        QXmlStreamWriter* {.header:headerFile,importcpp:"QXmlStreamWriter" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QXmlStreamAttribute* {.header:headerFile,importcpp:"QXmlStreamAttribute" ,pure,inheritable.} = object
+    QXmlStreamAttributes* {.header:headerFile,importcpp:"QXmlStreamAttributes" ,pure,inheritable.} = object
+    QXmlStreamNamespaceDeclaration* {.header:headerFile,importcpp:"QXmlStreamNamespaceDeclaration" ,pure,inheritable.} = object
+    QXmlStreamNotationDeclaration* {.header:headerFile,importcpp:"QXmlStreamNotationDeclaration" ,pure,inheritable.} = object
+    QXmlStreamEntityDeclaration* {.header:headerFile,importcpp:"QXmlStreamEntityDeclaration" ,pure,inheritable.} = object
+    QXmlStreamEntityResolver* {.header:headerFile,importcpp:"QXmlStreamEntityResolver" ,pure,inheritable.} = object
+    QXmlStreamReader* {.header:headerFile,importcpp:"QXmlStreamReader" ,pure,inheritable.} = object
+    QXmlStreamWriter* {.header:headerFile,importcpp:"QXmlStreamWriter" ,pure,inheritable.} = object
 import nimqt/qtcore/qlist
 
 

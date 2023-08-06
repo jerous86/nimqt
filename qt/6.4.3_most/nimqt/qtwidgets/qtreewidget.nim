@@ -6,20 +6,11 @@ type
     QTreeWidgetItem_ItemType* {.header:headerFile,importcpp:"QTreeWidgetItem::ItemType".} = enum Type = 0, UserType = 0x3e8
     QTreeWidgetItem_ChildIndicatorPolicy* {.header:headerFile,importcpp:"QTreeWidgetItem::ChildIndicatorPolicy".} = enum ShowIndicator = 0, DontShowIndicator = 0x1, DontShowIndicatorWhenChildless = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtwidgets/qtreeview
-    type
-        # Classes found in the C++ code
-        QTreeWidgetItem* {.header:headerFile,importcpp:"QTreeWidgetItem" ,pure.} = object {.inheritable.}
-        QTreeWidget* {.header:headerFile,importcpp:"QTreeWidget" ,pure.} = object of QTreeView
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTreeWidgetItem* {.header:headerFile,importcpp:"QTreeWidgetItem" ,pure,inheritable.} = object
-        QTreeWidget* {.header:headerFile,importcpp:"QTreeWidget" ,pure.} = object of QTreeView
-{.push warning[Deprecated]: on.}
+import nimqt/qtwidgets/qtreeview
+type
+    # Classes found in the C++ code
+    QTreeWidgetItem* {.header:headerFile,importcpp:"QTreeWidgetItem" ,pure,inheritable.} = object
+    QTreeWidget* {.header:headerFile,importcpp:"QTreeWidget" ,pure.} = object of QTreeView
 import nimqt/qtwidgets/qabstractitemview
 import nimqt/qtwidgets/qabstractscrollarea
 import nimqt/qtwidgets/qframe

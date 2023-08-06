@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qsemaphore.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSemaphore* {.header:headerFile,importcpp:"QSemaphore" ,pure.} = object {.inheritable.}
-        QSemaphoreReleaser* {.header:headerFile,importcpp:"QSemaphoreReleaser" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSemaphore* {.header:headerFile,importcpp:"QSemaphore" ,pure,inheritable.} = object
-        QSemaphoreReleaser* {.header:headerFile,importcpp:"QSemaphoreReleaser" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSemaphore* {.header:headerFile,importcpp:"QSemaphore" ,pure,inheritable.} = object
+    QSemaphoreReleaser* {.header:headerFile,importcpp:"QSemaphoreReleaser" ,pure,inheritable.} = object
 
 # Stuff for class QSemaphore
 

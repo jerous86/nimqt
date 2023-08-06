@@ -20,42 +20,22 @@ type
     QGraphicsItem_Extension* {.header:headerFile,importcpp:"QGraphicsItem::Extension".} = enum UserExtension = -2147483648
     QGraphicsPixmapItem_ShapeMode* {.header:headerFile,importcpp:"QGraphicsPixmapItem::ShapeMode".} = enum MaskShape = 0, BoundingRectShape = 0x1, HeuristicMaskShape = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qobject
-    type
-        # Classes found in the C++ code
-        QGraphicsItem* {.header:headerFile,importcpp:"QGraphicsItem" ,pure.} = object {.inheritable.}
-        QGraphicsObject* {.header:headerFile,importcpp:"QGraphicsObject" ,pure.} = object of QObject
-        QAbstractGraphicsShapeItem* {.header:headerFile,importcpp:"QAbstractGraphicsShapeItem" ,pure.} = object of QGraphicsItem
-        QGraphicsPathItem* {.header:headerFile,importcpp:"QGraphicsPathItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsRectItem* {.header:headerFile,importcpp:"QGraphicsRectItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsEllipseItem* {.header:headerFile,importcpp:"QGraphicsEllipseItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsPolygonItem* {.header:headerFile,importcpp:"QGraphicsPolygonItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsLineItem* {.header:headerFile,importcpp:"QGraphicsLineItem" ,pure.} = object of QGraphicsItem
-        QGraphicsPixmapItem* {.header:headerFile,importcpp:"QGraphicsPixmapItem" ,pure.} = object of QGraphicsItem
-        QGraphicsTextItem* {.header:headerFile,importcpp:"QGraphicsTextItem" ,pure.} = object of QGraphicsObject
-        QGraphicsSimpleTextItem* {.header:headerFile,importcpp:"QGraphicsSimpleTextItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsItemGroup* {.header:headerFile,importcpp:"QGraphicsItemGroup" ,pure.} = object of QGraphicsItem
-        QMetaTypeId* {.header:headerFile,importcpp:"QMetaTypeId" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QGraphicsItem* {.header:headerFile,importcpp:"QGraphicsItem" ,pure,inheritable.} = object
-        QGraphicsObject* {.header:headerFile,importcpp:"QGraphicsObject" ,pure.} = object of QObject
-        QAbstractGraphicsShapeItem* {.header:headerFile,importcpp:"QAbstractGraphicsShapeItem" ,pure.} = object of QGraphicsItem
-        QGraphicsPathItem* {.header:headerFile,importcpp:"QGraphicsPathItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsRectItem* {.header:headerFile,importcpp:"QGraphicsRectItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsEllipseItem* {.header:headerFile,importcpp:"QGraphicsEllipseItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsPolygonItem* {.header:headerFile,importcpp:"QGraphicsPolygonItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsLineItem* {.header:headerFile,importcpp:"QGraphicsLineItem" ,pure.} = object of QGraphicsItem
-        QGraphicsPixmapItem* {.header:headerFile,importcpp:"QGraphicsPixmapItem" ,pure.} = object of QGraphicsItem
-        QGraphicsTextItem* {.header:headerFile,importcpp:"QGraphicsTextItem" ,pure.} = object of QGraphicsObject
-        QGraphicsSimpleTextItem* {.header:headerFile,importcpp:"QGraphicsSimpleTextItem" ,pure.} = object of QAbstractGraphicsShapeItem
-        QGraphicsItemGroup* {.header:headerFile,importcpp:"QGraphicsItemGroup" ,pure.} = object of QGraphicsItem
-        QMetaTypeId* {.header:headerFile,importcpp:"QMetaTypeId" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qobject
+type
+    # Classes found in the C++ code
+    QGraphicsItem* {.header:headerFile,importcpp:"QGraphicsItem" ,pure,inheritable.} = object
+    QGraphicsObject* {.header:headerFile,importcpp:"QGraphicsObject" ,pure.} = object of QObject
+    QAbstractGraphicsShapeItem* {.header:headerFile,importcpp:"QAbstractGraphicsShapeItem" ,pure.} = object of QGraphicsItem
+    QGraphicsPathItem* {.header:headerFile,importcpp:"QGraphicsPathItem" ,pure.} = object of QAbstractGraphicsShapeItem
+    QGraphicsRectItem* {.header:headerFile,importcpp:"QGraphicsRectItem" ,pure.} = object of QAbstractGraphicsShapeItem
+    QGraphicsEllipseItem* {.header:headerFile,importcpp:"QGraphicsEllipseItem" ,pure.} = object of QAbstractGraphicsShapeItem
+    QGraphicsPolygonItem* {.header:headerFile,importcpp:"QGraphicsPolygonItem" ,pure.} = object of QAbstractGraphicsShapeItem
+    QGraphicsLineItem* {.header:headerFile,importcpp:"QGraphicsLineItem" ,pure.} = object of QGraphicsItem
+    QGraphicsPixmapItem* {.header:headerFile,importcpp:"QGraphicsPixmapItem" ,pure.} = object of QGraphicsItem
+    QGraphicsTextItem* {.header:headerFile,importcpp:"QGraphicsTextItem" ,pure.} = object of QGraphicsObject
+    QGraphicsSimpleTextItem* {.header:headerFile,importcpp:"QGraphicsSimpleTextItem" ,pure.} = object of QAbstractGraphicsShapeItem
+    QGraphicsItemGroup* {.header:headerFile,importcpp:"QGraphicsItemGroup" ,pure.} = object of QGraphicsItem
+    QMetaTypeId* {.header:headerFile,importcpp:"QMetaTypeId" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

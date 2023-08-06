@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qlist.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QList*[T] {.header:headerFile,importcpp:"QList" ,pure.} = object {.inheritable.}
-        QList_DisableRValueRefs*[T] {.header:headerFile,importcpp:"QList::DisableRValueRefs" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QList*[T] {.header:headerFile,importcpp:"QList" ,pure,inheritable.} = object
-        QList_DisableRValueRefs*[T] {.header:headerFile,importcpp:"QList::DisableRValueRefs" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QList*[T] {.header:headerFile,importcpp:"QList" ,pure,inheritable.} = object
+    QList_DisableRValueRefs*[T] {.header:headerFile,importcpp:"QList::DisableRValueRefs" ,pure,inheritable.} = object
 
 # Stuff for class QList
 

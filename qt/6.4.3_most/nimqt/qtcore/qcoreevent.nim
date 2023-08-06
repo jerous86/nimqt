@@ -39,31 +39,16 @@ type
         PlatformSurface = 0xd9, Pointer = 0xda, TabletTrackingChange = 0xdb, GraphicsSceneLeave = 0xdc, WindowAboutToChangeInternal = 0xdd, 
         User = 0x3e8, MaxUser = 0xffff
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QEvent* {.header:headerFile,importcpp:"QEvent" ,pure.} = object {.inheritable.}
-        QEvent_InputEventTag* {.header:headerFile,importcpp:"QEvent::InputEventTag" ,pure.} = object {.inheritable.}
-        QEvent_PointerEventTag* {.header:headerFile,importcpp:"QEvent::PointerEventTag" ,pure.} = object {.inheritable.}
-        QEvent_SinglePointEventTag* {.header:headerFile,importcpp:"QEvent::SinglePointEventTag" ,pure.} = object {.inheritable.}
-        QTimerEvent* {.header:headerFile,importcpp:"QTimerEvent" ,pure.} = object of QEvent
-        QChildEvent* {.header:headerFile,importcpp:"QChildEvent" ,pure.} = object of QEvent
-        QDynamicPropertyChangeEvent* {.header:headerFile,importcpp:"QDynamicPropertyChangeEvent" ,pure.} = object of QEvent
-        QDeferredDeleteEvent* {.header:headerFile,importcpp:"QDeferredDeleteEvent" ,pure.} = object of QEvent
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QEvent* {.header:headerFile,importcpp:"QEvent" ,pure,inheritable.} = object
-        QEvent_InputEventTag* {.header:headerFile,importcpp:"QEvent::InputEventTag" ,pure,inheritable.} = object
-        QEvent_PointerEventTag* {.header:headerFile,importcpp:"QEvent::PointerEventTag" ,pure,inheritable.} = object
-        QEvent_SinglePointEventTag* {.header:headerFile,importcpp:"QEvent::SinglePointEventTag" ,pure,inheritable.} = object
-        QTimerEvent* {.header:headerFile,importcpp:"QTimerEvent" ,pure.} = object of QEvent
-        QChildEvent* {.header:headerFile,importcpp:"QChildEvent" ,pure.} = object of QEvent
-        QDynamicPropertyChangeEvent* {.header:headerFile,importcpp:"QDynamicPropertyChangeEvent" ,pure.} = object of QEvent
-        QDeferredDeleteEvent* {.header:headerFile,importcpp:"QDeferredDeleteEvent" ,pure.} = object of QEvent
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QEvent* {.header:headerFile,importcpp:"QEvent" ,pure,inheritable.} = object
+    QEvent_InputEventTag* {.header:headerFile,importcpp:"QEvent::InputEventTag" ,pure,inheritable.} = object
+    QEvent_PointerEventTag* {.header:headerFile,importcpp:"QEvent::PointerEventTag" ,pure,inheritable.} = object
+    QEvent_SinglePointEventTag* {.header:headerFile,importcpp:"QEvent::SinglePointEventTag" ,pure,inheritable.} = object
+    QTimerEvent* {.header:headerFile,importcpp:"QTimerEvent" ,pure.} = object of QEvent
+    QChildEvent* {.header:headerFile,importcpp:"QChildEvent" ,pure.} = object of QEvent
+    QDynamicPropertyChangeEvent* {.header:headerFile,importcpp:"QDynamicPropertyChangeEvent" ,pure.} = object of QEvent
+    QDeferredDeleteEvent* {.header:headerFile,importcpp:"QDeferredDeleteEvent" ,pure.} = object of QEvent
 
 
 type

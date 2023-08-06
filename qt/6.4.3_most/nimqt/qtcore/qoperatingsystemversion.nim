@@ -8,19 +8,10 @@ type
     eQOperatingSystemVersion_OSType* {.header:headerFile,importcpp:"QOperatingSystemVersion::OSType".} = enum Unknown = 0, Windows = 0x1, MacOS = 0x2, IOS = 0x3, 
         TvOS = 0x4, WatchOS = 0x5, Android = 0x6
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QOperatingSystemVersionBase* {.header:headerFile,importcpp:"QOperatingSystemVersionBase" ,pure.} = object {.inheritable.}
-        QOperatingSystemVersion* {.header:headerFile,importcpp:"QOperatingSystemVersion" ,pure.} = object of QOperatingSystemVersionBase
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QOperatingSystemVersionBase* {.header:headerFile,importcpp:"QOperatingSystemVersionBase" ,pure,inheritable.} = object
-        QOperatingSystemVersion* {.header:headerFile,importcpp:"QOperatingSystemVersion" ,pure.} = object of QOperatingSystemVersionBase
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QOperatingSystemVersionBase* {.header:headerFile,importcpp:"QOperatingSystemVersionBase" ,pure,inheritable.} = object
+    QOperatingSystemVersion* {.header:headerFile,importcpp:"QOperatingSystemVersion" ,pure.} = object of QOperatingSystemVersionBase
 
 
 type

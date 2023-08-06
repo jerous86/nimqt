@@ -7,17 +7,9 @@ type
     QArrayData_GrowthPosition* {.header:headerFile,importcpp:"QArrayData::GrowthPosition".} = enum GrowsAtEnd = 0, GrowsAtBeginning = 0x1
     QArrayData_ArrayOption* {.header:headerFile,importcpp:"QArrayData::ArrayOption".} = enum ArrayOptionDefault = 0, CapacityReserved = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QArrayData* {.header:headerFile,importcpp:"QArrayData" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QArrayData* {.header:headerFile,importcpp:"QArrayData" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QArrayData* {.header:headerFile,importcpp:"QArrayData" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

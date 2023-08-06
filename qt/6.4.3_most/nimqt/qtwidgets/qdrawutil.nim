@@ -7,17 +7,9 @@ type
         OpaqueCenter = 0x10, OpaqueRight = 0x20, OpaqueBottomLeft = 0x40, OpaqueBottom = 0x80, OpaqueEdges = 0xaa, 
         OpaqueBottomRight = 0x100, OpaqueCorners = 0x145, OpaqueFrame = 0x1ef, OpaqueAll = 0x1ff
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTileRules* {.header:headerFile,importcpp:"QTileRules" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTileRules* {.header:headerFile,importcpp:"QTileRules" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTileRules* {.header:headerFile,importcpp:"QTileRules" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

@@ -1,22 +1,11 @@
 const headerFile* = "QtWidgets/qlayoutitem.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLayoutItem* {.header:headerFile,importcpp:"QLayoutItem" ,pure.} = object {.inheritable.}
-        QSpacerItem* {.header:headerFile,importcpp:"QSpacerItem" ,pure.} = object of QLayoutItem
-        QWidgetItem* {.header:headerFile,importcpp:"QWidgetItem" ,pure.} = object of QLayoutItem
-        QWidgetItemV2* {.header:headerFile,importcpp:"QWidgetItemV2" ,pure.} = object of QWidgetItem
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLayoutItem* {.header:headerFile,importcpp:"QLayoutItem" ,pure,inheritable.} = object
-        QSpacerItem* {.header:headerFile,importcpp:"QSpacerItem" ,pure.} = object of QLayoutItem
-        QWidgetItem* {.header:headerFile,importcpp:"QWidgetItem" ,pure.} = object of QLayoutItem
-        QWidgetItemV2* {.header:headerFile,importcpp:"QWidgetItemV2" ,pure.} = object of QWidgetItem
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QLayoutItem* {.header:headerFile,importcpp:"QLayoutItem" ,pure,inheritable.} = object
+    QSpacerItem* {.header:headerFile,importcpp:"QSpacerItem" ,pure.} = object of QLayoutItem
+    QWidgetItem* {.header:headerFile,importcpp:"QWidgetItem" ,pure.} = object of QLayoutItem
+    QWidgetItemV2* {.header:headerFile,importcpp:"QWidgetItemV2" ,pure.} = object of QWidgetItem
 
 # Stuff for class QLayoutItem
 

@@ -9,19 +9,10 @@ type
     QTextOption_Flag* {.header:headerFile,importcpp:"QTextOption::Flag".} = enum IncludeTrailingSpaces = -2147483648, ShowTabsAndSpaces = 0x1, ShowLineAndParagraphSeparators = 0x2, AddSpaceForLineAndParagraphSeparators = 0x4, 
         SuppressColors = 0x8, ShowDocumentTerminator = 0x10
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextOption* {.header:headerFile,importcpp:"QTextOption" ,pure.} = object {.inheritable.}
-        QTextOption_Tab* {.header:headerFile,importcpp:"QTextOption::Tab" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextOption* {.header:headerFile,importcpp:"QTextOption" ,pure,inheritable.} = object
-        QTextOption_Tab* {.header:headerFile,importcpp:"QTextOption::Tab" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTextOption* {.header:headerFile,importcpp:"QTextOption" ,pure,inheritable.} = object
+    QTextOption_Tab* {.header:headerFile,importcpp:"QTextOption::Tab" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

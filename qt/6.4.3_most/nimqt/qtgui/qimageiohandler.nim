@@ -11,20 +11,11 @@ type
         TransformationRotate90 = 0x4, TransformationMirrorAndRotate90 = 0x5, TransformationFlipAndRotate90 = 0x6, TransformationRotate270 = 0x7
     QImageIOPlugin_Capability* {.header:headerFile,importcpp:"QImageIOPlugin::Capability".} = enum CanRead = 0x1, CanWrite = 0x2, CanReadIncremental = 0x4
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qobject
-    type
-        # Classes found in the C++ code
-        QImageIOHandler* {.header:headerFile,importcpp:"QImageIOHandler" ,pure.} = object {.inheritable.}
-        QImageIOPlugin* {.header:headerFile,importcpp:"QImageIOPlugin" ,pure.} = object of QObject
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QImageIOHandler* {.header:headerFile,importcpp:"QImageIOHandler" ,pure,inheritable.} = object
-        QImageIOPlugin* {.header:headerFile,importcpp:"QImageIOPlugin" ,pure.} = object of QObject
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qobject
+type
+    # Classes found in the C++ code
+    QImageIOHandler* {.header:headerFile,importcpp:"QImageIOHandler" ,pure,inheritable.} = object
+    QImageIOPlugin* {.header:headerFile,importcpp:"QImageIOPlugin" ,pure.} = object of QObject
 import nimqt/qtcore/qflags
 
 

@@ -1,22 +1,11 @@
 const headerFile* = "QtCore/qmutex.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QBasicMutex* {.header:headerFile,importcpp:"QBasicMutex" ,pure.} = object {.inheritable.}
-        QMutex* {.header:headerFile,importcpp:"QMutex" ,pure.} = object of QBasicMutex
-        QRecursiveMutex* {.header:headerFile,importcpp:"QRecursiveMutex" ,pure.} = object {.inheritable.}
-        QMutexLocker*[Mutex] {.header:headerFile,importcpp:"QMutexLocker" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QBasicMutex* {.header:headerFile,importcpp:"QBasicMutex" ,pure,inheritable.} = object
-        QMutex* {.header:headerFile,importcpp:"QMutex" ,pure.} = object of QBasicMutex
-        QRecursiveMutex* {.header:headerFile,importcpp:"QRecursiveMutex" ,pure,inheritable.} = object
-        QMutexLocker*[Mutex] {.header:headerFile,importcpp:"QMutexLocker" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QBasicMutex* {.header:headerFile,importcpp:"QBasicMutex" ,pure,inheritable.} = object
+    QMutex* {.header:headerFile,importcpp:"QMutex" ,pure.} = object of QBasicMutex
+    QRecursiveMutex* {.header:headerFile,importcpp:"QRecursiveMutex" ,pure,inheritable.} = object
+    QMutexLocker*[Mutex] {.header:headerFile,importcpp:"QMutexLocker" ,pure,inheritable.} = object
 
 # Stuff for class QBasicMutex
 

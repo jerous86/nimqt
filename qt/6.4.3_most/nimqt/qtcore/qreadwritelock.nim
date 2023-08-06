@@ -5,21 +5,11 @@ type
     # Global
     QReadWriteLock_RecursionMode* {.header:headerFile,importcpp:"QReadWriteLock::RecursionMode".} = enum NonRecursive = 0, Recursive = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QReadWriteLock* {.header:headerFile,importcpp:"QReadWriteLock" ,pure.} = object {.inheritable.}
-        QReadLocker* {.header:headerFile,importcpp:"QReadLocker" ,pure.} = object {.inheritable.}
-        QWriteLocker* {.header:headerFile,importcpp:"QWriteLocker" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QReadWriteLock* {.header:headerFile,importcpp:"QReadWriteLock" ,pure,inheritable.} = object
-        QReadLocker* {.header:headerFile,importcpp:"QReadLocker" ,pure,inheritable.} = object
-        QWriteLocker* {.header:headerFile,importcpp:"QWriteLocker" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QReadWriteLock* {.header:headerFile,importcpp:"QReadWriteLock" ,pure,inheritable.} = object
+    QReadLocker* {.header:headerFile,importcpp:"QReadLocker" ,pure,inheritable.} = object
+    QWriteLocker* {.header:headerFile,importcpp:"QWriteLocker" ,pure,inheritable.} = object
 
 # Stuff for class QReadWriteLock
 

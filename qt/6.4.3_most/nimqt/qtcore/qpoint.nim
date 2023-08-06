@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qpoint.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPoint* {.header:headerFile,importcpp:"QPoint" ,pure.} = object {.inheritable.}
-        QPointF* {.header:headerFile,importcpp:"QPointF" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPoint* {.header:headerFile,importcpp:"QPoint" ,pure,inheritable.} = object
-        QPointF* {.header:headerFile,importcpp:"QPointF" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPoint* {.header:headerFile,importcpp:"QPoint" ,pure,inheritable.} = object
+    QPointF* {.header:headerFile,importcpp:"QPointF" ,pure,inheritable.} = object
 
 # Stuff for class QPoint
 

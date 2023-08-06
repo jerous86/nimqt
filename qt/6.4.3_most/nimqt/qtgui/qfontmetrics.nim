@@ -1,18 +1,9 @@
 const headerFile* = "QtGui/qfontmetrics.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFontMetrics* {.header:headerFile,importcpp:"QFontMetrics" ,pure.} = object {.inheritable.}
-        QFontMetricsF* {.header:headerFile,importcpp:"QFontMetricsF" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFontMetrics* {.header:headerFile,importcpp:"QFontMetrics" ,pure,inheritable.} = object
-        QFontMetricsF* {.header:headerFile,importcpp:"QFontMetricsF" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QFontMetrics* {.header:headerFile,importcpp:"QFontMetrics" ,pure,inheritable.} = object
+    QFontMetricsF* {.header:headerFile,importcpp:"QFontMetricsF" ,pure,inheritable.} = object
 
 # Stuff for class QFontMetrics
 

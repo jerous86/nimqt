@@ -6,17 +6,9 @@ type
     QGestureRecognizer_ResultFlag* {.header:headerFile,importcpp:"QGestureRecognizer::ResultFlag".} = enum Ignore = 0x1, MayBeGesture = 0x2, TriggerGesture = 0x4, FinishGesture = 0x8, 
         CancelGesture = 0x10, ResultState_Mask = 0xff, ConsumeEventHint = 0x100, ResultHint_Mask = 0xff00
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QGestureRecognizer* {.header:headerFile,importcpp:"QGestureRecognizer" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QGestureRecognizer* {.header:headerFile,importcpp:"QGestureRecognizer" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QGestureRecognizer* {.header:headerFile,importcpp:"QGestureRecognizer" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

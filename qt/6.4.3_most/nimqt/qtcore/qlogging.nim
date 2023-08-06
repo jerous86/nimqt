@@ -6,19 +6,10 @@ type
     QtMsgType* {.header:headerFile,importcpp:"QtMsgType".} = enum QtDebugMsg = 0, QtWarningMsg = 0x1, QtCriticalMsg = 0x2, QtFatalMsg = 0x3, 
         QtInfoMsg = 0x4
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMessageLogContext* {.header:headerFile,importcpp:"QMessageLogContext" ,pure.} = object {.inheritable.}
-        QMessageLogger* {.header:headerFile,importcpp:"QMessageLogger" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMessageLogContext* {.header:headerFile,importcpp:"QMessageLogContext" ,pure,inheritable.} = object
-        QMessageLogger* {.header:headerFile,importcpp:"QMessageLogger" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QMessageLogContext* {.header:headerFile,importcpp:"QMessageLogContext" ,pure,inheritable.} = object
+    QMessageLogger* {.header:headerFile,importcpp:"QMessageLogger" ,pure,inheritable.} = object
 
 # Consts
 const

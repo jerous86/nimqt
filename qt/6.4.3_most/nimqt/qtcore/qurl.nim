@@ -12,19 +12,10 @@ type
     QUrl_UserInputResolutionOption* {.header:headerFile,importcpp:"QUrl::UserInputResolutionOption".} = enum DefaultResolution = 0, AssumeLocalFile = 0x1
     QUrl_AceProcessingOption* {.header:headerFile,importcpp:"QUrl::AceProcessingOption".} = enum IgnoreIDNWhitelist = 0x1, AceTransitionalProcessing = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QUrlTwoFlags*[E1, E2] {.header:headerFile,importcpp:"QUrlTwoFlags" ,pure.} = object {.inheritable.}
-        QUrl* {.header:headerFile,importcpp:"QUrl" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QUrlTwoFlags*[E1, E2] {.header:headerFile,importcpp:"QUrlTwoFlags" ,pure,inheritable.} = object
-        QUrl* {.header:headerFile,importcpp:"QUrl" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QUrlTwoFlags*[E1, E2] {.header:headerFile,importcpp:"QUrlTwoFlags" ,pure,inheritable.} = object
+    QUrl* {.header:headerFile,importcpp:"QUrl" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

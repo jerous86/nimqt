@@ -10,17 +10,9 @@ type
         PublicShareLocation = 0x13, TemplatesLocation = 0x14
     QStandardPaths_LocateOption* {.header:headerFile,importcpp:"QStandardPaths::LocateOption".} = enum LocateFile = 0, LocateDirectory = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QStandardPaths* {.header:headerFile,importcpp:"QStandardPaths" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QStandardPaths* {.header:headerFile,importcpp:"QStandardPaths" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QStandardPaths* {.header:headerFile,importcpp:"QStandardPaths" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

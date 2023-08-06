@@ -11,17 +11,9 @@ type
         Link = 0xe, LinkVisited = 0xf, AlternateBase = 0x10, NoRole = 0x11, ToolTipBase = 0x12, 
         ToolTipText = 0x13, PlaceholderText = 0x14, NColorRoles = 0x15
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPalette* {.header:headerFile,importcpp:"QPalette" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPalette* {.header:headerFile,importcpp:"QPalette" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPalette* {.header:headerFile,importcpp:"QPalette" ,pure,inheritable.} = object
 
 
 type

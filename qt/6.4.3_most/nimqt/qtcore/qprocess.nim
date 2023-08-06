@@ -13,20 +13,11 @@ type
     QProcess_InputChannelMode* {.header:headerFile,importcpp:"QProcess::InputChannelMode".} = enum ManagedInputChannel = 0, ForwardedInputChannel = 0x1
     QProcess_ExitStatus* {.header:headerFile,importcpp:"QProcess::ExitStatus".} = enum NormalExit = 0, CrashExit = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qiodevice
-    type
-        # Classes found in the C++ code
-        QProcessEnvironment* {.header:headerFile,importcpp:"QProcessEnvironment" ,pure.} = object {.inheritable.}
-        QProcess* {.header:headerFile,importcpp:"QProcess" ,pure.} = object of QIODevice
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QProcessEnvironment* {.header:headerFile,importcpp:"QProcessEnvironment" ,pure,inheritable.} = object
-        QProcess* {.header:headerFile,importcpp:"QProcess" ,pure.} = object of QIODevice
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qiodevice
+type
+    # Classes found in the C++ code
+    QProcessEnvironment* {.header:headerFile,importcpp:"QProcessEnvironment" ,pure,inheritable.} = object
+    QProcess* {.header:headerFile,importcpp:"QProcess" ,pure.} = object of QIODevice
 import nimqt/qtcore/qiodevicebase
 
 

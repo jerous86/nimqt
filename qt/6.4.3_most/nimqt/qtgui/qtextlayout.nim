@@ -7,23 +7,12 @@ type
     QTextLine_Edge* {.header:headerFile,importcpp:"QTextLine::Edge".} = enum Leading = 0, Trailing = 0x1
     QTextLine_CursorPosition* {.header:headerFile,importcpp:"QTextLine::CursorPosition".} = enum CursorBetweenCharacters = 0, CursorOnCharacter = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextInlineObject* {.header:headerFile,importcpp:"QTextInlineObject" ,pure.} = object {.inheritable.}
-        QTextLayout* {.header:headerFile,importcpp:"QTextLayout" ,pure.} = object {.inheritable.}
-        QTextLayout_FormatRange* {.header:headerFile,importcpp:"QTextLayout::FormatRange" ,pure.} = object {.inheritable.}
-        QTextLine* {.header:headerFile,importcpp:"QTextLine" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextInlineObject* {.header:headerFile,importcpp:"QTextInlineObject" ,pure,inheritable.} = object
-        QTextLayout* {.header:headerFile,importcpp:"QTextLayout" ,pure,inheritable.} = object
-        QTextLayout_FormatRange* {.header:headerFile,importcpp:"QTextLayout::FormatRange" ,pure,inheritable.} = object
-        QTextLine* {.header:headerFile,importcpp:"QTextLine" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTextInlineObject* {.header:headerFile,importcpp:"QTextInlineObject" ,pure,inheritable.} = object
+    QTextLayout* {.header:headerFile,importcpp:"QTextLayout" ,pure,inheritable.} = object
+    QTextLayout_FormatRange* {.header:headerFile,importcpp:"QTextLayout::FormatRange" ,pure,inheritable.} = object
+    QTextLine* {.header:headerFile,importcpp:"QTextLine" ,pure,inheritable.} = object
 
 # Stuff for class QTextInlineObject
 

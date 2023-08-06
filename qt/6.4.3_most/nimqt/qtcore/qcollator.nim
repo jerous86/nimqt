@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qcollator.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCollatorSortKey* {.header:headerFile,importcpp:"QCollatorSortKey" ,pure.} = object {.inheritable.}
-        QCollator* {.header:headerFile,importcpp:"QCollator" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCollatorSortKey* {.header:headerFile,importcpp:"QCollatorSortKey" ,pure,inheritable.} = object
-        QCollator* {.header:headerFile,importcpp:"QCollator" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QCollatorSortKey* {.header:headerFile,importcpp:"QCollatorSortKey" ,pure,inheritable.} = object
+    QCollator* {.header:headerFile,importcpp:"QCollator" ,pure,inheritable.} = object
 
 # Stuff for class QCollatorSortKey
 

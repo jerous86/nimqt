@@ -7,17 +7,9 @@ type
     QSystemSemaphore_SystemSemaphoreError* {.header:headerFile,importcpp:"QSystemSemaphore::SystemSemaphoreError".} = enum NoError = 0, PermissionDenied = 0x1, KeyError = 0x2, AlreadyExists = 0x3, 
         NotFound = 0x4, OutOfResources = 0x5, UnknownError = 0x6
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSystemSemaphore* {.header:headerFile,importcpp:"QSystemSemaphore" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSystemSemaphore* {.header:headerFile,importcpp:"QSystemSemaphore" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSystemSemaphore* {.header:headerFile,importcpp:"QSystemSemaphore" ,pure,inheritable.} = object
 
 # Stuff for class QSystemSemaphore
 

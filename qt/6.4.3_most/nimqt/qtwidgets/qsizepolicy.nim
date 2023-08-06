@@ -11,17 +11,9 @@ type
         PushButton = 0x200, RadioButton = 0x400, Slider = 0x800, SpinBox = 0x1000, TabWidget = 0x2000, 
         ToolButton = 0x4000
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSizePolicy* {.header:headerFile,importcpp:"QSizePolicy" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSizePolicy* {.header:headerFile,importcpp:"QSizePolicy" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSizePolicy* {.header:headerFile,importcpp:"QSizePolicy" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

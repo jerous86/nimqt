@@ -7,17 +7,9 @@ type
         Drive = 0x4, Folder = 0x5, File = 0x6
     QAbstractFileIconProvider_Option* {.header:headerFile,importcpp:"QAbstractFileIconProvider::Option".} = enum DontUseCustomDirectoryIcons = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QAbstractFileIconProvider* {.header:headerFile,importcpp:"QAbstractFileIconProvider" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QAbstractFileIconProvider* {.header:headerFile,importcpp:"QAbstractFileIconProvider" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QAbstractFileIconProvider* {.header:headerFile,importcpp:"QAbstractFileIconProvider" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

@@ -8,20 +8,11 @@ type
     QPointingDevice_GrabTransition* {.header:headerFile,importcpp:"QPointingDevice::GrabTransition".} = enum GrabPassive = 0x1, UngrabPassive = 0x2, CancelGrabPassive = 0x3, OverrideGrabPassive = 0x4, 
         GrabExclusive = 0x10, UngrabExclusive = 0x20, CancelGrabExclusive = 0x30
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtgui/qinputdevice
-    type
-        # Classes found in the C++ code
-        QPointingDeviceUniqueId* {.header:headerFile,importcpp:"QPointingDeviceUniqueId" ,pure.} = object {.inheritable.}
-        QPointingDevice* {.header:headerFile,importcpp:"QPointingDevice" ,pure.} = object of QInputDevice
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPointingDeviceUniqueId* {.header:headerFile,importcpp:"QPointingDeviceUniqueId" ,pure,inheritable.} = object
-        QPointingDevice* {.header:headerFile,importcpp:"QPointingDevice" ,pure.} = object of QInputDevice
-{.push warning[Deprecated]: on.}
+import nimqt/qtgui/qinputdevice
+type
+    # Classes found in the C++ code
+    QPointingDeviceUniqueId* {.header:headerFile,importcpp:"QPointingDeviceUniqueId" ,pure,inheritable.} = object
+    QPointingDevice* {.header:headerFile,importcpp:"QPointingDevice" ,pure.} = object of QInputDevice
 import nimqt/qtcore/qflags
 
 

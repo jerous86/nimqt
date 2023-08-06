@@ -11,17 +11,9 @@ type
         OvershootDragDistanceFactor = 0xe, OvershootScrollDistanceFactor = 0xf, OvershootScrollTime = 0x10, HorizontalOvershootPolicy = 0x11, VerticalOvershootPolicy = 0x12, 
         FrameRate = 0x13, ScrollMetricCount = 0x14
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QScrollerProperties* {.header:headerFile,importcpp:"QScrollerProperties" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QScrollerProperties* {.header:headerFile,importcpp:"QScrollerProperties" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QScrollerProperties* {.header:headerFile,importcpp:"QScrollerProperties" ,pure,inheritable.} = object
 
 # Stuff for class QScrollerProperties
 

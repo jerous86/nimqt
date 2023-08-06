@@ -7,19 +7,10 @@ type
         SectionCaseInsensitiveSeps = 0x8
     QString_NormalizationForm* {.header:headerFile,importcpp:"QString::NormalizationForm".} = enum NormalizationForm_D = 0, NormalizationForm_C = 0x1, NormalizationForm_KD = 0x2, NormalizationForm_KC = 0x3
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLatin1String* {.header:headerFile,importcpp:"QLatin1String" ,pure.} = object {.inheritable.}
-        QString* {.header:headerFile,importcpp:"QString" .} = object
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLatin1String* {.header:headerFile,importcpp:"QLatin1String" ,pure,inheritable.} = object
-        QString* {.header:headerFile,importcpp:"QString" .} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QLatin1String* {.header:headerFile,importcpp:"QLatin1String" ,pure,inheritable.} = object
+    QString* {.header:headerFile,importcpp:"QString" .} = object
 import nimqt/qtcore/qflags
 import nimqt/qtcore/qchar
 
@@ -186,15 +177,21 @@ proc arg*(this: QString, a: culong, fieldwidth: cint, base: cint): QString {.hea
 proc arg*(this: QString, a: culong, fieldwidth: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
 proc arg*(this: QString, a: culong): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
 # 3 default parameters!
-proc arg*(this: QString, a: cint, fieldWidth: cint, base: cint, fillChar: QChar): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
-proc arg*(this: QString, a: cint, fieldWidth: cint, base: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
-proc arg*(this: QString, a: cint, fieldWidth: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
+when (not defined(windows)):
+    proc arg*(this: QString, a: cint, fieldWidth: cint, base: cint, fillChar: QChar): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
+when (not defined(windows)):
+    proc arg*(this: QString, a: cint, fieldWidth: cint, base: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
+when (not defined(windows)):
+    proc arg*(this: QString, a: cint, fieldWidth: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
 when (not defined(windows)):
     proc arg*(this: QString, a: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
 # 3 default parameters!
-proc arg*(this: QString, a: cuint, fieldWidth: cint, base: cint, fillChar: QChar): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
-proc arg*(this: QString, a: cuint, fieldWidth: cint, base: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
-proc arg*(this: QString, a: cuint, fieldWidth: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
+when (not defined(windows)):
+    proc arg*(this: QString, a: cuint, fieldWidth: cint, base: cint, fillChar: QChar): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
+when (not defined(windows)):
+    proc arg*(this: QString, a: cuint, fieldWidth: cint, base: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
+when (not defined(windows)):
+    proc arg*(this: QString, a: cuint, fieldWidth: cint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
 when (not defined(windows)):
     proc arg*(this: QString, a: cuint): QString {.header:headerFile, importcpp:"#.arg(@)".} # Public
 # 3 default parameters!

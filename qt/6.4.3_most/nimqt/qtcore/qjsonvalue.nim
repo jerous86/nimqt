@@ -6,19 +6,10 @@ type
     QJsonValue_Type* {.header:headerFile,importcpp:"QJsonValue::Type".} = enum Null = 0, Bool = 0x1, Double = 0x2, String = 0x3, 
         Array = 0x4, Object = 0x5, Undefined = 0x80
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QJsonValue* {.header:headerFile,importcpp:"QJsonValue" ,pure.} = object {.inheritable.}
-        QJsonValueConstRef* {.header:headerFile,importcpp:"QJsonValueConstRef" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QJsonValue* {.header:headerFile,importcpp:"QJsonValue" ,pure,inheritable.} = object
-        QJsonValueConstRef* {.header:headerFile,importcpp:"QJsonValueConstRef" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QJsonValue* {.header:headerFile,importcpp:"QJsonValue" ,pure,inheritable.} = object
+    QJsonValueConstRef* {.header:headerFile,importcpp:"QJsonValueConstRef" ,pure,inheritable.} = object
 
 # Stuff for class QJsonValue
 

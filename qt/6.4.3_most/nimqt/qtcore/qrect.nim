@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qrect.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QRect* {.header:headerFile,importcpp:"QRect" ,pure.} = object {.inheritable.}
-        QRectF* {.header:headerFile,importcpp:"QRectF" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QRect* {.header:headerFile,importcpp:"QRect" ,pure,inheritable.} = object
-        QRectF* {.header:headerFile,importcpp:"QRectF" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QRect* {.header:headerFile,importcpp:"QRect" ,pure,inheritable.} = object
+    QRectF* {.header:headerFile,importcpp:"QRectF" ,pure,inheritable.} = object
 
 # Stuff for class QRect
 

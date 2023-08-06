@@ -1,20 +1,10 @@
 const headerFile* = "QtCore/qproperty.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QUntypedPropertyBinding* {.header:headerFile,importcpp:"QUntypedPropertyBinding" ,pure.} = object {.inheritable.}
-        QUntypedBindable* {.header:headerFile,importcpp:"QUntypedBindable" ,pure.} = object {.inheritable.}
-        QBindable*[T] {.header:headerFile,importcpp:"QBindable" ,pure.} = object of QUntypedBindable
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QUntypedPropertyBinding* {.header:headerFile,importcpp:"QUntypedPropertyBinding" ,pure,inheritable.} = object
-        QUntypedBindable* {.header:headerFile,importcpp:"QUntypedBindable" ,pure,inheritable.} = object
-        QBindable*[T] {.header:headerFile,importcpp:"QBindable" ,pure.} = object of QUntypedBindable
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QUntypedPropertyBinding* {.header:headerFile,importcpp:"QUntypedPropertyBinding" ,pure,inheritable.} = object
+    QUntypedBindable* {.header:headerFile,importcpp:"QUntypedBindable" ,pure,inheritable.} = object
+    QBindable*[T] {.header:headerFile,importcpp:"QBindable" ,pure.} = object of QUntypedBindable
 
 # Stuff for class QUntypedPropertyBinding
 

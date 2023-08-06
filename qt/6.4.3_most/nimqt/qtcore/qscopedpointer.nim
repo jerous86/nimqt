@@ -1,26 +1,13 @@
 const headerFile* = "QtCore/qscopedpointer.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QScopedPointerDeleter*[T] {.header:headerFile,importcpp:"QScopedPointerDeleter" ,pure.} = object {.inheritable.}
-        QScopedPointerArrayDeleter*[T] {.header:headerFile,importcpp:"QScopedPointerArrayDeleter" ,pure.} = object {.inheritable.}
-        QScopedPointerPodDeleter* {.header:headerFile,importcpp:"QScopedPointerPodDeleter" ,pure.} = object {.inheritable.}
-        QScopedPointerObjectDeleteLater*[T] {.header:headerFile,importcpp:"QScopedPointerObjectDeleteLater" ,pure.} = object {.inheritable.}
-        QScopedPointer*[T, Cleanup] {.header:headerFile,importcpp:"QScopedPointer" ,pure.} = object {.inheritable.}
-        QScopedArrayPointer*[T, Cleanup] {.header:headerFile,importcpp:"QScopedArrayPointer" ,pure.} = object of QScopedPointer
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QScopedPointerDeleter*[T] {.header:headerFile,importcpp:"QScopedPointerDeleter" ,pure,inheritable.} = object
-        QScopedPointerArrayDeleter*[T] {.header:headerFile,importcpp:"QScopedPointerArrayDeleter" ,pure,inheritable.} = object
-        QScopedPointerPodDeleter* {.header:headerFile,importcpp:"QScopedPointerPodDeleter" ,pure,inheritable.} = object
-        QScopedPointerObjectDeleteLater*[T] {.header:headerFile,importcpp:"QScopedPointerObjectDeleteLater" ,pure,inheritable.} = object
-        QScopedPointer*[T, Cleanup] {.header:headerFile,importcpp:"QScopedPointer" ,pure,inheritable.} = object
-        QScopedArrayPointer*[T, Cleanup] {.header:headerFile,importcpp:"QScopedArrayPointer" ,pure.} = object of QScopedPointer
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QScopedPointerDeleter*[T] {.header:headerFile,importcpp:"QScopedPointerDeleter" ,pure,inheritable.} = object
+    QScopedPointerArrayDeleter*[T] {.header:headerFile,importcpp:"QScopedPointerArrayDeleter" ,pure,inheritable.} = object
+    QScopedPointerPodDeleter* {.header:headerFile,importcpp:"QScopedPointerPodDeleter" ,pure,inheritable.} = object
+    QScopedPointerObjectDeleteLater*[T] {.header:headerFile,importcpp:"QScopedPointerObjectDeleteLater" ,pure,inheritable.} = object
+    QScopedPointer*[T, Cleanup] {.header:headerFile,importcpp:"QScopedPointer" ,pure,inheritable.} = object
+    QScopedArrayPointer*[T, Cleanup] {.header:headerFile,importcpp:"QScopedArrayPointer" ,pure.} = object of QScopedPointer
 import nimqt/qtcore/qobject
 
 

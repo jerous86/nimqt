@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qmargins.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMargins* {.header:headerFile,importcpp:"QMargins" ,pure.} = object {.inheritable.}
-        QMarginsF* {.header:headerFile,importcpp:"QMarginsF" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMargins* {.header:headerFile,importcpp:"QMargins" ,pure,inheritable.} = object
-        QMarginsF* {.header:headerFile,importcpp:"QMarginsF" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QMargins* {.header:headerFile,importcpp:"QMargins" ,pure,inheritable.} = object
+    QMarginsF* {.header:headerFile,importcpp:"QMarginsF" ,pure,inheritable.} = object
 
 # Stuff for class QMargins
 

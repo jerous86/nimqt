@@ -1,20 +1,10 @@
 const headerFile* = "QtCore/qobject.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QObjectData* {.header:headerFile,importcpp:"QObjectData" ,pure.} = object {.inheritable.}
-        QObject* {.header:headerFile,importcpp:"QObject" ,pure.} = object {.inheritable.}
-        QSignalBlocker* {.header:headerFile,importcpp:"QSignalBlocker" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QObjectData* {.header:headerFile,importcpp:"QObjectData" ,pure,inheritable.} = object
-        QObject* {.header:headerFile,importcpp:"QObject" ,pure,inheritable.} = object
-        QSignalBlocker* {.header:headerFile,importcpp:"QSignalBlocker" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QObjectData* {.header:headerFile,importcpp:"QObjectData" ,pure,inheritable.} = object
+    QObject* {.header:headerFile,importcpp:"QObject" ,pure,inheritable.} = object
+    QSignalBlocker* {.header:headerFile,importcpp:"QSignalBlocker" ,pure,inheritable.} = object
 import nimqt/qtcore/qlist
 
 

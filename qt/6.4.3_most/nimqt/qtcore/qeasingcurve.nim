@@ -14,17 +14,9 @@ type
         InOutBounce = 0x27, OutInBounce = 0x28, InCurve = 0x29, OutCurve = 0x2a, SineCurve = 0x2b, 
         CosineCurve = 0x2c, BezierSpline = 0x2d, TCBSpline = 0x2e, Custom = 0x2f, NCurveTypes = 0x30
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QEasingCurve* {.header:headerFile,importcpp:"QEasingCurve" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QEasingCurve* {.header:headerFile,importcpp:"QEasingCurve" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QEasingCurve* {.header:headerFile,importcpp:"QEasingCurve" ,pure,inheritable.} = object
 
 # Stuff for class QEasingCurve
 

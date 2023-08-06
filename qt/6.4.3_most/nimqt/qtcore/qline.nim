@@ -5,19 +5,10 @@ type
     # Global
     QLineF_IntersectionType* {.header:headerFile,importcpp:"QLineF::IntersectionType".} = enum NoIntersection = 0, BoundedIntersection = 0x1, UnboundedIntersection = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLine* {.header:headerFile,importcpp:"QLine" ,pure.} = object {.inheritable.}
-        QLineF* {.header:headerFile,importcpp:"QLineF" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLine* {.header:headerFile,importcpp:"QLine" ,pure,inheritable.} = object
-        QLineF* {.header:headerFile,importcpp:"QLineF" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QLine* {.header:headerFile,importcpp:"QLine" ,pure,inheritable.} = object
+    QLineF* {.header:headerFile,importcpp:"QLineF" ,pure,inheritable.} = object
 
 
 type

@@ -46,33 +46,17 @@ type
         BorderStyle_Double = 0x4, BorderStyle_DotDash = 0x5, BorderStyle_DotDotDash = 0x6, BorderStyle_Groove = 0x7, BorderStyle_Ridge = 0x8, 
         BorderStyle_Inset = 0x9, BorderStyle_Outset = 0xa
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextLength* {.header:headerFile,importcpp:"QTextLength" ,pure.} = object {.inheritable.}
-        QTextFormat* {.header:headerFile,importcpp:"QTextFormat" ,pure.} = object {.inheritable.}
-        QTextCharFormat* {.header:headerFile,importcpp:"QTextCharFormat" ,pure.} = object of QTextFormat
-        QTextBlockFormat* {.header:headerFile,importcpp:"QTextBlockFormat" ,pure.} = object of QTextFormat
-        QTextListFormat* {.header:headerFile,importcpp:"QTextListFormat" ,pure.} = object of QTextFormat
-        QTextImageFormat* {.header:headerFile,importcpp:"QTextImageFormat" ,pure.} = object of QTextCharFormat
-        QTextFrameFormat* {.header:headerFile,importcpp:"QTextFrameFormat" ,pure.} = object of QTextFormat
-        QTextTableFormat* {.header:headerFile,importcpp:"QTextTableFormat" ,pure.} = object of QTextFrameFormat
-        QTextTableCellFormat* {.header:headerFile,importcpp:"QTextTableCellFormat" ,pure.} = object of QTextCharFormat
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextLength* {.header:headerFile,importcpp:"QTextLength" ,pure,inheritable.} = object
-        QTextFormat* {.header:headerFile,importcpp:"QTextFormat" ,pure,inheritable.} = object
-        QTextCharFormat* {.header:headerFile,importcpp:"QTextCharFormat" ,pure.} = object of QTextFormat
-        QTextBlockFormat* {.header:headerFile,importcpp:"QTextBlockFormat" ,pure.} = object of QTextFormat
-        QTextListFormat* {.header:headerFile,importcpp:"QTextListFormat" ,pure.} = object of QTextFormat
-        QTextImageFormat* {.header:headerFile,importcpp:"QTextImageFormat" ,pure.} = object of QTextCharFormat
-        QTextFrameFormat* {.header:headerFile,importcpp:"QTextFrameFormat" ,pure.} = object of QTextFormat
-        QTextTableFormat* {.header:headerFile,importcpp:"QTextTableFormat" ,pure.} = object of QTextFrameFormat
-        QTextTableCellFormat* {.header:headerFile,importcpp:"QTextTableCellFormat" ,pure.} = object of QTextCharFormat
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QTextLength* {.header:headerFile,importcpp:"QTextLength" ,pure,inheritable.} = object
+    QTextFormat* {.header:headerFile,importcpp:"QTextFormat" ,pure,inheritable.} = object
+    QTextCharFormat* {.header:headerFile,importcpp:"QTextCharFormat" ,pure.} = object of QTextFormat
+    QTextBlockFormat* {.header:headerFile,importcpp:"QTextBlockFormat" ,pure.} = object of QTextFormat
+    QTextListFormat* {.header:headerFile,importcpp:"QTextListFormat" ,pure.} = object of QTextFormat
+    QTextImageFormat* {.header:headerFile,importcpp:"QTextImageFormat" ,pure.} = object of QTextCharFormat
+    QTextFrameFormat* {.header:headerFile,importcpp:"QTextFrameFormat" ,pure.} = object of QTextFormat
+    QTextTableFormat* {.header:headerFile,importcpp:"QTextTableFormat" ,pure.} = object of QTextFrameFormat
+    QTextTableCellFormat* {.header:headerFile,importcpp:"QTextTableCellFormat" ,pure.} = object of QTextCharFormat
 import nimqt/qtcore/qflags
 
 

@@ -1,16 +1,8 @@
 const headerFile* = "QtCore/qhashfunctions.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QHashSeed* {.header:headerFile,importcpp:"QHashSeed" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QHashSeed* {.header:headerFile,importcpp:"QHashSeed" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QHashSeed* {.header:headerFile,importcpp:"QHashSeed" ,pure,inheritable.} = object
 
 # Stuff for class QHashSeed
 

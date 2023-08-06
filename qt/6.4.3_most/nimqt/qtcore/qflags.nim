@@ -1,20 +1,10 @@
 const headerFile* = "QtCore/qflags.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFlag* {.header:headerFile,importcpp:"QFlag" ,pure.} = object {.inheritable.}
-        QIncompatibleFlag* {.header:headerFile,importcpp:"QIncompatibleFlag" ,pure.} = object {.inheritable.}
-        QFlags*[Enum] {.header:headerFile,importcpp:"QFlags" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFlag* {.header:headerFile,importcpp:"QFlag" ,pure,inheritable.} = object
-        QIncompatibleFlag* {.header:headerFile,importcpp:"QIncompatibleFlag" ,pure,inheritable.} = object
-        QFlags*[Enum] {.header:headerFile,importcpp:"QFlags" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QFlag* {.header:headerFile,importcpp:"QFlag" ,pure,inheritable.} = object
+    QIncompatibleFlag* {.header:headerFile,importcpp:"QIncompatibleFlag" ,pure,inheritable.} = object
+    QFlags*[Enum] {.header:headerFile,importcpp:"QFlags" ,pure,inheritable.} = object
 
 # Stuff for class QFlag
 
@@ -67,6 +57,7 @@ proc testAnyFlags*[Enum](this: QFlags[Enum], flags: QFlags[Enum]): bool {.header
 proc setFlag*[Enum](this: QFlags[Enum], flag: Enum, on: bool): QFlags[Enum] {.header:headerFile, importcpp:"#.setFlag(@)".} # Public
 proc setFlag*[Enum](this: QFlags[Enum], flag: Enum): QFlags[Enum] {.header:headerFile, importcpp:"#.setFlag(@)".} # Public
 
+
 # Additional code for qtcore/qflags
 func toSet*[Enum](this: QFlags[Enum]): set[Enum] =
     for e in Enum:
@@ -76,9 +67,11 @@ func toSet*[Enum](this: QFlags[Enum]): set[Enum] =
 
 import sets
 import macros
+macro enumFullArray(a: typed): untyped = newNimNode(nnkBracket).add(a.getType[1][1..^1])
 func toHashSet*[Enum](this: QFlags[Enum]): HashSet[Enum] =
-    macro enumFullArray(a: typed): untyped = newNimNode(nnkBracket).add(a.getType[1][1..^1])
     for e in enumFullArray(Enum):
         if this.testFlag(e): 
             try: result.incl e
             except: discard
+
+

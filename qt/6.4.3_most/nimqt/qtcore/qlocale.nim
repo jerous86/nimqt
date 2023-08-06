@@ -163,17 +163,9 @@ type
         ISO639Part2 = 0x6, ISO639Part3 = 0x8, ISO639Alpha3 = 0xe, ISO639 = 0xf, LegacyLanguageCode = 0x8000
     QLocale_QuotationStyle* {.header:headerFile,importcpp:"QLocale::QuotationStyle".} = enum StandardQuotation = 0, AlternateQuotation = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLocale* {.header:headerFile,importcpp:"QLocale" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLocale* {.header:headerFile,importcpp:"QLocale" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QLocale* {.header:headerFile,importcpp:"QLocale" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

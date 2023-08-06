@@ -1,32 +1,16 @@
 const headerFile* = "QtCore/qplugin.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPluginMetaData* {.header:headerFile,importcpp:"QPluginMetaData" ,pure.} = object {.inheritable.}
-        QPluginMetaData_Header* {.header:headerFile,importcpp:"QPluginMetaData::Header" ,pure.} = object {.inheritable.}
-        QPluginMetaData_MagicHeader* {.header:headerFile,importcpp:"QPluginMetaData::MagicHeader" ,pure.} = object {.inheritable.}
-        QPluginMetaData_ElfNoteHeader* {.header:headerFile,importcpp:"QPluginMetaData::ElfNoteHeader" ,pure.} = object {.inheritable.}
-        QStaticPlugin* {.header:headerFile,importcpp:"QStaticPlugin" ,pure.} = object {.inheritable.}
-        QPluginMetaDataV2* {.header:headerFile,importcpp:"QPluginMetaDataV2" ,pure.} = object {.inheritable.}
-        QPluginMetaDataV2_ElfNotePayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::ElfNotePayload" ,pure.} = object of QPluginMetaData_ElfNoteHeader
-        QPluginMetaDataV2_RegularPayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::RegularPayload" ,pure.} = object of QPluginMetaData_MagicHeader
-        QPluginMetaDataV2_StaticPayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::StaticPayload" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPluginMetaData* {.header:headerFile,importcpp:"QPluginMetaData" ,pure,inheritable.} = object
-        QPluginMetaData_Header* {.header:headerFile,importcpp:"QPluginMetaData::Header" ,pure,inheritable.} = object
-        QPluginMetaData_MagicHeader* {.header:headerFile,importcpp:"QPluginMetaData::MagicHeader" ,pure,inheritable.} = object
-        QPluginMetaData_ElfNoteHeader* {.header:headerFile,importcpp:"QPluginMetaData::ElfNoteHeader" ,pure,inheritable.} = object
-        QStaticPlugin* {.header:headerFile,importcpp:"QStaticPlugin" ,pure,inheritable.} = object
-        QPluginMetaDataV2* {.header:headerFile,importcpp:"QPluginMetaDataV2" ,pure,inheritable.} = object
-        QPluginMetaDataV2_ElfNotePayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::ElfNotePayload" ,pure.} = object of QPluginMetaData_ElfNoteHeader
-        QPluginMetaDataV2_RegularPayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::RegularPayload" ,pure.} = object of QPluginMetaData_MagicHeader
-        QPluginMetaDataV2_StaticPayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::StaticPayload" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPluginMetaData* {.header:headerFile,importcpp:"QPluginMetaData" ,pure,inheritable.} = object
+    QPluginMetaData_Header* {.header:headerFile,importcpp:"QPluginMetaData::Header" ,pure,inheritable.} = object
+    QPluginMetaData_MagicHeader* {.header:headerFile,importcpp:"QPluginMetaData::MagicHeader" ,pure,inheritable.} = object
+    QPluginMetaData_ElfNoteHeader* {.header:headerFile,importcpp:"QPluginMetaData::ElfNoteHeader" ,pure,inheritable.} = object
+    QStaticPlugin* {.header:headerFile,importcpp:"QStaticPlugin" ,pure,inheritable.} = object
+    QPluginMetaDataV2* {.header:headerFile,importcpp:"QPluginMetaDataV2" ,pure,inheritable.} = object
+    QPluginMetaDataV2_ElfNotePayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::ElfNotePayload" ,pure.} = object of QPluginMetaData_ElfNoteHeader
+    QPluginMetaDataV2_RegularPayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::RegularPayload" ,pure.} = object of QPluginMetaData_MagicHeader
+    QPluginMetaDataV2_StaticPayload* {.header:headerFile,importcpp:"QPluginMetaDataV2::StaticPayload" ,pure,inheritable.} = object
 
 
 type

@@ -13,17 +13,9 @@ type
         WritingSystemsCount = 0x22
     QFontDatabase_SystemFont* {.header:headerFile,importcpp:"QFontDatabase::SystemFont".} = enum GeneralFont = 0, FixedFont = 0x1, TitleFont = 0x2, SmallestReadableFont = 0x3
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFontDatabase* {.header:headerFile,importcpp:"QFontDatabase" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFontDatabase* {.header:headerFile,importcpp:"QFontDatabase" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QFontDatabase* {.header:headerFile,importcpp:"QFontDatabase" ,pure,inheritable.} = object
 
 # Consts
 const

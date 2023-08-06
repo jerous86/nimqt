@@ -5,17 +5,9 @@ type
     # Global
     QColormap_Mode* {.header:headerFile,importcpp:"QColormap::Mode".} = enum Direct = 0, Indexed = 0x1, Gray = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QColormap* {.header:headerFile,importcpp:"QColormap" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QColormap* {.header:headerFile,importcpp:"QColormap" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QColormap* {.header:headerFile,importcpp:"QColormap" ,pure,inheritable.} = object
 
 # Stuff for class QColormap
 

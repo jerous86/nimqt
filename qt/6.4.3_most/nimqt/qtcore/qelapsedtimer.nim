@@ -6,17 +6,9 @@ type
     QElapsedTimer_ClockType* {.header:headerFile,importcpp:"QElapsedTimer::ClockType".} = enum SystemTime = 0, MonotonicClock = 0x1, TickCounter = 0x2, MachAbsoluteTime = 0x3, 
         PerformanceCounter = 0x4
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QElapsedTimer* {.header:headerFile,importcpp:"QElapsedTimer" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QElapsedTimer* {.header:headerFile,importcpp:"QElapsedTimer" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QElapsedTimer* {.header:headerFile,importcpp:"QElapsedTimer" ,pure,inheritable.} = object
 
 # Stuff for class QElapsedTimer
 

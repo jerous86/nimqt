@@ -7,20 +7,11 @@ type
     QFormLayout_RowWrapPolicy* {.header:headerFile,importcpp:"QFormLayout::RowWrapPolicy".} = enum DontWrapRows = 0, WrapLongRows = 0x1, WrapAllRows = 0x2
     QFormLayout_ItemRole* {.header:headerFile,importcpp:"QFormLayout::ItemRole".} = enum LabelRole = 0, FieldRole = 0x1, SpanningRole = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtwidgets/qlayout
-    type
-        # Classes found in the C++ code
-        QFormLayout* {.header:headerFile,importcpp:"QFormLayout" ,pure.} = object of QLayout
-        QFormLayout_TakeRowResult* {.header:headerFile,importcpp:"QFormLayout::TakeRowResult" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QFormLayout* {.header:headerFile,importcpp:"QFormLayout" ,pure.} = object of QLayout
-        QFormLayout_TakeRowResult* {.header:headerFile,importcpp:"QFormLayout::TakeRowResult" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+import nimqt/qtwidgets/qlayout
+type
+    # Classes found in the C++ code
+    QFormLayout* {.header:headerFile,importcpp:"QFormLayout" ,pure.} = object of QLayout
+    QFormLayout_TakeRowResult* {.header:headerFile,importcpp:"QFormLayout::TakeRowResult" ,pure,inheritable.} = object
 
 
 type

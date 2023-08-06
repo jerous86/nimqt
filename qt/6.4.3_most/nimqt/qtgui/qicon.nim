@@ -6,17 +6,9 @@ type
     QIcon_Mode* {.header:headerFile,importcpp:"QIcon::Mode".} = enum Normal = 0, Disabled = 0x1, Active = 0x2, Selected = 0x3
     QIcon_State* {.header:headerFile,importcpp:"QIcon::State".} = enum On = 0, Off = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QIcon* {.header:headerFile,importcpp:"QIcon" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QIcon* {.header:headerFile,importcpp:"QIcon" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QIcon* {.header:headerFile,importcpp:"QIcon" ,pure,inheritable.} = object
 
 # Stuff for class QIcon
 

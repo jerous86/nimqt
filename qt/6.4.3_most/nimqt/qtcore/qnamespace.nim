@@ -294,21 +294,11 @@ type
         DockCount = 0x4
     QInternal_Callback* {.header:headerFile,importcpp:"QInternal::Callback".} = enum EventNotifyCallback = 0, LastCallback = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        Qt_Disambiguated_t* {.header:headerFile,importcpp:"Qt::Disambiguated_t" ,pure.} = object {.inheritable.}
-        QInternal* {.header:headerFile,importcpp:"QInternal" ,pure.} = object {.inheritable.}
-        QKeyCombination* {.header:headerFile,importcpp:"QKeyCombination" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        Qt_Disambiguated_t* {.header:headerFile,importcpp:"Qt::Disambiguated_t" ,pure,inheritable.} = object
-        QInternal* {.header:headerFile,importcpp:"QInternal" ,pure,inheritable.} = object
-        QKeyCombination* {.header:headerFile,importcpp:"QKeyCombination" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    Qt_Disambiguated_t* {.header:headerFile,importcpp:"Qt::Disambiguated_t" ,pure,inheritable.} = object
+    QInternal* {.header:headerFile,importcpp:"QInternal" ,pure,inheritable.} = object
+    QKeyCombination* {.header:headerFile,importcpp:"QKeyCombination" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

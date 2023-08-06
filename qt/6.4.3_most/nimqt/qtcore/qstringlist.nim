@@ -1,6 +1,6 @@
 const headerFile* = "QtCore/qstringlist.h"
 
-# Additional header code for qtcore/qstringlist
+# Additional header code for (component: "qtcore", module: "qstringlist")
 import nimqt/qstring
 
 import nimqt/qtcore/qlist

@@ -5,22 +5,12 @@ type
     # Global
     QTableWidgetItem_ItemType* {.header:headerFile,importcpp:"QTableWidgetItem::ItemType".} = enum Type = 0, UserType = 0x3e8
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtwidgets/qtableview
-    type
-        # Classes found in the C++ code
-        QTableWidgetSelectionRange* {.header:headerFile,importcpp:"QTableWidgetSelectionRange" ,pure.} = object {.inheritable.}
-        QTableWidgetItem* {.header:headerFile,importcpp:"QTableWidgetItem" ,pure.} = object {.inheritable.}
-        QTableWidget* {.header:headerFile,importcpp:"QTableWidget" ,pure.} = object of QTableView
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTableWidgetSelectionRange* {.header:headerFile,importcpp:"QTableWidgetSelectionRange" ,pure,inheritable.} = object
-        QTableWidgetItem* {.header:headerFile,importcpp:"QTableWidgetItem" ,pure,inheritable.} = object
-        QTableWidget* {.header:headerFile,importcpp:"QTableWidget" ,pure.} = object of QTableView
-{.push warning[Deprecated]: on.}
+import nimqt/qtwidgets/qtableview
+type
+    # Classes found in the C++ code
+    QTableWidgetSelectionRange* {.header:headerFile,importcpp:"QTableWidgetSelectionRange" ,pure,inheritable.} = object
+    QTableWidgetItem* {.header:headerFile,importcpp:"QTableWidgetItem" ,pure,inheritable.} = object
+    QTableWidget* {.header:headerFile,importcpp:"QTableWidget" ,pure.} = object of QTableView
 import nimqt/qtwidgets/qabstractitemview
 import nimqt/qtwidgets/qabstractscrollarea
 import nimqt/qtwidgets/qframe

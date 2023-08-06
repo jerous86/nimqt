@@ -6,21 +6,11 @@ type
     QCalendar_System* {.header:headerFile,importcpp:"QCalendar::System".} = enum User = -1, Gregorian = 0, Julian = 0x8, Milankovic = 0x9, 
         Jalali = 0xa, IslamicCivil = 0xb
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCalendar* {.header:headerFile,importcpp:"QCalendar" ,pure.} = object {.inheritable.}
-        QCalendar_YearMonthDay* {.header:headerFile,importcpp:"QCalendar::YearMonthDay" ,pure.} = object {.inheritable.}
-        QCalendar_SystemId* {.header:headerFile,importcpp:"QCalendar::SystemId" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCalendar* {.header:headerFile,importcpp:"QCalendar" ,pure,inheritable.} = object
-        QCalendar_YearMonthDay* {.header:headerFile,importcpp:"QCalendar::YearMonthDay" ,pure,inheritable.} = object
-        QCalendar_SystemId* {.header:headerFile,importcpp:"QCalendar::SystemId" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QCalendar* {.header:headerFile,importcpp:"QCalendar" ,pure,inheritable.} = object
+    QCalendar_YearMonthDay* {.header:headerFile,importcpp:"QCalendar::YearMonthDay" ,pure,inheritable.} = object
+    QCalendar_SystemId* {.header:headerFile,importcpp:"QCalendar::SystemId" ,pure,inheritable.} = object
 
 # Consts
 const

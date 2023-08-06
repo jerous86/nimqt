@@ -8,17 +8,9 @@ type
         ReferenceError = 0x4, SyntaxError = 0x5, TypeError = 0x6, URIError = 0x7
     QJSValue_ObjectConversionBehavior* {.header:headerFile,importcpp:"QJSValue::ObjectConversionBehavior".} = enum ConvertJSObjects = 0, RetainJSObjects = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QJSValue* {.header:headerFile,importcpp:"QJSValue" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QJSValue* {.header:headerFile,importcpp:"QJSValue" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QJSValue* {.header:headerFile,importcpp:"QJSValue" ,pure,inheritable.} = object
 import nimqt/qtcore/qlist
 
 

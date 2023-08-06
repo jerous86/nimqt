@@ -9,17 +9,9 @@ type
         Random = 0x4, Sha1 = 0x5
     QUuid_StringFormat* {.header:headerFile,importcpp:"QUuid::StringFormat".} = enum WithBraces = 0, WithoutBraces = 0x1, Id128 = 0x3
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QUuid* {.header:headerFile,importcpp:"QUuid" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QUuid* {.header:headerFile,importcpp:"QUuid" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QUuid* {.header:headerFile,importcpp:"QUuid" ,pure,inheritable.} = object
 
 # Consts
 const

@@ -5,20 +5,11 @@ type
     # Global
     QListWidgetItem_ItemType* {.header:headerFile,importcpp:"QListWidgetItem::ItemType".} = enum Type = 0, UserType = 0x3e8
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtwidgets/qlistview
-    type
-        # Classes found in the C++ code
-        QListWidgetItem* {.header:headerFile,importcpp:"QListWidgetItem" ,pure.} = object {.inheritable.}
-        QListWidget* {.header:headerFile,importcpp:"QListWidget" ,pure.} = object of QListView
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QListWidgetItem* {.header:headerFile,importcpp:"QListWidgetItem" ,pure,inheritable.} = object
-        QListWidget* {.header:headerFile,importcpp:"QListWidget" ,pure.} = object of QListView
-{.push warning[Deprecated]: on.}
+import nimqt/qtwidgets/qlistview
+type
+    # Classes found in the C++ code
+    QListWidgetItem* {.header:headerFile,importcpp:"QListWidgetItem" ,pure,inheritable.} = object
+    QListWidget* {.header:headerFile,importcpp:"QListWidget" ,pure.} = object of QListView
 import nimqt/qtwidgets/qabstractitemview
 import nimqt/qtwidgets/qabstractscrollarea
 import nimqt/qtwidgets/qframe

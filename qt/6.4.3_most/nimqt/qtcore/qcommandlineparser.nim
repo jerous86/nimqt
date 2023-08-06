@@ -6,17 +6,9 @@ type
     QCommandLineParser_SingleDashWordOptionMode* {.header:headerFile,importcpp:"QCommandLineParser::SingleDashWordOptionMode".} = enum ParseAsCompactedShortOptions = 0, ParseAsLongOptions = 0x1
     QCommandLineParser_OptionsAfterPositionalArgumentsMode* {.header:headerFile,importcpp:"QCommandLineParser::OptionsAfterPositionalArgumentsMode".} = enum ParseAsOptions = 0, ParseAsPositionalArguments = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCommandLineParser* {.header:headerFile,importcpp:"QCommandLineParser" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCommandLineParser* {.header:headerFile,importcpp:"QCommandLineParser" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QCommandLineParser* {.header:headerFile,importcpp:"QCommandLineParser" ,pure,inheritable.} = object
 
 # Stuff for class QCommandLineParser
 

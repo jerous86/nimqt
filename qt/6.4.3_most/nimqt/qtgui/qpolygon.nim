@@ -1,18 +1,9 @@
 const headerFile* = "QtGui/qpolygon.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPolygon* {.header:headerFile,importcpp:"QPolygon" ,pure.} = object {.inheritable.}
-        QPolygonF* {.header:headerFile,importcpp:"QPolygonF" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPolygon* {.header:headerFile,importcpp:"QPolygon" ,pure,inheritable.} = object
-        QPolygonF* {.header:headerFile,importcpp:"QPolygonF" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPolygon* {.header:headerFile,importcpp:"QPolygon" ,pure,inheritable.} = object
+    QPolygonF* {.header:headerFile,importcpp:"QPolygonF" ,pure,inheritable.} = object
 
 # Stuff for class QPolygon
 

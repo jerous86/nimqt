@@ -6,17 +6,9 @@ type
     QRawFont_AntialiasingType* {.header:headerFile,importcpp:"QRawFont::AntialiasingType".} = enum PixelAntialiasing = 0, SubPixelAntialiasing = 0x1
     QRawFont_LayoutFlag* {.header:headerFile,importcpp:"QRawFont::LayoutFlag".} = enum SeparateAdvances = 0, KernedAdvances = 0x1, UseDesignMetrics = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QRawFont* {.header:headerFile,importcpp:"QRawFont" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QRawFont* {.header:headerFile,importcpp:"QRawFont" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QRawFont* {.header:headerFile,importcpp:"QRawFont" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

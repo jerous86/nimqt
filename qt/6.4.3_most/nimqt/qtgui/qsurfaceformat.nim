@@ -10,17 +10,9 @@ type
     QSurfaceFormat_OpenGLContextProfile* {.header:headerFile,importcpp:"QSurfaceFormat::OpenGLContextProfile".} = enum NoProfile = 0, CoreProfile = 0x1, CompatibilityProfile = 0x2
     QSurfaceFormat_ColorSpace* {.header:headerFile,importcpp:"QSurfaceFormat::ColorSpace".} = enum DefaultColorSpace = 0, sRGBColorSpace = 0x1
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSurfaceFormat* {.header:headerFile,importcpp:"QSurfaceFormat" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSurfaceFormat* {.header:headerFile,importcpp:"QSurfaceFormat" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSurfaceFormat* {.header:headerFile,importcpp:"QSurfaceFormat" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

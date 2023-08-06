@@ -12,17 +12,9 @@ type
         Unsorted = 0x3, DirsFirst = 0x4, Reversed = 0x8, IgnoreCase = 0x10, DirsLast = 0x20, 
         LocaleAware = 0x40, Type = 0x80
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QDir* {.header:headerFile,importcpp:"QDir" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QDir* {.header:headerFile,importcpp:"QDir" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QDir* {.header:headerFile,importcpp:"QDir" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

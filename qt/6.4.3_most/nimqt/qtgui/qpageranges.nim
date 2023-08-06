@@ -1,18 +1,9 @@
 const headerFile* = "QtGui/qpageranges.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPageRanges* {.header:headerFile,importcpp:"QPageRanges" ,pure.} = object {.inheritable.}
-        QPageRanges_Range* {.header:headerFile,importcpp:"QPageRanges::Range" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QPageRanges* {.header:headerFile,importcpp:"QPageRanges" ,pure,inheritable.} = object
-        QPageRanges_Range* {.header:headerFile,importcpp:"QPageRanges::Range" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QPageRanges* {.header:headerFile,importcpp:"QPageRanges" ,pure,inheritable.} = object
+    QPageRanges_Range* {.header:headerFile,importcpp:"QPageRanges::Range" ,pure,inheritable.} = object
 
 # Stuff for class QPageRanges
 

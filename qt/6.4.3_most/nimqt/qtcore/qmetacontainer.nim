@@ -1,20 +1,10 @@
 const headerFile* = "QtCore/qmetacontainer.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMetaContainer* {.header:headerFile,importcpp:"QMetaContainer" ,pure.} = object {.inheritable.}
-        QMetaSequence* {.header:headerFile,importcpp:"QMetaSequence" ,pure.} = object of QMetaContainer
-        QMetaAssociation* {.header:headerFile,importcpp:"QMetaAssociation" ,pure.} = object of QMetaContainer
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMetaContainer* {.header:headerFile,importcpp:"QMetaContainer" ,pure,inheritable.} = object
-        QMetaSequence* {.header:headerFile,importcpp:"QMetaSequence" ,pure.} = object of QMetaContainer
-        QMetaAssociation* {.header:headerFile,importcpp:"QMetaAssociation" ,pure.} = object of QMetaContainer
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QMetaContainer* {.header:headerFile,importcpp:"QMetaContainer" ,pure,inheritable.} = object
+    QMetaSequence* {.header:headerFile,importcpp:"QMetaSequence" ,pure.} = object of QMetaContainer
+    QMetaAssociation* {.header:headerFile,importcpp:"QMetaAssociation" ,pure.} = object of QMetaContainer
 
 # Stuff for class QMetaContainer
 

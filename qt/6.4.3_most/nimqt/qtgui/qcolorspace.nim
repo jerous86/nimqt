@@ -10,17 +10,9 @@ type
     QColorSpace_TransferFunction* {.header:headerFile,importcpp:"QColorSpace::TransferFunction", pure.} = enum Custom = 0, Linear = 0x1, Gamma = 0x2, SRgb = 0x3, 
         ProPhotoRgb = 0x4
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QColorSpace* {.header:headerFile,importcpp:"QColorSpace" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QColorSpace* {.header:headerFile,importcpp:"QColorSpace" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QColorSpace* {.header:headerFile,importcpp:"QColorSpace" ,pure,inheritable.} = object
 
 # Stuff for class QColorSpace
 

@@ -7,17 +7,9 @@ type
         LibraryExecutablesPath = 0x4, BinariesPath = 0x5, PluginsPath = 0x6, QmlImportsPath = 0x7, ArchDataPath = 0x8, 
         DataPath = 0x9, TranslationsPath = 0xa, ExamplesPath = 0xb, TestsPath = 0xc, SettingsPath = 0x64
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLibraryInfo* {.header:headerFile,importcpp:"QLibraryInfo" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLibraryInfo* {.header:headerFile,importcpp:"QLibraryInfo" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QLibraryInfo* {.header:headerFile,importcpp:"QLibraryInfo" ,pure,inheritable.} = object
 
 
 type

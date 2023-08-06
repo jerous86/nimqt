@@ -9,17 +9,9 @@ type
         RealSha3_512 = 0xe, Blake2b_160 = 0xf, Blake2b_256 = 0x10, Blake2b_384 = 0x11, Blake2b_512 = 0x12, 
         Blake2s_128 = 0x13, Blake2s_160 = 0x14, Blake2s_224 = 0x15, Blake2s_256 = 0x16
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCryptographicHash* {.header:headerFile,importcpp:"QCryptographicHash" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCryptographicHash* {.header:headerFile,importcpp:"QCryptographicHash" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QCryptographicHash* {.header:headerFile,importcpp:"QCryptographicHash" ,pure,inheritable.} = object
 
 # Consts
 const

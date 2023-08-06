@@ -1,22 +1,11 @@
 const headerFile* = "QtWidgets/qitemeditorfactory.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QItemEditorCreatorBase* {.header:headerFile,importcpp:"QItemEditorCreatorBase" ,pure.} = object {.inheritable.}
-        QItemEditorCreator*[T] {.header:headerFile,importcpp:"QItemEditorCreator" ,pure.} = object of QItemEditorCreatorBase
-        QStandardItemEditorCreator*[T] {.header:headerFile,importcpp:"QStandardItemEditorCreator" ,pure.} = object of QItemEditorCreatorBase
-        QItemEditorFactory* {.header:headerFile,importcpp:"QItemEditorFactory" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QItemEditorCreatorBase* {.header:headerFile,importcpp:"QItemEditorCreatorBase" ,pure,inheritable.} = object
-        QItemEditorCreator*[T] {.header:headerFile,importcpp:"QItemEditorCreator" ,pure.} = object of QItemEditorCreatorBase
-        QStandardItemEditorCreator*[T] {.header:headerFile,importcpp:"QStandardItemEditorCreator" ,pure.} = object of QItemEditorCreatorBase
-        QItemEditorFactory* {.header:headerFile,importcpp:"QItemEditorFactory" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QItemEditorCreatorBase* {.header:headerFile,importcpp:"QItemEditorCreatorBase" ,pure,inheritable.} = object
+    QItemEditorCreator*[T] {.header:headerFile,importcpp:"QItemEditorCreator" ,pure.} = object of QItemEditorCreatorBase
+    QStandardItemEditorCreator*[T] {.header:headerFile,importcpp:"QStandardItemEditorCreator" ,pure.} = object of QItemEditorCreatorBase
+    QItemEditorFactory* {.header:headerFile,importcpp:"QItemEditorFactory" ,pure,inheritable.} = object
 
 # Stuff for class QItemEditorCreatorBase
 

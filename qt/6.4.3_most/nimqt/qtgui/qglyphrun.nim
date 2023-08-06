@@ -6,17 +6,9 @@ type
     QGlyphRun_GlyphRunFlag* {.header:headerFile,importcpp:"QGlyphRun::GlyphRunFlag".} = enum Overline = 0x1, Underline = 0x2, StrikeOut = 0x4, RightToLeft = 0x8, 
         SplitLigature = 0x10
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QGlyphRun* {.header:headerFile,importcpp:"QGlyphRun" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QGlyphRun* {.header:headerFile,importcpp:"QGlyphRun" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QGlyphRun* {.header:headerFile,importcpp:"QGlyphRun" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

@@ -1,20 +1,10 @@
 const headerFile* = "QtCore/qhash.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QHashDummyValue* {.header:headerFile,importcpp:"QHashDummyValue" ,pure.} = object {.inheritable.}
-        QHash*[Key, T] {.header:headerFile,importcpp:"QHash" ,pure.} = object {.inheritable.}
-        QMultiHash*[Key, T] {.header:headerFile,importcpp:"QMultiHash" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QHashDummyValue* {.header:headerFile,importcpp:"QHashDummyValue" ,pure,inheritable.} = object
-        QHash*[Key, T] {.header:headerFile,importcpp:"QHash" ,pure,inheritable.} = object
-        QMultiHash*[Key, T] {.header:headerFile,importcpp:"QMultiHash" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QHashDummyValue* {.header:headerFile,importcpp:"QHashDummyValue" ,pure,inheritable.} = object
+    QHash*[Key, T] {.header:headerFile,importcpp:"QHash" ,pure,inheritable.} = object
+    QMultiHash*[Key, T] {.header:headerFile,importcpp:"QMultiHash" ,pure,inheritable.} = object
 
 # Stuff for class QHash
 

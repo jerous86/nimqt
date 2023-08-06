@@ -6,17 +6,9 @@ type
     QEventPoint_State* {.header:headerFile,importcpp:"QEventPoint::State".} = enum Unknown = 0, Pressed = 0x1, Updated = 0x2, Stationary = 0x4, 
         Released = 0x8
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QEventPoint* {.header:headerFile,importcpp:"QEventPoint" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QEventPoint* {.header:headerFile,importcpp:"QEventPoint" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QEventPoint* {.header:headerFile,importcpp:"QEventPoint" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

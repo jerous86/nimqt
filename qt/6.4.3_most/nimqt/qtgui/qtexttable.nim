@@ -1,19 +1,10 @@
 const headerFile* = "QtGui/qtexttable.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtgui/qtextobject
-    type
-        # Classes found in the C++ code
-        QTextTableCell* {.header:headerFile,importcpp:"QTextTableCell" ,pure.} = object {.inheritable.}
-        QTextTable* {.header:headerFile,importcpp:"QTextTable" ,pure.} = object of QTextFrame
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QTextTableCell* {.header:headerFile,importcpp:"QTextTableCell" ,pure,inheritable.} = object
-        QTextTable* {.header:headerFile,importcpp:"QTextTable" ,pure.} = object of QTextFrame
-{.push warning[Deprecated]: on.}
+import nimqt/qtgui/qtextobject
+type
+    # Classes found in the C++ code
+    QTextTableCell* {.header:headerFile,importcpp:"QTextTableCell" ,pure,inheritable.} = object
+    QTextTable* {.header:headerFile,importcpp:"QTextTable" ,pure.} = object of QTextFrame
 
 # Stuff for class QTextTableCell
 

@@ -42,29 +42,15 @@ type
         LilyMeadow = 0xac, SugarLollipop = 0xad, SweetDessert = 0xae, MagicRay = 0xaf, TeenParty = 0xb0, 
         FrozenHeat = 0xb1, GagarinView = 0xb2, FabledSunset = 0xb3, PerfectBlue = 0xb4, NumPresets = 0xb5
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QBrushDataPointerDeleter* {.header:headerFile,importcpp:"QBrushDataPointerDeleter" ,pure.} = object {.inheritable.}
-        QBrush* {.header:headerFile,importcpp:"QBrush" ,pure.} = object {.inheritable.}
-        QBrushData* {.header:headerFile,importcpp:"QBrushData" ,pure.} = object {.inheritable.}
-        QGradient* {.header:headerFile,importcpp:"QGradient" ,pure.} = object {.inheritable.}
-        QLinearGradient* {.header:headerFile,importcpp:"QLinearGradient" ,pure.} = object of QGradient
-        QRadialGradient* {.header:headerFile,importcpp:"QRadialGradient" ,pure.} = object of QGradient
-        QConicalGradient* {.header:headerFile,importcpp:"QConicalGradient" ,pure.} = object of QGradient
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QBrushDataPointerDeleter* {.header:headerFile,importcpp:"QBrushDataPointerDeleter" ,pure,inheritable.} = object
-        QBrush* {.header:headerFile,importcpp:"QBrush" ,pure,inheritable.} = object
-        QBrushData* {.header:headerFile,importcpp:"QBrushData" ,pure,inheritable.} = object
-        QGradient* {.header:headerFile,importcpp:"QGradient" ,pure,inheritable.} = object
-        QLinearGradient* {.header:headerFile,importcpp:"QLinearGradient" ,pure.} = object of QGradient
-        QRadialGradient* {.header:headerFile,importcpp:"QRadialGradient" ,pure.} = object of QGradient
-        QConicalGradient* {.header:headerFile,importcpp:"QConicalGradient" ,pure.} = object of QGradient
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QBrushDataPointerDeleter* {.header:headerFile,importcpp:"QBrushDataPointerDeleter" ,pure,inheritable.} = object
+    QBrush* {.header:headerFile,importcpp:"QBrush" ,pure,inheritable.} = object
+    QBrushData* {.header:headerFile,importcpp:"QBrushData" ,pure,inheritable.} = object
+    QGradient* {.header:headerFile,importcpp:"QGradient" ,pure,inheritable.} = object
+    QLinearGradient* {.header:headerFile,importcpp:"QLinearGradient" ,pure.} = object of QGradient
+    QRadialGradient* {.header:headerFile,importcpp:"QRadialGradient" ,pure.} = object of QGradient
+    QConicalGradient* {.header:headerFile,importcpp:"QConicalGradient" ,pure.} = object of QGradient
 
 
 type

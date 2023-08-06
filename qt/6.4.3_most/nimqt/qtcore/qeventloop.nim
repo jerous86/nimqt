@@ -6,20 +6,11 @@ type
     QEventLoop_ProcessEventsFlag* {.header:headerFile,importcpp:"QEventLoop::ProcessEventsFlag".} = enum AllEvents = 0, ExcludeUserInputEvents = 0x1, ExcludeSocketNotifiers = 0x2, WaitForMoreEvents = 0x4, 
         X11ExcludeTimers = 0x8, EventLoopExec = 0x20, DialogExec = 0x40, ApplicationExec = 0x80
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    import nimqt/qtcore/qobject
-    type
-        # Classes found in the C++ code
-        QEventLoop* {.header:headerFile,importcpp:"QEventLoop" ,pure.} = object of QObject
-        QEventLoopLocker* {.header:headerFile,importcpp:"QEventLoopLocker" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QEventLoop* {.header:headerFile,importcpp:"QEventLoop" ,pure.} = object of QObject
-        QEventLoopLocker* {.header:headerFile,importcpp:"QEventLoopLocker" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+import nimqt/qtcore/qobject
+type
+    # Classes found in the C++ code
+    QEventLoop* {.header:headerFile,importcpp:"QEventLoop" ,pure.} = object of QObject
+    QEventLoopLocker* {.header:headerFile,importcpp:"QEventLoopLocker" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

@@ -1,22 +1,11 @@
 const headerFile* = "QtCore/qshareddata.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSharedData* {.header:headerFile,importcpp:"QSharedData" ,pure.} = object {.inheritable.}
-        QAdoptSharedDataTag* {.header:headerFile,importcpp:"QAdoptSharedDataTag" ,pure.} = object {.inheritable.}
-        QSharedDataPointer*[T] {.header:headerFile,importcpp:"QSharedDataPointer" ,pure.} = object {.inheritable.}
-        QExplicitlySharedDataPointer*[T] {.header:headerFile,importcpp:"QExplicitlySharedDataPointer" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QSharedData* {.header:headerFile,importcpp:"QSharedData" ,pure,inheritable.} = object
-        QAdoptSharedDataTag* {.header:headerFile,importcpp:"QAdoptSharedDataTag" ,pure,inheritable.} = object
-        QSharedDataPointer*[T] {.header:headerFile,importcpp:"QSharedDataPointer" ,pure,inheritable.} = object
-        QExplicitlySharedDataPointer*[T] {.header:headerFile,importcpp:"QExplicitlySharedDataPointer" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QSharedData* {.header:headerFile,importcpp:"QSharedData" ,pure,inheritable.} = object
+    QAdoptSharedDataTag* {.header:headerFile,importcpp:"QAdoptSharedDataTag" ,pure,inheritable.} = object
+    QSharedDataPointer*[T] {.header:headerFile,importcpp:"QSharedDataPointer" ,pure,inheritable.} = object
+    QExplicitlySharedDataPointer*[T] {.header:headerFile,importcpp:"QExplicitlySharedDataPointer" ,pure,inheritable.} = object
 
 # Stuff for class QSharedData
 

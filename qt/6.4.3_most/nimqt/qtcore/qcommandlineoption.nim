@@ -5,17 +5,9 @@ type
     # Global
     QCommandLineOption_Flag* {.header:headerFile,importcpp:"QCommandLineOption::Flag".} = enum HiddenFromHelp = 0x1, ShortOptionStyle = 0x2
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCommandLineOption* {.header:headerFile,importcpp:"QCommandLineOption" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QCommandLineOption* {.header:headerFile,importcpp:"QCommandLineOption" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QCommandLineOption* {.header:headerFile,importcpp:"QCommandLineOption" ,pure,inheritable.} = object
 import nimqt/qtcore/qflags
 
 

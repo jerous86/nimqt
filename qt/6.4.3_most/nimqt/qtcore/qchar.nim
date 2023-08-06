@@ -62,19 +62,10 @@ type
         Unicode_10_0 = 0x13, Unicode_11_0 = 0x14, Unicode_12_0 = 0x15, Unicode_12_1 = 0x16, Unicode_13_0 = 0x17, 
         Unicode_14_0 = 0x18
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLatin1Char* {.header:headerFile,importcpp:"QLatin1Char" ,pure.} = object {.inheritable.}
-        QChar* {.header:headerFile,importcpp:"QChar" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QLatin1Char* {.header:headerFile,importcpp:"QLatin1Char" ,pure,inheritable.} = object
-        QChar* {.header:headerFile,importcpp:"QChar" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QLatin1Char* {.header:headerFile,importcpp:"QLatin1Char" ,pure,inheritable.} = object
+    QChar* {.header:headerFile,importcpp:"QChar" ,pure,inheritable.} = object
 
 # Stuff for class QLatin1Char
 

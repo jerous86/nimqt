@@ -1,18 +1,9 @@
 const headerFile* = "QtCore/qglobal.h"
 
-# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'
-{.push warning[Deprecated]: off.}
-when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMacAutoReleasePool* {.header:headerFile,importcpp:"QMacAutoReleasePool" ,pure.} = object {.inheritable.}
-        QTypeTraits_detail_Promoted*[T, U, ] {.header:headerFile,importcpp:"QTypeTraits::detail::Promoted" ,pure.} = object {.inheritable.}
-elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):
-    type
-        # Classes found in the C++ code
-        QMacAutoReleasePool* {.header:headerFile,importcpp:"QMacAutoReleasePool" ,pure,inheritable.} = object
-        QTypeTraits_detail_Promoted*[T, U, ] {.header:headerFile,importcpp:"QTypeTraits::detail::Promoted" ,pure,inheritable.} = object
-{.push warning[Deprecated]: on.}
+type
+    # Classes found in the C++ code
+    QMacAutoReleasePool* {.header:headerFile,importcpp:"QMacAutoReleasePool" ,pure,inheritable.} = object
+    QTypeTraits_detail_Promoted*[T, U, ] {.header:headerFile,importcpp:"QTypeTraits::detail::Promoted" ,pure,inheritable.} = object
 
 
 type
