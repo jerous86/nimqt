@@ -1047,7 +1047,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
     block:
         let id = newCm(state.component, state.module)
         if customization_footer.hasKey id:
-            xs.add &"# Additional code for {id}"
+            xs.add &"# Additional code for {id.component}/{id.module}"
             xs.add customization_footer[id].dedent
 
     result=xs.join("\n")
