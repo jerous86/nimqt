@@ -292,7 +292,9 @@ proc processProc(n:NimNode,
             def[3].expectKind nnkFormalParams
             for p in params: def[3].add p.nim_param
             cppDefinitions.add def
-  
+        
+        # nim2 appends _p{index} to param names, so here we do the same ...
+        func appendParamIndex(paramNames:seq[string]): seq[string] = (0..<paramNames.len).mapIt(&"{paramNames[it]}_p{it}")
 
         block:
             case pType
@@ -308,7 +310,7 @@ proc processProc(n:NimNode,
                  # Create the declaration
                 let xs=zip(
                         concat(@[&"{classNameStr}*"], params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_type)), 
-                        concat(@["this_0"], params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_name))
+                        concat(@["this"], params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_name)).appendParamIndex
                     ).mapIt(&"{it[0]} {it[1]}")
                 let codegenDecl:string = &"""$1 $2({xs.join(", ")}) /*codegenDecl*/"""
                 var decl0=quote do:
@@ -458,17 +460,18 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
 
 
     for signal in signals:
-        let signalName:string=signal.node.strVal
-        let cpp_param_decls=zip(signal.cpp_param_types, signal.cpp_param_names).mapIt(&"{it[0]} {it[1]}").join(", ")
-        # param names without this
-        let cpp_param_names0=signal.cpp_param_names.join(", ")
+        let 
+            signalName:string=signal.node.strVal
+            # param decls/names without this
+            cpp_param_decls0=zip(signal.cpp_param_types, signal.cpp_param_names).mapIt(&"{it[0]} {it[1]}").join(", ")
+            cpp_param_names0=signal.cpp_param_names.join(", ")
         
         case signal.pType
         of Signal:
             let signalNameAndParams = concat(@[signalName], signal.cpp_param_names).join(", ")
             assert isQObject, "Cannot use signal in regular inherited object"
             structDeclaration.add quote do: 
-                {.emit:"\tvoid " & `signalName` & "(" & `cpp_param_decls` & ") W_SIGNAL(" & `signalNameAndParams` & ")".}
+                {.emit:"\tvoid " & `signalName` & "(" & `cpp_param_decls0` & ") W_SIGNAL(" & `signalNameAndParams` & ")".}
         of Member:
             discard
             
@@ -489,15 +492,13 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
                     of Override,OverrideDefer,OverrideDecl: "override"
                     of ConstOverride,ConstOverrideDefer,ConstOverrideDecl: "const override"
                     else: "")
-            structDeclaration.add quote do: {.emit:"\t" & $`retTypeCpp` & " " & `signalName` & "(" & `cpp_param_decls` & ") " & `override` & ";".}
-            structMethodDefs.add quote do: {.emit:"\t" & $`retTypeCpp` & " " & $`class` & "::" & `signalName` & "(" & `cpp_param_decls` & ") " & `constness` & 
+
+            structDeclaration.add quote do: {.emit:"\t" & $`retTypeCpp` & " " & `signalName` & "(" & `cpp_param_decls0` & ") " & `override` & ";".}
+            structMethodDefs.add quote do: {.emit:"\t" & $`retTypeCpp` & " " & $`class` & "::" & `signalName` & "(" & `cpp_param_decls0` & ") " & `constness` & 
                  "{ return ::" & `signalName` & "(" & `cpp_unconst_param_names` & "); }".}
 
             if signal.pType.isOverride:
-                structDeclaration.add quote do: {.emit:"\t" & $`retTypeCpp` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ") { return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
-                #structDeclaration.add quote do: {.emit:"\t" & $`retTypeCpp` & " parent_" & `signalName` & "(" & `cpp_param_decls` & ");".}
-                #structMethodDefs.add quote do: {.emit:"\t" & $`retTypeCpp` & " " & $`class` & "::parent_" & `signalName` & "(" & `cpp_param_decls` & ") " &
-                    #"{ return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
+                structDeclaration.add quote do: {.emit:"\t" & $`retTypeCpp` & " parent_" & `signalName` & "(" & `cpp_param_decls0` & ") { return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
             
             if signal.pType.isSlot:
                 assert isQObject, "Cannot use slots in regular inherited object"
