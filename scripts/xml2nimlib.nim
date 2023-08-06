@@ -14,7 +14,7 @@ import skips
 import typeDb
 
 const customization_footer = {
-    "qtcore/qstring": """
+    newCm("qtcore","qstring"): """
         proc newQString(s:cstring): QString {.header:headerFile, importcpp:"QString(@)",constructor.}
         proc newQString*(s:string): QString = newQString(s.cstring)
         proc Q*(s:string): QString = newQString(s.cstring)
@@ -31,11 +31,11 @@ const customization_footer = {
         proc lastIndexOf*(this: QString, s:QString, `from`:cint = -1, case_sensitivity=CaseSensitive): cint {.header:headerFile, importcpp:"#.lastIndexOf(@)".}
         proc `==`*(this,r: QString): bool {.header:headerFile, importcpp:"operator==(@)".}
         """,
-    "qtcore/qanystringview": """
+    newCm("qtcore","qanystringview"): """
         converter toQAnyStringView*(x:QString): QAnyStringView = newQAnyStringView(x)
         converter toQAnyStringView*(x:QByteArray): QAnyStringView = newQAnyStringView(x)
         """,
-    "qtcore/qobject": """
+    newCm("qtcore","qobject"): """
         proc connect*(src:ptr QObject, signal:cstring, dst:ptr QObject, mth:cstring, `type`=AutoConnection) {.header:headerFile ,importcpp:"QObject::connect(@)".}
         proc connect*(src:ptr QObject, signal:string, dst:ptr QObject, mth:string, `type`=AutoConnection) = connect(src, signal.cstring, dst, mth.cstring, `type`)
 
@@ -77,19 +77,19 @@ const customization_footer = {
 
         proc event*(nimQObject:ptr QObject, e:ptr QEvent): bool {.header:headerFile , importcpp:"#.event(@)".}
         """,
-    "qtcore/qlist": """
+    newCm("qtcore","qlist"): """
         func len*[T](list: QList[T]): int = list.size
         func add*[T](list: QList[T], x:T) = list.push_back x
         iterator items*[T](list: QList[T]): T =
             for i in 0..<list.len: yield list.at(i.cint)
         """,
-    "qtcore/qbytearray": """
+    newCm("qtcore","qbytearray"): """
         func newQByteArray*(xs: seq[char]): QbyteArray = (if xs.len>0: newQByteArray(xs[0].unsafeAddr, xs.len.cint) else: newQByteArray())
         func len*(list: QByteArray): int = list.size
         iterator items*(list: QByteArray): char =
             for i in 0..<list.len: yield list.at(i.cint)
         """,
-    "qtwidgets/qapplication": """
+    newCm("qtwidgets","qapplication"): """
         proc exec*(nimQObject:ptr QApplication):cint {.header:headerFile, importcpp: "#.exec()".}
 
         # params refers to the arguments given on the command line. The binary is added in this proc!
@@ -103,7 +103,7 @@ const customization_footer = {
             newQApplication(argc, cast[ptr ptr char](argv))
             # See also NOTE:newQCoreApplication in QtCore/QCoreApplication
         """,
-    "qtgui/qguiapplication": """
+    newCm("qtgui","qguiapplication"): """
         # params refers to the arguments given on the command line. The binary is added in this proc!
         template newQGuiApplication*(args:seq[string]): ptr QGuiApplication =
             var args2 = @[getAppFilename()]
@@ -115,7 +115,7 @@ const customization_footer = {
             newQGuiApplication(argc, cast[ptr ptr char](argv))
             # See also NOTE:newQCoreApplication in QtCore/QCoreApplication
         """,
-    "qtcore/qcoreapplication": """
+    newCm("qtcore","qcoreapplication"): """
         # params refers to the arguments given on the command line. The binary is added in this proc!
         template newQCoreApplication*(args:seq[string]): ptr QCoreApplication =
             var args2 = @[getAppFilename()]
@@ -131,7 +131,7 @@ const customization_footer = {
             # So we must *not* deallocCStringArray
             # argv.deallocCStringArray
         """,
-    "qtcore/qflags": """
+    newCm("qtcore","qflags"): """
         func toSet*[Enum](this: QFlags[Enum]): set[Enum] =
             for e in Enum:
                 if this.testFlag(e): 
@@ -149,7 +149,7 @@ const customization_footer = {
 
 
     """,
-    "qtcore/qstringlist": """
+    newCm("qtcore","qstringlist"): """
         proc newQStringList*(): QStringList = QStringList()
         # Making it a template for recursive module dependency reasons ...
         template newQStringList*(xs:seq[string]): QStringList = 
@@ -160,33 +160,14 @@ const customization_footer = {
     }.toTable
 
 const customization_header = {
-    "qtcore/qstringlist": """
+    newCm("qtcore","qstringlist"): """
     import nimqt/qstring
     """,
     }.toTable
 
-# This forces a specific base class when there are multiple base classes to choose from,
-# as nim does not support multiple inheritance.
-# In a next version, we might just add all supported methods.
-const customization_inheritance = {
-    "qtgui/qwindow class QWindow": "QObject",
-    "qtgui/qoffscreensurface class QOffscreenSurface": "QObject",
-    "qtgui/qpdfwriter class QPdfWriter": "QPagedPaintDevice",
-    "qtgui/qpaintdevicewindow class QPaintDeviceWindow": "QWindow",
-    "qtwidgets/qlayout class QLayout": "QLayoutItem",
-    "qtwidgets/qgraphicsitem class QGraphicsObject": "QObject",
-    "qtwidgets/qaccessiblewidget class QAccessibleWidget": "QAccessibleObject",
-    "qtwidgets/qwidget class QWidget": "QObject",
-    "qtwidgets/qgraphicswidget class QGraphicsWidget": "QGraphicsObject",
-    "qtcore/qiodevice class QIODevice": "QIODeviceBase",
-    "qtqml/qqmlextensionplugin class QQmlExtensionPlugin": "QObject",
-    "qtqml/qqmlextensionplugin class QQmlEngineExtensionPlugin": "QObject",
-    "qtcore/qstringlist class QStringList": "QList[QString]",
-    }.toTable
-
 # Perform a regex replacement in the final nim source code. In the replacement, use $1 etc to refer to groups.
 const customization_replaceInNimSource = {
-    "qtcore/qnamespace": @[
+    newCm("qtcore","qnamespace"): @[
         # replace the lower case version with something else, to avoid duplicate names
         ("Key_Dead_a", "Key_Dead_a0"),
         ("Key_Dead_e", "Key_Dead_e0"),
@@ -203,31 +184,49 @@ const pureEnums = [
     newCm("qtgui","qcolorspace").id_enum("QColorSpace_TransferFunction"),
     ].toHashSet
 
-# These classes do not derive from RootObj.
-const customization_noninheritable:HashSet[string] = [
-    #"qtcore/qlist class QList",
-    "qtcore/qstring class QString",
-    ].toHashSet
+type 
+    Customization = enum 
+        Default, # do not change the default behaviour
+        Force, # force it to behave like this (e.g. for pure, will force it to be pure)
+        Avoid, # force it to behave the opposite way (e.g. for pure, it will force it to be non-pure)
+    CustomizationPointer = enum
+        Default,
+        MustBePointer,
+        MustNotBePointer,
+    ForceClassCustomization = object
+        # If set, this forces a specific base class when there are multiple base classes to choose from,
+        # as nim does not support multiple inheritance.
+        # In a next version, we might just add all supported methods.
+        customParentClass: string
+        pure: Customization # Do we add a pure pragma to a class type?
+        inheritable: Customization # Do we add a inheritable pragma to a class type?
+        `pointer`: CustomizationPointer # Is this class pointer type, or should be a pointer type?
 
-# These classes must be inheritable.
-const customization_forceInheritable:HashSet[string] = [
-    "qtcore/qabstractitemmodel class QModelIndex",
-    ].toHashSet
+const classCustomization: Table[string, ForceClassCustomization] =
+    {
+        newCm("qtgui", "qwindow").id_class("QWindow"):                          ForceClassCustomization(customParentClass: "QObject"),
+        newCm("qtgui", "qoffscreensurface").id_class("QOffscreenSurface"):      ForceClassCustomization(customParentClass: "QObject"),
+        newCm("qtgui", "qpdfwriter").id_class("QPdfWriter"):                    ForceClassCustomization(customParentClass: "QPagedPaintDevice"),
+        newCm("qtgui", "qpaintdevicewindow").id_class("QPaintDeviceWindow"):    ForceClassCustomization(customParentClass: "QWindow"),
+        newCm("qtwidgets", "qlayout").id_class("QLayout"):                      ForceClassCustomization(customParentClass: "QLayoutItem"),
+        newCm("qtwidgets", "qgraphicsitem").id_class("QGraphicsObject"):        ForceClassCustomization(customParentClass: "QObject"),
+        newCm("qtwidgets", "qaccessiblewidget").id_class("QAccessibleWidget"):  ForceClassCustomization(customParentClass: "QAccessibleObject"),
+        newCm("qtwidgets", "qwidget").id_class("QWidget"):                      ForceClassCustomization(customParentClass: "QObject"),
+        newCm("qtwidgets", "qgraphicswidget").id_class("QGraphicsWidget"):      ForceClassCustomization(customParentClass: "QGraphicsObject"),
+        newCm("qtcore", "qiodevice").id_class("QIODevice"):                     ForceClassCustomization(customParentClass: "QIODeviceBase"),
+        newCm("qtqml", "qqmlextensionplugin").id_class("QQmlExtensionPlugin"):  ForceClassCustomization(customParentClass: "QObject"),
+        newCm("qtqml", "qqmlextensionplugin").id_class("QQmlEngineExtensionPlugin"):    ForceClassCustomization(customParentClass: "QObject"),
+        newCm("qtcore", "qstringlist").id_class("QStringList"):                 ForceClassCustomization(customParentClass: "QList[QString]"),
 
-# These types are always pointer types
-const customization_pointer_type:HashSet[string] = [
-        "qtwidgets/qlistwidget class QListWidgetItem",
-        "qtwidgets/qtablewidget class QTableWidgetItem",
-        "qtgui/qundostack class QUndoCommand",
-    ].toHashSet
+        newCm("qtcore","qstring").id_class("QString"):                  ForceClassCustomization(inheritable: Avoid),
+        newCm("qtcore","qabstractitemmodel").id_class("QModelIndex"):   ForceClassCustomization(inheritable: Avoid),
 
-# These types should never be a pointer type
-const customization_nonpointer_type:HashSet[string] = [
-        "qtgui/qpainter class QPainter",
-    ].toHashSet
+        newCm("qtwidgets","qlistwidget").id_class("QListWidgetItem"):   ForceClassCustomization(`pointer`: MustBePointer),
+        newCm("qtwidgets","qtablewidget").id_class("QTableWidgetItem"): ForceClassCustomization(`pointer`: MustBePointer),
+        newCm("qtgui","qundostack").id_class("QUndoCommand"):           ForceClassCustomization(`pointer`: MustBePointer),
 
-# skips.component = component
-# skips.module = module
+        newCm("qtgui","qpainter").id_class("QPainter"):                 ForceClassCustomization(`pointer`: MustNotBePointer),
+    }.toTable
 
 func join(xs:seq[string]): string = xs.join(", ")
 func escapeNimReservedWords(n:string): string =
@@ -465,29 +464,32 @@ func cppTypeToNimType(allTypes:AllTypes, state:State, cppType:string, context:st
     result.nimType=result.nimType.fixNameSpace.replaceSpecialTypes
 
 func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
-    let id = &"{state.component}/{state.module} class {c.nimName}"
-    let (parentObj,tpls)=(
-            if customization_inheritance.hasKey(id):
-                (customization_inheritance[id], 
+    assert c.fqName.len>0, $c
+    let 
+        id = newCm(state.component, state.module).id_class(c.nimName)
+        custom = classCustomization.getOrDefault(id)
+        (parentObj,tpls)=(
+            if custom.customParentClass.len>0:
+                (custom.customParentClass, 
                     concat(c.allTypes.templateParams, c.parentObj.mapIt(it.tpls.mapIt(it.strip)).concat).deduplicate.tplsToNim
                     )
             elif c.parentObj.len==1:
                 let tmp:seq[TplType]=c.parentObj
                 (tmp[0].nimType, concat(c.allTypes.templateParams, tmp[0].tpls.mapIt(it.strip)).deduplicate.tplsToNim)
             else:
-                assert c.parentObj.len<=1, &"c++ Object {c.nimName} has multiple parents, while nim only supports 1. Please specify in customization_inheritance the most desirable parent.\n{id} in {customization_inheritance}"
+                assert c.parentObj.len<=1, &"c++ Object {c.nimName} has multiple parents, while nim only supports 1. Please specify in classCustomization the most desirable parent.\n{id}"
                 ("", c.allTypes.templateParams.tplsToNim)
         )
-    
-    assert c.fqName.len>0, $c
-    let startOfDecl = &"{c.nimName.escapeNimReservedWords.replaceSpecialTypes}*{tpls} "
+        startOfDecl = &"{c.nimName.escapeNimReservedWords.replaceSpecialTypes}*{tpls} "
     var 
         pragmas = @["header:headerFile", &"""importcpp:"{c.cppName}" """, ]
         objInheritance = ""
 
-    if id in customization_noninheritable:
+    debugecho id," ",custom
+
+    if custom.inheritable==Avoid:
         objInheritance = "object"
-    elif #[c.pureObject or ]# parentObj.len==0 or (id in customization_forceInheritable):
+    elif parentObj.len==0 or (custom.inheritable==Force):
         pragmas.add "pure"
         pragmas.add "inheritable"
         objInheritance = "object"
@@ -495,6 +497,8 @@ func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
         discard c.allTypes.cppTypeToNimType(state, parentObj, "typeDecl", imports)
         pragmas.add "pure"
         objInheritance = &"object of {parentObj}"
+
+
     startOfDecl & "{." & pragmas.join(",") & ".} = " & objInheritance
 
 func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts:seq[string]] =
@@ -529,8 +533,9 @@ func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts
             result.consts.add &"{name}* = {x[1]} # from anonymous enum {values[x[1]][0]}"
     
     if e.enumName.len>0:
-        let id=newCm(state.component, state.module).id_enum(e.nimName.escapeNimReservedWords.replaceSpecialTypes)
-        let pureness=(if id in pureEnums: ", pure" else: "")
+        let 
+            id=newCm(state.component, state.module).id_enum(e.nimName.escapeNimReservedWords.replaceSpecialTypes)
+            pureness=(if id in pureEnums: ", pure" else: "")
         result.enums=e.nimName.escapeNimReservedWords.replaceSpecialTypes & &"* {{.header:headerFile,importcpp:\"{e.cppName}\"{pureness}.}} = enum {xs.join.strip}"
 
 
@@ -773,10 +778,12 @@ when true:
     func osx_signature(c:CallableData):string = c.lnx_signature
     
     func toNim*(x:ConstructorData, c:ClassData, state:State): seq[CallableData] =
-        let tpls=c.allTypes.templateParams
-        let id = &"{state.component}/{state.module} class {c.nimName}"
-        let shouldBePtr=(id notin customization_nonpointer_type) and
-            (state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (id in customization_pointer_type))
+        let 
+            tpls=c.allTypes.templateParams
+            id = newCm(state.component, state.module).id_class(c.nimName)
+            custom=classCustomization.getOrDefault(id)
+            shouldBePtr=custom.`pointer`!=MustNotBePointer and
+                (state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (custom.`pointer`==MustBePointer))
 
         if x.numDefaultParameters>0:
             result.add(CallableData(suffix: &"# {x.numDefaultParameters} default parameters!"))
@@ -804,13 +811,14 @@ when true:
     # if it was not explicitly specified.
     # E.g. template<class Enum> class QFlags { QFlags &operator&=(int mask); };
     func toNim*(x:MethodData, c:ClassData, visibility:Access, state:State): seq[CallableData] =
-        let id = &"{state.component}/{state.module} class {c.nimName}"
-        let shouldBePtr=(id notin customization_nonpointer_type) and
-            (state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or (id in customization_pointer_type))
-        let retType = x.retType.toNim(c)
-        let tpls=c.allTypes.templateParams
-        # let finalType=(if shouldBePtr: "ptr " else: "") & &"{c.nimName}{tpls}"
-        let finalName=(if x.name.startsWith("operator"): x.name.replacef(re.re"operator(.*)", "`$1`") else: x.name).strip
+        let 
+            id = newCm(state.component, state.module).id_class(c.nimName)
+            custom=classCustomization.getOrDefault(id)
+            shouldBePtr=custom.`pointer`!=MustNotBePointer and
+                (state.db.hasChildClasses(c.nimName) or c.parentObj.len>0 or ((custom.`pointer`==MustBePointer)))
+            retType = x.retType.toNim(c)
+            tpls=c.allTypes.templateParams
+            finalName=(if x.name.startsWith("operator"): x.name.replacef(re.re"operator(.*)", "`$1`") else: x.name).strip
 
         case visibility
         of Public,Protected:
@@ -890,7 +898,8 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
         xs.add &"const headerFile* = \"{file.cppHeaderFile}\"\n"
 
         block:
-            let id = &"{state.component}/{state.module}"
+            let id = newCm(state.component, state.module)
+
             if customization_header.hasKey id:
                 xs.add &"# Additional header code for {id}"
                 xs.add customization_header[id].dedent
@@ -1037,7 +1046,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
         xs.add ""
         
     block:
-        let id = &"{state.component}/{state.module}"
+        let id = newCm(state.component, state.module)
         if customization_footer.hasKey id:
             xs.add &"# Additional code for {id}"
             xs.add customization_footer[id].dedent
@@ -1045,7 +1054,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
     result=xs.join("\n")
 
     block:
-        let id = &"{state.component}/{state.module}"
+        let id = newCm(state.component, state.module)
         if customization_replaceInNimSource.hasKey id:
             for (search,repl) in customization_replaceInNimSource[id]:
                 result = result.replace(re search, repl)
