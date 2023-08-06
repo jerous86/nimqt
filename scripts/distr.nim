@@ -167,10 +167,16 @@ else:
     myCopyDir("scripts/tools", "nimqt/tools")
     myCopyDir("verdigris/src", "verdigris")
 
+var alreadyGeneratedFiles:HashSet[string]
 for t in allRequiredTypes:
-    let xmlInputFile = &"{xmlInputDir}/{t.component}/{t.module}.xml"
-    let nimOutputFile = &"{outputDir2}/{t.component}/{t.module}.nim"
-    let nimOutputFile2 = &"{outputDir2}/{t.module}.nim"
+    let 
+        xmlInputFile = &"{xmlInputDir}/{t.component}/{t.module}.xml"
+        nimOutputFile = &"{outputDir2}/{t.component}/{t.module}.nim"
+        nimOutputFile2 = &"{outputDir2}/{t.module}.nim"
+
+    if nimOutputFile2 in alreadyGeneratedFiles:
+        # nimOutputFile2 is shorter, so consumes less memory
+        continue
 
     if force==false and nimOutputFile.fileExists and nimOutputFile2.fileExists and &"{t.component}/{t.module}" notin regenerates:
         # echo "Skipping ",nimOutputFile,"\t\t",nimOutputFile2
@@ -192,3 +198,4 @@ for t in allRequiredTypes:
         import nimqt/{t.component}/{t.module}
         export {t.module}
         """).dedent)
+    alreadyGeneratedFiles.incl nimOutputFile2
