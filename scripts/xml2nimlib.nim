@@ -464,11 +464,7 @@ func cppTypeToNimType(allTypes:AllTypes, state:State, cppType:string, context:st
     
     result.nimType=result.nimType.fixNameSpace.replaceSpecialTypes
 
-# version==0: nimVersion<(1.9.0)
-# version==1: nimVersion>=1.9.0
-# In Nim 1 (<1.9), we had to attach the inheritable pragma to the object, due to some bug.
-# In later versions, this syntax was not supported anymore.
-func typeDecl*(c:ClassData, state:State, imports:var HashSet[string], version:int):string =
+func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
     let id = &"{state.component}/{state.module} class {c.nimName}"
     let (parentObj,tpls)=(
             if customization_inheritance.hasKey(id):
@@ -493,11 +489,8 @@ func typeDecl*(c:ClassData, state:State, imports:var HashSet[string], version:in
         objInheritance = "object"
     elif #[c.pureObject or ]# parentObj.len==0 or (id in customization_forceInheritable):
         pragmas.add "pure"
-        if version==0:
-            objInheritance = "object {.inheritable.}"
-        elif version==1:
-            pragmas.add "inheritable"
-            objInheritance = "object"
+        pragmas.add "inheritable"
+        objInheritance = "object"
     else:
         discard c.allTypes.cppTypeToNimType(state, parentObj, "typeDecl", imports)
         pragmas.add "pure"
@@ -766,9 +759,10 @@ when true:
         result = &"proc {c.name}*{c.tpls.tplsToNim}({params.join})"
         if c.retType.len>0: result &= &": {c.retType}"
         result &= &" {c.suffix.strip}"
+
     # On windows clong=int32, while on {linux,osx} clong=int.
     # This can lead to duplicate definitions in some cases, so we should
-    # take care to take this differences into account.
+    # take care to take these differences into account.
     func signature(c:CallableData, typeReplacements:Table[string,string]):string =
         let params=c.params.mapIt(it.toNim(c.classData, typeReplacements))
         &"{c.name}*{c.tpls.tplsToNim}({params.join})"
@@ -828,21 +822,23 @@ when true:
                 # NOTE we don't add decorations anymore so we can deduplicate unique functions more reliably
                 let (finalName, pragmas, nimArgs, decorations)=(
                     if x.isStatic:
-                        let pragmas: string = &"{{.header:headerFile, importcpp:\"{c.cppName}::{x.name}(@)\".}}"
-                        var nimArgs: seq[Param] = x.params[idxs]
+                        let 
+                            pragmas: string = &"{{.header:headerFile, importcpp:\"{c.cppName}::{x.name}(@)\".}}"
+                            nimArgs: seq[Param] = x.params[idxs]
                         # To avoid name clashes, we must prefix the class name for static methods
                         (&"static_{c.nimName}_{finalName}", pragmas, nimArgs, @["static"])
                     else:
-                        let pragmas: string = &"{{.header:headerFile, importcpp:\"#.{x.name}(@)\".}}"
-                        let this_param = Param(
-                            name: "this", 
-                            tplType: (
-                                cppType: "",
-                                nimType: c.nimName, 
-                                refKind: (if shouldBePtr: RefKind.Pointer else: RefKind.Regular),
-                                tpls: tpls
-                                ))
-                        let nimArgs: seq[Param] = concat(@[this_param], x.params[idxs])
+                        let 
+                            pragmas: string = &"{{.header:headerFile, importcpp:\"#.{x.name}(@)\".}}"
+                            this_param = Param(
+                                name: "this", 
+                                tplType: (
+                                    cppType: "",
+                                    nimType: c.nimName, 
+                                    refKind: (if shouldBePtr: RefKind.Pointer else: RefKind.Regular),
+                                    tpls: tpls
+                                    ))
+                            nimArgs: seq[Param] = concat(@[this_param], x.params[idxs])
                         (finalName, pragmas, nimArgs, @[])
                     )
                 
@@ -914,50 +910,21 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
             
         if true: # Output classes
             var 
-                versions:seq[seq[string]] = @[newSeq[string](), newSeq[string]()]
-                newImports:seq[HashSet[string]] = @[initHashSet[string](), initHashSet[string]()]
-            for version in [0,1]:
-                # var tmp:seq[string]
-                # var newImports:HashSet[string]
-                var definedClasses:HashSet[string]
-                for n,c in file.module.classes:
-                    if c.nimName notin definedClasses:
-                        definedClasses.incl c.nimName
-                        versions[version].add c.typeDecl(state, newImports[version], version).indent(IND)
+                classes:seq[string]
+                newImports:HashSet[string]
+                definedClasses:HashSet[string]
+            for n,c in file.module.classes:
+                if c.nimName notin definedClasses:
+                    definedClasses.incl c.nimName
+                    classes.add c.typeDecl(state, newImports).indent(IND)
 
-            if versions[0] == versions[1]:
-                # No need to generate types for different nim versions
-                for i in newImports[0]:
-                    if i notin imports: xs.add (&"import nimqt/{i}")
-                    imports.incl i
-                
-                xs.add "type"
-                xs.add "# Classes found in the C++ code".indent(IND)
-                xs.add versions[0]
-            else:
-                # In this case, we have (probably) object definitions that inherit from something
-                # but using a different syntax depending on the nim compiler.
-                
-                # The push warning Deprecated ideally is inside the 'when' statement, but it
-                # does not seems to work there ...
-                xs.add "# Disable 'Warning: type pragmas follow the type name; this form of writing pragmas is deprecated'"
-                xs.add "{.push warning[Deprecated]: off.}"
-                for version in [0,1]:
-                    if versions[version].len>0:
-                        case version
-                        of 0: xs.add "when (NimMajor, NimMinor, NimPatch) < (1, 9, 0):"
-                        of 1: xs.add "elif (NimMajor, NimMinor, NimPatch) >= (1, 9, 0):"
-                        else: assert(false)
-
-                        for i in newImports[version]:
-                            if i notin imports: xs.add &"    import nimqt/{i}"
-                            imports.incl i
-                        
-                        xs.add "    type"
-                        xs.add "    # Classes found in the C++ code".indent(IND)
-                        xs.add versions[version].mapIt(it.indent(IND))
-
-                xs.add "{.push warning[Deprecated]: on.}"
+            for i in newImports:
+                if i notin imports: xs.add (&"import nimqt/{i}")
+                imports.incl i
+            
+            xs.add "type"
+            xs.add "# Classes found in the C++ code".indent(IND)
+            xs.add classes
         
         if true:
             var definedTypedefs:HashSet[string]
