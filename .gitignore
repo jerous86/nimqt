@@ -10,6 +10,7 @@ examples/hello
 examples/load_ui
 examples/custom_signal
 examples/autosaver
+examples/seven_tasks
 
 scripts/cpp2xml
 scripts/distr
