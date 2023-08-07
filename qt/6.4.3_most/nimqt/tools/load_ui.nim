@@ -42,10 +42,11 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string,
     let body=staticRead(uiFilePath)
     
     # (1) load the XML and extract all widgets
-    var xml = body.parseXml
     type Object=tuple[class,name:string]
-    var objects:seq[Object]
-    var connections:seq[(string,string,string,string)]
+    var
+        xml = body.parseXml
+        objects:seq[Object]
+        connections:seq[(string,string,string,string)]
 
     if replaceCustomWidgetsWithBaseclass:
         # (1b) replace customwidgets with their baseclass (and hope it exists)
@@ -84,7 +85,7 @@ macro loadUi*(rootWg:typed, uiFilePath:static system.string,
 
     # (2) add import statements
     # TODO loadFromString can be slow. Maybe use a specialized database `moduleToImport.txt`?
-    let typeDb=typeDb.loadFromString((currentSourcePath().parentDir()/"../typeDb.txt").readFile)
+    let typeDb=typeDb.loadFromString((currentSourcePath().parentDir()/"../../typeDb.txt").readFile)
     result.add quote do:
         {.push hint[DuplicateModuleImport]:off.}
     for o in objects.mapIt(it.class.toLowerAscii).deduplicate:

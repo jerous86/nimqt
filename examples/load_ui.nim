@@ -1,7 +1,8 @@
 import os
 
 import nimqt
-import nimqt/[load_ui, qdialog]
+import nimqt/qdialog
+import nimqt/tools/load_ui
 
 nimqt.init
 let app = newQApplication(commandLineParams())
