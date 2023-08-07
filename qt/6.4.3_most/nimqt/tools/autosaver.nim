@@ -41,7 +41,7 @@ proc write(storage:AutoSaveStorage) =
         f.write(&"{k}\n{v.len}\n{v}\n")
     f.close
 
-func restore*(storage:AutoSaveStorage, o:ptr QObject, setter:Setter, blockSignals:bool) =
+proc restore*(storage:AutoSaveStorage, o:ptr QObject, setter:Setter, blockSignals:bool) =
     assert ($o.objectName).len>0, "Objects that use autosave must have their name set"
     
     let key = $(o.objectName)
@@ -50,11 +50,11 @@ func restore*(storage:AutoSaveStorage, o:ptr QObject, setter:Setter, blockSignal
         o.setter(storage.settings[key])
         discard o.blockSignals(old)
 
-func restoreAll*(storage:AutoSaveStorage, blockSignals:bool) =
+proc restoreAll*(storage:AutoSaveStorage, blockSignals:bool) =
     for (o,setter) in storage.objects:
         storage.restore(o, setter, blockSignals)
 
-func addObject[T](storage:var AutoSaveStorage, o:ptr T, setter:Setter, blockSignals:bool) =
+proc addObject[T](storage:var AutoSaveStorage, o:ptr T, setter:Setter, blockSignals:bool) =
     storage.objects.add (cast[ptr QObject](o), setter)
     storage.restore(cast[ptr QObject](o), setter, blockSignals)
 
