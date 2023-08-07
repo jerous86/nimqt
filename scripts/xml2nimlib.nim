@@ -377,7 +377,7 @@ func fixImport*(allTypes:AllTypes, class:string, context:string): string =
     let qs=class1_lc.split("::")
     if qs.len==2:
         if not allTypes.db.names.hasKey(qs[0]):
-            raise newException(CallbackTypeException, &"func fixImport: class {class}: {qs[0]} is not found in allTypes.db ({qs})\ncontext '{context}'") #$qs & "\n" & $allTypes.cppTypeAliases
+            raise newException(CallbackTypeException, &"func fixImport: class {class}: {qs[0]} is not found in allTypes.db ({qs})\ncontext '{context}'") 
         for parent in allTypes.db.listBaseClassesRec(allTypes.db.xs[allTypes.db.names[qs[0]]]):
             if allTypes.db.names.hasKey (&"{parent}::{qs[1]}").toLowerAscii.fixNameSpace:
                 return allTypes.fixImport(&"{parent}::{qs[1]}", context)
@@ -449,7 +449,7 @@ func cppTypeToNimType(allTypes:AllTypes, state:State, cppType:string, context:st
     
     result.nimType=result.nimType.fixNameSpace.replaceSpecialTypes
 
-func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
+func generateNimTypeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
     assert c.fqName.len>0, $c
     let 
         id = newCm(state.component, state.module).id_class(c.nimName)
@@ -479,29 +479,26 @@ func typeDecl*(c:ClassData, state:State, imports:var HashSet[string]):string =
         pragmas.add "inheritable"
         objInheritance = "object"
     else:
-        discard c.allTypes.cppTypeToNimType(state, parentObj, "typeDecl", imports)
+        discard c.allTypes.cppTypeToNimType(state, parentObj, "generateNimTypeDecl", imports)
         pragmas.add "pure"
         objInheritance = &"object of {parentObj}"
 
 
     startOfDecl & "{." & pragmas.join(",") & ".} = " & objInheritance
 
-func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts:seq[string]] =
-    var xs:seq[string]
-    var counter=0
-    var kvs:seq[(string,int)]
+func generateNimEnumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts:seq[string]] =
+    var
+        xs:seq[string]
+        counter=0
+        kvs:seq[(string,int)]
 
     var values:Table[int,seq[string]]
     for x in e.kvs:
         let name=x[0]
-        # assert x[1].len>0, $e.kvs
-        # counter=(if x[1].len>0: x[1].evalStr else: counter)
         counter=(if x[1].len>0: x[1].parseInt else: counter)
-        # counter=x[1].parseInt
-        # matheval.addVar(name, counter.float)
         kvs.add((name, counter))
-        try: values[counter].add name
-        except CatchableError: values[counter] = @[name]
+        if values.hasKey(counter): values[counter].add name
+        else: values[counter] = @[name]
         counter.inc
     
     kvs.sort(cmp=proc(l,r:(string,int)):int=cmp(l[1],r[1]))
@@ -522,8 +519,6 @@ func enumDecl*(e:EnumData, c:ClassData, state:State): tuple[enums:string, consts
             id=newCm(state.component, state.module).id_enum(e.nimName.escapeNimReservedWords.replaceSpecialTypes)
             pureness=(if id in pureEnums: ", pure" else: "")
         result.enums=e.nimName.escapeNimReservedWords.replaceSpecialTypes & &"* {{.header:headerFile,importcpp:\"{e.cppName}\"{pureness}.}} = enum {xs.join.strip}"
-
-
 
 
 proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State): Module =
@@ -646,7 +641,6 @@ proc processNode*(xml:XmlNode, inClass:bool, allTypes:var AllTypes, state:State)
                         # echo "    ",getCurrentException()[].msg
                         discard
 
-
         proc do_class(n:XmlNode, fullNamePts:seq[string], allTypes: AllTypes, modData:var Module): ClassData =
             let fullName=n.attr("full_name")
             if cm.id_class(fullName.fixNameSpace).skippable(cm, Class)==false and n.isVisible:
@@ -728,7 +722,8 @@ proc processFile*(xmlInputFile:string, state:State): tuple[cppHeaderFile:string,
     (
         cppHeaderFile:xml.attr("component")/xml.attr("module")&".h", 
         module:xml.processNode(false, allTypes, state), 
-        allTypes:allTypes)
+        allTypes:allTypes
+    )
 
 
 # Functions to convert something to Nim code
@@ -848,7 +843,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
         let (enums,consts)=block:
             var res:tuple[enums:seq[string], consts:seq[string]]
             for e in enums:
-                let x=e.enumDecl(c, state)
+                let x=e.generateNimEnumDecl(c, state)
                 if x.enums.len>0: res.enums.add x.enums
                 if x.consts.len>0: res.consts.add x.consts
             res
@@ -904,7 +899,7 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
             for n,c in file.module.classes:
                 if c.nimName notin definedClasses:
                     definedClasses.incl c.nimName
-                    classes.add c.typeDecl(state, newImports).indent(IND)
+                    classes.add c.generateNimTypeDecl(state, newImports).indent(IND)
 
             for i in newImports:
                 if i notin imports: xs.add (&"import nimqt/{i}")

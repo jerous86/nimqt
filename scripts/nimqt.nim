@@ -112,9 +112,6 @@ func isOverride(pType:ProcType): bool =
 
 var methodImplementations{.compileTime.}:Table[string,seq[NimNode]]
 
-func unconst_ptr(class:string, varName:string): string = &"(({class} *) {varName})"
-func unconst(class:string, varName:string): string = &"(({class}) {varName})"
-
 func replaceExportCppType(n:NimNode): NimNode =
     if n.kind == nnkPtrTy: return n
     if n.kind == nnkVarTy: return n
@@ -397,6 +394,9 @@ proc processVar(n:NimNode, class:NimNode, memberVariables:NimNode) =
 
 
 macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:untyped) =
+    func unconst_ptr(class:string, varName:string): string = &"(({class} *) {varName})"
+    func unconst(class:string, varName:string): string = &"(({class}) {varName})"
+
     #echo &"\n\n\ninheritQobject {class.repr} {parentClass.repr} {plainObject} {body.repr.indent(4)}"
     result = newNimNode(nnkStmtList)
     let
@@ -526,10 +526,9 @@ macro insertSlotImplementations*(className:string) =
     
     let classNameStr:string = className.strVal
     if methodImplementations.hasKey(classNameStr)==false:
-        echo "qt::insertSlotImplementations: WARNING " & classNameStr & " not found in methodImplementations. Skipping"
+        echo &"qt::insertSlotImplementations: WARNING {classNameStr} not found in methodImplementations. Skipping"
         echo "Only following are available:"
-        for key,x in methodImplementations:
-            echo key
+        echo toSeq(methodImplementations.keys).join("\n").indent(1)
         return
     for x in methodImplementations[classNameStr]:
         result.add x
