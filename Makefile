@@ -122,4 +122,7 @@ copy_scripts:
 	/bin/cp -f scripts/nimqt_paths.nim qt/6/nimqt/
 	/bin/cp -f scripts/tools/*.nim qt/6/nimqt/tools/
 
+docs:
+	nim doc --project --index:on --outdir:htmldocs --path:qt/6/ qt/6/nimqt.nim
+
 FORCE:
