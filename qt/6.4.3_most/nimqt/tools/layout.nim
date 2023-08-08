@@ -47,15 +47,6 @@ proc addObjToLayout*(root:ptr QWidget, child:ptr QWidget) =
 
 
 
-# Something fishy is going on.
-# When have something like
-# win.makeLayout(rootLayout):
-#    - QPushButton() as btn
-# then without the macro 'as' below, there would be a parsing error.
-# But with this macro, everything is fine. In earlier versions this was
-# not needed.
-# Further investigation needed.
-macro `as`*(x,y:untyped) = discard
 
 template discardThis*(x:typed, body:untyped): untyped = body
 macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): untyped =

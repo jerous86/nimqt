@@ -550,5 +550,13 @@ import nimqt/tools/signals
 import nimqt/tools/layout
 
 
+# This is used in tools/layout and tools/menu
+# When have something like
+# win.makeLayout(rootLayout):
+#    - QPushButton() as btn
+# then without the macro 'as' below, there would be a parsing error.
+# But with this macro, everything is fine. 
+macro `as`*(x,y:untyped) = discard
+
 export signals
 export layout

@@ -11,6 +11,7 @@ examples/load_ui
 examples/custom_signal
 examples/autosaver
 examples/seven_tasks
+examples/menu
 
 scripts/cpp2xml
 scripts/distr

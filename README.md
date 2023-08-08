@@ -287,6 +287,52 @@ rootWidget.makeLayout:
 			echo "Return pressed!"
 ```
 
+### QMenu DSL
+Similar to the layout DSL, there is also a DSL to create menus.
+To use it, one should first import `nimqt/tools/menu`.
+
+When a line starts with 
+* a `+` symbol followed by a string `X`, a menu will be created with the title `X`.
+* a `-` symbol followed by a string `X`, an action will be created with the title `X`.
+* a `*` symbol followed by a string `X`, an section will be created with the title `X`.
+
+As with the layout DSL, children can be added by adding a colon at the end, and indenting.
+These children can be new QMenus/QActions, or calls to functions.
+
+Signals can also be handled. Some often used shortcuts are introduced in `nimqt/tools/menu`:
+
+```nim
+template handleHovered*(m: ptr QMenu, body:untyped) = m.handleSignal1(SIGNAL "hovered(QAction *)", action:ptr QAction, body)
+template handleTriggered*(m: ptr QMenu, body:untyped) = m.handleSignal1(SIGNAL "triggered(QAction *)", action:ptr QAction, body)
+
+template handleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "changed()", body)
+template handleHovered*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "hovered()", body)
+template handleToggled*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "toggled(bool)", checked:bool, body)
+template handleTriggered*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "triggered(bool)", checked:bool, body)
+template handleVisibleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "handleVisibleChanged()", body)
+```
+
+Here is a very simple example of its usage:
+```nim
+import nimqt/tools/menu
+
+let rootMenu=newQMenu(Q"Sample menu")
+rootMenu.makeMenu:
+	+ "Menu1" as menu1:
+		+ "Menu1.1":
+			- "Action1.1.1"
+			- "Action1.1.2":
+				setCheckable(true)
+				handleToggled():
+					echo "Action1.1.2 is now ",checked
+		- "Action1.1"
+		* "Section1.1"
+
+menu1.setTitle(Q "New title for menu1")
+```
+
+A more elaborate example can be found in `examples/menu.nim`.
+
 ### Loading .ui files
 Simple support for loading `.ui` files is available.
 These files can be created using e.g. Qt Creator.
