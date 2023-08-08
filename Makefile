@@ -103,5 +103,12 @@ run_seven_tasks:
 
 clean:
 	rm -f ./examples/{poc,load_ui,hello,text_view,calc,custom_signal,autosaver,custom_widget,seven_tasks}
+	
+copy_scripts:
+	/bin/cp -f scripts/nimqt.nim qt/6/nimqt.nim
+	/bin/cp -f scripts/skips.nim qt/6/nimqt/
+	/bin/cp -f scripts/typeDb.nim qt/6/nimqt/
+	/bin/cp -f scripts/nimqt_paths.nim qt/6/nimqt/
+	/bin/cp -f scripts/tools/*.nim qt/6/nimqt/tools/
 
 FORCE:
