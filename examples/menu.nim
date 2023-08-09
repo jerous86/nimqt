@@ -1,7 +1,7 @@
 import os
 
 import nimqt
-import nimqt/qpushbutton
+import nimqt/[qpushbutton,qmainwindow]
 import nimqt/tools/[menu,layout]
 
 nimqt.init
@@ -39,13 +39,40 @@ mm.makeMenu:
                 handleTriggered(): quit(0)
 
 
-let win: ptr QWidget = newQWidget()
-win.makeLayout:
+
+
+let 
+    win: ptr QMainWindow = newQMainWindow()
+    menuBar=newQMenuBar()
+    menuFile=menuBar.addMenu(Q"File")
+    menuView=menuBar.addMenu(Q"View")
+    centralWidget=newQWidget()
+centralWidget.makeLayout:
     - useObject btn1:
         handleSignal0(SIGNAL "clicked()"):
+            enableBtn1.setChecked(btn1.isEnabled)
+            enableBtn2.setChecked(btn2.isEnabled)
             mm.popup(btn1.mapToGlobal(btn1.pos))
     - useObject btn2:
         handleSignal0(SIGNAL "clicked()"):
+            enableBtn1.setChecked(btn1.isEnabled)
+            enableBtn2.setChecked(btn2.isEnabled)
             mm.popup(btn2.mapToGlobal(btn2.pos))
+win.setCentralWidget(centralWidget)
+win.setMenuBar(menuBar)
+menuFile.makeMenu:
+    * "Stuff"
+    - "Open ...": setEnabled(false)
+    - "Save as ...": setEnabled(false)
+    - "Save": setEnabled(false)
+    * "Quit"
+    - "Quit!":
+        handleTriggered(): quit(0)
+menuView.makeMenu:
+    - "Enable btn1":
+        handleTriggered(): btn1.setEnabled(true)
+    - "Enable btn2":
+        handleTriggered(): btn2.setEnabled(true)
+    
 win.show()
 discard app.exec()
