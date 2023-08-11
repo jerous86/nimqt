@@ -49,7 +49,7 @@ elif defined(windows):
     # {.passL: &"--clib:{QtInstallLibs}\Qt6Widgets".}
     # {.passL: &"--clib:{QtInstallLibs}\Qt6EntryPoint".}
 else: 
-    assert false, "Don't know how to compile on this operating system"
+    doAssert false, "Don't know how to compile on this operating system"
 
 # The init template does the necessary C++ includes, 
 # and imports some commonly used modules.
@@ -125,7 +125,7 @@ func replaceExportCppType(n:NimNode): NimNode =
     else: return n
 
 func toCppType(n:NimNode): string =
-    assert n.kind!=nnkRefTy # ref is a nim thing, and does not translate to c++!
+    doAssert n.kind!=nnkRefTy # ref is a nim thing, and does not translate to c++!
 
     if n.kind == nnkPtrTy: &"{n[0].toCppType} *"
     elif n.kind == nnkVarTy: &"{n[0].toCppType} &"
@@ -191,7 +191,7 @@ proc processProc(n:NimNode,
         of "constoverridedecl": ProcType.ConstOverrideDecl
         of "signal": ProcType.Signal
         of "member": ProcType.Member
-        else: assert(false, &"Unknown proc type {s}"); Slot
+        else: doAssert(false, &"Unknown proc type '{s}'"); Slot
 
     # Replaces something like ```x:ref int``` with ```x:ptr int```
     # proc replaceRefByPtr(n:NimNode): NimNode =
@@ -199,7 +199,8 @@ proc processProc(n:NimNode,
     #     if n[1].kind == nnkRefTy:
     #         result[1]=nnkPtrTy.newTree(n[1][0])
     
-    if n.kind==nnkCommand:
+    case n.kind
+    of nnkCommand:
         # This is what we would expect usually, something like a "slot foo()" or a "member faaa()" ...
         let signal=n[1][0]
         let signalName:string=signal.strVal
@@ -280,7 +281,7 @@ proc processProc(n:NimNode,
                     else: discard
                 (body, ret, params, decl_only)
             else:
-                assert false
+                doAssert false
                 (NimNode(), NimNode(), class.getParams(@[]), false)
         
         if pType.isOverride and pType!=Signal:
@@ -331,7 +332,7 @@ proc processProc(n:NimNode,
                     fwdDeclarations.add decl0
                 else: 
                     cppDefinitions.add def
-    elif n.kind==nnkPragma:
+    of nnkPragma:
         # E.g. an {.emit: "".} thingie
         structStuff.add n
     else: 
@@ -422,7 +423,9 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
         of nnkVarSection: decl.processVar(class, memberVariables)
         of nnkPragma: structStuff.add decl
         of nnkDiscardStmt: discard
-        else: assert(false, &"inheritQobject2: Expected nnkCommand, nnkVarSection, nnkPragma or nnkDiscardStmt, but got {decl.kind}")
+        else:
+            echo decl.treeRepr
+            doAssert(false, &"inheritQobject2: Expected nnkCommand, nnkVarSection, nnkPragma or nnkDiscardStmt, but got {decl.kind}")
 
     var
         structDeclaration=newNimNode(nnkStmtList)
@@ -469,7 +472,7 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
         case signal.pType
         of Signal:
             let signalNameAndParams = concat(@[signalName], signal.cpp_param_names).join(", ")
-            assert isQObject, "Cannot use signal in regular inherited object"
+            doAssert isQObject, "Cannot use signal in regular inherited object"
             structDeclaration.add quote do: 
                 {.emit:"\tvoid " & `signalName` & "(" & `cpp_param_decls0` & ") W_SIGNAL(" & `signalNameAndParams` & ")".}
         of Member:
@@ -501,7 +504,7 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
                 structDeclaration.add quote do: {.emit:"\t" & $`retTypeCpp` & " parent_" & `signalName` & "(" & `cpp_param_decls0` & ") { return " & `parentClassNameStr` & "::" & `signalName` & "(" & `cpp_param_names0` & "); }".}
             
             if signal.pType.isSlot:
-                assert isQObject, "Cannot use slots in regular inherited object"
+                doAssert isQObject, "Cannot use slots in regular inherited object"
                 structDeclaration.add quote do: {.emit:"\tW_SLOT(" & `signalName` & ")".}
     
     structDeclaration.add quote do: {.emit: "};\n".}
