@@ -141,7 +141,7 @@ The following declaration and definitions are possible inside `inheritQObject(Fo
         See in `examples/hello.nim` for an example of how to use member variables.
         The default value for VAR_NAME is VAR_TYPE's default value.
         There is no way to modify this default value.
- Define a constructor that will call the parent class
+- Define a constructor that will call the parent class
 	- `constructor(parent: ptr QObject)`
 		This code will create a constructor that will call the base class' constructor with parameter `parent`.
 		A constructor can not have a body. This restriction is to simplify the parsing and processing.
