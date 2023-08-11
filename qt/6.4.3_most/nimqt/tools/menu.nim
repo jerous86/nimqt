@@ -30,7 +30,6 @@ macro makeMenu*(root: ptr QMenu, body:untyped): untyped =
         decls:seq[NimNode] # declarations to add
         stmts:seq[NimNode] # statements to add
     
-    
     proc helper(curObj:NimNode, body:NimNode) =
         let
             nextName = &"{unnamed_vars_prefix}_{var_index}"
@@ -49,15 +48,14 @@ macro makeMenu*(root: ptr QMenu, body:untyped): untyped =
         # + MENU_TITLE: CHILDREN
         of nnkPrefix(ident"+", `caption` @ nnkStrLit, `children` @ nnkStmtList):
             decls.add quote do: (let `objName` {.used.} = `curObj`.addMenu(Q `caption`))
-            for child in children:
-                `objName`.helper(child)
+            for child in children: `objName`.helper(child)
 
         # + MENU_TITLE "as" MENU_NAME: CHILDREN
         of nnkInfix(ident"as", nnkPrefix(ident"+", `caption` @ nnkStrLit), `objName` @ nnkIdent, `children` @ nnkStmtList):
             decls.add quote do: (let `objName` {.used.} = `curObj`.addMenu(Q `caption`))
-            for child in children:
-                `objName`.helper(child)
+            for child in children: `objName`.helper(child)
 
+        
         # - ACTION_TITLE
         of nnkPrefix(ident"-", `caption` @ nnkStrLit):
             decls.add quote do: (let `objName` {.used.} = `curObj`.addAction(Q `caption`))
@@ -69,14 +67,12 @@ macro makeMenu*(root: ptr QMenu, body:untyped): untyped =
         # - ACTION_TITLE: CHILDREN
         of nnkPrefix(ident"-", `caption` @ nnkStrLit, `children` @ nnkStmtList):
             decls.add quote do: (let `objName` {.used.} = `curObj`.addAction(Q `caption`))
-            for child in children:
-                `objName`.helper(child)
+            for child in children: `objName`.helper(child)
 
         # - ACTION_TITLE "as" ACTION_NAME: CHILDREN
         of nnkInfix( ident"as", nnkPrefix(ident"-", `caption` @ nnkStrLit), `objName` @ nnkIdent, `children` @ nnkStmtList):
             decls.add quote do: (let `objName` {.used.} = `curObj`.addAction(Q `caption`))
-            for child in children:
-                `objName`.helper(child)
+            for child in children: `objName`.helper(child)
 
 
         # * SECTION_TITLE
@@ -90,14 +86,12 @@ macro makeMenu*(root: ptr QMenu, body:untyped): untyped =
         # * SECTION_TITLE: CHILDREN
         of nnkPrefix(ident"*", `caption` @ nnkStrLit, `children` @ nnkStmtList):
             decls.add quote do: (let `objName` {.used.} = `curObj`.addSection(Q `caption`))
-            for child in children:
-                `objName`.helper(child)
+            for child in children: `objName`.helper(child)
 
         # * SECTION_TITLE "as" ACTION_NAME: CHILDREN
         of nnkInfix( ident"as", nnkPrefix(ident"*", `caption` @ nnkStrLit), `objName` @ nnkIdent, `children` @ nnkStmtList):
             decls.add quote do: (let `objName` {.used.} = `curObj`.addSection(Q `caption`))
-            for child in children:
-                `objName`.helper(child)
+            for child in children: `objName`.helper(child)
 
         of `stmt` @ nnkCall: # e.g. ```connect(...)```
             # When we do a simple call, we insert the current object into the parameter list!
