@@ -109,7 +109,7 @@ inheritQObject(MyTextEdit, QTextEdit):
 ``` 
 
 
-The following declaration and definitions are possible inside `inheritQObject`:
+The following declaration and definitions are possible inside `inheritQObject(Foo, QObject)`:
 
 - Define/declare a slot
   	- `slot SLOT_NAME(ARGUMENTS): BODY`
@@ -141,7 +141,12 @@ The following declaration and definitions are possible inside `inheritQObject`:
         See in `examples/hello.nim` for an example of how to use member variables.
         The default value for VAR_NAME is VAR_TYPE's default value.
         There is no way to modify this default value.
-
+ Define a constructor that will call the parent class
+	- `constructor(parent: ptr QObject)`
+		This code will create a constructor that will call the base class' constructor with parameter `parent`.
+		A constructor can not have a body. This restriction is to simplify the parsing and processing.
+		To do more initialization, create a member function (e.g. called `initialize` and call that).
+		The constructor method is only useful in case e.g. some parameters are initialized in the constructor.
 
 
 

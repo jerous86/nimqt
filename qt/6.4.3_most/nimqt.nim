@@ -5,7 +5,6 @@ import strutils
 import os
 import macros
 
-
 import nimqt/nimqt_paths
 # import nimqt/typeDb
 
@@ -87,8 +86,10 @@ type
         cpp_param_name*:string
         nim_param*:NimNode
     ParamsInfo = seq[ParamInfo]
-    ProcType = enum Slot, SlotDefer, SlotDecl,
-        Override, OverrideDefer, OverrideDecl, ConstOverride, ConstOverrideDefer, ConstOverrideDecl,
+    ProcType = enum
+        Slot, SlotDefer, SlotDecl,
+        Override, OverrideDefer, OverrideDecl,
+        ConstOverride, ConstOverrideDefer, ConstOverrideDecl,
         Signal,
         Member
 
@@ -146,6 +147,31 @@ func nodeToParamInfo(param:NimNode): ParamInfo =
     else:
         result.nim_param = nnkIdentDefs.newTree(param[0], param[1].replaceExportCppType, newNimNode(nnkEmpty))
 
+# For a list of NimNodes, obtained from a function's
+# parameter list, we construct several useful versions of it:
+# cpp_param_names: the name used in the signature
+# cpp_param_types: the C++ type
+# nim_param_ilst: the NimNode representation for the signature
+func getParams(class:NimNode, params:seq[NimNode], withThis=true): ParamsInfo =
+    if withThis:
+        result.add ParamInfo(
+            nim_param: nnkIdentDefs.newTree(
+                newIdentNode("this"), 
+                nnkPtrTy.newTree(class), 
+                newNimNode(nnkEmpty))
+            )
+    for param in params:
+        result.add param.nodeToParamInfo
+
+func insertNimParams(signature:var NimNode, params:seq[ParamInfo], withThis:bool) =
+    signature[3].expectKind nnkFormalParams
+    if withThis:
+        for p in params:
+            signature[3].add p.nim_param
+    else:
+        for p in params[1..^1]:
+            signature[3].add p.nim_param
+                
 # This procedure processes the name and arguments, but does nothing with the body
 # It expects in $n the Command that starts the procedure
 # structStuff are things that are added straight into the struct itself,
@@ -159,20 +185,6 @@ proc processProc(n:NimNode,
         friends:var NimNode,
     ): NimNode =
 
-    # For a list of NimNodes, obtained from a function's
-    # parameter list, we construct several useful versions of it:
-    # cpp_param_names: the name used in the signature
-    # cpp_param_types: the C++ type
-    # nim_param_ilst: the NimNode representation for the signature
-    func getParams(class:NimNode, params:seq[NimNode]): ParamsInfo =
-        result.add ParamInfo(
-            nim_param: nnkIdentDefs.newTree(
-                newIdentNode("this"), 
-                nnkPtrTy.newTree(class), 
-                newNimNode(nnkEmpty))
-            )
-        for param in params:
-            result.add param.nodeToParamInfo
 
     #echo &"\nprocessProc >>\n{n.repr.indent(4)}\n\n{n.treeRepr.indent(4)}\n<<\n"
     result = newNimNode(nnkStmtList)
@@ -300,27 +312,32 @@ proc processProc(n:NimNode,
                 let importcpp = &"#.{signal}(@)"
                 var decl0=quote do:
                     proc `signal`() {.importcpp: `importcpp`.}
-                decl0[3].expectKind nnkFormalParams
-                for p in params: decl0[3].add p.nim_param
+                decl0.insertNimParams(params, true)
                 cppDefinitions.add decl0
-            of Slot, SlotDefer, SlotDecl, Override, OverrideDefer, OverrideDecl, 
-                ConstOverride, ConstOverrideDefer, ConstOverrideDecl, Member:
+            of Slot, SlotDefer, SlotDecl,
+                Override, OverrideDefer, OverrideDecl, 
+                ConstOverride, ConstOverrideDefer, ConstOverrideDecl,
+                Member:
                  # Create the declaration
-                let xs=zip(
-                        concat(@[&"{classNameStr}*"], params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_type)), 
-                        concat(@["this"], params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_name)).appendParamIndex
-                    ).mapIt(&"{it[0]} {it[1]}")
-                let codegenDecl:string = &"""$1 $2({xs.join(", ")}) /*codegenDecl*/"""
-                var decl0=quote do:
-                    proc `signal`(): `ret` {.exportcpp,codegenDecl:`codegenDecl`.}
-                decl0[3].expectKind nnkFormalParams
-                for p in params: decl0[3].add p.nim_param
+                let
+                    validParamTypes0:seq[string]=params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_type)
+                    validParamNames0:seq[string]= params.filterIt(it.cpp_param_type.len>0).mapIt(it.cpp_param_name)
+                    validParamTypes:seq[string]=concat(@[&"{classNameStr}*"], validParamTypes0)
+                    validParamNames:seq[string]=concat(@["this"], validParamNames0)
+                    xs=zip(validParamTypes, validParamNames.appendParamIndex).mapIt(&"{it[0]} {it[1]}")
+                    codegenDecl:string = &"""$1 $2({xs.join(", ")}) /*codegenDecl*/"""
+                    
+                when true:
+                    # create the nim declaration, without parameters
+                    var decl0=quote do:
+                        proc `signal`(): `ret` {.exportcpp,codegenDecl:`codegenDecl`.}
+                    decl0.insertNimParams(params, withThis=true)
 
-                # Create the definition
-                var def0=quote do:
-                    proc `signal`(): `ret` {.exportcpp.} = `body`
-                def0[3].expectKind nnkFormalParams
-                for p in params: def0[3].add p.nim_param
+                when true:
+                    # create the nim definition, without parameters
+                    var def0=quote do:
+                        proc `signal`(): `ret` {.exportcpp.} = `body`
+                    def0.insertNimParams(params, withThis=true)
 
                 let def=(if decl_only: decl0 else: def0)
 
@@ -328,8 +345,7 @@ proc processProc(n:NimNode,
                     if methodImplementations.hasKey(classNameStr)==false:
                         methodImplementations[classNameStr] = @[]
                     methodImplementations[classNameStr].add def
-                    # A forward declaration might be useful
-                    fwdDeclarations.add decl0
+                    fwdDeclarations.add decl0 # A forward declaration might be useful
                 else: 
                     cppDefinitions.add def
     of nnkPragma:
@@ -341,6 +357,34 @@ proc processProc(n:NimNode,
     
     # echo "processProc returns >>\n",result.repr.indent(4),"<<\n\n"
 
+proc processConstructor(n:NimNode,
+        class:NimNode, parentClass:NimNode,
+        structStuff:var NimNode,
+        nimMethods:var NimNode,
+    ): NimNode =
+    # A constructor looks like
+    # "constructor" "(" PARAMS ")"
+    # This will call the constructor of the baseclass with PARAMS
+    # To initialize other stuff, you'll need to add a method like initialize or sth
+    result = newNimNode(nnkStmtList)
+    let
+        classNameStr:string=class.strVal
+        parentClassNameStr:string=parentClass.strVal
+        params:seq[ParamInfo]=class.getParams(n[1..^1], false)
+        cpp_param_names0=params.mapIt(it.cpp_param_name).join(", ")
+        cpp_param_types0:seq[string]=params.mapIt(it.cpp_param_type)
+        cpp_param_decls0:string=zip(params.mapIt(it.cpp_param_type), params.mapIt(it.cpp_param_name)).mapIt(&"{it[0]} {it[1]}").join(", ")
+        className=ident(classNameStr)
+        constructorName=ident(&"new{classNameStr}")
+        codegenDecl = &"new {classNameStr}(@)"
+    structStuff.add quote do: 
+        {.emit:"\t public: " & `classNameStr` & "(" & `cpp_param_decls0.join(", ")` & "): " & `parentClassNameStr` & "(" & `cpp_param_names0.join(",")` & ") { }".}
+    
+    var def=quote do:
+        proc `constructorName`*(): ptr `className` {.importcpp:`codegenDecl`.}
+    def.insertNimParams(params, withThis=true)
+    nimMethods.add def
+    
 proc processVar(n:NimNode, class:NimNode, memberVariables:NimNode) =
     # We cannot just add a member variable to a class. The importcpp pragma on an object
     # means that we will use that C++ object, and thus cannot modify the object.
@@ -415,11 +459,13 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
         structStuff=newNimNode(nnkStmtList)
         friends=newNimNode(nnkStmtList)
         memberVariables=newNimNode(nnkStmtList)
+        nimMethods=newNimNode(nnkStmtList)
 
     body.expectKind(nnkStmtList)
     for decl in body:
         case decl.kind
         of nnkCommand: result.add decl.processProc(class, parentClass, signals, fwdDeclarations, cppDefinitions, structStuff, friends)
+        of nnkObjConstr: result.add decl.processConstructor(class, parentClass, structStuff, nimMethods)
         of nnkVarSection: decl.processVar(class, memberVariables)
         of nnkPragma: structStuff.add decl
         of nnkDiscardStmt: discard
@@ -452,6 +498,7 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
         `fwdDeclarations`
         {.emit:"\n\n\n// End of forward declarations\n\n".}
         proc `newClassPtr`*(): ptr `class` {.importcpp: "new " & $`class` & "(@)" .}
+        `nimMethods`
         `memberVariables`
     
     if isQObject:
@@ -466,8 +513,8 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
         let 
             signalName:string=signal.node.strVal
             # param decls/names without this
-            cpp_param_decls0=zip(signal.cpp_param_types, signal.cpp_param_names).mapIt(&"{it[0]} {it[1]}").join(", ")
-            cpp_param_names0=signal.cpp_param_names.join(", ")
+            cpp_param_decls0:string=zip(signal.cpp_param_types, signal.cpp_param_names).mapIt(&"{it[0]} {it[1]}").join(", ")
+            cpp_param_names0:string=signal.cpp_param_names.join(", ")
         
         case signal.pType
         of Signal:
@@ -478,7 +525,8 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
         of Member:
             discard
             
-        of Slot, SlotDefer, SlotDecl, Override, OverrideDefer, OverrideDecl,
+        of Slot, SlotDefer, SlotDecl,
+            Override, OverrideDefer, OverrideDecl,
             ConstOverride, ConstOverrideDefer, ConstOverrideDecl:
             let
                 retType=signal.retType.replaceExportCppType
