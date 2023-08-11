@@ -7,10 +7,13 @@ type
     QTextEdit_AutoFormattingFlag* {.header:headerFile,importcpp:"QTextEdit::AutoFormattingFlag".} = enum AutoAll = -1, AutoNone = 0, AutoBulletList = 0x1
 
 import nimqt/qtwidgets/qabstractscrollarea
+import nimqt/[qtextformat,qtextcursor]
 type
     # Classes found in the C++ code
     QTextEdit* {.header:headerFile,importcpp:"QTextEdit" ,pure.} = object of QAbstractScrollArea
     QTextEdit_ExtraSelection* {.header:headerFile,importcpp:"QTextEdit::ExtraSelection" ,pure,inheritable.} = object
+        format*: QTextFormat
+        cursor*: QTextCursor
 import nimqt/qtwidgets/qframe
 import nimqt/qtwidgets/qwidget
 import nimqt/qtgui/qpaintdevice

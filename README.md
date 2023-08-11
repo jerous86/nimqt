@@ -147,6 +147,7 @@ The following declaration and definitions are possible inside `inheritQObject(Fo
 		A constructor can not have a body. This restriction is to simplify the parsing and processing.
 		To do more initialization, create a member function (e.g. called `initialize` and call that).
 		The constructor method is only useful in case e.g. some parameters are initialized in the constructor.
+		See in `custom_widgets/code_viewer.nim` for an example.
 
 
 
