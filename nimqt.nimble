@@ -1,4 +1,4 @@
-version="0.2"
+version="0.2.0"
 author="jerous"
 description="Qt bindings for nim"
 license="GPLv2 or GPLv3"
