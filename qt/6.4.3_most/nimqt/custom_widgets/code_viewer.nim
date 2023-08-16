@@ -3,6 +3,8 @@ import math
 import nimqt
 import nimqt/[qplaintextedit,qwidget]
 import nimqt/qtgui/qtextformat
+import nimqt/qsyntaxhighlighter
+import nimqt/qregularexpression
 
 export qplaintextedit
 
@@ -13,7 +15,6 @@ nimqt.init
 QTextBlock.registerArgType
 QRect.registerArgType
 
-# TODO nimqt:381 should use typeDb
 inheritQObject(CodeViewer, QPlainTextEdit):
     var lineNumberArea: ptr QWidget # define it as a widget, to avoid recursive dependency
     override_defer resizeEvent(e:ptr QResizeEvent):
@@ -22,14 +23,16 @@ inheritQObject(CodeViewer, QPlainTextEdit):
         this.lineNumberArea.setGeometry(newQRect(cr.left, cr.top, this.lineNumberAreaWidth.cint, cr.height))
     
     slot_defer highlightCurrentLine():
+        var extraSelections=newQList[qtextedit.QTextEdit_ExtraSelection]()
         if not this.isReadOnly():
-            var extraSelections=newQList[qtextedit.QTextEdit_ExtraSelection]()
-            # TODO support format
-            #var selection:qtextedit.QTextEdit_ExtraSelection
-            #selection.format.setBackground(newQColor(Qt_GlobalColor.yellow).lighter(160))
-            #selection.format.setProperty(FullWidthSelection, true)
-            #selection.cursor.clearSelection()
-            this.setExtraSelections(extraSelections)
+            var selection:qtextedit.QTextEdit_ExtraSelection
+            let lineColor=newQColor(Qt_GlobalColor.yellow).lighter(160)
+            selection.format.addr.setBackground(newQBrush(lineColor, SolidPattern))
+            selection.format.addr.setProperty(FullWidthSelection.cint, newQVariant(true))
+            selection.cursor=this.textCursor()
+            selection.cursor.clearSelection()
+            extraSelections.append selection
+        this.setExtraSelections(extraSelections)
     
     slot_defer updateLineNumberAreaWidth(newBlockCount:int) :
         this.doSetViewportMargins(this.lineNumberAreaWidth.cint, 0.cint, 0.cint, 0.cint)
@@ -56,7 +59,9 @@ proc lineNumberAreaPaintEvent(this:ptr CodeViewer, e: ptr QPaintEvent) =
     const
         HEIGHT=12
         LINE_OFFSET=0
-    let painter=newQPainter(cast[ptr QPaintDevice](this.lineNumberArea))
+    let
+        painter=newQPainter(cast[ptr QPaintDevice](this.lineNumberArea))
+        currentLine=this.textCursor.blockNumber
     painter.fillRect(e.rect, lightGray)
     
     var
@@ -65,8 +70,9 @@ proc lineNumberAreaPaintEvent(this:ptr CodeViewer, e: ptr QPaintEvent) =
         top=this.getBlockBoundingGeometry(tblock.addr).translated(this.getContentOffset).top
         bottom=top+this.getBlockBoundingRect(tblock.addr).height
     
-    painter.setPen(newQColor(Qt_GlobalColor.black))
     while tblock.isValid and top<e.rect.bottom.cfloat:
+        if tblock.blockNumber==currentLine:painter.setPen(newQColor(Qt_GlobalColor.red))
+        else: painter.setPen(newQColor(Qt_GlobalColor.black))
         if tblock.isVisible and bottom >= e.rect.top.cfloat:
             painter.drawText(0.cint, top.cint, this.lineNumberArea.width.cint, HEIGHT.cint, AlignRight.cint, Q($(blockNumber+LINE_OFFSET)))
         tblock=tblock.next
@@ -88,8 +94,69 @@ inheritQObject(LineNumberArea, QWidget):
         cast[ptr CodeViewer](this.viewer).lineNumberAreaPaintEvent(e)
 
 
+type
+    HLRule = tuple[pattern:QRegularExpression, format:ptr QTextCharFormat]
+let
+    rules:seq[HLRule] = @[
+        (
+            pattern:newQRegularExpression(Q"\\b(void|int)\\b"),
+            format: (block:
+                var res=newQTextCharFormat(); res.setForeground(newQBrush(newQColor(Qt_GlobalColor.blue), SolidPattern)); res)
+        ),
+        (
+            pattern:newQRegularExpression(Q"//[^\n]*"),
+            format: (block:
+                var res=newQTextCharFormat(); res.setForeground(newQBrush(newQColor(Qt_GlobalColor.red), SolidPattern)); res)
+        ),
+        ]
+
+inheritQObject(Highlighter, QSyntaxHighlighter):
+    # We define here a custom constructor that accepts the parent document.
+    # This code will generate a new method newHighlighter(parent:QTextDocument) which will
+    # resolve to something like
+    # `Highlighter(QTextDocument *parent): QSyntaxHighlighter(parent) { }`
+    # This is necessary in this case, because the QSyntaxHighlighter requires a parent document.
+    # (The default constructor does not accept any arguments)
+    # Note that we can not add a body to a constructor, it will just call its parent's constructor
+    # initializer.
+    constructor(parent:ptr QTextDocument)
+    
+    # setFormat is protected. By defining mem_setFormat, and calling setFormat from within the member function,
+    # we circumvent this protected visibility.
+    member mem_setFormat(start:int, count:int, format:var QTextCharFormat): this.setFormat(start, count, format)
+    
+    override_defer highlightBlock(text:const_var QString):
+        for rule in rules:
+            #echo rule
+            let matchIterator=rule.pattern.globalMatch(text)
+            #echo "  ",matchIterator.hasNext
+            while matchIterator.hasNext:
+                let match=matchIterator.next
+                #echo "  ",match.capturedStart," ",match.capturedLength
+                this.mem_setFormat(match.capturedStart, match.capturedLength, rule.format[])
+
+#[
+To use CodeViewer in your own code, you have to do the following:
+
+```
+import code_viewer
+code_viewer.import_CodeViewer()
+
+...
+
+let txtSourceViewer = newCodeViewer2()
+# Do stuff with txtSourceViewer
+```
+
+NOTE: to get the full code viewer, call `newCodeViewer2`, not `newCodeViewer`.
+]#
 proc newCodeViewer2*(): ptr CodeViewer =
     result=newCodeViewer()
+    
+    # Attach a highlighter to the editor
+    var highlighter{.used.} = newHighlighter(result.document)
+    
+    # Create and set the line number area
     result.lineNumberArea=newLineNumberArea()
     cast[ptr LineNumberArea](result.lineNumberArea).viewer=cast[pointer](result)
     result.lineNumberArea.setParent(result)
@@ -102,4 +169,6 @@ proc newCodeViewer2*(): ptr CodeViewer =
     result.updateLineNumberAreaWidth(0)
     result.highlightCurrentLine()
 
-nimqt.insertAllSlotImplementations
+nimqt.insertSlotImplementations(CodeViewer)
+nimqt.insertSlotImplementations(LineNumberArea)
+nimqt.insertSlotImplementations(Highlighter)

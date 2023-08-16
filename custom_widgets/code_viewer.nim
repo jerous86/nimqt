@@ -169,4 +169,6 @@ proc newCodeViewer2*(): ptr CodeViewer =
     result.updateLineNumberAreaWidth(0)
     result.highlightCurrentLine()
 
-nimqt.insertAllSlotImplementations
+nimqt.insertSlotImplementations(CodeViewer)
+nimqt.insertSlotImplementations(LineNumberArea)
+nimqt.insertSlotImplementations(Highlighter)
