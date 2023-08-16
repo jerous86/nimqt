@@ -297,7 +297,7 @@ proc processProc(n:NimNode,
                 doAssert false
                 (NimNode(), NimNode(), class.getParams(@[]), false)
         
-        if pType.isOverride and pType!=Signal:
+        if pType.isOverride: # and pType!=Signal:
             var def=quote do:
                 proc `callParent`(): `ret` {.importcpp, used.}
             def[3].expectKind nnkFormalParams
