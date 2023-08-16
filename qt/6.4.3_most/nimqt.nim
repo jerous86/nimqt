@@ -214,10 +214,11 @@ proc processProc(n:NimNode,
     case n.kind
     of nnkCommand:
         # This is what we would expect usually, something like a "slot foo()" or a "member faaa()" ...
-        let signal=n[1][0]
-        let signalName:string=signal.strVal
-        let callParent=ident("parent_"&signalName)
-        let pType=n[0].strVal.parseProcType # e.g. slot or override or signal
+        let 
+            signal=n[1][0]
+            signalName:string=signal.strVal
+            callParent=ident("parent_"&signalName)
+            pType=n[0].strVal.parseProcType # e.g. slot or override or signal
 
         # body is the body of the function (if present)
         # ret is the return type (as a nim type)
