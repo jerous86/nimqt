@@ -1,7 +1,7 @@
 import math
 
 import nimqt
-import nimqt/[qplaintextedit,qwidget]
+import nimqt/[qplaintextedit,qwidget,qlineedit]
 import nimqt/qtgui/qtextformat
 import nimqt/qsyntaxhighlighter
 import nimqt/qregularexpression
@@ -17,6 +17,11 @@ QRect.registerArgType
 
 inheritQObject(CodeViewer, QPlainTextEdit):
     var lineNumberArea: ptr QWidget # define it as a widget, to avoid recursive dependency
+    
+    var disableLineNumbers: bool
+    var disableCurLineIndicator: bool
+    var highlighter: ptr QSyntaxHighlighter
+    
     override_defer resizeEvent(e:ptr QResizeEvent):
         this.parent_resizeEvent(e)
         let cr=this.contentsRect()
@@ -24,14 +29,15 @@ inheritQObject(CodeViewer, QPlainTextEdit):
     
     slot_defer highlightCurrentLine():
         var extraSelections=newQList[qtextedit.QTextEdit_ExtraSelection]()
-        if not this.isReadOnly():
-            var selection:qtextedit.QTextEdit_ExtraSelection
-            let lineColor=newQColor(Qt_GlobalColor.yellow).lighter(160)
-            selection.format.addr.setBackground(newQBrush(lineColor, SolidPattern))
-            selection.format.addr.setProperty(FullWidthSelection.cint, newQVariant(true))
-            selection.cursor=this.textCursor()
-            selection.cursor.clearSelection()
-            extraSelections.append selection
+        if this.disableCurLineIndicator==false:
+            if not this.isReadOnly():
+                var selection:qtextedit.QTextEdit_ExtraSelection
+                let lineColor=newQColor(Qt_GlobalColor.yellow).lighter(160)
+                selection.format.addr.setBackground(newQBrush(lineColor, SolidPattern))
+                selection.format.addr.setProperty(FullWidthSelection.cint, newQVariant(true))
+                selection.cursor=this.textCursor()
+                selection.cursor.clearSelection()
+                extraSelections.append selection
         this.setExtraSelections(extraSelections)
     
     slot_defer updateLineNumberAreaWidth(newBlockCount:int) :
@@ -53,7 +59,9 @@ inheritQObject(CodeViewer, QPlainTextEdit):
     member getBlockBoundingRect(tblock:ptr QTextBlock): QRectF: this.blockBoundingRect(tblock[])
     member doSetViewportMargins(left:int,top:int,right:int,bot:int): this.setViewportMargins(left,top,right,bot)
 
-proc lineNumberAreaWidth(this:ptr CodeViewer, charWidth=20):int = (log(max(1,this.blockCount.int).float,charWidth.float)*charWidth.float).int
+proc lineNumberAreaWidth(this:ptr CodeViewer, charWidth=20):int =
+    if this.disableLineNumbers: 0
+    else: (log(max(1,this.blockCount.int).float,charWidth.float)*charWidth.float).int
 
 proc lineNumberAreaPaintEvent(this:ptr CodeViewer, e: ptr QPaintEvent) =
     const
@@ -71,10 +79,14 @@ proc lineNumberAreaPaintEvent(this:ptr CodeViewer, e: ptr QPaintEvent) =
         bottom=top+this.getBlockBoundingRect(tblock.addr).height
     
     while tblock.isValid and top<e.rect.bottom.cfloat:
-        if tblock.blockNumber==currentLine:painter.setPen(newQColor(Qt_GlobalColor.red))
-        else: painter.setPen(newQColor(Qt_GlobalColor.black))
+        if tblock.blockNumber==currentLine and this.disableCurLineIndicator==false:
+            painter.setPen(newQColor(Qt_GlobalColor.red))
+        else:
+            painter.setPen(newQColor(Qt_GlobalColor.black))
+            
         if tblock.isVisible and bottom >= e.rect.top.cfloat:
             painter.drawText(0.cint, top.cint, this.lineNumberArea.width.cint, HEIGHT.cint, AlignRight.cint, Q($(blockNumber+LINE_OFFSET)))
+        
         tblock=tblock.next
         top=bottom
         bottom=top+this.getBlockBoundingRect(tblock.addr).height
@@ -95,20 +107,26 @@ inheritQObject(LineNumberArea, QWidget):
 
 
 type
-    HLRule = tuple[pattern:QRegularExpression, format:ptr QTextCharFormat]
-let
-    rules:seq[HLRule] = @[
-        (
-            pattern:newQRegularExpression(Q"\\b(void|int)\\b"),
-            format: (block:
-                var res=newQTextCharFormat(); res.setForeground(newQBrush(newQColor(Qt_GlobalColor.blue), SolidPattern)); res)
-        ),
-        (
-            pattern:newQRegularExpression(Q"//[^\n]*"),
-            format: (block:
-                var res=newQTextCharFormat(); res.setForeground(newQBrush(newQColor(Qt_GlobalColor.red), SolidPattern)); res)
-        ),
-        ]
+    HLRule* = tuple[pattern:QRegularExpression, format:ptr QTextCharFormat]
+
+func setForegroundColorFormat*[T](c:T): ptr QTextCharFormat =
+    result=newQTextCharFormat()
+    result.setForeground(newQBrush(newQColor(c), SolidPattern))
+
+proc addHLRule*(rules:var seq[HLRule], rgx:string, clr:Qt_GlobalColor) =
+    rules.add( (
+            pattern:newQRegularExpression(Q rgx),
+            format: setForegroundColorFormat(clr)
+        ))
+
+proc simpleCppRules*():seq[HLRule] =
+    result.addHLRule("#(define|ifdef|ifndef|elif|else|include) [^\n]+", Qt_GlobalColor.darkgreen)
+    result.addHLRule("(^|[^a-zA-Z])(bool|void|int|long|double|float|uint|char|string|vector)[^a-zA-Z]", Qt_GlobalColor.darkblue)
+    result.addHLRule("(^|[^a-zA-Z])(auto|break|case|catch|class|const|consteval|constexpr|const_cast|continue|default|delete|do|if|else|enum|for|friend|inline|mutable|namespace|new|private|protected|public|return|sizeof|static|struct|switch|template|throw|typename|union|using|virtual|volatile|while)[^a-zA-Z]", Qt_GlobalColor.darkblue)
+    result.addHLRule("(^|[^a-zA-Z])(std::)?(cout|cin|endl)[^a-zA-Z]", Qt_GlobalColor.blue)
+    result.addHLRule("//[^\n]*", Qt_GlobalColor.gray)
+    
+var rules=simpleCppRules()
 
 inheritQObject(Highlighter, QSyntaxHighlighter):
     # We define here a custom constructor that accepts the parent document.
@@ -121,11 +139,14 @@ inheritQObject(Highlighter, QSyntaxHighlighter):
     # initializer.
     constructor(parent:ptr QTextDocument)
     
+    var disableHighlighting:bool
+    
     # setFormat is protected. By defining mem_setFormat, and calling setFormat from within the member function,
     # we circumvent this protected visibility.
     member mem_setFormat(start:int, count:int, format:var QTextCharFormat): this.setFormat(start, count, format)
     
     override_defer highlightBlock(text:const_var QString):
+        if this.disableHighlighting: return
         for rule in rules:
             #echo rule
             let matchIterator=rule.pattern.globalMatch(text)
@@ -135,6 +156,16 @@ inheritQObject(Highlighter, QSyntaxHighlighter):
                 #echo "  ",match.capturedStart," ",match.capturedLength
                 this.mem_setFormat(match.capturedStart, match.capturedLength, rule.format[])
 
+proc enableHighlighting*(cv: ptr CodeViewer, enable:bool) =
+    cast[ptr Highlighter](cv.highlighter).disableHighlighting=not enable
+    cv.highlighter.rehighlight
+proc enableLineNumbers*(cv: ptr CodeViewer, enable:bool) = 
+    cv.disableLineNumbers=not enable
+    cv.updateLineNumberAreaWidth(0)
+proc enableCurLineIndicator*(cv: ptr CodeViewer, enable:bool) =
+    cv.disableCurLineIndicator=not enable
+    cv.highlightCurrentLine
+    
 #[
 To use CodeViewer in your own code, you have to do the following:
 
@@ -154,7 +185,7 @@ proc newCodeViewer2*(): ptr CodeViewer =
     result=newCodeViewer()
     
     # Attach a highlighter to the editor
-    var highlighter{.used.} = newHighlighter(result.document)
+    result.highlighter=newHighlighter(result.document)
     
     # Create and set the line number area
     result.lineNumberArea=newLineNumberArea()
