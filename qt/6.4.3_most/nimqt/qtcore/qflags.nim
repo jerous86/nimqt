@@ -59,19 +59,31 @@ proc setFlag*[Enum](this: QFlags[Enum], flag: Enum): QFlags[Enum] {.header:heade
 
 
 # Additional code for qtcore/qflags
+
+import sets
+import macros
+
+func incl*[T](this: var QFlags[T], x:T) = this=this.setFlag(x, on=true)
+func excl*[T](this: var QFlags[T], x:T) = this=this.setFlag(x, on=false)
+
+func fromContainer[C,T](xs:C): QFlags[T] =
+    var ret=newQFlags[T]()
+    for x in xs:
+        ret=ret.setFlag(x)
+    ret
+func fromSet*[T](xs:set[T]): QFlags[T] = fromContainer[set[T], T](xs)
+func fromHashSet*[T](xs:HashSet[T]): QFlags[T] = fromContainer[HashSet[T], T](xs)
+func fromArray*[T](xs:openArray[T]): QFlags[T] = fromContainer[openArray[T], T](xs)
+
 func toSet*[Enum](this: QFlags[Enum]): set[Enum] =
     for e in Enum:
         if this.testFlag(e): 
             try: result.incl e
             except: discard
-
-import sets
-import macros
-macro enumFullArray(a: typed): untyped = newNimNode(nnkBracket).add(a.getType[1][1..^1])
 func toHashSet*[Enum](this: QFlags[Enum]): HashSet[Enum] =
+    macro enumFullArray(a: typed): untyped = newNimNode(nnkBracket).add(a.getType[1][1..^1])
     for e in enumFullArray(Enum):
         if this.testFlag(e): 
             try: result.incl e
             except: discard
-
 
