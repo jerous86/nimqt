@@ -3,7 +3,7 @@ import strutils
 import strformat
 
 import nimqt
-import nimqt/[qtextedit, qlineedit, qcombobox, qcheckbox, qradiobutton]
+import nimqt/[qtextedit, qlineedit, qcombobox, qcheckbox, qradiobutton, qlistwidget]
 
 nimqt.init
 
@@ -69,6 +69,7 @@ inheritQobject(Handler, QObject):
     slot_defer on_QComboBox_currentIndexChanged(i:int): cast[ptr QComboBox](this.getSender()).save(autoSaveStorage)
     slot_defer on_QCheckBox_stateChanged(i:int): cast[ptr QCheckBox](this.getSender()).save(autoSaveStorage)
     slot_defer on_QRadioButton_toggled(b:bool): cast[ptr QRadioButton](this.getSender()).save(autoSaveStorage)
+    slot_defer on_listWidget_rowChanged(row:int): cast[ptr QListWidget](this.getSender()).save(autoSaveStorage)
 let handler=newHandler()
 
 when true: # QLineEdit
@@ -104,6 +105,13 @@ when true: # QRadioButton
     proc autoSave*(o:ptr QRadioButton, blockSignals=true) =
         o.connect(SIGNAL "toggled(bool)", handler, SLOT "on_QRadioButton_toggled(bool)")
         autoSaveStorage.addObject o, proc(o:ptr QObject, v:string) = cast[ptr QRadioButton](o).setChecked(v.parseInt.bool), blockSignals
+
+when true: # QListWidget
+    # Only stores the current selected row
+    proc save*(o:ptr QListWidget, storage:var AutoSaveStorage=autoSaveStorage) = storage.save(o, $o.currentRow.int)
+    proc autoSave*(o:ptr QListWidget, blockSignals=true) =
+        o.connect(SIGNAL "currentRowChanged(int)", handler, SLOT "on_listWidget_rowChanged(int)")
+        autoSaveStorage.addObject o, proc(o:ptr QObject, v:string) = cast[ptr QListWidget](o).setCurrentRow(v.parseInt.cint), blockSignals
 
 nimqt.insertAllSlotImplementations()
 
