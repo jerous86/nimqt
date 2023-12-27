@@ -41,7 +41,7 @@ elif defined(linux) or defined(bsd):
 elif defined(windows):
     const QtInstallHeaders = nimqt_paths.replace_vars("${Qt_install_headers}", allow_run_time=false, enable_path_check=false)
     const QtInstallLibs = nimqt_paths.replace_vars("${Qt_install_libs}", allow_run_time=false, enable_path_check=false)
-    {.passC: &"-permissive- -Zc=__cplusplus -std=c++17 -I{QtInstallHeaders} -I{QtInstallHeaders}\\QtWidgets -I{QtInstallHeaders}\\QtGui -I{QtInstallHeaders}\\QtCore -I{QtInstallHeaders}\\..\\mkspecs\\win32-msvc /Zc:strictStrings- shell32.lib" .}
+    {.passC: &"-permissive -Zc=__cplusplus -std=c++17 -I{QtInstallHeaders} -I{QtInstallHeaders}\\QtWidgets -I{QtInstallHeaders}\\QtGui -I{QtInstallHeaders}\\QtCore -I{QtInstallHeaders}\\..\\mkspecs\\win32-msvc /Zc:strictStrings- shell32.lib" .}
     {.passL: &"/link /SUBSYSTEM:WINDOWS shell32.lib".}
     # {.passL: &"--clib:{QtInstallLibs}\Qt6Core".}
     # {.passL: &"--clib:{QtInstallLibs}\Qt6Gui".}
