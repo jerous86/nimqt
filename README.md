@@ -310,7 +310,11 @@ Signals can also be handled. Some often used shortcuts are introduced in `nimqt/
 ```nim
 template handleHovered*(m: ptr QMenu, body:untyped) = m.handleSignal1(SIGNAL "hovered(QAction *)", action:ptr QAction, body)
 template handleTriggered*(m: ptr QMenu, body:untyped) = m.handleSignal1(SIGNAL "triggered(QAction *)", action:ptr QAction, body)
+```
 
+and `nimqt/qtgui/qaction`:
+
+```
 template handleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "changed()", body)
 template handleHovered*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "hovered()", body)
 template handleToggled*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "toggled(bool)", checked:bool, body)
@@ -337,7 +341,7 @@ rootMenu.makeMenu:
 menu1.setTitle(Q "New title for menu1")
 ```
 
-A more elaborate example can be found in `examples/menu.nim`.
+A more elaborate example can be found in `examples/menu_toolbar.nim`, which also shows an example of creating toolbar items (which is very similar to the macro for the menu).
 
 ### Loading .ui files
 Simple support for loading `.ui` files is available.

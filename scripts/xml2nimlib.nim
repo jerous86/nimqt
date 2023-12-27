@@ -167,6 +167,13 @@ const customization_footer = {
             for x in xs: ret.add x.newQString
             ret
     """,
+    newCm("qtgui","qaction"): """
+        template handleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "changed()", body)
+        template handleHovered*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "hovered()", body)
+        template handleToggled*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "toggled(bool)", checked:bool, body)
+        template handleTriggered*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "triggered(bool)", checked:bool, body)
+        template handleVisibleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "handleVisibleChanged()", body)
+    """,
     }.toTable
 
 const customization_header = {

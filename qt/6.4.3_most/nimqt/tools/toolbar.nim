@@ -3,22 +3,13 @@ import macros
 
 import ast_pattern_matching
 
-import nimqt/qtwidgets/qmenu
+import nimqt/qtwidgets/qtoolbar
 
-#[
-+ Menu:
-    setProperty
-    - Action
-        setProperty
-]#
+proc addSeparator0*(m: ptr QToolbar) = discard m.addSeparator
 
-proc addSeparator0*(m: ptr QMenu) = discard m.addSeparator
-
-template handleHovered*(m: ptr QMenu, body:untyped) = m.handleSignal1(SIGNAL "hovered(QAction *)", action:ptr QAction, body)
-template handleTriggered*(m: ptr QMenu, body:untyped) = m.handleSignal1(SIGNAL "triggered(QAction *)", action:ptr QAction, body)
-
-macro makeMenu*(root: ptr QMenu, body:untyped): untyped =
-    let unnamed_vars_prefix = root.strVal # Prefix to aid debugging
+macro makeToolbar*(root: ptr QToolbar, body:untyped): untyped =
+    let unnamed_vars_prefix = root.strVal # Prefix to aid debugging.
+                                          # Note: this requires root to be a variable name!
     var 
         var_index = 0 # Keep track of how many unnamed variables we've seen so far, so we can generate unique names.
         decls:seq[NimNode] # declarations to add
@@ -31,25 +22,25 @@ macro makeMenu*(root: ptr QMenu, body:untyped): untyped =
         var_index.inc
         
         body.matchAst(errors):
-        # + MENU_TITLE
-        of nnkPrefix(ident"+", `caption` @ nnkStrLit):
-            decls.add quote do: (let `objName` {.used.} = `curObj`.addMenu(Q `caption`))
+        # -newQLabel()
+        of nnkPrefix(ident"-", `expr` @ nnkCall):
+            decls.add quote do: (let `objName` {.used.} = `curObj`.addWidget(`expr`))
         
-        # + MENU_TITLE "as" MENU_NAME
-        of nnkInfix(ident"as", nnkPrefix(ident"+", `caption` @ nnkStrLit), `objName` @ nnkIdent):
-            decls.add quote do: (let `objName` {.used.} = `curObj`.addMenu(Q `caption`))
-        
-        # + MENU_TITLE: CHILDREN
-        of nnkPrefix(ident"+", `caption` @ nnkStrLit, `children` @ nnkStmtList):
-            decls.add quote do: (let `objName` {.used.} = `curObj`.addMenu(Q `caption`))
+        # -newQLabel() as lblB
+        of nnkInfix(ident"as", nnkPrefix(ident"-", `expr` @ nnkCall), `objName` @ nnkIdent):
+            decls.add quote do: (let `objName` {.used.} = `curObj`.addWidget(`expr`))
+
+        # -newQLabel(): CHILDREN
+        of nnkPrefix(ident"-", `expr` @ nnkCall, `children` @ nnkStmtList):
+            decls.add quote do: (let `objName` {.used.} = `curObj`.addWidget(`expr`))
             for child in children: `objName`.helper(child)
 
-        # + MENU_TITLE "as" MENU_NAME: CHILDREN
-        of nnkInfix(ident"as", nnkPrefix(ident"+", `caption` @ nnkStrLit), `objName` @ nnkIdent, `children` @ nnkStmtList):
-            decls.add quote do: (let `objName` {.used.} = `curObj`.addMenu(Q `caption`))
+        # -newQLabel() as lblB
+        of nnkInfix(ident"as", nnkPrefix(ident"-", `expr` @ nnkCall), `objName` @ nnkIdent, `children` @ nnkStmtList):
+            decls.add quote do: (let `objName` {.used.} = `curObj`.addWidget(`expr`))
             for child in children: `objName`.helper(child)
 
-        
+
         # - ACTION_TITLE
         of nnkPrefix(ident"-", `caption` @ nnkStrLit):
             decls.add quote do: (let `objName` {.used.} = `curObj`.addAction(Q `caption`))
@@ -68,24 +59,6 @@ macro makeMenu*(root: ptr QMenu, body:untyped): untyped =
             decls.add quote do: (let `objName` {.used.} = `curObj`.addAction(Q `caption`))
             for child in children: `objName`.helper(child)
 
-
-        # * SECTION_TITLE
-        of nnkPrefix(ident"*", `caption` @ nnkStrLit):
-            decls.add quote do: (let `objName` {.used.} = `curObj`.addSection(Q `caption`))
-
-        # * SECTION_TITLE "as" ACTION_NAME
-        of nnkInfix(ident"as", nnkPrefix(ident"*", `caption` @ nnkStrLit), `objName` @ nnkIdent):
-            decls.add quote do: (let `objName` {.used.} = `curObj`.addSection(Q `caption`))
-
-        # * SECTION_TITLE: CHILDREN
-        of nnkPrefix(ident"*", `caption` @ nnkStrLit, `children` @ nnkStmtList):
-            decls.add quote do: (let `objName` {.used.} = `curObj`.addSection(Q `caption`))
-            for child in children: `objName`.helper(child)
-
-        # * SECTION_TITLE "as" ACTION_NAME: CHILDREN
-        of nnkInfix( ident"as", nnkPrefix(ident"*", `caption` @ nnkStrLit), `objName` @ nnkIdent, `children` @ nnkStmtList):
-            decls.add quote do: (let `objName` {.used.} = `curObj`.addSection(Q `caption`))
-            for child in children: `objName`.helper(child)
 
         of `stmt` @ nnkCall: # e.g. ```connect(...)```
             # When we do a simple call, we insert the current object into the parameter list!

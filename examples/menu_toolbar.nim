@@ -1,8 +1,8 @@
 import os
 
 import nimqt
-import nimqt/[qpushbutton,qmainwindow]
-import nimqt/tools/[menu,layout]
+import nimqt/[qpushbutton,qmainwindow,qaction]
+import nimqt/tools/[menu,layout,toolbar]
 
 nimqt.init
 
@@ -51,19 +51,44 @@ let
     menuFile=menuBar.addMenu(Q"File")
     menuView=menuBar.addMenu(Q"View")
     centralWidget=newQWidget()
+    toolbar1=win.addToolbar(Q"Toolbar 1")
+
+toolbar1.makeToolbar:
+    - newQPushButton(Q "QPushButton"):
+        setEnabled(false)
+    - "Enable btn1" as enableBtn1b:
+        setCheckable(true)
+        setChecked(btn1.isEnabled)
+        setTooltip(Q "Enables btn1")
+        handleToggled: btn1.setEnabled(checked)
+    - "Enable btn2" as enableBtn2b:
+        setCheckable(true)
+        setChecked(btn2.isEnabled)
+        setTooltip(Q "Enables btn2")
+        handleToggled: btn2.setEnabled(checked)
+
 centralWidget.makeLayout:
     - useObject btn1:
         handleSignal0(SIGNAL "clicked()"):
             enableBtn1.setChecked(btn1.isEnabled)
             enableBtn2.setChecked(btn2.isEnabled)
+
+            enableBtn1b.setChecked(btn1.isEnabled)
+            enableBtn2b.setChecked(btn2.isEnabled)
+            
             mm.popup(btn1.mapToGlobal(btn1.pos))
     - useObject btn2:
         handleSignal0(SIGNAL "clicked()"):
             enableBtn1.setChecked(btn1.isEnabled)
             enableBtn2.setChecked(btn2.isEnabled)
+
+            enableBtn1b.setChecked(btn1.isEnabled)
+            enableBtn2b.setChecked(btn2.isEnabled)
+            
             mm.popup(btn2.mapToGlobal(btn2.pos))
 win.setCentralWidget(centralWidget)
 win.setMenuBar(menuBar)
+discard win.statusBar() # create a status bar
 menuFile.makeMenu:
     * "Stuff"
     - "Open ...": setEnabled(false)

@@ -17,12 +17,6 @@ proc addSeparator0*(m: ptr QMenu) = discard m.addSeparator
 template handleHovered*(m: ptr QMenu, body:untyped) = m.handleSignal1(SIGNAL "hovered(QAction *)", action:ptr QAction, body)
 template handleTriggered*(m: ptr QMenu, body:untyped) = m.handleSignal1(SIGNAL "triggered(QAction *)", action:ptr QAction, body)
 
-template handleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "changed()", body)
-template handleHovered*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "hovered()", body)
-template handleToggled*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "toggled(bool)", checked:bool, body)
-template handleTriggered*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "triggered(bool)", checked:bool, body)
-template handleVisibleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "handleVisibleChanged()", body)
-
 macro makeMenu*(root: ptr QMenu, body:untyped): untyped =
     let unnamed_vars_prefix = root.strVal # Prefix to aid debugging
     var 
