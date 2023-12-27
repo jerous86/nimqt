@@ -26,10 +26,14 @@ mm.makeMenu:
     - "Enable btn1" as enableBtn1:
         setCheckable(true)
         setChecked(btn1.isEnabled)
+        setTooltip(Q "Enables btn1")
+        setStatusTip(Q "Enables btn1")
         handleToggled: btn1.setEnabled(checked)
     - "Enable btn2" as enableBtn2:
         setCheckable(true)
         setChecked(btn2.isEnabled)
+        setTooltip(Q "Enables btn2")
+        setStatusTip(Q "Enables btn2")
         handleToggled: btn2.setEnabled(checked)
     * "Quitting"
     addSeparator0()
@@ -38,7 +42,7 @@ mm.makeMenu:
             - "Yes!":
                 handleTriggered(): quit(0)
 
-
+mm.setToolTipsVisible(true)
 
 
 let 
@@ -70,9 +74,15 @@ menuFile.makeMenu:
         handleTriggered(): quit(0)
 menuView.makeMenu:
     - "Enable btn1":
+        setTooltip(Q "Enables btn1")
+        setStatusTip(Q "Enables btn1")
         handleTriggered(): btn1.setEnabled(true)
     - "Enable btn2":
+        setTooltip(Q "Enables btn2")
+        setStatusTip(Q "Enables btn2")
         handleTriggered(): btn2.setEnabled(true)
-    
+
+menuView.setToolTipsVisible(true)
+
 win.show()
 discard app.exec()
