@@ -575,7 +575,7 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
 template inheritQobject*(class:untyped, parentClass:untyped, body:untyped) =
     inheritobject(class, parentClass, false, body)
 
-macro insertSlotImplementations*(className:string) =
+macro insertSlotImplementations*(className:typed) =
     result=newNimNode(nnkStmtList)
     
     let classNameStr:string = className.strVal
