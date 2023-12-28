@@ -8,10 +8,11 @@ set -ue
 
 cd "$(dirname "$0")/.."
 
+NIM_FLAGS="-mm:refc"
 if [ $# -ne 1 ]; then
 	echo "$0 distr"
 	echo "where distr is one of"
-	nim r scripts/distr.nim --print-distributions
+	nim r $NIM_FLAGS scripts/distr.nim --print-distributions
 	exit 1
 fi
 

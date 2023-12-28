@@ -11,6 +11,7 @@ DISTR="$1"
 
 set -ue
 
+echo "NIM_FLAGS:=--mm:refc"
 echo "ROOT:=$PWD"
 echo "XML_FILES_ROOT:=$XML_FILES_ROOT"
 echo "NIMQT_ROOT:=$NIMQT_ROOT"
@@ -31,20 +32,20 @@ echo "	rm -f scripts/generateTypeDb scripts/distr scripts/cpp2xml scripts/xml2ni
 echo ""
 
 echo "build_cpp2xml:"
-echo "	nim -d:release c scripts/cpp2xml"
+echo "	nim \${NIM_FLAGS} -d:release c scripts/cpp2xml"
 
 echo ""
 # for DISTR in ${ALL_DISTRIBUTIONS[*]}; do
 # 	echo "distr_${DISTR}:"
-# 	echo "	nim -d:release r ./scripts/distr \${XML_FILES_ROOT} \${NIMQT_ROOT} ${DISTR}"
+# 	echo "	nim \${NIM_FLAGS} -d:release r ./scripts/distr \${XML_FILES_ROOT} \${NIMQT_ROOT} ${DISTR}"
 # done
 echo "distr:"
-echo "	nim -d:release r ./scripts/distr \${XML_FILES_ROOT} \${NIMQT_ROOT} ${DISTR}"
+echo "	nim \${NIM_FLAGS} -d:release r ./scripts/distr \${XML_FILES_ROOT} \${NIMQT_ROOT} ${DISTR}"
 echo ""
 
 echo "generateTypeDb: "
 echo "	mkdir -p \${NIMQT_ROOT}"
-echo "	nim -d:release r ./scripts/generateTypeDb \${XML_FILES_ROOT} \${NIMQT_ROOT} ${COMPONENTS[@]}"
+echo "	nim \${NIM_FLAGS} -d:release r ./scripts/generateTypeDb \${XML_FILES_ROOT} \${NIMQT_ROOT} ${COMPONENTS[@]}"
 echo "	cp \${NIMQT_ROOT}/typeDb.txt \${XML_FILES_ROOT}/"
 
 echo "typeDb: generateTypeDb"
