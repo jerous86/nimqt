@@ -610,5 +610,7 @@ import nimqt/tools/layout
 # But with this macro, everything is fine. 
 macro `as`*(x,y:untyped) = discard
 
+proc deletePtr*[T](x: ptr T) {.importcpp: "delete #", nodecl.}
+        
 export signals
 export layout
