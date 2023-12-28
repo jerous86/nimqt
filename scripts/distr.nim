@@ -108,6 +108,7 @@ func unpackTemplates(xs:seq[string]): seq[string] =
 let 
     # Just the explicitly specified classes
     requiredClasses = distr.requiredClassesRec(distributions)
+    # NOTE: if we get missing keys in db.names[it], we might have a not up-to-date core_all.txt
     requiredTypes:seq[TypeInfo] = requiredClasses.mapIt(db.xs[db.names[it]])
 
     # Now look the parent classes
@@ -160,7 +161,6 @@ else:
         copyDir(source=src, dest = outputDir/dst)
 
     myCopyFile("scripts/nimqt.nim", "nimqt.nim")
-    myCopyFile("scripts/load_ui.nim", "nimqt/load_ui.nim")
     myCopyFile("scripts/nimqt_paths.nim", "nimqt/nimqt_paths.nim")
     myCopyFile("scripts/typeDb.nim", "nimqt/typeDb.nim")
     myCopyFile("scripts/skips.nim", "nimqt/skips.nim")

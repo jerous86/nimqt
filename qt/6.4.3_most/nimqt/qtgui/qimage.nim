@@ -14,6 +14,8 @@ type
         Format_RGBA32FPx4 = 0x22, Format_RGBA32FPx4_Premultiplied = 0x23
 
 import nimqt/qtgui/qpaintdevice
+import nimqt/qtcore/qstring
+
 type
     # Classes found in the C++ code
     QImage* {.header:headerFile,importcpp:"QImage" ,pure.} = object of QPaintDevice
@@ -28,6 +30,7 @@ type
 # Public constructors for QImage
 proc newQImage*(): ptr QImage {. header:headerFile, importcpp:"new QImage(@)" .} #
 proc newQImage*(width: cint, height: cint, format: QImage_Format): ptr QImage {. header:headerFile, importcpp:"new QImage(@)" .} #
+proc newQImage*(fileName: QString): ptr QImage {. header:headerFile, importcpp:"new QImage(@)" .} #
 proc newQImage*(other: QImage): ptr QImage {. header:headerFile, importcpp:"new QImage(@)" .} #
 
 # Public methods for QImage

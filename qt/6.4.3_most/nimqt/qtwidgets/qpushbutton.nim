@@ -69,3 +69,6 @@ export qwidget
 export qpaintdevice
 export qcoreevent
 export qicon
+
+template handleClicked*(this: ptr QPushButton, body:untyped) = this.handleSignal0(SIGNAL "clicked()", body)
+

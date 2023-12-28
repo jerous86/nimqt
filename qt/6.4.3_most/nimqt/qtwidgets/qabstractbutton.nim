@@ -34,6 +34,7 @@ import nimqt/qtcore/qsize
 proc iconSize*(this: ptr QAbstractButton): QSize {.header:headerFile, importcpp:"#.iconSize(@)".} # Public
 import nimqt/qtgui/qkeysequence
 proc setShortcut*(this: ptr QAbstractButton, key: QKeySequence) {.header:headerFile, importcpp:"#.setShortcut(@)".} # Public
+proc setShortcut*(this: ptr QAbstractButton, key: QString) {.header:headerFile, importcpp:"#.setShortcut(@)".} # Public
 proc shortcut*(this: ptr QAbstractButton): QKeySequence {.header:headerFile, importcpp:"#.shortcut(@)".} # Public
 proc setCheckable*(this: ptr QAbstractButton, arg_0: bool) {.header:headerFile, importcpp:"#.setCheckable(@)".} # Public
 proc isCheckable*(this: ptr QAbstractButton): bool {.header:headerFile, importcpp:"#.isCheckable(@)".} # Public

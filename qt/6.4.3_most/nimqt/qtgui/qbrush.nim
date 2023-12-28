@@ -78,6 +78,7 @@ proc newQBrush*(): QBrush {. header:headerFile, importcpp:"QBrush(@)", construct
 import nimqt/qtcore/qnamespace
 proc newQBrush*(bs: Qt_BrushStyle): QBrush {. header:headerFile, importcpp:"QBrush(@)", constructor .} #
 import nimqt/qtgui/qcolor
+proc newQBrush*(color: QColor): QBrush {. header:headerFile, importcpp:"QBrush(@)", constructor .} #
 proc newQBrush*(color: QColor, bs: Qt_BrushStyle): QBrush {. header:headerFile, importcpp:"QBrush(@)", constructor .} #
 proc newQBrush*(color: Qt_GlobalColor, bs: Qt_BrushStyle): QBrush {. header:headerFile, importcpp:"QBrush(@)", constructor .} #
 import nimqt/qtgui/qpixmap

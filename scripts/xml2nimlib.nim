@@ -892,13 +892,15 @@ func toNimFile*(file:tuple[cppHeaderFile:string, module:Module, allTypes:AllType
             for e in consts: xs.add e.indent((lvl+1)*IND)
 
     func get_imports(x:TplType, allTypes:AllTypes, state:State): HashSet[string] = 
-        discard allTypes.cppTypeToNimType(state, x.cppType, "get_imports", result)
+        if "unnamed " notin x.cppType:
+            # Do not process unnamed structs and enums ...
+            discard allTypes.cppTypeToNimType(state, x.cppType, "get_imports[TplType]", result)
     func get_imports(x:Callable, allTypes:AllTypes, state:State): HashSet[string] = 
-        for p in x.params: discard allTypes.cppTypeToNimType(state, p.tplType.cppType, "get_imports", result)
+        for p in x.params: discard allTypes.cppTypeToNimType(state, p.tplType.cppType, "get_imports[Callable]", result)
     func get_imports(x:MethodData, allTypes:AllTypes, state:State): HashSet[string] =
-        discard allTypes.cppTypeToNimType(state, x.retType.cppType, "get_imports", result)
+        discard allTypes.cppTypeToNimType(state, x.retType.cppType, "get_imports[MethodData]", result)
         for p in x.params:
-            discard allTypes.cppTypeToNimType(state, p.tplType.cppType, "get_imports", result)
+            discard allTypes.cppTypeToNimType(state, p.tplType.cppType, "get_imports[MethodData/param]", result)
 
         
     var xs:seq[string]

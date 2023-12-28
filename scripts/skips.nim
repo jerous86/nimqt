@@ -282,6 +282,7 @@ const skipRules* = @[
     "+.*setLocale.*",
     "+"&newCm(".*",".*").id_method("(read|write)",".*",".*"),
     "+QTree.*(setCurrentItem|setSelectionModel|setSelection|selectionChanged).*",
+    "unnamed",
     ]
 
 # E.g. QAccessible::Event is an enum, while QAccessibleEvent is a class.

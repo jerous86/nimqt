@@ -87,3 +87,7 @@ func toHashSet*[Enum](this: QFlags[Enum]): HashSet[Enum] =
             try: result.incl e
             except: discard
 
+proc newQFlags*[Enum](flags: openArray[Enum]): QFlags[Enum] =
+    for x in flags:
+        discard result |= x
+        
