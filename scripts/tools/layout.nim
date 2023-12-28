@@ -38,10 +38,18 @@ proc addObjToLayout*(root:ptr QSplitter, child:ptr QWidget) =
 proc addObjToLayout*(root:ptr QWidget, child:ptr QLayout) =
     assert root!=nil
     assert child!=nil
-    root.setLayout child
+    if root.layout==nil:
+        root.setLayout child
+    else:
+        echo &"Warning: nimqt.layout: addObjToLayout(QWidget, QLayout): widget's ({root.objectName}) " &
+            "layout has already been set -- implicitly creating a child widget, and setting its layout to child"
+        let wg=newQWidget()
+        wg.setLayout child
+        root.layout.addWidget wg
 
 proc addObjToLayout*(root:ptr QWidget, child:ptr QWidget) =
     assert root!=nil
+    assert root.layout!=nil
     assert child!=nil
     addObjToLayout(root.layout, child)
 
@@ -244,7 +252,9 @@ macro makeLayout2*(root:ptr QWidget, rootLayout:ptr QLayout, body:untyped): unty
     result.add addWidgets
     result.add quote do: discard
     result.add stmts
-    # echo &"qt::makeLayout\nresult:\n>>\n{result.repr}\n<<\n\n"
+    #echo &"qt::makeLayout\nresult:\n>>\n{result.repr}\n<<\n\n"
 
 template makeLayout*(root:ptr QWidget, body:untyped): untyped = makeLayout2(root, newQVBoxLayout(), body)
 template makeLayoutH*(root:ptr QWidget, body:untyped): untyped = makeLayout2(root, newQHBoxLayout(), body)
+template makeLayoutV*(root:ptr QWidget, body:untyped): untyped = makeLayout2(root, newQVBoxLayout(), body)
+template makeLayoutGrid*(root:ptr QWidget, body:untyped): untyped = makeLayout2(root, newQGridLayout(), body)
