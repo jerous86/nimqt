@@ -158,6 +158,10 @@ const customization_footer = {
                 if this.testFlag(e): 
                     try: result.incl e
                     except: discard
+
+        func newQFlags*[Enum](flags: openArray[Enum]): QFlags[Enum] =
+            for x in flags:
+                discard result |= x
     """,
     newCm("qtcore","qstringlist"): """
         proc newQStringList*(): QStringList = QStringList()
@@ -167,12 +171,28 @@ const customization_footer = {
             for x in xs: ret.add x.newQString
             ret
     """,
+    
     newCm("qtgui","qaction"): """
         template handleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "changed()", body)
         template handleHovered*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "hovered()", body)
         template handleToggled*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "toggled(bool)", checked:bool, body)
         template handleTriggered*(m: ptr QAction, body:untyped) = m.handleSignal1(SIGNAL "triggered(bool)", checked:bool, body)
         template handleVisibleChanged*(m: ptr QAction, body:untyped) = m.handleSignal0(SIGNAL "handleVisibleChanged()", body)
+    """,
+    
+    newCm("qtgui","qbrush"): """
+        proc newQBrush*(color: QColor): QBrush {. header:headerFile, importcpp:"QBrush(@)", constructor .}
+    """,
+    newCm("qtgui","qimage"): """
+        import nimqt/qtcore/qstring
+        proc newQImage*(fileName: QString): ptr QImage {. header:headerFile, importcpp:"new QImage(@)" .}
+    """,
+    
+    newCm("qtwidgets","qabstractbutton"): """
+        proc setShortcut*(this: ptr QAbstractButton, key: QString) {.header:headerFile, importcpp:"#.setShortcut(@)".}
+    """,
+    newCm("qtwidgets","qabstractbutton"): """
+        template handleClicked*(this: ptr QPushButton, body:untyped) = this.handleSignal0(SIGNAL "clicked()", body)
     """,
     }.toTable
 
