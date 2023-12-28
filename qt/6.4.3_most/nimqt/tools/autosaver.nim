@@ -25,7 +25,8 @@ proc newAutoSaveStorage*(filepath:string): AutoSaveStorage =
                 key=f.readLine
                 valueLen=f.readLine.parseInt
             buf.setLen(valueLen)
-            discard f.readChars(buf)
+            if valueLen>0:
+                discard f.readChars(buf)
             discard f.readChar # skip new line
             result.settings[key]=buf.join("")
             
