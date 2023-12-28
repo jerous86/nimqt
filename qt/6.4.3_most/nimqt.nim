@@ -248,7 +248,8 @@ proc processProc(n:NimNode,
                     let
                         retType=ret.replaceExportCppType
                         retTypeCpp=retType.toCppType
-                    fwdDeclarations.add quote do: {.emit: $`retTypeCpp` & " " & `signalName` & "(" & `classNameStr` & " *o); // fwd without params".}
+                    fwdDeclarations.add quote do: 
+                        {.emit: "/*TYPESECTION*/" & $`retTypeCpp` & " " & `signalName` & "(" & `classNameStr` & " *o); // fwd without params".}
                     case pType
                     of Member:
                         # Just the same as above, but with friend prepended
@@ -284,7 +285,7 @@ proc processProc(n:NimNode,
                         params.mapIt(it.cpp_param_name).filterIt(it.len>0)
                         ).mapIt(&"{it[0]} {it[1]}").join(", ")
                     fwdDeclarations.add quote do:
-                        {.emit: $`retTypeCpp` & " " & `signalName` & "(" & `classNameStr` & " *o, " & `cpp_list` & "); // fwd with params".}
+                        {.emit: "/*TYPESECTION*/" & $`retTypeCpp` & " " & `signalName` & "(" & `classNameStr` & " *o, " & `cpp_list` & "); // fwd with params".}
                 
                     case pType
                     of Member:
@@ -478,6 +479,7 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
         structDeclaration=newNimNode(nnkStmtList)
         structMethodDefs=newNimNode(nnkStmtList)
 
+    result.add quote do: {.emit: "/*TYPESECTION*/ /*FWD0*/ struct " & $`classNameStr` & ";".}
     structDeclaration.add quote do:
         # This include statement is not necessary when we use inheritQObject2 inside the module from which
         # we want to use the object.
@@ -495,9 +497,9 @@ macro inheritobject*(class:untyped, parentClass:untyped, plainObject:bool, body:
     
     result.add quote do:
         type `class`* {.importcpp.} = object of `parentClass`
-        {.emit:"\n\n\n// Start of forward declarations".}
+        {.emit:"/*TYPESECTION*/\n\n\n// Start of forward declarations".}
         `fwdDeclarations`
-        {.emit:"\n\n\n// End of forward declarations\n\n".}
+        {.emit:"/*TYPESECTION*/\n\n\n// End of forward declarations\n\n".}
         proc `newClassPtr`*(): ptr `class` {.importcpp: "new " & $`class` & "(@)" .}
         `nimMethods`
         `memberVariables`
