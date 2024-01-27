@@ -6,7 +6,7 @@ The targeted version is Qt6, and might work for Qt5, depending on what modules a
 # Usage
 
 ## Installation
-Install with `nimble install https://github.com/jerous86/nimqt`.
+Install with `nimble install https://github.com/jerous86/nimqt@#head`.
 This will install bindings that have been generated for Qt 6.4.2, but will very likely work with any Qt 6 version.
 
 `qmake` is used to determine the paths.
