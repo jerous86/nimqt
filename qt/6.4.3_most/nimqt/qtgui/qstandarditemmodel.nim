@@ -21,118 +21,118 @@ type
 # Stuff for class QStandardItem
 
 # Public constructors for QStandardItem
-proc newQStandardItem*(): QStandardItem {. header:headerFile, importcpp:"QStandardItem(@)", constructor .} #
+proc newQStandardItem*(): ptr QStandardItem {. header:headerFile, importcpp:"new QStandardItem(@)" .} #
 import nimqt/qtcore/qstring
-proc newQStandardItem*(text: QString): QStandardItem {. header:headerFile, importcpp:"QStandardItem(@)", constructor .} #
+proc newQStandardItem*(text: QString): ptr QStandardItem {. header:headerFile, importcpp:"new QStandardItem(@)" .} #
 import nimqt/qtgui/qicon
-proc newQStandardItem*(icon: QIcon, text: QString): QStandardItem {. header:headerFile, importcpp:"QStandardItem(@)", constructor .} #
+proc newQStandardItem*(icon: QIcon, text: QString): ptr QStandardItem {. header:headerFile, importcpp:"new QStandardItem(@)" .} #
 # 1 default parameters!
-proc newQStandardItem*(rows: cint, columns: cint): QStandardItem {. header:headerFile, importcpp:"QStandardItem(@)", constructor .} #
-proc newQStandardItem*(rows: cint): QStandardItem {. header:headerFile, importcpp:"QStandardItem(@)", constructor .} #
+proc newQStandardItem*(rows: cint, columns: cint): ptr QStandardItem {. header:headerFile, importcpp:"new QStandardItem(@)" .} #
+proc newQStandardItem*(rows: cint): ptr QStandardItem {. header:headerFile, importcpp:"new QStandardItem(@)" .} #
 
 # Public methods for QStandardItem
 import nimqt/qtcore/qvariant
 # 1 default parameters!
-proc data*(this: QStandardItem, role: cint): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
-proc data*(this: QStandardItem): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
-proc multiData*(this: QStandardItem, roleDataSpan: QModelRoleDataSpan) {.header:headerFile, importcpp:"#.multiData(@)".} # Public
+proc data*(this: ptr QStandardItem, role: cint): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
+proc data*(this: ptr QStandardItem): QVariant {.header:headerFile, importcpp:"#.data(@)".} # Public
+proc multiData*(this: ptr QStandardItem, roleDataSpan: QModelRoleDataSpan) {.header:headerFile, importcpp:"#.multiData(@)".} # Public
 # 1 default parameters!
-proc setData*(this: QStandardItem, value: QVariant, role: cint) {.header:headerFile, importcpp:"#.setData(@)".} # Public
-proc setData*(this: QStandardItem, value: QVariant) {.header:headerFile, importcpp:"#.setData(@)".} # Public
-proc clearData*(this: QStandardItem) {.header:headerFile, importcpp:"#.clearData(@)".} # Public
-proc text*(this: QStandardItem): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
-proc setText*(this: QStandardItem, text: QString) {.header:headerFile, importcpp:"#.setText(@)".} # Public
-proc icon*(this: QStandardItem): QIcon {.header:headerFile, importcpp:"#.icon(@)".} # Public
-proc setIcon*(this: QStandardItem, icon: QIcon) {.header:headerFile, importcpp:"#.setIcon(@)".} # Public
-proc toolTip*(this: QStandardItem): QString {.header:headerFile, importcpp:"#.toolTip(@)".} # Public
-proc setToolTip*(this: QStandardItem, toolTip: QString) {.header:headerFile, importcpp:"#.setToolTip(@)".} # Public
-proc statusTip*(this: QStandardItem): QString {.header:headerFile, importcpp:"#.statusTip(@)".} # Public
-proc setStatusTip*(this: QStandardItem, statusTip: QString) {.header:headerFile, importcpp:"#.setStatusTip(@)".} # Public
-proc whatsThis*(this: QStandardItem): QString {.header:headerFile, importcpp:"#.whatsThis(@)".} # Public
-proc setWhatsThis*(this: QStandardItem, whatsThis: QString) {.header:headerFile, importcpp:"#.setWhatsThis(@)".} # Public
+proc setData*(this: ptr QStandardItem, value: QVariant, role: cint) {.header:headerFile, importcpp:"#.setData(@)".} # Public
+proc setData*(this: ptr QStandardItem, value: QVariant) {.header:headerFile, importcpp:"#.setData(@)".} # Public
+proc clearData*(this: ptr QStandardItem) {.header:headerFile, importcpp:"#.clearData(@)".} # Public
+proc text*(this: ptr QStandardItem): QString {.header:headerFile, importcpp:"#.text(@)".} # Public
+proc setText*(this: ptr QStandardItem, text: QString) {.header:headerFile, importcpp:"#.setText(@)".} # Public
+proc icon*(this: ptr QStandardItem): QIcon {.header:headerFile, importcpp:"#.icon(@)".} # Public
+proc setIcon*(this: ptr QStandardItem, icon: QIcon) {.header:headerFile, importcpp:"#.setIcon(@)".} # Public
+proc toolTip*(this: ptr QStandardItem): QString {.header:headerFile, importcpp:"#.toolTip(@)".} # Public
+proc setToolTip*(this: ptr QStandardItem, toolTip: QString) {.header:headerFile, importcpp:"#.setToolTip(@)".} # Public
+proc statusTip*(this: ptr QStandardItem): QString {.header:headerFile, importcpp:"#.statusTip(@)".} # Public
+proc setStatusTip*(this: ptr QStandardItem, statusTip: QString) {.header:headerFile, importcpp:"#.setStatusTip(@)".} # Public
+proc whatsThis*(this: ptr QStandardItem): QString {.header:headerFile, importcpp:"#.whatsThis(@)".} # Public
+proc setWhatsThis*(this: ptr QStandardItem, whatsThis: QString) {.header:headerFile, importcpp:"#.setWhatsThis(@)".} # Public
 import nimqt/qtcore/qsize
-proc sizeHint*(this: QStandardItem): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
-proc setSizeHint*(this: QStandardItem, sizeHint: QSize) {.header:headerFile, importcpp:"#.setSizeHint(@)".} # Public
+proc sizeHint*(this: ptr QStandardItem): QSize {.header:headerFile, importcpp:"#.sizeHint(@)".} # Public
+proc setSizeHint*(this: ptr QStandardItem, sizeHint: QSize) {.header:headerFile, importcpp:"#.setSizeHint(@)".} # Public
 import nimqt/qtgui/qfont
-proc font*(this: QStandardItem): QFont {.header:headerFile, importcpp:"#.font(@)".} # Public
-proc setFont*(this: QStandardItem, font: QFont) {.header:headerFile, importcpp:"#.setFont(@)".} # Public
+proc font*(this: ptr QStandardItem): QFont {.header:headerFile, importcpp:"#.font(@)".} # Public
+proc setFont*(this: ptr QStandardItem, font: QFont) {.header:headerFile, importcpp:"#.setFont(@)".} # Public
 import nimqt/qtcore/qnamespace
-proc textAlignment*(this: QStandardItem): Qt_Alignment {.header:headerFile, importcpp:"#.textAlignment(@)".} # Public
-proc setTextAlignment*(this: QStandardItem, textAlignment: Qt_Alignment) {.header:headerFile, importcpp:"#.setTextAlignment(@)".} # Public
+proc textAlignment*(this: ptr QStandardItem): Qt_Alignment {.header:headerFile, importcpp:"#.textAlignment(@)".} # Public
+proc setTextAlignment*(this: ptr QStandardItem, textAlignment: Qt_Alignment) {.header:headerFile, importcpp:"#.setTextAlignment(@)".} # Public
 import nimqt/qtgui/qbrush
-proc background*(this: QStandardItem): QBrush {.header:headerFile, importcpp:"#.background(@)".} # Public
-proc setBackground*(this: QStandardItem, brush: QBrush) {.header:headerFile, importcpp:"#.setBackground(@)".} # Public
-proc foreground*(this: QStandardItem): QBrush {.header:headerFile, importcpp:"#.foreground(@)".} # Public
-proc setForeground*(this: QStandardItem, brush: QBrush) {.header:headerFile, importcpp:"#.setForeground(@)".} # Public
-proc checkState*(this: QStandardItem): Qt_CheckState {.header:headerFile, importcpp:"#.checkState(@)".} # Public
-proc setCheckState*(this: QStandardItem, checkState: Qt_CheckState) {.header:headerFile, importcpp:"#.setCheckState(@)".} # Public
-proc accessibleText*(this: QStandardItem): QString {.header:headerFile, importcpp:"#.accessibleText(@)".} # Public
-proc setAccessibleText*(this: QStandardItem, accessibleText: QString) {.header:headerFile, importcpp:"#.setAccessibleText(@)".} # Public
-proc accessibleDescription*(this: QStandardItem): QString {.header:headerFile, importcpp:"#.accessibleDescription(@)".} # Public
-proc setAccessibleDescription*(this: QStandardItem, accessibleDescription: QString) {.header:headerFile, importcpp:"#.setAccessibleDescription(@)".} # Public
-proc flags*(this: QStandardItem): Qt_ItemFlags {.header:headerFile, importcpp:"#.flags(@)".} # Public
-proc setFlags*(this: QStandardItem, flags: Qt_ItemFlags) {.header:headerFile, importcpp:"#.setFlags(@)".} # Public
-proc isEnabled*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.isEnabled(@)".} # Public
-proc setEnabled*(this: QStandardItem, enabled: bool) {.header:headerFile, importcpp:"#.setEnabled(@)".} # Public
-proc isEditable*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.isEditable(@)".} # Public
-proc setEditable*(this: QStandardItem, editable: bool) {.header:headerFile, importcpp:"#.setEditable(@)".} # Public
-proc isSelectable*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.isSelectable(@)".} # Public
-proc setSelectable*(this: QStandardItem, selectable: bool) {.header:headerFile, importcpp:"#.setSelectable(@)".} # Public
-proc isCheckable*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.isCheckable(@)".} # Public
-proc setCheckable*(this: QStandardItem, checkable: bool) {.header:headerFile, importcpp:"#.setCheckable(@)".} # Public
-proc isAutoTristate*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.isAutoTristate(@)".} # Public
-proc setAutoTristate*(this: QStandardItem, tristate: bool) {.header:headerFile, importcpp:"#.setAutoTristate(@)".} # Public
-proc isUserTristate*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.isUserTristate(@)".} # Public
-proc setUserTristate*(this: QStandardItem, tristate: bool) {.header:headerFile, importcpp:"#.setUserTristate(@)".} # Public
-proc isDragEnabled*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.isDragEnabled(@)".} # Public
-proc setDragEnabled*(this: QStandardItem, dragEnabled: bool) {.header:headerFile, importcpp:"#.setDragEnabled(@)".} # Public
-proc isDropEnabled*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.isDropEnabled(@)".} # Public
-proc setDropEnabled*(this: QStandardItem, dropEnabled: bool) {.header:headerFile, importcpp:"#.setDropEnabled(@)".} # Public
-proc parent*(this: QStandardItem): ptr QStandardItem {.header:headerFile, importcpp:"#.parent(@)".} # Public
-proc row*(this: QStandardItem): cint {.header:headerFile, importcpp:"#.row(@)".} # Public
-proc column*(this: QStandardItem): cint {.header:headerFile, importcpp:"#.column(@)".} # Public
-proc index*(this: QStandardItem): QModelIndex {.header:headerFile, importcpp:"#.index(@)".} # Public
-proc model*(this: QStandardItem): ptr QStandardItemModel {.header:headerFile, importcpp:"#.model(@)".} # Public
-proc rowCount*(this: QStandardItem): cint {.header:headerFile, importcpp:"#.rowCount(@)".} # Public
-proc setRowCount*(this: QStandardItem, rows: cint) {.header:headerFile, importcpp:"#.setRowCount(@)".} # Public
-proc columnCount*(this: QStandardItem): cint {.header:headerFile, importcpp:"#.columnCount(@)".} # Public
-proc setColumnCount*(this: QStandardItem, columns: cint) {.header:headerFile, importcpp:"#.setColumnCount(@)".} # Public
-proc hasChildren*(this: QStandardItem): bool {.header:headerFile, importcpp:"#.hasChildren(@)".} # Public
+proc background*(this: ptr QStandardItem): QBrush {.header:headerFile, importcpp:"#.background(@)".} # Public
+proc setBackground*(this: ptr QStandardItem, brush: QBrush) {.header:headerFile, importcpp:"#.setBackground(@)".} # Public
+proc foreground*(this: ptr QStandardItem): QBrush {.header:headerFile, importcpp:"#.foreground(@)".} # Public
+proc setForeground*(this: ptr QStandardItem, brush: QBrush) {.header:headerFile, importcpp:"#.setForeground(@)".} # Public
+proc checkState*(this: ptr QStandardItem): Qt_CheckState {.header:headerFile, importcpp:"#.checkState(@)".} # Public
+proc setCheckState*(this: ptr QStandardItem, checkState: Qt_CheckState) {.header:headerFile, importcpp:"#.setCheckState(@)".} # Public
+proc accessibleText*(this: ptr QStandardItem): QString {.header:headerFile, importcpp:"#.accessibleText(@)".} # Public
+proc setAccessibleText*(this: ptr QStandardItem, accessibleText: QString) {.header:headerFile, importcpp:"#.setAccessibleText(@)".} # Public
+proc accessibleDescription*(this: ptr QStandardItem): QString {.header:headerFile, importcpp:"#.accessibleDescription(@)".} # Public
+proc setAccessibleDescription*(this: ptr QStandardItem, accessibleDescription: QString) {.header:headerFile, importcpp:"#.setAccessibleDescription(@)".} # Public
+proc flags*(this: ptr QStandardItem): Qt_ItemFlags {.header:headerFile, importcpp:"#.flags(@)".} # Public
+proc setFlags*(this: ptr QStandardItem, flags: Qt_ItemFlags) {.header:headerFile, importcpp:"#.setFlags(@)".} # Public
+proc isEnabled*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.isEnabled(@)".} # Public
+proc setEnabled*(this: ptr QStandardItem, enabled: bool) {.header:headerFile, importcpp:"#.setEnabled(@)".} # Public
+proc isEditable*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.isEditable(@)".} # Public
+proc setEditable*(this: ptr QStandardItem, editable: bool) {.header:headerFile, importcpp:"#.setEditable(@)".} # Public
+proc isSelectable*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.isSelectable(@)".} # Public
+proc setSelectable*(this: ptr QStandardItem, selectable: bool) {.header:headerFile, importcpp:"#.setSelectable(@)".} # Public
+proc isCheckable*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.isCheckable(@)".} # Public
+proc setCheckable*(this: ptr QStandardItem, checkable: bool) {.header:headerFile, importcpp:"#.setCheckable(@)".} # Public
+proc isAutoTristate*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.isAutoTristate(@)".} # Public
+proc setAutoTristate*(this: ptr QStandardItem, tristate: bool) {.header:headerFile, importcpp:"#.setAutoTristate(@)".} # Public
+proc isUserTristate*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.isUserTristate(@)".} # Public
+proc setUserTristate*(this: ptr QStandardItem, tristate: bool) {.header:headerFile, importcpp:"#.setUserTristate(@)".} # Public
+proc isDragEnabled*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.isDragEnabled(@)".} # Public
+proc setDragEnabled*(this: ptr QStandardItem, dragEnabled: bool) {.header:headerFile, importcpp:"#.setDragEnabled(@)".} # Public
+proc isDropEnabled*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.isDropEnabled(@)".} # Public
+proc setDropEnabled*(this: ptr QStandardItem, dropEnabled: bool) {.header:headerFile, importcpp:"#.setDropEnabled(@)".} # Public
+proc parent*(this: ptr QStandardItem): ptr QStandardItem {.header:headerFile, importcpp:"#.parent(@)".} # Public
+proc row*(this: ptr QStandardItem): cint {.header:headerFile, importcpp:"#.row(@)".} # Public
+proc column*(this: ptr QStandardItem): cint {.header:headerFile, importcpp:"#.column(@)".} # Public
+proc index*(this: ptr QStandardItem): QModelIndex {.header:headerFile, importcpp:"#.index(@)".} # Public
+proc model*(this: ptr QStandardItem): ptr QStandardItemModel {.header:headerFile, importcpp:"#.model(@)".} # Public
+proc rowCount*(this: ptr QStandardItem): cint {.header:headerFile, importcpp:"#.rowCount(@)".} # Public
+proc setRowCount*(this: ptr QStandardItem, rows: cint) {.header:headerFile, importcpp:"#.setRowCount(@)".} # Public
+proc columnCount*(this: ptr QStandardItem): cint {.header:headerFile, importcpp:"#.columnCount(@)".} # Public
+proc setColumnCount*(this: ptr QStandardItem, columns: cint) {.header:headerFile, importcpp:"#.setColumnCount(@)".} # Public
+proc hasChildren*(this: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.hasChildren(@)".} # Public
 # 1 default parameters!
-proc child*(this: QStandardItem, row: cint, column: cint): ptr QStandardItem {.header:headerFile, importcpp:"#.child(@)".} # Public
-proc child*(this: QStandardItem, row: cint): ptr QStandardItem {.header:headerFile, importcpp:"#.child(@)".} # Public
-proc setChild*(this: QStandardItem, row: cint, column: cint, item: ptr QStandardItem) {.header:headerFile, importcpp:"#.setChild(@)".} # Public
-proc setChild*(this: QStandardItem, row: cint, item: ptr QStandardItem) {.header:headerFile, importcpp:"#.setChild(@)".} # Public
+proc child*(this: ptr QStandardItem, row: cint, column: cint): ptr QStandardItem {.header:headerFile, importcpp:"#.child(@)".} # Public
+proc child*(this: ptr QStandardItem, row: cint): ptr QStandardItem {.header:headerFile, importcpp:"#.child(@)".} # Public
+proc setChild*(this: ptr QStandardItem, row: cint, column: cint, item: ptr QStandardItem) {.header:headerFile, importcpp:"#.setChild(@)".} # Public
+proc setChild*(this: ptr QStandardItem, row: cint, item: ptr QStandardItem) {.header:headerFile, importcpp:"#.setChild(@)".} # Public
 import nimqt/qtcore/qlist
-proc insertRow*(this: QStandardItem, row: cint, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.insertRow(@)".} # Public
-proc insertColumn*(this: QStandardItem, column: cint, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.insertColumn(@)".} # Public
-proc insertRows*(this: QStandardItem, row: cint, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.insertRows(@)".} # Public
-proc insertRows*(this: QStandardItem, row: cint, count: cint) {.header:headerFile, importcpp:"#.insertRows(@)".} # Public
-proc insertColumns*(this: QStandardItem, column: cint, count: cint) {.header:headerFile, importcpp:"#.insertColumns(@)".} # Public
-proc removeRow*(this: QStandardItem, row: cint) {.header:headerFile, importcpp:"#.removeRow(@)".} # Public
-proc removeColumn*(this: QStandardItem, column: cint) {.header:headerFile, importcpp:"#.removeColumn(@)".} # Public
-proc removeRows*(this: QStandardItem, row: cint, count: cint) {.header:headerFile, importcpp:"#.removeRows(@)".} # Public
-proc removeColumns*(this: QStandardItem, column: cint, count: cint) {.header:headerFile, importcpp:"#.removeColumns(@)".} # Public
-proc appendRow*(this: QStandardItem, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.appendRow(@)".} # Public
-proc appendRows*(this: QStandardItem, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.appendRows(@)".} # Public
-proc appendColumn*(this: QStandardItem, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.appendColumn(@)".} # Public
-proc insertRow*(this: QStandardItem, row: cint, item: ptr QStandardItem) {.header:headerFile, importcpp:"#.insertRow(@)".} # Public
-proc appendRow*(this: QStandardItem, item: ptr QStandardItem) {.header:headerFile, importcpp:"#.appendRow(@)".} # Public
+proc insertRow*(this: ptr QStandardItem, row: cint, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.insertRow(@)".} # Public
+proc insertColumn*(this: ptr QStandardItem, column: cint, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.insertColumn(@)".} # Public
+proc insertRows*(this: ptr QStandardItem, row: cint, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.insertRows(@)".} # Public
+proc insertRows*(this: ptr QStandardItem, row: cint, count: cint) {.header:headerFile, importcpp:"#.insertRows(@)".} # Public
+proc insertColumns*(this: ptr QStandardItem, column: cint, count: cint) {.header:headerFile, importcpp:"#.insertColumns(@)".} # Public
+proc removeRow*(this: ptr QStandardItem, row: cint) {.header:headerFile, importcpp:"#.removeRow(@)".} # Public
+proc removeColumn*(this: ptr QStandardItem, column: cint) {.header:headerFile, importcpp:"#.removeColumn(@)".} # Public
+proc removeRows*(this: ptr QStandardItem, row: cint, count: cint) {.header:headerFile, importcpp:"#.removeRows(@)".} # Public
+proc removeColumns*(this: ptr QStandardItem, column: cint, count: cint) {.header:headerFile, importcpp:"#.removeColumns(@)".} # Public
+proc appendRow*(this: ptr QStandardItem, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.appendRow(@)".} # Public
+proc appendRows*(this: ptr QStandardItem, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.appendRows(@)".} # Public
+proc appendColumn*(this: ptr QStandardItem, items: QList[ptr QStandardItem]) {.header:headerFile, importcpp:"#.appendColumn(@)".} # Public
+proc insertRow*(this: ptr QStandardItem, row: cint, item: ptr QStandardItem) {.header:headerFile, importcpp:"#.insertRow(@)".} # Public
+proc appendRow*(this: ptr QStandardItem, item: ptr QStandardItem) {.header:headerFile, importcpp:"#.appendRow(@)".} # Public
 # 1 default parameters!
-proc takeChild*(this: QStandardItem, row: cint, column: cint): ptr QStandardItem {.header:headerFile, importcpp:"#.takeChild(@)".} # Public
-proc takeChild*(this: QStandardItem, row: cint): ptr QStandardItem {.header:headerFile, importcpp:"#.takeChild(@)".} # Public
-proc takeRow*(this: QStandardItem, row: cint): QList[ptr QStandardItem] {.header:headerFile, importcpp:"#.takeRow(@)".} # Public
-proc takeColumn*(this: QStandardItem, column: cint): QList[ptr QStandardItem] {.header:headerFile, importcpp:"#.takeColumn(@)".} # Public
-proc sortChildren*(this: QStandardItem, column: cint, order: Qt_SortOrder) {.header:headerFile, importcpp:"#.sortChildren(@)".} # Public
-proc clone*(this: QStandardItem): ptr QStandardItem {.header:headerFile, importcpp:"#.clone(@)".} # Public
-proc `type`*(this: QStandardItem): cint {.header:headerFile, importcpp:"#.type(@)".} # Public
+proc takeChild*(this: ptr QStandardItem, row: cint, column: cint): ptr QStandardItem {.header:headerFile, importcpp:"#.takeChild(@)".} # Public
+proc takeChild*(this: ptr QStandardItem, row: cint): ptr QStandardItem {.header:headerFile, importcpp:"#.takeChild(@)".} # Public
+proc takeRow*(this: ptr QStandardItem, row: cint): QList[ptr QStandardItem] {.header:headerFile, importcpp:"#.takeRow(@)".} # Public
+proc takeColumn*(this: ptr QStandardItem, column: cint): QList[ptr QStandardItem] {.header:headerFile, importcpp:"#.takeColumn(@)".} # Public
+proc sortChildren*(this: ptr QStandardItem, column: cint, order: Qt_SortOrder) {.header:headerFile, importcpp:"#.sortChildren(@)".} # Public
+proc clone*(this: ptr QStandardItem): ptr QStandardItem {.header:headerFile, importcpp:"#.clone(@)".} # Public
+proc `type`*(this: ptr QStandardItem): cint {.header:headerFile, importcpp:"#.type(@)".} # Public
 import nimqt/qtcore/qdatastream
-proc read*(this: QStandardItem, `in`: QDataStream) {.header:headerFile, importcpp:"#.read(@)".} # Public
-proc write*(this: QStandardItem, `out`: QDataStream) {.header:headerFile, importcpp:"#.write(@)".} # Public
-proc `<`*(this: QStandardItem, other: QStandardItem): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
+proc read*(this: ptr QStandardItem, `in`: QDataStream) {.header:headerFile, importcpp:"#.read(@)".} # Public
+proc write*(this: ptr QStandardItem, `out`: QDataStream) {.header:headerFile, importcpp:"#.write(@)".} # Public
+proc `<`*(this: ptr QStandardItem, other: ptr QStandardItem): bool {.header:headerFile, importcpp:"#.operator<(@)".} # Public
 
 # Protected methods methods for QStandardItem
-proc emitDataChanged*(this: QStandardItem) {.header:headerFile, importcpp:"#.emitDataChanged(@)".} # Protected
+proc emitDataChanged*(this: ptr QStandardItem) {.header:headerFile, importcpp:"#.emitDataChanged(@)".} # Protected
 # Stuff for class QStandardItemModel
 
 # Public constructors for QStandardItemModel
