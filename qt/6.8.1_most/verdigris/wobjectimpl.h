@@ -199,7 +199,7 @@ constexpr bool hasNotifySignal() {
 template<class State>
 struct ClassInfoGenerator {
     State& s;
-    constexpr ClassInfoGenerator(State& s) : s(s) {}
+    constexpr ClassInfoGenerator(State& _s) : s(_s) {}
 
     template<class ClassInfo, class Index>
     constexpr void operator() (const ClassInfo& ci, Index) {
@@ -226,7 +226,7 @@ struct MethodGenerator {
     State& s;
     int parameterIndex;
     MethodGenerator(const MethodGenerator&) = delete;
-    constexpr MethodGenerator(State& s, int pi) : s(s), parameterIndex(pi) {}
+    constexpr MethodGenerator(State& _s, int pi) : s(_s), parameterIndex(pi) {}
 
     template<class Method, class Index>
     constexpr void operator() (const Method& method, Index) {
@@ -349,7 +349,7 @@ template<class State, class T>
 #endif
 struct PropertyGenerator {
     State& s;
-    constexpr PropertyGenerator(State& s) : s(s) {}
+    constexpr PropertyGenerator(State& _s) : s(_s) {}
 
     template<class Prop, size_t Idx>
     constexpr void operator() (const Prop& prop, Index<Idx>) {
@@ -398,7 +398,7 @@ struct PropertyGenerator {
 template<class State, class T>
 struct PropertyMetaTypeGenerator {
     State& s;
-    constexpr PropertyMetaTypeGenerator(State& s) : s(s) {}
+    constexpr PropertyMetaTypeGenerator(State& _s) : s(_s) {}
 
     template<class Prop, class I>
     constexpr void operator() (const Prop&, I) {
@@ -423,7 +423,7 @@ template<class State, size_t L, class T>
 struct NotifySignalGenerator<State, L, T, true> {
 #endif
     State& s;
-    constexpr NotifySignalGenerator(State& s) : s(s) {}
+    constexpr NotifySignalGenerator(State& _s) : s(_s) {}
 
 #if __cplusplus > 201700L
     template<class Prop, size_t Idx>
@@ -472,7 +472,7 @@ struct EnumGenerator {
     State& s;
     int dataIndex{};
     EnumGenerator(const EnumGenerator&) = delete;
-    constexpr EnumGenerator(State& s, int di) : s(s), dataIndex(di) {}
+    constexpr EnumGenerator(State& _s, int di) : s(_s), dataIndex(di) {}
 
     template<class Enum, class Index>
     constexpr void operator() (const Enum& e, Index) {
@@ -491,7 +491,7 @@ struct EnumGenerator {
 template<class State>
 struct EnumValuesGenerator {
     State& s;
-    constexpr EnumValuesGenerator(State& s) : s(s) {}
+    constexpr EnumValuesGenerator(State& _s) : s(_s) {}
 
     template<class Enum, class Index>
     constexpr void operator() (const Enum& e, Index) {
@@ -559,7 +559,7 @@ constexpr void handleArgNames(State& ss, const StringViewArray<NameCount>& param
 template<class State>
 struct MethodParametersGenerator {
     State& s;
-    constexpr MethodParametersGenerator(State& s) : s(s) {}
+    constexpr MethodParametersGenerator(State& _s) : s(_s) {}
     template<class Method, class Index>
     constexpr void operator() (const Method& method, Index) {
         generateSingleMethodParameter(method.func, method);
@@ -616,7 +616,7 @@ private:
 template<class State>
 struct ConstructorParametersGenerator {
     State& s;
-    constexpr ConstructorParametersGenerator(State& s) : s(s) {}
+    constexpr ConstructorParametersGenerator(State& _s) : s(_s) {}
 
     template<typename... Args, class Index>
     constexpr void operator() (const MetaConstructorInfo<Args...>& info, Index) {
@@ -1026,7 +1026,7 @@ inline auto propReset(F f, O *o) W_RETURN(((o->*f)(),0))
 template <typename... T>
 inline void propReset(T...) {}
 
-#if QT_VERSION >= QT_VERSION_CHECK(6,3,0)
+#if QT_VERSION >= QT_VERSION_CHECK(6,3,0) && QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
 // note: Qt 6.3 introduced a check here that allows only QObjects - but we need it for Gadgets as well
 template <typename, typename, typename, typename> struct FunctorCall;
 template <size_t... II, typename... SignalArgs, typename R, typename Function>
@@ -1062,6 +1062,58 @@ struct FunctorCall<std::index_sequence<II...>, QtPrivate::List<SignalArgs...>, R
     {
         (o->*f)((*reinterpret_cast<typename QtPrivate::RemoveRef<SignalArgs>::Type *>(arg[II+1]))...), QtPrivate::ApplyReturnValue<R>(arg[0]);
     }
+};
+#elif QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+template <typename, typename, typename, typename> struct FunctorCall;
+template <size_t... II, typename... SignalArgs, typename R, typename Function>
+struct FunctorCall<std::index_sequence<II...>, QtPrivate::List<SignalArgs...>, R, Function> : QtPrivate::FunctorCallBase {
+  static void call(Function f, void **arg)
+  {
+    using namespace QtPrivate;
+    call_internal<R>(arg, [&] {
+      return f((*reinterpret_cast<typename RemoveRef<SignalArgs>::Type *>(arg[II+1]))...);
+    });
+  }
+};
+template <size_t... II, typename... SignalArgs, typename R, typename... SlotArgs, typename SlotRet, class Obj>
+struct FunctorCall<std::index_sequence<II...>, QtPrivate::List<SignalArgs...>, R, SlotRet (Obj::*)(SlotArgs...)> : QtPrivate::FunctorCallBase {
+  static void call(SlotRet (Obj::*f)(SlotArgs...), Obj *o, void **arg)
+  {
+    using namespace QtPrivate;
+    call_internal<R>(arg, [&] {
+      return (o->*f)((*reinterpret_cast<typename RemoveRef<SignalArgs>::Type *>(arg[II+1]))...);
+    });
+  }
+};
+template <size_t... II, typename... SignalArgs, typename R, typename... SlotArgs, typename SlotRet, class Obj>
+struct FunctorCall<std::index_sequence<II...>, QtPrivate::List<SignalArgs...>, R, SlotRet (Obj::*)(SlotArgs...) const> : QtPrivate::FunctorCallBase {
+  static void call(SlotRet (Obj::*f)(SlotArgs...) const, Obj *o, void **arg)
+  {
+    using namespace QtPrivate;
+    call_internal<R>(arg, [&] {
+      return (o->*f)((*reinterpret_cast<typename RemoveRef<SignalArgs>::Type *>(arg[II+1]))...);
+    });
+  }
+};
+template <size_t... II, typename... SignalArgs, typename R, typename... SlotArgs, typename SlotRet, class Obj>
+struct FunctorCall<std::index_sequence<II...>, QtPrivate::List<SignalArgs...>, R, SlotRet (Obj::*)(SlotArgs...) noexcept> : QtPrivate::FunctorCallBase {
+  static void call(SlotRet (Obj::*f)(SlotArgs...) noexcept, Obj *o, void **arg)
+  {
+    using namespace QtPrivate;
+    call_internal<R>(arg, [&]() noexcept {
+      return (o->*f)((*reinterpret_cast<typename RemoveRef<SignalArgs>::Type *>(arg[II+1]))...);
+    });
+  }
+};
+template <size_t... II, typename... SignalArgs, typename R, typename... SlotArgs, typename SlotRet, class Obj>
+struct FunctorCall<std::index_sequence<II...>, QtPrivate::List<SignalArgs...>, R, SlotRet (Obj::*)(SlotArgs...) const noexcept> : QtPrivate::FunctorCallBase {
+  static void call(SlotRet (Obj::*f)(SlotArgs...) const noexcept, Obj *o, void **arg)
+  {
+    using namespace QtPrivate;
+    call_internal<R>(arg, [&]() noexcept {
+      return (o->*f)((*reinterpret_cast<typename RemoveRef<SignalArgs>::Type *>(arg[II+1]))...);
+    });
+  }
 };
 #endif
 
@@ -1374,6 +1426,8 @@ QT_WARNING_POP
 /// `W_OBJECT_IMPL((MyTemplate2<A,B>), template<typename A, typename B>)`
 #define W_OBJECT_IMPL(...) \
     W_OBJECT_IMPL_COMMON(W_MACRO_EMPTY, __VA_ARGS__) \
+    QT_WARNING_PUSH \
+    Q_OBJECT_NO_OVERRIDE_WARNING \
     W_MACRO_TEMPLATE_STUFF(__VA_ARGS__) void W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void** _a) \
     { w_internal::FriendHelper::qt_static_metacall_impl<W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)>(_o, _c, _id, _a); } \
     W_MACRO_TEMPLATE_STUFF(__VA_ARGS__) const QMetaObject *W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)::metaObject() const \
@@ -1381,7 +1435,8 @@ QT_WARNING_POP
     W_MACRO_TEMPLATE_STUFF(__VA_ARGS__) void *W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)::qt_metacast(const char *_clname) \
     { return w_internal::FriendHelper::qt_metacast_impl<W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)>(this, _clname); } \
     W_MACRO_TEMPLATE_STUFF(__VA_ARGS__) int W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)::qt_metacall(QMetaObject::Call _c, int _id, void** _a) \
-    { return w_internal::FriendHelper::qt_metacall_impl<W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)>(this, _c, _id, _a); }
+    { return w_internal::FriendHelper::qt_metacall_impl<W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)>(this, _c, _id, _a); } \
+    QT_WARNING_POP
 
 
 /// \macro W_GADGET_IMPL(TYPE [, TEMPLATE_STUFF])
@@ -1402,6 +1457,8 @@ QT_WARNING_POP
 /// (Requires support for c++17 inline variables)
 #define W_OBJECT_IMPL_INLINE(...) \
     W_OBJECT_IMPL_COMMON(inline, __VA_ARGS__) \
+    QT_WARNING_PUSH \
+    Q_OBJECT_NO_OVERRIDE_WARNING \
     W_MACRO_TEMPLATE_STUFF(__VA_ARGS__) inline void W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void** _a) \
     { w_internal::FriendHelper::qt_static_metacall_impl<W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)>(_o, _c, _id, _a); } \
     W_MACRO_TEMPLATE_STUFF(__VA_ARGS__) inline const QMetaObject *W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)::metaObject() const \
@@ -1409,7 +1466,8 @@ QT_WARNING_POP
     W_MACRO_TEMPLATE_STUFF(__VA_ARGS__) inline void *W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)::qt_metacast(const char *_clname) \
     { return w_internal::FriendHelper::qt_metacast_impl<W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)>(this, _clname); } \
     W_MACRO_TEMPLATE_STUFF(__VA_ARGS__) inline int W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)::qt_metacall(QMetaObject::Call _c, int _id, void** _a) \
-    { return w_internal::FriendHelper::qt_metacall_impl<W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)>(this, _c, _id, _a); }
+    { return w_internal::FriendHelper::qt_metacall_impl<W_MACRO_FIRST_REMOVEPAREN(__VA_ARGS__)>(this, _c, _id, _a); } \
+    QT_WARNING_POP
 
 
 /// \macro W_GADGET_IMPL_INLINE(TYPE [, TEMPLATE_STUFF])
